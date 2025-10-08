@@ -1,0 +1,48 @@
+﻿@model UberStrike.Core.Models.Views.MapView
+
+@{
+    bool isAdd = Model == null;
+    string applicationVersion = ViewBag.ApplicationVersion;
+    }
+
+<form id="mapForm" action="" method="post">
+<table class="searchResultTable">
+@if (isAdd) {
+<tr>
+    <td>Map Id:</td>
+    <td>@Html.TextBox("mapId")</td>
+</tr>
+<tr>
+    <td>Application version:</td>
+    <td>@Html.TextBox("appVersion", applicationVersion)</td>
+</tr>
+}
+<tr>
+    <td>Display name:</td>
+    <td>@Html.TextBox("displayName", isAdd ? "" : Model.DisplayName)</td>
+</tr>
+<tr>
+    <td style="vertical-align:top">Description:</td>
+    <td>@Html.TextArea("description", isAdd ? "" : Model.Description, new { cols = "35", rows = "7" })</td>
+</tr>
+<tr>
+    <td>Scene name:</td>
+    <td>@Html.TextBox("sceneName", isAdd ? "" : Model.SceneName)</td>
+</tr>
+@if (isAdd) {
+<tr>
+    <td>Is BlueBox:</td>
+    <td>@Html.CheckBox("isBlueBox")</td>
+</tr>
+}
+</table>
+<div style="text-align:center; margin-top:15px;">
+@if (isAdd) {
+<input id="addButton" type="submit" onclick="addMap(); return false;" value="Add" style="margin:auto;" />
+} else {
+<input id="appVersion" name="appVersion" type="hidden" value="@applicationVersion" />
+<input id="mapId" name="mapId" type="hidden" value="@Model.MapId" />
+<input id="editButton" type="submit" onclick="editMap(); return false;" value="Edit" style="margin:auto;" />
+}
+</div>
+</form>

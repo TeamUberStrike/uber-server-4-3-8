@@ -1,0 +1,19 @@
+﻿
+using System;
+
+namespace Cmune.DataCenter.Common.Entities
+{
+    [Serializable]
+    public class MessageThreadView
+    {
+        // Cmid of conversation partner
+        public int ThreadId { get; set; }
+        // Name of conversation partner
+        public string ThreadName { get; set; }
+
+        public bool HasNewMessages { get; set; }
+        public int MessageCount { get; set; }
+        public string LastMessagePreview { get; set; }
+        public DateTime LastUpdate { get; set; }
+    }
+}

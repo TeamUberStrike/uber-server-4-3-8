@@ -1,0 +1,279 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="$(SolutionDir)T4Helper\bin\Debug\T4Helper.dll" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#
+	T4Utils.WriteLine = this.WriteLine;
+	T4Utils.FileHeader();
+#>
+using System.Collections.Generic;
+using System.IO;
+using Cmune.DataCenter.Common.Entities;
+using Photon.SocketServer;
+using PhotonHostRuntimeInterfaces;
+using UberStrike.Realtime.Server;
+using UberStrike.Core.Serialization;
+<#
+	var metaData = RealtimeAttributeParser.GetRpcInterfaces((IServiceProvider)this.Host, "UberStrike.Realtime.CommServer");
+
+	List<RpcInterfaceView> allOperationInterfaces = new List<RpcInterfaceView>();
+	allOperationInterfaces.AddRange(metaData.ServerOperations);
+	allOperationInterfaces.AddRange(metaData.RoomOperations);
+#>
+
+namespace UberStrike.Realtime.CommServer
+{
+<#	
+	// ROOM base class
+	
+	foreach(var op in metaData.RoomOperations)
+	{
+		string className = "Base" + op.GetClassPrefix();
+		string interfaceName = op.Name;
+		string fieldName = op.GetFieldPrefix() + "Operations";
+#>
+    public abstract class <#=className#> : BaseRoom
+    {
+        public <#=op.GetClassPrefix()#>EventFactory Events { get; private set; }
+
+        protected <#=className#>(int roomId)
+			: base(roomId)
+        { 
+			Events = new  <#=op.GetClassPrefix()#>EventFactory(this);
+		}
+
+		protected sealed override void OnOperation(byte operationId, ICmunePeer peer, byte[] data)
+		{
+			switch (operationId)
+			{
+<#
+		int counter = 0;
+		foreach (var method in op.NetworkMethods)
+    	{
+#>
+				case <#=method.MethodId#>: <#=method.Name#>(peer, data); break;
+<#
+		}
+#>
+			}
+		}
+		
+<#
+		foreach (var method in op.NetworkMethods)
+    	{	
+#>
+		protected abstract void On<#=method.Name#>(ICmunePeer peer<#=method.ArgPrint(", ")#>);
+<#
+		}
+
+		foreach (var method in op.NetworkMethods)
+    	{	
+#>
+
+    	private void <#=method.Name#>(ICmunePeer peer, byte[] bytes)
+        {
+<#
+				if(method.Arguments.Count > 0)
+				{
+#>
+			using (MemoryStream stream = new MemoryStream(bytes))
+			{
+<#
+				for(int i=0; i < method.Arguments.Count; i++)
+				{
+#>
+        		<#=method.Arguments[i].Key#> <#=method.Arguments[i].Value#> = <#=Serialization.GetProxyName(method.Arguments[i].Key, method.ArgumentKinds[i])#>.Deserialize(stream<#=Serialization.GetDeserializeArguments(method.Arguments[i].Key)#>);
+<#
+				}
+#>
+				On<#=method.Name#>(peer<#=method.NamePrint(", ")#>);
+			}
+<#
+				}
+				else
+				{
+#>
+			On<#=method.Name#>(peer);
+<#				}
+#>
+		}
+<#
+		}
+#>
+	}
+
+<#
+	}
+
+	// PEER base class
+	foreach(var op in metaData.ServerOperations)
+	{
+		string className = "Base" + op.GetClassPrefix();
+		string interfaceName = op.Name;
+		string fieldName = op.GetFieldPrefix() + "Operations";
+#>
+    public abstract class <#=className#> : BasePeer
+    {
+        public <#=op.GetClassPrefix()#>EventFactory Events { get; private set; }
+
+        protected <#=className#>(IRpcProtocol protocol, IPhotonPeer photonPeer, int cmid, ChannelType channel)
+			: base(protocol, photonPeer, cmid, channel)
+        {
+			Events = new <#=op.GetClassPrefix()#>EventFactory(this);
+        }
+
+		protected sealed override void OnOperation(byte operationId, byte[] data)
+		{
+			switch (operationId)
+			{
+<#
+		int counter = 0;
+		foreach (var method in op.NetworkMethods)
+    	{
+#>
+				case <#=method.MethodId#>: <#=method.Name#>(data); break;
+<#
+		}
+#>
+			}
+		}
+		
+<#
+		foreach (var method in op.NetworkMethods)
+    	{	
+#>
+		protected abstract void On<#=method.Name#>(<#=method.ArgPrint()#>);
+<#
+		}
+
+		foreach (var method in op.NetworkMethods)
+    	{	
+#>
+
+    	private void <#=method.Name#>(byte[] bytes)
+        {
+<#	
+			if(method.Arguments.Count > 0)
+			{
+#>
+			using (var stream = new MemoryStream(bytes))
+			{
+<#
+				for(int i=0; i < method.Arguments.Count; i++)
+				{
+#>
+        		<#=method.Arguments[i].Key#> <#=method.Arguments[i].Value#> = <#=Serialization.GetProxyName(method.Arguments[i].Key, method.ArgumentKinds[i])#>.Deserialize(stream<#=Serialization.GetDeserializeArguments(method.Arguments[i].Key)#>);
+<#
+				}
+#>				On<#=method.Name#>(<#=method.NamePrint()#>);
+			}
+<#
+			}
+			else
+			{
+#>
+			On<#=method.Name#>();
+<#			}
+#>
+		}
+<#
+		}
+	}
+#>
+	}
+	
+<#
+
+	//ROOM events
+	foreach(var ev in metaData.RoomEvents)
+	{
+#>
+    public sealed class <#=ev.GetClassPrefix()#>EventFactory
+    {
+		private BaseRoom room;
+
+		public <#=ev.GetClassPrefix()#>EventFactory(BaseRoom room)
+		{
+			this.room = room;
+		}
+
+<#
+	foreach(var method in ev.NetworkMethods)
+	{
+#>
+        public RoomEvent Send<#=method.Name#>(<#=method.ArgPrint()#>)
+        {
+			using (var stream = new MemoryStream())
+			{
+<#
+				for(int i=0; i < method.Arguments.Count; i++)
+				{
+#>
+				UberStrike.Core.Serialization.<#=Serialization.GetProxyName(method.Arguments[i].Key, method.ArgumentKinds[i])#>.Serialize(stream, <#=method.Arguments[i].Value#><#=Serialization.GetSerializeArguments(method.Arguments[i].Key)#>);
+<#
+				}
+#>
+				var _data = new Dictionary<byte, object>()
+				{
+					{ 0, stream.ToArray() }
+				};
+				
+            	return new RoomEvent(room, new EventData() { Code = <#=method.MethodId#>, Parameters = _data } );
+			}
+        }
+
+<#
+	}
+#>
+	}
+	
+<#
+	}
+
+	//SERVER events
+	foreach(var ev in metaData.ServerEvents)
+	{
+#>
+    public sealed class <#=ev.GetClassPrefix()#>EventFactory
+    {
+		private ICmunePeer peer;
+
+		public <#=ev.GetClassPrefix()#>EventFactory(ICmunePeer peer)
+		{
+			this.peer = peer;
+		}
+
+<#
+	foreach(var method in ev.NetworkMethods)
+	{
+#>
+        public void Send<#=method.Name#>(<#=method.ArgPrint()#>)
+        {
+            using(MemoryStream stream = new MemoryStream())
+			{
+<#
+				for(int i=0; i < method.Arguments.Count; i++)
+				{
+#>
+				UberStrike.Core.Serialization.<#=Serialization.GetProxyName(method.Arguments[i].Key, method.ArgumentKinds[i])#>.Serialize(stream, <#=method.Arguments[i].Value#><#=Serialization.GetSerializeArguments(method.Arguments[i].Key)#>);
+<#
+				}
+#>
+				var _data = new Dictionary<byte, object>()
+				{
+					{ 0, stream.ToArray() }
+				};
+				
+            	peer.PublishEvent(new EventData() { Code = <#=method.MethodId#>, Parameters = _data } );
+			}
+        }
+
+<#
+	}
+#>
+	}
+	
+<#
+	}
+#>
+}

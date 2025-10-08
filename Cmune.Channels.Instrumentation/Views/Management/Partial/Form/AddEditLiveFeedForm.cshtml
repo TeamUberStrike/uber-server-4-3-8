@@ -1,0 +1,40 @@
+﻿<form id="addEditLiveFeedForm" action="" method="post">
+<table class="searchResultTable" style="width: auto; margin: 15px 0 15px 15px;">
+    <tr>
+        <td>
+            Description
+        </td>
+        <td>
+            @Html.TextBox("DescriptionTextBox", ViewData["DescriptionTextBox"], new { style = "width:340px" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Url
+        </td>
+        <td>
+            @Html.TextBox("UrlTextBox", ViewData["UrlTextBox"], new { style = "width:340px" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Priority
+        </td>
+        <td>
+            @Html.DropDownList("PriorityDropDownList", ((List<SelectListItem>)ViewData["PriorityDropDownListData"]))
+        </td>
+    </tr>
+</table>
+@Html.Hidden("LiveFeedIdHiddenField")
+<div style="text-align: center;">
+    @if ((bool)ViewData["isCreating"])
+    {
+        <input type="submit" value="Add" onclick="AddEditLiveFeedGo(); return false;" />
+    }
+    else
+    {
+        <input type="submit" value="Modify" onclick="AddEditLiveFeedGo(); return false;" />
+    }
+    <input type="button" onclick="Shadowbox.close()" value="Cancel" />
+</div>
+</form>

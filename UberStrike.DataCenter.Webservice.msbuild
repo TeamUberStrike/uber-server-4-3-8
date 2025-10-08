@@ -1,0 +1,27 @@
+<Project DefaultTargets="PublishSite" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+
+  <PropertyGroup>
+    <PublishPath>$(ArtifactDir)\UberStrike.DataCenter.WebService</PublishPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectToBuild Include="UberStrike.DataCenter.WebService\UberStrike.DataCenter.WebService.csproj" />
+    <SourceFiles Include="UberStrike.DataCenter.WebService\*.svc" />
+  </ItemGroup>
+
+  <Target Name="PublishSite">
+    <MSBuild Projects="@(ProjectToBuild)"
+             Properties="Configuration=$(Configuration);WebProjectOutputDir=..\$(PublishPath);OutDir=..\$(PublishPath)\bin\" />
+			 
+    <Copy SourceFiles="UberStrike.DataCenter.WebService\Web.config.dev;
+                        UberStrike.DataCenter.WebService\Web.config.external.qa;
+                        UberStrike.DataCenter.WebService\Web.config.prod;"
+          DestinationFolder="$(PublishPath)" />
+
+    <Copy SourceFiles="@(SourceFiles)" 
+          DestinationFolder="$(PublishPath)\" />
+  </Target>
+
+</Project>

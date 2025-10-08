@@ -1,0 +1,14 @@
+﻿@model WeeklySpecialView
+
+<form id="addEditWeeklySpecialForm" name="addEditWeeklySpecialForm" action="" method="post">
+    @Html.HiddenFor(q => q.Id)
+    <span class="label">Title </span>
+    @Html.TextBoxFor(q => q.Title, new { style = "width:250px;" })<br />
+    <span class="label">Text </span>
+    @Html.TextAreaFor(q => q.Text, new { cols = "60", rows = "9" })<br />
+    <span class="label">Image URL </span>
+    @Html.TextBoxFor(q => q.ImageUrl, new { style = "width:550px;" })<br />
+    <span class="label">Item Id </span>
+    @Html.TextBoxFor(q => q.ItemId, new { style = "width:60px;" })<br />
+    <input id="addEditWeeklySpecialButton" type="button" onclick="addEditWeeklySpecial(); return false;" value="@(Model == null ? "Add" : "Edit")" />
+</form>

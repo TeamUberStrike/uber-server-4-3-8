@@ -1,0 +1,39 @@
+﻿@model List<FacebookReversalDisplay>
+<table class="searchResultTable" style="width: 500px;">
+    <tr>
+        <th>
+            Transaction Id
+        </th>
+        <th>
+            Facebook Id
+        </th>
+        <th>
+            Amount US$
+        </th>
+    </tr>
+    @if (Model.Count > 0)
+    {
+        int i = 0;
+
+        foreach (var reversal in Model)
+        {
+        <tr class="@(i % 2 == 1 ? "mod" : "")">
+            <td>
+                @reversal.TransactionId
+            </td>
+            <td>
+                @reversal.FacebookId
+            </td>
+            <td style="text-align: right;">
+                @((reversal.Amount / 10).ToString("N2"))
+            </td>
+        </tr>
+            i++;
+        }
+    }
+</table>
+@if (Model.Count == 0)
+{
+    <p>
+        There is no facebook reversals.</p>
+}

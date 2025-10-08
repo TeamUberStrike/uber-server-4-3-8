@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Play";
+    var userProfile = (UserProfileModel)ViewBag.UserProfile;
+}
+@section HeaderJavaScript{
+    <script type="text/javascript">
+        var webServicesBaseURL = '@ConfigurationManager.AppSettings["InstrumentationWsBaseUrl"]';
+        var webChannel = 0;
+        var unityObjectHeight = 560;
+        var unityObjectWidth = @(ViewBag.UnityObjectWidth);
+        var locale = '@ViewBag.DefaultCulture';
+        @if (userProfile != null)
+        {
+        <text>
+        var getCreditsIframeUrl = '@(ConfigurationManager.AppSettings["CommonChannel"])GetCreditBundle';
+        </text>
+        }
+        var cookieDomainName = '@ConfigurationManager.AppSettings["CookieDomainName"]';
+        var imagesRoot = '@Url.Image()';
+        var appBaseUrl = '@Url.AppBaseUrl()';
+        var commonVideoRoot = '@ConfigurationManager.AppSettings["CommonVideoRoot"]';
+        var refreshTopMenuUrl = '@(Url.Action("RefreshTopMenu", "Home"))';
+        function getFacebookUsername() {
+            return fbUsername;
+        }
+        @if (userProfile != null && userProfile.ChannelType == ChannelType.WebFacebook)
+        {
+        <text>
+        var fbUsername = '@(userProfile.FacebookUserModel.Name)';
+        </text>
+        }
+        else
+        {
+        <text>
+        var fbUsername = '';
+        </text>
+        }
+    </script>
+}
+<script type="text/javascript">
+    var unityArgs = '@Html.Raw(ViewBag.unityArgs)';
+//    var IsTrackingEnabled = (unityArgs.indexOf("cmid") == -1 && location.hash.indexOf("auth") == -1);
+//    var IsTrackingEnabled = (unityArgs.indexOf("cmid") == -1);
+@if (userProfile != null)
+{
+    <text>
+    var cmid = @(userProfile.Member.CMID);
+     </text>
+     <text>
+    var IsTrackingEnabled = @((!ViewBag.IsAccountComplete).ToString().ToLower());
+    </text>
+}
+else
+{
+<text>
+var cmid = 0;
+var IsTrackingEnabled = false;
+</text>
+}
+
+    if (location.hash.indexOf("auth") != -1) {
+        unityArgs = unityArgs.replace("&loginmode=EmailPasswordRego", "");
+    }
+
+    EmbedUnity(unityArgs, unityObjectWidth, unityObjectHeight, webChannel);
+
+</script>
+<div class="main_page_frame">
+    <div id="unityPlayer">
+        <div class="missing" style="height: 560px; text-align: center; padding-top: 60px;">
+            <p style="text-align: center; padding-top: 20px; color: white;">
+            </p>
+        </div>
+    </div>
+    <div id="playSpanDiv">
+    </div>
+</div>
+<div id="messageDiv" style="width: 400px; margin-left: auto; margin-right: auto;
+    background-color: #000000; border: 1px solid red; text-align: center; padding: 20px;
+    display: none; position: relative; top: -400px; left: 0px;">
+    <p>
+        <span id="messageContentSpan"></span>
+    </p>
+    <p style="color: #9F9F9F;">
+        <span id="messageUrlSpan"></span>
+    </p>
+    <p style="margin-top: 40px;">
+        <a id="messageLinkA" href="" onclick="" class="darkGray">Open this link in another tab</a>
+        <a href="" onclick="hideMessage(); return false;" class="darkGray">Go back to game</a>
+    </p>
+</div>
+<div id="paymentIframeContainer" style="display: none; text-align: center;">
+    <br />
+    <div onclick="hidePayment();" class="darkGray">
+        Back to Game</div>
+    <br />
+    <br />
+    <iframe id="creditBundleIframe" style="display: none; border: none;" src="" width="728"
+        height="847" scrolling="no"></iframe>
+</div>

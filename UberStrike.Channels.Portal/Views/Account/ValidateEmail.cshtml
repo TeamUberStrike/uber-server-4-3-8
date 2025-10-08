@@ -1,0 +1,12 @@
+﻿<div class="panel_default" style="margin: 15px 0 0 0px;">
+    <div class="panel_header">
+        Email Validation
+    </div>
+    <div class="panel_item" style="margin: 32px 4px 4px 4px;">
+        <div class="@(ViewBag.IsValidated ? "successMessage" : "errorMessage")"> @Html.Raw(ViewBag.ValidationMessage) </div>
+        @if (ViewBag.RedirectLink != null)
+        {
+            @Html.Raw(ViewBag.RedirectLink);
+        }
+    </div>
+</div>

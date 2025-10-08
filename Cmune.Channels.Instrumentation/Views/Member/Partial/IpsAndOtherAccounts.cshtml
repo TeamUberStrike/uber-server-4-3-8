@@ -1,0 +1,89 @@
+﻿@model List<LastIpView>
+<script type="text/javascript">
+    var ipBanTargetCmid = 0;
+    var ipBanIpAddressToBan = '';
+</script>
+<div id="IPsAccountsDiv" style="margin: 25px 0 0 0;">
+    <p style="margin-bottom: 15px;">
+        Only data for the last 30 days is displayed</p>
+    @{Dictionary<int, string> accountNames = new Dictionary<int, string>();}
+    @if (Model.Count > 0)
+    {
+        int i = 0;
+        <table class="searchResultTable">
+            <tr>
+                <th>
+                    IP
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                    Last login
+                </th>
+            </tr>
+            @foreach (var linkedIp in Model)
+            {
+                <tr class="@(i % 2 == 1 ? "mod" : "")">
+                    <td>
+                        <a href="#" onclick="$('#linkedMembers' + @linkedIp.Ip).toggle(); return false;">@TextUtilities.InetNToA(linkedIp.Ip)</a>
+                        (@linkedIp.Ip)
+                    </td>
+                    <td>
+                        @if (linkedIp.BannedIpView != null)
+                        {
+                            @:Banned until @(linkedIp.BannedIpView.BannedUntil != null ? String.Format("{0} ({1} days)", linkedIp.BannedIpView.BannedUntil.Value.ToString("MM/dd"), Math.Ceiling(linkedIp.BannedIpView.BannedUntil.Value.Subtract(DateTime.Now).TotalDays)) : "the end of time")
+                                                                        }
+                    </td>
+                    <td>
+                        <a id="banIp@(linkedIp.Ip)Link" href="#" onclick="displayBanIpPopUp('@TextUtilities.InetNToA(linkedIp.Ip)', $('#memberCmid').val(), 'banIp@(linkedIp.Ip)Link', '@(linkedIp.BannedIpView != null ? "modify" : "ban")', function() { loadIpsAndOtherAccounts(); getMemberNotes(); }); return false;">@(linkedIp.BannedIpView != null ? "Modify ban" : "Ban IP")</a>
+                    </td>
+                    <td>
+                        @linkedIp.LastConnectionDate.ToNiceDisplay(true)
+                    </td>
+                </tr>
+                <tr id="linkedMembers@(linkedIp.Ip)" style="display:none;@(i % 2 == 1 ? "background-color:#DCDCDC" : "")">
+                    <td colspan="4" style="padding-left: 50px;">
+                        @foreach (var linkedMember in linkedIp.LinkedMembers)
+                        {
+                            if (!accountNames.ContainsKey(linkedMember.Cmid))
+                            {
+                                accountNames.Add(linkedMember.Cmid, linkedMember.Name);
+                            }
+                            <a href='@Url.Action("See", "Member")?cmid=@linkedMember.Cmid' target="_blank">@linkedMember.Name</a><br />
+                        }
+                    </td>
+                </tr>
+                        i++;
+            }
+        </table>
+    }
+    else
+    {
+        <p>
+            There is no IP linked to this account.</p>
+    }
+    <span style="display: block; margin: 15px 0 15px 0;">Possibly linked to @accountNames.Keys.Count
+        accounts:</span>
+    @if (accountNames.Keys.Count > 0)
+    {
+        <table>
+            <tr>
+                <td>
+                    Account
+                </td>
+            </tr>
+            @{int i = 0;}
+            @foreach (var item in accountNames)
+            {
+                <tr>
+                    <td>
+                        <a href='@Url.Action("See", "Member")?cmid=@item.Key' target="_blank">
+                            @item.Value</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>

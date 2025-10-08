@@ -1,0 +1,17 @@
+﻿@{
+Layout = null;
+}
+    <div id="confirmationFading">
+    </div>
+<script type="text/javascript">
+    FB.ui({ method: 'apprequests', message: 'Join me and get your adrenaline fix - it\'s time to get shootin\'! UberStrike is easily the best and most popular 3D game on Facebook. Play now!' }, inviteFriendCallBack);
+    function inviteFriendCallBack(data) {
+        var message = "Enjoy our game :)";
+        if (data != null && data.to.length > 0)
+            message = "Invitation Sent";
+        ConfirmationFading(message, function () {
+            if (MenuMainTab_CurrentTab == MenuMainTab_Friend)
+                LoadHomePage();
+        });
+    }
+</script>

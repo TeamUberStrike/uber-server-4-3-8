@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Instrumentation" Class="InstrumentationDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.ChannelDau" Member="ChannelDaus">
+    <Type Name="ChannelDau">
+      <Column Name="ChannelDauId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActiveDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChannelMau" Member="ChannelMaus">
+    <Type Name="ChannelMau">
+      <Column Name="ChannelMauId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActiveDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReferrerDau" Member="ReferrerDaus">
+    <Type Name="ReferrerDau">
+      <Column Name="ReferrerDauId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActiveDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferrerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReferrerMau" Member="ReferrerMaus">
+    <Type Name="ReferrerMau">
+      <Column Name="ReferrerMauId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActiveDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferrerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChannelCreditDeposits" Member="ChannelCreditDeposits">
+    <Type Name="ChannelCreditDeposit">
+      <Column Name="ChannelCreditDepositId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DepositsDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentProviderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreditsDeposited" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CashDeposited" Type="System.Decimal" DbType="Decimal(12,6) NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueTransactions" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTransactions" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReferrerCreditDeposits" Member="ReferrerCreditDeposits">
+    <Type Name="ReferrerCreditDeposit">
+      <Column Name="ReferrerCreditDepositId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DepositsDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ReferrerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentProviderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreditsDeposited" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CashDeposited" Type="System.Decimal" DbType="Decimal(12,6) NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueTransactions" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTransactions" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChannelNewMembers" Member="ChannelNewMembers">
+    <Type Name="ChannelNewMember">
+      <Column Name="ChannelNewMemberId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RegistrationCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChannelRetentionCohorts" Member="ChannelRetentionCohorts">
+    <Type Name="ChannelRetentionCohort">
+      <Column Name="ChannelRetentionCohortId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RetentionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AttritedCount" Storage="_CohortCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RetentionDuration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReferrerNewMembers" Member="ReferrerNewMembers">
+    <Type Name="ReferrerNewMember">
+      <Column Name="ReferrerNewMemberId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RegistrationCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferrerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UnityConversionFunnel" Member="UnityConversionFunnels">
+    <Type Name="UnityConversionFunnel">
+      <Column Name="UnityConversionFunnelId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StepDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StepType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StepCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferrerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OsName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="BrowserName" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="BrowserVersion" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="OsVersion" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="HasUnity" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsJavaInstallEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MemberOriginStats" Member="MemberOriginStats">
+    <Type Name="MemberOriginStat">
+      <Column Name="MemberOriginStatsId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferrerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FriendsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveFriendsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlayerEconomy" Member="PlayerEconomies">
+    <Type Name="PlayerEconomy">
+      <Column Name="PlayerEconomyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AveragePointsBalance" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AveragePointsSpent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MedianPointsSpent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AveragePointsEarned" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AverageCreditsBalance" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AverageCreditsSpent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MedianCreditsSpent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PointsEarnedDistribution" Member="PointsEarnedDistributions">
+    <Type Name="PointsEarnedDistribution">
+      <Column Name="PointsEarnedDistributionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DepositType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DepositsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlayerFriends" Member="PlayerFriends">
+    <Type Name="PlayerFriend">
+      <Column Name="PlayerFriendId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AverageFriendsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AverageActiveFriendsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MedianFriendsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MedianActiveFriendsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlayersLevelDistribution" Member="PlayersLevelDistributions">
+    <Type Name="PlayersLevelDistribution">
+      <Column Name="PlayersLevelDistributionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActivePlayerCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemSales" Member="ItemSales">
+    <Type Name="ItemSale">
+      <Column Name="ItemSaleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Credits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SaleDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChannelRetentionCohortsNew" Member="ChannelRetentionCohortsNews">
+    <Type Name="ChannelRetentionCohortsNew">
+      <Column Name="ChannelRetentionCohortId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RetentionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OneDayRetention" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThreeDaysRetention" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SevenDaysRetention" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReferrerRetentionCohortsNew" Member="ReferrerRetentionCohortsNews">
+    <Type Name="ReferrerRetentionCohortsNew">
+      <Column Name="ReferrerRetentionCohortId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RetentionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferrerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OneDayRetention" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThreeDaysRetention" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SevenDaysRetention" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChannelTutorialConversionFunnel" Member="ChannelTutorialConversionFunnels">
+    <Type Name="ChannelTutorialConversionFunnel">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StepDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StepId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StepCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapUsageStats" Member="MapUsageStats">
+    <Type Name="MapUsageStat">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="MapId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GameModeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TimeLimit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerLimit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlayersTotal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Connect With";
+}
+@section BodyTopElement{
+    <div id="fb-root">
+    </div>
+    <script type="text/javascript">
+        var applicationUrl = '@Url.AppBaseUrl()';
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@(Facebook.FacebookApplication.Current.AppId)',
+                status: true,
+                cookie: true,
+                xfbml: true,
+                oauth: true
+            });
+        };
+        (function () {
+            var e = document.createElement('script');
+            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+            e.async = true;
+            document.getElementById('fb-root').appendChild(e);
+        } ());
+    </script>
+    <style type="text/css">
+        .bigRedWhite
+        {
+            font-size: 30px;
+        }
+    </style>
+}
+<div id="uberstrikePanel">
+    <div id="screen">
+        <div id="block" style="font-weight: bold">
+            <p class="h1title">
+                I'm a new UberStrike Player</p>
+            <p class="grey">
+                Hit 'Start' to play UberStrike for the first time on Kongregate!
+            </p>
+            <br />
+            <br />
+            <br />
+            <div style="text-align: center">
+                @Html.Button("validateLink", "Start!", "bigRedWhite", "parent.ReloadPage(); return false;")
+            </div>
+            <br />
+            <br />
+            <br />
+            <p class="h1title">
+                Already an UberStrike player?</p>
+            <p class="grey">
+                Select the channel you used to sign up & link your accounts to be able to access
+                your loadout & stats on Kongregate:</p>
+            <br />
+            <br />
+            <div id="accountLinkagePanel">
+                <div class="left">
+                    <div class="left">
+                        <div class="icon facebook" onclick="javascript:facebooklogin('@ViewBag.ChannelType', '@HttpUtility.UrlEncode(ViewBag.Hash)'); ">
+                        </div>
+                    </div>
+                    <div style="float: left; margin-left: 5px;">
+                        Facebook<br />
+                        <span class="grey">apps.facebook.com/uberstrike</span>
+                    </div>
+                </div>
+                <div class="left" style="margin-left: 20px">
+                    <div class="left">
+                        <div class="icon cmune" onclick="javascript:window.location.href='@Url.Action("ConnectWithCmune")?channel=@ViewBag.ChannelType&h=@HttpUtility.UrlEncode(ViewBag.Hash)'">
+                        </div>
+                    </div>
+                    <div style="float: left; margin-left: 5px;">
+                        Cmune Account<br />
+                        <span class="grey">uberstrike.cmune.com</span>
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+                <br />
+                <div class="left" style="margin-left: 20px">
+                    <div class="left">
+                        <div class="icon macappstore" onclick="javascript:window.location.href='@Url.Action("ConnectWithCmune")?channel=@ViewBag.ChannelType&h=@HttpUtility.UrlEncode(ViewBag.Hash)'">
+                        </div>
+                    </div>
+                    <div class="left" style="margin-left: 5px;">
+                        Mac Apple Store Account<br />
+                        <span class="grey">Top 1 FPS</span>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>

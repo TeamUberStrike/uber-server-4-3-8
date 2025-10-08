@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Download UberStrike";
+}
+
+<h1 style="text-align:center; margin-top:25px; font-size:31px;">UberStrike HD: Now available for both Mac and PC</h1>
+<div id="windowsDiv" class="downloadContainer" style="@(ViewBag.IsWindows ? "" : "display:none;")">
+    @Html.ImageTag(Url, "PortalChannel/download/DownloadPC.png", "", "Download", "float:left;")
+    <div class="panel_default downloadLinkContainer">
+        <div class="downloadButtonContainer">
+            <a href="@ViewBag.WindowsStandAloneUrl" class="Continue downloadLink" style="text-decoration:none;">@Html.ImageTag(Url, "PortalChannel/download/DownloadIcon.png", "", "Download") Install UberStrike Now</a>
+            <p class="downloadLinkLegend">Free 100Mb Download</p>
+        </div>
+        <div class="downloadExplanationContainer">
+            <h1>What's different from the browser version?</h1>
+            <p>More speed - Multithreaded rendering on multicore systems<br />
+            More quality - High definition textures<br />
+            Faster loading - All maps are bundled in the download</p>
+            <h1>System requirements</h1>
+            <p style="margin-bottom:58px;">Windows XP, Vista or 7<br />
+            2GB RAM<br />
+            1.6 GHz or faster processor<br />
+            Internet connection (Broadband Recommended)</p>
+            Also available for <a href="#" onclick="toggleMacPc(); return false;">Mac OS X</a>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<div id="macDiv" class="downloadContainer" style="@(ViewBag.IsWindows ? "display:none;" : "")">
+    @Html.ImageTag(Url, "PortalChannel/download/DownloadMac.png", "", "Download", "float:left;")
+    <div class="panel_default downloadLinkContainer">
+        <div class="downloadButtonContainer">
+            <a href="@ViewBag.MacAppStoreLink" class="Continue downloadLink" style="text-decoration:none;">@Html.ImageTag(Url, "PortalChannel/download/DownloadIcon.png", "", "Download") Install UberStrike Now</a>
+            <p class="downloadLinkLegend">Free 100Mb Download</p>
+        </div>
+        <div class="downloadExplanationContainer">
+            <h1>What's different from the browser version?</h1>
+            <p>More speed - Multithreaded rendering on multicore systems<br />
+            More quality - High definition textures<br />
+            Faster loading - All maps are bundled in the download</p>
+            <h1>System requirements</h1>
+            <p>OS X 10.6.6 or later<br />
+            1.6 GB RAM<br />
+            Internet connection (Broadband Recommended)</p>
+
+            <a href="@ViewBag.MacAppStoreLink" style="display:block; width:169px; height:53px;  margin-left:auto; margin-right:auto; margin-top:10px; margin-bottom:10px;">@Html.ImageTag(Url, "PortalChannel/download/MacAppStore.png", "", "Download")</a>
+
+            <p>Also available for <a href="#" onclick="toggleMacPc(); return false;">Windows</a></p>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+<script type="text/javascript">
+    function toggleMacPc() {
+        $("#windowsDiv, #macDiv").toggle();
+    }
+</script>

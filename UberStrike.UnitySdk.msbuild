@@ -1,0 +1,15 @@
+<Project DefaultTargets="PublishUnityPlugins" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <PublishPath>$(ArtifactDir)\UberStrike.UnitySdk</PublishPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectsToBuild Include="UberStrike.UnitySdk\UberStrike.UnitySdk.csproj" />
+  </ItemGroup>
+
+  <Target Name="PublishUnityPlugins">
+    <MSBuild Projects="@(ProjectsToBuild)" Properties="Configuration=Release;OutDir=..\$(PublishPath)\" />
+  </Target>
+
+</Project>

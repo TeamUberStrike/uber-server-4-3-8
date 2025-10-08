@@ -1,0 +1,16 @@
+﻿@model UserProfileModel
+<div id="debugContainer" style="position: fixed; background-color: white; z-index: 1000;bottom:0px;">
+    <div>
+        <input type="button" onclick="$('#debug').toggle()" value="Shell Debug" style="cursor: pointer;" />
+    </div>
+    <div id="debug" style="display: none; overflow: scroll;">
+        <div>
+            kongregateId = @ViewBag.KongregateId
+        </div>
+        <div>
+            cmid = @((Model != null) ? Model.Member.CMID.ToString() : "")
+        </div>
+        <a href="" onclick="requestUserBundle(); return false;">Check item list</a>
+        <br />
+    </div>
+</div>

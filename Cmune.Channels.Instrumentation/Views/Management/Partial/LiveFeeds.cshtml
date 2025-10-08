@@ -1,0 +1,54 @@
+﻿@model List<LiveFeedView>
+<form id="liveFeedForm" name="liveFeedForm" method="post" action="">
+<input id="liveFeedId" name="liveFeedId" type="hidden" />
+<input id="description" name="description" type="hidden" />
+<input id="url" name="url" type="hidden" />
+<input id="priority" name="priority" type="hidden" />
+</form>
+<table class="searchResultTable" style="width: auto;">
+    <tr>
+        <th style="width: 360px;">
+            Description
+        </th>
+        <th style="width: 380px;">
+            Url
+        </th>
+        <th style="width: 80px;">
+            Priority
+        </th>
+        <th style="width: 16px;">
+        </th>
+        <th style="width: 16px;">
+        </th>
+    </tr>
+    @{int i = 0;}
+    @foreach (var feed in Model)
+    {
+        <tr class="@(i % 2 == 1 ? "mod" : "")">
+            <td>
+                @feed.Description
+            </td>
+            <td>
+                @feed.Url
+            </td>
+            <td>
+                @UberStrikeCommonConfig.LiveFeedPriorityNames[feed.Priority]
+            </td>
+            <td>
+                <a href="#" onclick="loadEditLiveFeedForm(@feed.LivedFeedId,'@TextUtilities.ConvertTextForJavaScript(feed.Description)','@TextUtilities.ConvertTextForJavaScript(feed.Url)', @((int)feed.Priority)); return false;">
+                    <img src="@Url.Content("~/Content/img/b_edit.png")" alt="Edit live feed" /></a>
+            </td>
+            <td>
+                <a href="#" onclick="deleteLiveFeed(@feed.LivedFeedId); return false;">
+                    <img src="@Url.Content("~/Content/img/b_drop.png")" alt="Delete live feed" /></a>
+            </td>
+        </tr>
+        i++;
+    }
+</table>
+@if (Model.Count == 0)
+{
+    <p>
+        There is no live feed for the moment, you can add one.
+    </p>
+}

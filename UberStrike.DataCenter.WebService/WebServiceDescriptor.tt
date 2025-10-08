@@ -1,0 +1,11 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="$(SolutionDir)T4Helper/bin/Debug/T4Helper.dll" #>
+<#
+	T4Utils.WriteLine = this.WriteLine;
+	string xml = WebServiceDescriptor.Create((IServiceProvider)this.Host, "UberStrike.DataCenter.WebService");
+#>
+public static class WebServiceDescriptor
+{
+	public static string Xml =@"<#=xml.Replace("\"", "\"\"")#>";
+}

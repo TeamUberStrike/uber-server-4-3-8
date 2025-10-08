@@ -1,0 +1,45 @@
+﻿@model List<BasicClanView>
+<table class="searchResultTable">
+    <tr>
+        <th>
+        </th>
+        <th>
+            Tag
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Clan leader
+        </th>
+        <th>
+            Members
+        </th>
+    </tr>
+    @{int i = 0;}
+    @foreach (BasicClanView clan in Model)
+    {
+        <tr class="@(i % 2 == 1 ? "mod" : "")">
+            <td>
+                <a href="@Url.Action("See", "Clan")?clanId=@clan.GroupId.ToString()" >See more</a>
+            </td>
+            <td>
+                @clan.Tag
+            </td>
+            <td>
+                @clan.Name
+            </td>
+            <td>
+                <a href="@Url.Action("See", "Member")?Cmid=@clan.OwnerCmid.ToString()" target="_blank">@clan.OwnerName</a>
+            </td>
+            <td style="text-align: right;">
+                @clan.MembersCount
+            </td>
+        </tr>
+        i++;
+    }
+</table>
+@if (Model.Count == 0)
+{
+    @:There is no clan matching with your search
+}

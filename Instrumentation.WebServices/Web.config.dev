@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog" />
+    <section name="sendGridSettings" type="SendGridSdk.Models.SendGridConfigurationSection, SendGridSdk" />
+  </configSections>
+  <appSettings>
+    <add key="CmuneAPIKey" value="dev" />
+    <add key="appsAPIKey" value="dev" />
+    <add key="NLogSource" value="5" />
+    <add key="NLogBuild" value="1" />
+    <add key="CustomLogPath" value="D:\Logs\" />
+    <add key="CustomLogIsEnable" value="True" />
+  </appSettings>
+
+  <sendGridSettings smtpServer="smtp.sendgrid.net"
+                    apiUser="Cmune"
+                    apiKey="cmune$1" />
+
+  <system.web>
+    <compilation debug="true" />
+    <httpRuntime enableVersionHeader="false" />
+  </system.web>
+  <system.serviceModel>
+    <serviceHostingEnvironment multipleSiteBindingsEnabled="true" />
+    <services>
+      <service name="Cmune.Instrumentation.WebServices.WebServicesClass" behaviorConfiguration="throttling">
+        <endpoint address="Stats" behaviorConfiguration="cmuneBehavior" binding="webHttpBinding" contract="Cmune.Instrumentation.WebServices.ITracking" />
+        <endpoint address="CacheInvalidation" behaviorConfiguration="cmuneBehavior" binding="webHttpBinding" contract="Cmune.Instrumentation.WebServices.ICacheInvalidation" />
+        <endpoint address="Application" behaviorConfiguration="cmuneBehavior" binding="webHttpBinding" contract="Cmune.Instrumentation.WebServices.IApplication"/>
+        <endpoint address="ServerMonitoring" behaviorConfiguration="cmuneBehavior" binding="webHttpBinding" contract="Cmune.Instrumentation.WebServices.IServerMonitoring"/>
+      </service>
+    </services>
+    <bindings>
+      <webHttpBinding>
+        <binding name="wshttpconfig">
+          <readerQuotas maxArrayLength="1000000" />
+        </binding>
+      </webHttpBinding>
+    </bindings>
+    <behaviors>
+      <endpointBehaviors>
+        <behavior name="cmuneBehavior">
+          <webHttp />
+        </behavior>
+      </endpointBehaviors>
+      <serviceBehaviors>
+        <behavior name="throttling">
+          <serviceThrottling maxConcurrentCalls="64"/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+  </system.serviceModel>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
+  </startup>
+
+  <nlog autoReload="true" throwExceptions="true" xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <targets async="true">
+      <target name="mail" xsi:type="Mail" smtpServer="67.228.44.4" from="noreply@cmune.com" to="logger@cmune.com" subject="[NLog][${event-context:logSource}][${event-context:environment}][${event-context:logTime}]" body="&lt;b&gt;Log Type Name&lt;/b&gt;: ${event-context:logTypeName}&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Error Location&lt;/b&gt;: ${event-context:errorLocation}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Error&lt;/b&gt;: ${event-context:error}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Incoming Datas&lt;/b&gt;: ${event-context:incomingDatas}&lt;br /&gt;" html="true"/>
+      <target name="file" xsi:type="File" layout="${event-context:logTime} ${event-context:message}${newline}" fileName="${event-context:fileName}" />
+    </targets>
+    <rules>
+      <logger name="*" level="Info" writeTo="file" />
+      <logger name="*" level="Debug" writeTo="mail"/>
+      <logger name="*" level="Warn" writeTo="mail"/>
+      <logger name="*" level="Error" writeTo="mail"/>
+    </rules>
+  </nlog>
+  
+</configuration>

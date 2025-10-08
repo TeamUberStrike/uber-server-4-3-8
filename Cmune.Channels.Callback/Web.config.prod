@@ -1,0 +1,82 @@
+﻿<?xml version="1.0"?>
+<configuration>
+	<configSections>
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog" />
+    <section name="facebookSettings" type="Facebook.FacebookConfigurationSection" />
+    <section name="sendGridSettings" type="SendGridSdk.Models.SendGridConfigurationSection, SendGridSdk" />
+  </configSections>
+  <appSettings>
+    <add key="ImagesRoot" value="http://static.cmune.com/UberStrike/CommonChannel/images/"/>
+    <add key="UberstrikeCreditCurrencyImage" value="iconCredits.png"/>
+    <add key="CmuneAPIKey" value="prod"/>
+		<add key="appsAPIKey" value="prod"/>
+		<add key="FacebookAppId" value="24509077139"/>
+    <add key="FacebookAppSecret" value="08861d5e7e1fd2604b920cc7b44784fd" />
+    <add key="PlaySpanMerchantCode" value="CMUN" />
+    <add key="PlaySpanMerchantTestCode" value="CMUT" />
+    <add key="PlaySpanLogin" value="7hD0n41PnO" />
+    <add key="PlaySpanAdminPassword" value="mOj6MU2kTpvqvmVs" />
+    <add key="PlaySpanSecretHashPassPhrase" value="dMC7WHmxc0PZAKJ6GUUqUJz5bS4R7a" />
+    <add key="PlaySpanTestSitePassword" value="beatles68" />
+    <add key="PlaySpanServersIPs" value="198.104.132.114|198.104.132.118|76.7.50.73|198.241.162.41|70.42.253.10" />
+    <add key="AspCachePackages" value="cmunePackages"/>
+    <add key="AspCachePackagesName" value="cmunePackagesNames"/>
+    <add key="SuperRewardBundles" value="3|1950,5|3250,20|13000,30|19500,50|34125,100|71500" />
+    <add key="PlaySpanActivateFullLog" value="False"/>
+    <add key="NLogSource" value="10" />
+    <add key="NLogBuild" value="0" />
+    <add key="CustomLogPath" value="X:\Logs\" />
+    <add key="CustomLogIsEnable" value="True" />
+    <add key="SuperRewardsSecret" value="245872a133567d20113911aacc80f9b8"/>
+    <add key="SuperRewardsCmuneHash" value="i12r4b1a8x5p9"/>
+    <!-- ::1 is for testing purpose only, should be removed in prod -->
+    <add key="SuperRewardsServersIPs" value="74.86.15.58|74.86.15.59|74.86.15.60|216.21.215.81|216.21.215.82|216.21.215.83|216.21.215.84|216.21.215.85|216.21.215.86" />
+    <add key="SuperRewardsPaymentTesters" value="955"/>
+    <add key="SuperRewardsActivateFullLog" value="False"/>
+    <add key="KongregateAppAPIKey" value="ea350721-2ca2-40c9-86d0-e05f7fc29efa"/>
+    <add key="KongregateAppId" value="139154"/>
+    <add key="KongregateAdminId" value="7319087"/>
+  </appSettings>
+
+  <sendGridSettings smtpServer="smtp.sendgrid.net"
+                    apiUser="Cmune"
+                    apiKey="cmune$1" />
+
+  <facebookSettings appId="24509077139"
+                appSecret="08861d5e7e1fd2604b920cc7b44784fd"
+                canvasPage = "http://apps.facebook.com/uberstrike/"
+                canvasUrl ="http://fb.uberstrike.com/"
+                secureCanvasUrl = "https://fb.uberstrike.com/"
+                cancelUrlPath = "http://fb.uberstrike.com/" />
+	<system.web>
+
+		<compilation debug="true" targetFramework="4.0">
+    </compilation>
+		
+		<customErrors mode="On" redirectMode="ResponseRewrite" defaultRedirect="~/Error.aspx" />
+
+    <pages controlRenderingCompatibilityVersion="3.5" clientIDMode="AutoID"/>
+    <httpRuntime enableVersionHeader="false" />
+  </system.web>
+
+	<system.webServer>
+		<httpErrors>
+        <remove statusCode="404" subStatusCode="-1" />
+        <error statusCode="404" prefixLanguageFilePath="" path="/Error.aspx" responseMode="ExecuteURL" />
+    </httpErrors>
+  </system.webServer>
+
+  <nlog autoReload="true" throwExceptions="true" xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <targets async="true">
+      <target name="mail" xsi:type="Mail" smtpServer="67.228.44.4" from="noreply@cmune.com" to="logger@cmune.com" subject="[NLog][${event-context:logSource}][${event-context:environment}][${event-context:logTime}]" body="&lt;b&gt;Log Type Name&lt;/b&gt;: ${event-context:logTypeName}&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Error Location&lt;/b&gt;: ${event-context:errorLocation}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Error&lt;/b&gt;: ${event-context:error}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Incoming Datas&lt;/b&gt;: ${event-context:incomingDatas}&lt;br /&gt;" html="true"/>
+      <target name="file" xsi:type="File" layout="${event-context:logTime} ${event-context:message}${newline}" fileName="${event-context:fileName}" />
+    </targets>
+    <rules>
+      <logger name="*" level="Info" writeTo="file" />
+      <logger name="*" level="Debug" writeTo="mail"/>
+      <logger name="*" level="Warn" writeTo="mail"/>
+      <logger name="*" level="Error" writeTo="mail"/>
+    </rules>
+  </nlog>
+
+</configuration>

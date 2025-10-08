@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "ValidateEpin";
+}
+}
+<div class="panel_default_invisible">
+    <div class="panel_body">
+        @if (ViewBag.IsRedemptionBlocked)
+        {
+            <p>
+                Bir sonraki 30 dakika boyunca izin attemtps bir maksimum sayısına erişildiğine ettik
+                <br />
+                @*                <br />
+                <br />
+                <a class="orangeBlack" href="" onclick="window.parent.NavigateToUrl('@ViewBag.PortalFaqPage'); return false;">
+                    GO TO FAQ</a>
+*@
+            </p>
+        }
+        else
+        {
+            if (!((bool)ViewBag.IsEpinOperationSucessful))
+            {
+            <h1>
+                Kod Redemption Başarısız</h1>
+            <p>
+                Girdiğiniz kod geçerli bir kod olarak tanınmıyor<br />
+                <br />
+                Doğru girdiğinizden kontrol edin ve tekrar deneyin<br />
+            </p>
+            <br />
+            <br />
+            <br />
+            <a class="orangeBlack" onclick="window.parent.NavigateToUrl('@ViewBag.PortalEpinPage'); return false;" href="">
+                RETRY !</a>
+            }
+            else
+            {
+            <h1>Tebrikler!</h1>
+            <p>
+                You've just successfully redeemed you ePin code and @ViewBag.CreditAmountAttributed
+                Credits have been added to your account!
+            </p>
+            <br />
+           
+                if (((ChannelType)ViewBag.ChannelType) == ChannelType.WebFacebook)
+                {
+            <p class="successMessage">
+               Facebook dönün, size kredi almak için oyunu yeniden gerekebilir.<br />
+            </p>
+                }
+                else if (((ChannelType)ViewBag.ChannelType) == ChannelType.WebPortal)
+                {
+            <br />
+            <br />
+            <a class="orangeBlack" href="" onclick="window.parent.NavigateToUrl('@ViewBag.PortalGamePage'); return false;">
+                oyuna geri dönmek</a>
+                }
+            }
+
+        }
+    </div>
+</div>

@@ -1,0 +1,100 @@
+﻿@model MysteryBoxView
+@{
+    var ItemViews = (List<ItemView>)ViewBag.ItemViews;
+}
+<form id="MysteryBoxForm" action="" method="post">
+<div>
+    @Html.HiddenFor(d => d.Id)
+    <div class="left" style="width: 370px">
+        @Html.LabelFor(d => d.Name, "Name")
+        @Html.TextBoxFor(d => d.Name)
+        @Html.LabelFor(d => d.Price, "Price")
+        @Html.TextBoxFor(d => d.Price)
+        @Html.DropDownListFor(d => d.UberStrikeCurrencyType, Html.GetUberStrikeCurrencyType(Model.UberStrikeCurrencyType))
+        <div>
+            @Html.LabelFor(d => d.Description, "Promo text")
+            @Html.TextAreaFor(d => d.Description)
+        </div>
+    </div>
+    <div class="left" style="width: 300px">
+        @Html.LabelFor(d => d.IconUrl, "Icon")
+        @Html.TextBoxFor(d => d.IconUrl)
+        @Html.LabelFor(d => d.Category, "Category")
+        @Html.DropDownListFor(d => d.Category, Html.GetBundleCategoryType(Model.Category))
+        @Html.LabelFor(d => d.IsAvailableInShop, "Is Available in the shop?")
+        @Html.CheckBoxFor(d => d.IsAvailableInShop)
+        @Html.LabelFor(d => d.ItemsAttributed, "Items attributed")
+        @Html.TextBoxFor(d => d.ItemsAttributed)
+    </div>
+    <div class="clear">
+    </div>
+    <br />
+    <fieldset>
+        <legend>Prize</legend>
+        <div id="MysteryBoxItemContainer">
+            @Html.Label("Item Name")
+            @Html.Label("Duration Type")
+            @Html.Label("Weight")
+            @Html.Label("Amount")
+            @{int i = 0;}
+            @for (int g = 0; g < Model.MysteryBoxItems.Count; g++)
+            {
+                <div>
+                    @Html.HiddenFor(d => Model.MysteryBoxItems[g].Id)
+                    @Html.HiddenFor(d => Model.MysteryBoxItems[g].MysteryBoxId)
+                    @Html.DropDownListFor(d => Model.MysteryBoxItems[g].ItemId, Html.GetItems(ItemViews, Model.MysteryBoxItems[g].ItemId.ToString()))
+                    @Html.DropDownListFor(d => Model.MysteryBoxItems[g].DurationType, Html.GetBuyingDurationType(Model.MysteryBoxItems[g].DurationType))
+                    @Html.TextBoxFor(d => Model.MysteryBoxItems[g].ItemWeight, new { style = "width:50px;" })
+                    @Html.TextBoxFor(d => Model.MysteryBoxItems[g].Amount, new { style = "width:50px;" })
+                    @{
+                i++;
+                    }
+                </div>
+            }
+        </div>
+        <div>
+            @Html.Hidden("ItemIdCount", i)
+            <input type="button" onclick="AddMysteryBoxItem(@Html.GetItemsJson(ItemViews), @Html.GetBuyingDurationTypeTypeJson());" value="Add"/>
+        </div>
+        <div>
+            <div class="left" style="width: 300px">
+                @Html.LabelFor(d => d.CreditsAttributed, "Credits")
+                @Html.TextBoxFor(d => d.CreditsAttributed)
+            </div>
+            <div class="left" style="width: 300px">
+                @Html.LabelFor(d => d.CreditsAttributedWeight, "Credits Weight")
+                @Html.TextBoxFor(d => d.CreditsAttributedWeight)
+            </div>
+            <div class="left" style="width: 300px">
+                @Html.LabelFor(d => d.PointsAttributed, "Points")
+                @Html.TextBoxFor(d => d.PointsAttributed)
+            </div>
+            <div class="left" style="width: 300px">
+                @Html.LabelFor(d => d.PointsAttributedWeight, "Points Weight")
+                @Html.TextBoxFor(d => d.PointsAttributedWeight)
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <br />
+        <div>
+            <div>
+                @Html.LabelFor(d => d.ImageUrl, "Images")
+                @Html.TextBoxFor(d => d.ImageUrl)
+            </div>
+            <br />
+            <div>
+                @Html.LabelFor(d => Model.ExposeItemsToPlayers, "Expose items to player")
+                @Html.CheckBoxFor(d => Model.ExposeItemsToPlayers)
+            </div>
+        </div>
+    </fieldset>
+    <br />
+    <div>
+        <input type="button" name="test" value="Test" onclick="TestMysteryBox();return false;" />
+        <input type="button" name="validate" value="Save" onclick="SubmitMysteryBoxForm();return false" />
+    </div>
+    <div id="TestMysteryBoxResultContainer">
+    </div>
+</div>
+</form>

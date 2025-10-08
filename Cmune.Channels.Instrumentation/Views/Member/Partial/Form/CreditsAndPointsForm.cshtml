@@ -1,0 +1,29 @@
+﻿<div>
+    <form id="editMemberFormComplement" method="post" action="/">
+        <table style="background-color:white; margin:0 0 25px 0;">
+            <tr>
+                <td>Credits to add:</td>
+                <td>
+                    @Html.TextBox("creditsToAdd")
+                </td>
+            </tr>
+            <tr>
+                <td style="width:140px">Points to add:</td>
+                <td style="width:220px">
+                @Html.TextBox("pointsToAdd")
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="width:140px">Reason:</td>
+                <td style="width:220px">
+                @Html.TextArea("reasonForAdding")
+                </td>
+            </tr>
+        </table>
+        Type: @Html.DropDownList("actionType", ViewData["actionType"] as SelectList)
+        Action taker: @Html.DropDownList("adminNames", ViewData["adminNames"] as SelectList, new { onchange = "setAdmin($('#adminNames').val(), $('#adminNames option:selected').text());" })
+        <input type="submit" name="addCreditsAndPoints" value="Add now" onclick="ChangeMemberPointsAndCredits(); return false;" />
+    </form>
+</div>

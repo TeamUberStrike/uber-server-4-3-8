@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Global Ranking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    var loadingImage = $('<img />').attr('src', '@Url.Image("loader.gif")');
+    var applicationUrl = '@Url.AppBaseUrl()';
+    var appCallbackUrl = '@Url.Encode(ViewBag.appCallbackUrl)';
+</script>
+@*<div class="@(((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook) ? "panel_default_clear roundedCorner " : "panel_default")">
+    <div class="@(((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook) ? "panel_header_clear" : "panel_header")">
+*@
+<div class="panel_default">
+    <div class="panel_header">
+        Global Ranking <span class="rankingMenuContainer">(<span id="allTimeLink">All time</span>
+            | <span id="dailyLink">Daily</span> | <span id="weeklyLink">Weekly</span>)</span>
+    </div>
+<div class="panel_body">
+    <div id="allTimeRanking" style="margin-bottom: 25px;">
+        <div id="allTimeRankingContainer">
+            @Html.Partial("_Ranking", (RankingDisplay)ViewBag.AllTimeRanking)
+        </div>
+    </div>
+    <div id="dailyRanking" style="display: none;margin-bottom: 25px;">
+        <p class="it" style="text-align: center;">@ViewBag.DailyRanking.RankingDate.ToString("d MMMM")
+            (GMT)</p>
+        <div id="dailyRankingContainer">
+            @Html.Partial("_Ranking", (RankingDisplay)ViewBag.DailyRanking)
+        </div>
+    </div>
+    <div id="weeklyRanking" style="display: none; margin-bottom: 25px;">
+        <p class="it" style="text-align: center;">
+            Coming soon...</p>
+    </div>
+        <p class="it" style="text-align: center;">
+            Data can take up to 10 minutes to update.</p>
+    <script type="text/javascript">
+        displayRanking('daily');
+    </script>
+</div>
+</div>
+<div class="clear">
+</div>

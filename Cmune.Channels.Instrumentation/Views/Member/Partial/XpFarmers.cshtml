@@ -1,0 +1,56 @@
+﻿@model Dictionary<RankingView, List<RankingView>>
+<table class="searchResultTable" style="margin: auto; margin-top: 25px; margin-bottom: 25px;">
+    <tr>
+        <th>
+            Farmer name
+        </th>
+        <th>
+            Plant name
+        </th>
+        <th>
+            Farmer kills<br />
+            Plant deaths
+        </th>
+        <th>
+            Farmer deaths<br />
+            Plant kills
+        </th>
+        <th>
+            KDR
+        </th>
+    </tr>
+    @foreach (RankingView highKdr in Model.Keys)
+    {
+        <tr style="background-color: #F7E77D;">
+            <td>
+                <a href='@Url.Action("See", "Member")?cmid=@highKdr.Cmid' target="_blank">@highKdr.Name</a>
+            </td>
+            <td>
+            </td>
+            <td style="text-align: right;">@highKdr.Kills
+            </td>
+            <td style="text-align: right;">@highKdr.Deaths
+            </td>
+            <td style="text-align: right;">@(highKdr.Deaths != 0 ? ((decimal)highKdr.Kills / (decimal)highKdr.Deaths).ToString("N2") : "0")
+            </td>
+        </tr>
+        int i = 0;
+        foreach (RankingView lowKdr in Model[highKdr])
+        {
+        <tr class="@(i % 2 == 1 ? "mod" : "")">
+            <td>
+            </td>
+            <td>
+                <a href='@Url.Action("See", "Member")?cmid=@lowKdr.Cmid' target="_blank">@lowKdr.Name</a>
+            </td>
+            <td style="text-align: right;">@lowKdr.Deaths
+            </td>
+            <td style="text-align: right;">@lowKdr.Kills
+            </td>
+            <td style="text-align: right;">@(lowKdr.Deaths != 0 ? ((decimal)lowKdr.Kills / (decimal)lowKdr.Deaths).ToString("N2") : "0")
+            </td>
+        </tr>
+            i++;
+        }
+    }
+</table>

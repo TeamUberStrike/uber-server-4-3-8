@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Global Ranking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="float: left; margin: 8px 0 0 0px; width: 727px;">
+    <div id="rankingframeloader" style="text-align: center; position: relative; top: 40px;">
+        @Html.ImageTag(Url, "loader.gif")
+    </div>
+    <div style="text-align: center; height: 1930px;">
+        <iframe onload="$('#rankingframeloader').hide();" src="@Url.CommonChannelUrl()Ranking?ChannelType=@Cmune.DataCenter.Common.Entities.ChannelType.WebPortal&appCallbackUrl=@Url.Encode(Url.AppBaseUrl() + "Profile")" allowtransparency="true" frameborder="0" width="728" height="1930" scrolling="no">
+        </iframe>
+    </div>
+</div>
+<div style="float: left; margin: 8px 0 0 8px; width: 254px;">
+    @Html.Partial("PromotionPanelPartial")
+</div>
+<div class="clear">
+</div>

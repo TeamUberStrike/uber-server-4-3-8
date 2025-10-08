@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Index";
+    var userProfile = (UserProfileModel)ViewBag.UserProfile;
+    Layout = null;
+}
+<div id="iframePageContainer">
+<div>
+    <div style="text-align:center">
+        <br />
+        <iframe src="@Url.CommonChannelUrl()/GetCreditBundle?channel=@(ChannelType.Kongregate)&cmid=@(userProfile.Member.CMID)&contentHeight=500" frameborder="0" width="728" height="560" scrolling="no">
+        </iframe>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $("#iframePageContainer").height(GetUnityHeight());
+</script>

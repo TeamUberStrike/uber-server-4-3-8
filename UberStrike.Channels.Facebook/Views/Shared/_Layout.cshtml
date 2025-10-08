@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="Expires" content="Tue, 21 Dec 2008 21:00:02 GMT" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <title>@ViewBag.Title</title>
+    @{
+        var PublishVersion = System.Configuration.ConfigurationManager.AppSettings["PublishVersion"];
+    }
+    @Html.FacebookChannelCssFile(Url)
+    @Html.FacebookChannelJavaScriptFile(Url)
+    <script type="text/javascript">
+   
+    var imagesRoot = '@Url.Image()';
+    var imageUnityLogo = '@Url.Image("unity_logo.png")';
+    var imageCmuneLogo = '@Url.Image("cmune_logo.png")';
+    var FacebookApplicationUrl = '@ViewBag.FacebookApplicationUrl';
+    
+    var ApplicationPath = '@ViewBag.ApplicationPath';
+    @{
+        var FacebookUserModel = (FacebookUserModel)ViewBag.FacebookUserModel; 
+    }
+
+    /* setting for pages */
+    var MenuMainTab_CurrentTab = '@((Menu.MainTab)ViewBag.CurrentTab)';
+    var MenuMainTab_Home = '@Menu.MainTab.Home';
+    var MenuMainTab_Friend = '@Menu.MainTab.Friend';
+    var MenuMainTab_Credit = '@Menu.MainTab.Credit';
+    var MenuMainTab_Profile = '@Menu.MainTab.Profile';
+    var MenuMainTab_Bundle = '@Menu.MainTab.Bundle';
+    var MenuMainTab_Offer = '@Menu.MainTab.Offer';
+    var MenuMainTab_Ranking = '@Menu.MainTab.Ranking';
+    var MenuMainTab_RedeemEPin = '@Menu.MainTab.RedeemEPin';
+
+    var BundlePageUrl = '@Url.CanvasAction(Html, "Bundle", "Offer")';
+    var GetCreditsPageUrl = '@Url.CanvasAction(Html, "FacebookCredits", "Offer")';
+    var ProfilePageUrl = '@Url.CanvasAction(Html, "", "Profile")';
+    var OfferPageUrl = '@Url.CanvasAction(Html, "EarnFacebookCredits", "Offer")';
+    var FriendPageUrl = '@Url.CanvasAction(Html, "InviteByRequest2_0", "Friend")';
+    var RankingPageUrl = '@Url.CanvasAction(Html, "Index", "Ranking")';
+    var RedeemEpinPageUrl = '@Url.CanvasAction(Html, "RedeemEpin", "Offer")';
+  
+
+    var facebookApplicationId = @(ViewBag.FacebookApplicationId);
+    var applicationId = @ViewBag.FacebookApplicationId;
+    var fbUserId = @(FacebookUserModel.FacebookId);
+    var fbThirdPartyId = '@(FacebookUserModel.FacebookThirdPartyId)';
+    var fbFirstName = '@(FacebookUserModel.FirstName)';
+    var fbLastName = '@(FacebookUserModel.LastName)';
+    var fbUsername = '@(FacebookUserModel.UserName)';
+    var fbName = '@(FacebookUserModel.Name)';
+    var fbGender = '@(FacebookUserModel.Gender)';
+    var fbCity = '@(FacebookUserModel.City)';
+    var fbCountry = '@(FacebookUserModel.Country)';
+    var fbPostCode = '@(FacebookUserModel.PostCode)';
+    var fbLocale = '@(FacebookUserModel.Locale)';
+    var fbId3PlayerName = '@(FacebookUserModel.Id3PlayerName)';
+    var Cmid = @FacebookUserModel.Cmid;
+    var IsAuthenticated = @FacebookUserModel.IsAuthenticated.ToString().ToLower();
+    var fbRefPartnerId = @ViewBag.RefPartnerId;    // for installation tracking
+    var locale = '@ViewBag.DefaultCulture';
+    var isOnPlayPage = true;
+    var additionalCanvasSize = 0;
+    var webChannel = 1;
+    // partner
+    var resolveXdFragmentUrl = '@(Facebook.FacebookApplication.Current.CanvasUrl)Xd/ResolveXdFragment';
+    var inviteFriendsIframeSrc = "@Url.CanvasAction(Html, "Invite", "Friend")";
+    var refreshTopMenuUrl = "@Url.CanvasAction(Html, "RefreshMenu", "Home")";
+    var InstallUnityUrl = "@Url.Action("Index", "UnityInstall")";
+    var IsTrackingEnabled = @((!FacebookUserModel.IsAccountComplete).ToString().ToLower());
+
+    var StreamPostUrl = '@Url.CanvasAction(Html, "Play", "Home")';
+    var applifierApplicationId = @Cmune.DataCenter.Utils.ConfigurationUtilities.ReadConfigurationManagerInt("ApplifierApplicationId");
+    var advBannerHeight = 76
+    </script>
+    @RenderSection("HeaderJavascript", false)
+</head>
+<body>
+    <div id="fb-root">
+    </div>
+    <script type="text/javascript">
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: facebookApplicationId,
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true,  // parse XFBML
+                channelUrl: resolveXdFragmentUrl,
+                oauth: true
+            });
+
+            IntializeCanvas(MenuMainTab_CurrentTab);
+
+            @if (!ViewBag.IsUnityEmbedEnable)
+            { //display banner here if unity is disabled;
+        <text>
+        DisplayBanner(); 
+        </text>
+            }
+        };
+
+
+        (function(d){
+             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement('script'); js.id = id; js.async = true;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             ref.parentNode.insertBefore(js, ref);
+        }(document));
+
+        function DisplayBanner() {
+            // set the src of the partner iframes
+            setTimeout('updateBanner("xsell_form");', 0);
+        }
+        
+
+    </script>
+    <div id="page">
+        @if (ViewBag.IsDevEnv)
+        {
+            @Html.Partial("Debug", FacebookUserModel);
+        }
+        <div id="page_header">
+            @if ((bool)ViewBag.IsApplifierPromoEnable)
+            {               
+                <div id="applifier_bar" style="height:76px;">
+                </div>
+            }
+            @{
+                var appPage = "https://www.facebook.com/apps/application.php?id=" + ViewBag.FacebookApplicationId;
+                var likeLinkHref = HttpUtility.UrlEncode(appPage + "&layout=standard&show_faces=false&width=450&action=like&colorscheme=light&height=25");
+            }
+            @if (ViewBag.IsLikeButtonEnable)
+            {
+                <div style="height: 29px; line-height: 29px; margin-top: 7px">
+                    <div>
+                        <div class="left" style="height: 29px; width:700px">
+                            <div class="fb-like"
+                                allowtransparency="true" data-href="@ConfigurationUtilities.ReadConfigurationManager("FacebookUberstrikePage")" data-send="true"
+                                data-width="700" data-show-faces="false" data-font="segoe ui">
+                            </div>
+                        </div>
+                        <div class="right" id="toploader">
+                            <img src="@Url.Image("loader.gif")" alt="loading..." />
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div id="page_main">
+            <div id="game_header">
+                @if (ViewBag.IsUberstrikeMenuEnable)
+                {
+                    <div id="TopPartialMenu">
+                        @Html.Partial("_Menu", FacebookUserModel)
+                    </div>
+                }
+            </div>
+            <div id="game_body">
+                <div id="game_container">
+                    <div id="GamePageContainer">
+                        @RenderBody()
+                    </div>
+                    <div id="InviteFriendsPageContainer">
+                    </div>
+                    <div id="GetCreditsPageContainer">
+                    </div>
+                    <div id="ProfilePageContainer">
+                    </div>
+                    <div id="BundlePageContainer">
+                    </div>
+                    <div id="OfferPageContainer">
+                    </div>
+                    <div id="RankingPageContainer">
+                    </div>
+
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div id="game_footer">
+                <div class="game_footer_tab_inactive fright">
+                    All Content Copyright (c) <a id="copyrightLink" target="_blank" href="http://www.cmune.com/"
+                        style="">Cmune @DateTime.Now.ToString("yyyy")</a>
+                </div>
+                <div class="game_footer_tab fleft">
+                    <a href="http://www.cmune.com/index.php/privacy-policy/" target="_blank">Privacy Policy</a>
+                </div>
+                <div class="game_footer_tab fleft">
+                    <a href="http://www.cmune.com/index.php/terms-of-service/" target="_blank">Terms of
+                        Service</a>
+                </div>
+                <div class="game_footer_tab fleft">
+                    <a href="http://www.cmune.com/index.php/contact/" target="_blank">Support</a>
+                </div>
+            </div>
+        </div>
+        @{string googleAnalyticsTrackingId = ConfigurationUtilities.ReadConfigurationManager("GoogleAnalyticsTrackingId");}
+        @if (!String.IsNullOrWhiteSpace(googleAnalyticsTrackingId))
+        {
+            <script type="text/javascript">
+                var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', '@googleAnalyticsTrackingId']);
+                _gaq.push(['_trackPageview']);
+
+                (function () {
+                    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                })();
+            </script>
+        }
+    </div>
+<script type="text/javascript">
+    (function(w, d) { var a = function() { var a = d.createElement('script'); a.type = 'text/javascript';
+        a.async = 'async'; a.src = '//' + ((w.location.protocol === 'https:') ? 's3.amazonaws.com/cdx-radar/' :
+        'radar.cedexis.com/') + '01-10332-radar10.min.js'; d.body.appendChild(a); };
+        if (w.addEventListener) { w.addEventListener('load', a, false); }
+        else if (w.attachEvent) { w.attachEvent('onload', a); }
+    }(window, document));
+</script>
+</body>
+</html>

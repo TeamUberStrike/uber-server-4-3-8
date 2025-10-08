@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Index";
+    
+    var userProfile = ((UserProfileModel)ViewBag.UserProfile);
+}
+<div style="clear: both">
+</div>
+<div style="text-align: center">
+    <div class="main_page_content">
+        <br />
+        @if (((UserProfileModel)ViewBag.UserProfile).ChannelType == ChannelType.WebFacebook)
+        {
+            <div style="position:relative; left:200px;">
+                <div>
+                    <span>You're logged as @(((UserProfileModel)ViewBag.UserProfile).FacebookUserModel.FirstName)
+                        (via Facebook Connect)</span> <a href="" onclick="facebooklogout(); return false;">@Html.ImageTag(Url, "facebookLogOutButton.png")
+                        </a>
+                        <img src="@ViewBag.FacebookProfilePicture" />
+                
+                </div>
+            </div>
+        }
+        <br />
+        <iframe id="epinIframe" src="@Url.CommonChannelUrl()/Epin?ch=@((ChannelType)ViewBag.ChannelType)&h=@ViewBag.AuthHash&gamePage=@Url.Action("", "Play")&epinPage=@Url.Action("", "Epin")&faqPage=@Url.Action("faq", "Static")&lang=@ViewBag.Lang"
+            frameborder="0" width="728" height="600" scrolling="no" style="margin: auto;" allowtransparency="true">
+        </iframe>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿<div>
+    <div style="height:450px">
+        <!-- PlaySpan payment div -->
+        <div id="div_b" style="display:none;padding:13px;position:absolute;left:0px;margin-top:-10px;">
+        </div>
+        <br />
+        <script type="text/javascript">
+            BuyUltimatePayHelper("@ViewBag.Cmid", "USD", '@ViewBag.Amount', '', '@ViewBag.PlayspanHash', '@UberStrike.Channels.Utils.HttpContextFactory.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Action("PlaySpanXD")', '@ViewBag.DeveloperId', '@ViewBag.PlayspanMerchtrans', true);
+        </script>
+    </div>
+    <div onclick="LoadSelectBundleStep()" style="color: White;">
+        <div class="previousBtn">
+            Back</div>
+    </div>
+</div>

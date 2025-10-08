@@ -1,0 +1,50 @@
+﻿@{
+    UserProfileModel userProfile = ViewBag.UserProfile;
+}
+<div class="panel_item" style="padding: 15px 0px 15px 5px;">
+    <div class="panel_item_header">
+        Email verification
+        @if ((EmailAddressStatus)userProfile.Member.EmailAddressState == EmailAddressStatus.Unverified)
+        {
+            <input id="SendVerificationEmailLinkButton" class="right darkGray" value="Send verification email"
+                type="button" onclick="sendVerificationEmail(); return false;" />
+        }
+
+    </div>
+    <div class="panel_item_textcontent">
+        Status:
+        @if ((EmailAddressStatus)userProfile.Member.EmailAddressState == EmailAddressStatus.Verified)
+        {
+            @Html.Raw("<span class=\"successMessage\">Verified</span>")
+        }
+        else if ((EmailAddressStatus)userProfile.Member.EmailAddressState == EmailAddressStatus.Unverified)
+        {
+            @Html.Raw("<span class=\"errorMessage\">Not verified</span>")<br />
+        }
+        else if ((EmailAddressStatus)userProfile.Member.EmailAddressState == EmailAddressStatus.Invalid)
+        {
+            @Html.Raw("<span class=\"errorMessage\">Invalid, please update your email address</span>")<br />
+        }
+        <span id="VerificationHasBeenSentLabel" class="lightConfirmation" />
+    </div>
+    <br />
+    <div id="send_email_div_summary">
+        @Html.Partial("MessageSummary")
+    </div>
+</div>
+<script type="text/javascript">
+    function sendVerificationEmail() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Account()/SendVerificationEmail',
+            success: function (data) {
+                if (data.errorMessage != "") {
+                    DisplayErrorSummary("#send_email_div_summary", data.errorMessage);
+                }
+                else {
+                    DisplaySuccessSummary("#send_email_div_summary", "We've sent you a verification e-mail, check your inbox for further instructions!");
+                }
+            }
+        });
+    }
+</script>

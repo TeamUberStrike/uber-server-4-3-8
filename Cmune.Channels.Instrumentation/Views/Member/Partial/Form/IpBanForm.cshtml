@@ -1,0 +1,26 @@
+﻿<div id="banIpPopupDiv">
+    <form id="banIpForm" method="post" action="">
+    <input id="ipBanIpToBan" name="ipBanIpToBan" type="hidden" />
+    <input id="ipBanTargetCmid" name="ipBanTargetCmid" type="hidden" />
+    <p style="margin: 15px 0 15px 0;">
+        You're about to <span id="unbanSpan" class="bold"></span>the following IP: <span
+            id="ipToBanSpan" class="bold"></span>
+    </p>
+    <p id="ModifyIpBanP" style="margin: 15px 0 15px 0;">
+        <input id="unbanIpCheckbox" name="unbanIpCheckbox" type="checkbox" onchange="switchIpBanMode();" />
+        <label for="unbanIpCheckbox">
+            Unban this IP</label>
+    </p>
+    <p id="banP">
+        Ban for: @Html.DropDownList("ipBanBanUntil", ViewData["ipBanBanUntil"] as SelectList, new { style = "width:183px; margin:0 0 0 2px;" })
+        days
+    </p>
+    <p>
+        Reason: @Html.TextArea("ipBanReason", new { MaxLength = "1000", Rows = "5" })
+    </p>
+    <p style="margin: 15px 0 0 0;">
+        <span>Action taker:</span> @Html.DropDownList("ipBanAdminNames", ViewData["ipBanAdminNames"] as SelectList, new { onchange = "setAdmin($('#ipBanAdminNames').val(), $('#ipBanAdminNames option:selected').text());" })
+        <input type="submit" value="Ban IP" id="ipBanButton" />
+    </p>
+    </form>
+</div>

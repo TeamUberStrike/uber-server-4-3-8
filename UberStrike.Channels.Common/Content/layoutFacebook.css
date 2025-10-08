@@ -1,0 +1,172 @@
+﻿h3
+{
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+    margin: 10px 0 10px 0;
+    text-indent: 45px;
+}
+
+.panel_default_invisible
+{
+    color:White;
+}
+
+.panel_default
+{
+    background-color: #FFFFFF;
+    border: 1px solid #4d4d4d;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.panel_header
+{
+    background:none;
+    padding:0px 12px;
+    height: 45px;
+    line-height: 48px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #a6a6a6;
+    text-align: left;
+}
+
+.panel_header #uberstrikeUserName
+{
+    color: #FEC42C;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.panel_header_clear
+{
+    padding:0px 12px;
+    height: 45px;
+    line-height: 48px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #a6a6a6;
+    text-align: left;
+}
+
+
+.panel_bar
+{
+    color: #A6A6A6;
+    text-align: center;
+    background-color: #363636;
+    padding: 10px 0px;
+}
+
+.panel_body
+{
+    
+    text-align: left;
+    padding: 10px;
+}
+
+.profileStat
+{
+    width:229px;
+}
+
+.profileStat td
+{
+    padding:2px 5px;
+}
+
+.profileStat th
+{
+    padding:2px 5px 2px 5px;
+    color:black;
+    font-weight:bold;
+    text-align:center;
+}
+
+.profileStat a
+{
+    font-weight:bold;
+    color:#6C83B5;
+}
+
+.rankingTable .grid
+{
+    background-color:#A6A6A6;
+}
+
+.rankingMenuContainer
+{
+	font-size:14px;
+}
+
+.rankingMenuSelected
+{
+	font-weight:bold;
+	color:#A6A6A6;
+}
+
+.rankingMenu
+{
+	cursor:pointer;
+	font-weight:normal;
+	color:#A6A6A6;
+}
+
+.rankingTable
+{
+    width:500px;
+    margin-top:25px;
+    margin-bottom:25px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.rankingTable td
+{
+    padding:2px 5px 2px 5px;
+    text-align:right;
+}
+
+.rankingTable th
+{
+    padding:2px 5px 2px 5px;
+    color:black;
+    font-weight:bold;
+    text-align:center;
+}
+
+.rankingTable a
+{
+    font-weight:bold;
+    color:#6C83B5;
+}
+
+.pagination
+{
+	width:280px;
+	margin-top:10px;
+	margin-bottom:10px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+}
+
+.selectedPageAnchor
+{
+    color:#000;
+    background-color:#FEC42C;
+}
+
+.pageAnchor
+{
+    padding:5px 5px 5px 5px;
+}
+
+.pagination a
+{
+    color:black;
+    text-decoration:none;
+}

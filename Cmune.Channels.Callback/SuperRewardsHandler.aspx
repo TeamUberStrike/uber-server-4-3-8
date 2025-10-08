@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SuperRewardsHandler.aspx.cs" Inherits="Cmune.Channels.Callback.SuperRewardsHandler" %>

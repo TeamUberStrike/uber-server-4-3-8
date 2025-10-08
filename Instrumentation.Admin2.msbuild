@@ -1,0 +1,23 @@
+<Project DefaultTargets="PublishSite" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+
+  <PropertyGroup>
+    <PublishPath>$(ArtifactDir)\Cmune.Channels.Instrumentation</PublishPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SiteToBuild Include="Cmune.Channels.Instrumentation\Cmune.Channels.Instrumentation.csproj" />
+  </ItemGroup>
+
+  <Target Name="PublishSite">
+    <MSBuild Projects="@(SiteToBuild)"
+             Properties="Configuration=$(Configuration);WebProjectOutputDir=..\$(PublishPath)\;OutDir=..\$(PublishPath)\bin\" />
+
+    <Copy SourceFiles="Cmune.Channels.Instrumentation\Web.config.dev;
+                        Cmune.Channels.Instrumentation\Web.config.external.qa;
+                        Cmune.Channels.Instrumentation\Web.config.prod;"
+          DestinationFolder="$(PublishPath)" />
+  </Target>
+
+</Project>

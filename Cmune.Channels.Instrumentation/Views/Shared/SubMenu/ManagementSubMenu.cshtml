@@ -1,0 +1,16 @@
+﻿<div class="Menu">
+    <a href="@Url.Action("LiveFeeds", "Management")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.LiveFeeds.ToString() ? "submenuActiveTab":"")">Live Feeds</a>
+    <a href="@Url.Action("Messaging", "Management")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.Messaging.ToString() ? "submenuActiveTab":"")">Messaging</a>
+    <a href="@Url.Action("EPins", "Management")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.EPins.ToString() ? "submenuActiveTab" : "")">E-Pins</a>
+    <a href="@Url.Action("Index", "PromotionContent")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.Promotion.ToString() ? "submenuActiveTab" : "")">Promotion Ads</a>
+    <a href="@Url.Action("Index", "MysteryBox")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.MysteryBox.ToString() ? "submenuActiveTab" : "")" >Mystery Boxs</a>
+    <a href="@Url.Action("Index", "LuckyDraw")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.LuckyDraw.ToString() ? "submenuActiveTab" : "")" >Lucky Draws</a>
+    <a href="@Url.Action("Bundles", "Management")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.Bundle.ToString() ? "submenuActiveTab" : "")">Bundles</a>
+    <a href="@Url.Action("WeeklySpecials", "Management")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.WeeklySpecials.ToString() ? "submenuActiveTab" : "")">Weekly Specials</a>
+    @if ((string)ViewData["EnvironnementLiteral"] == "prod")
+    {
+    <a href="@Url.Action("FacebookTransactions", "Management")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.FacebookTransactions.ToString() ? "submenuActiveTab" : "")">Facebook transactions</a>
+    }
+    <a href="@Url.Action("ManageXp", "Management")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.ManageXp.ToString() ? "submenuActiveTab" : "")">Manage XP and Tutorial</a>
+    <a href="@Url.Action("MapItem", "Map")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ManagementSubTabs.MapItem.ToString() ? "submenuActiveTab" : "")">Item recommendation</a>
+</div>

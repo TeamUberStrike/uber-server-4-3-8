@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div class="panel_default_invisible">
+    <div class="panel_body">
+        <h1>
+            Redeem ePin</h1>
+        <br />
+        <p>
+            Redeem Game Cards and ePin codes below to claim UberStrike Credits! Codes are usually
+            20 digits long and can contain both letters and numbers
+        </p>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="text-align: center;">
+            <form id="epinValidationForm" action="@Url.Action("ValidateEpin", "Epin")" method="post">
+            @Html.Hidden("gamePage", (string)ViewBag.GamePage)
+            @Html.Hidden("epinPage", (string)ViewBag.EpinPage)
+            @Html.Hidden("faqPage", (string)ViewBag.faqPage)
+            @Html.Hidden("ch", (ChannelType)ViewBag.ChannelType)
+            @Html.Hidden("h", Html.Raw((string)ViewBag.H))
+            @Html.Hidden("lang", (string)ViewBag.Lang))
+            <input type="text" value="Enter Code here" id="redeemTxtBox" name="pin" style="width: 200px"
+                onclick="ReedeemToggleDefaultValue()" onblur="ReedeemToggleDefaultValue()" />
+            <input type="submit" class="orangeBlack" value="Redeem" />
+            </form>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <h2>
+            Partners
+        </h2>
+        <p>
+        Buy ePin codes and Game Cards from our partners below
+        </p>
+        <br />
+        <a href="http://gamesultan.com/Oyun/uberstrike" target="_blank">@Html.ImageTag(Url, "Epin/Gamesultan.png")</a>
+        <br />
+    </div>
+</div>
+<script type="text/javascript">
+
+    var initialValue = 'Enter Code here';
+    $("#epinValidationForm").bind("submit", function () {
+        if ($("#redeemTxtBox").val() == initialValue) {
+            $("#redeemTxtBox").css("border", "1px dotted red");
+            return false;
+        }
+        return true;
+    });
+
+    function ReedeemToggleDefaultValue() {
+        $("#redeemTxtBox").css("border", "");
+        if ($("#redeemTxtBox").val() == initialValue) {
+            $("#redeemTxtBox").val('');
+        }
+        else if ($("#redeemTxtBox").val() == '') {
+            $("#redeemTxtBox").val(initialValue);
+        }
+    }
+</script>

@@ -1,0 +1,38 @@
+﻿@model List<StatsHistoryDisplay>
+
+<div>
+    @if (Model.Count > 0)
+    {
+        DateTime now = DateTime.Now;
+        int i = 0;
+    <table class="searchResultTable">
+        <tr>
+            <th></th>
+            <th>Kills</th>
+            <th>Deaths</th>
+            <th>Kdr</th>
+            <th>Accuracy</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            now = now.AddDays(-1);
+        <tr>
+            <td>@now.ToString("ddd MM/dd")</td>
+            <td>@item.Kills</td>
+            <td>@item.Deaths</td>
+            <td>@item.Kdr.ToString("F2")</td>
+            <td>@item.Precision.ToString("P2")</td>
+        </tr>
+        }
+    </table>         
+    }
+    else
+    {
+    <p>There is not yet stats history for this member.</p>
+    }
+
+    <!--
+        @ViewBag.ElapsedMilliseconds
+    -->
+
+</div>

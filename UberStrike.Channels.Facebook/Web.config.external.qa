@@ -1,0 +1,132 @@
+﻿<?xml version="1.0"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=152368
+  -->
+
+<configuration>
+
+  <configSections>
+    <section name="facebookSettings" type="Facebook.FacebookConfigurationSection" />
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog"/>
+    <section name="sendGridSettings" type="SendGridSdk.Models.SendGridConfigurationSection, SendGridSdk" />
+  </configSections>
+
+  <connectionStrings>
+  </connectionStrings>
+
+  <appSettings>
+    <add key="webpages:Version" value="1.0.0.0"/>
+    <add key="ClientValidationEnabled" value="true"/>
+    <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+    <add key="CmuneAPIKey" value="staging"/>
+    <add key="appsAPIKey" value="staging"/>
+    <add key="Environment" value="staging"/>
+    <add key="CookieDomainName" value=".cmune.com"/>
+    <add key="FacebookCookieName" value="cmuneFacebookCookie"/>
+    <add key="LocalhostIP" value="192.168.1.200"/>
+    <add key="CmunePassPhrase" value="s2a542av1a5d21"/>
+    <add key="CmuneInitVector" value="C15netodx9234d67"/>
+    <add key="IsApplifierIsEnabled" value="True"/>
+    <add key="ApplifierApplicationId" value="524" />
+    <add key="UnityWebPlayerUrl" value=""/>
+    <add key="UnityBuild" value="2"/>
+    <add key="InstrumentationWsBaseUrl" value="http://ws.instrumentation.qa.uberstrike.com/@ApiVersion/Cmune.svc/" />
+    <add key="PublishVersion" value="@PublishVersion"/>
+    <add key="UnityDefaultCulture" value="en-US"/>
+    <add key="ImagesRoot" value="{protocole}://static.cmune.com/UberStrike/CommonChannel/images/"/>
+    <add key="VideoRoot" value="{protocole}://static.cmune.com/UberStrike/CommonChannel/Content/videos/"/>
+    <!-- the game domain should be the same as CommonChannel s domain or payment won't work !!! -->
+    <add key="CommonChannel" value="{protocole}://fb.qa.uberstrike.com/CommonChannel/"/>
+    <add key="NLogSource" value="2"/>
+    <add key="NLogBuild" value="2"/>
+    <add key="CustomLogPath" value="D:\Logs\" />
+    <add key="CustomLogIsEnable" value="True" />
+    <add key="PhpBBSecretKey" value="123"/>
+    <add key="UberStrikePortal" value="http://qa.uberstrike.com/"/>
+    <add key="UberStrikePortalEpinPage" value="/Epin"/>
+    <add key="GoogleAnalyticsTrackingId" value="UA-5221837-10"/>
+    <add key="FacebookUberstrikePage" value="https://www.facebook.com/uberstrike"/>
+  </appSettings>
+
+  <sendGridSettings smtpServer="smtp.sendgrid.net"
+                    apiUser="Cmune"
+                    apiKey="cmune$1" />
+
+  <facebookSettings appId="53279306197"
+                appSecret="dc4bd948d439e2e38d7a5f614929687d"
+                canvasPage = "https://apps.facebook.com/uberstrikeexternalqa/"
+                canvasUrl ="https://fb.qa.uberstrike.com/"
+                secureCanvasUrl = "https://fb.qa.uberstrike.com/"
+                cancelUrlPath = "https://fb.qa.uberstrike.com/" />
+
+  <nlog autoReload="true" throwExceptions="true" xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <targets async="true">
+      <target name="mail" xsi:type="Mail" smtpServer="67.228.44.4" from="noreply@cmune.com" to="logger@cmune.com" subject="[NLog][${event-context:logSource}][${event-context:environment}][${event-context:logTime}]" body="&lt;b&gt;Log Type Name&lt;/b&gt;: ${event-context:logTypeName}&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Error Location&lt;/b&gt;: ${event-context:errorLocation}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Error&lt;/b&gt;: ${event-context:error}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Incoming Datas&lt;/b&gt;: ${event-context:incomingDatas}&lt;br /&gt;" html="true"/>
+      <target name="file" xsi:type="File" layout="${event-context:logTime} ${event-context:message}${newline}" fileName="${event-context:fileName}" />
+    </targets>
+    <rules>
+      <logger name="*" level="Info" writeTo="file" />
+      <logger name="*" level="Debug" writeTo="mail"/>
+      <logger name="*" level="Warn" writeTo="mail"/>
+      <logger name="*" level="Error" writeTo="mail"/>
+    </rules>
+  </nlog>
+
+  <system.web>
+    <compilation debug="true" targetFramework="4.0">
+      <assemblies>
+        <add assembly="System.Web.Abstractions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+      </assemblies>
+    </compilation>
+
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/LogOn" name="UberStrike_Facebook" timeout="2880" />
+    </authentication>
+
+    <sessionState cookieName="UberStrike_Facebook_Session" />
+
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages"/>
+      </namespaces>
+    </pages>
+    <customErrors mode="Off" defaultRedirect="~/Error/" >
+      <error statusCode="404" redirect="~/Error/NotFound"/>
+    </customErrors>
+    <httpRuntime enableVersionHeader="false" requestValidationMode="2.0"/>
+  </system.web>
+
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false"/>
+    <modules runAllManagedModulesForAllRequests="true"/>
+    <handlers>
+      <add name="facebookredirect.axd" verb="*" path="facebookredirect.axd" type="Facebook.Web.FacebookAppRedirectHttpHandler, Facebook.Web" />
+    </handlers>
+    <httpProtocol>
+      <customHeaders>
+        <add name="P3P" value="CP=&quot;ALL ADM DEV PSAi COM OUR OTRo STP IND ONL&quot;" />
+        <remove name="X-Powered-By" />
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-2.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+
+</configuration>

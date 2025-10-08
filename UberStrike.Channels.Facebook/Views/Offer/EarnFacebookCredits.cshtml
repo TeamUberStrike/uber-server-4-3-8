@@ -1,0 +1,59 @@
+﻿@model FacebookUserModel
+<div class="main_page_content earnCreditsPage">
+    <div  style="text-align: left">
+        <a href="" class="darkGray" onclick="LoadHomePage(); return false;">Go back to Game</a>
+    </div>
+    <br />
+    <div class="panel_default">
+        <div class="panel_body">
+            <div class="left">
+                @Html.ImageTag(Url, "facebookCredits.png", "FB Credit", "FB Credit")
+            </div>
+            <p style="margin-left: 65px; margin-top: 10px;">
+                @Html.BoldText("Earn Free Credit")<br />
+                Complete offers & tasks to earn Free Credits
+            </p>
+            <div class="clear">
+            </div>
+            <br />
+            <div>
+                @Html.ImageTag(Url, "FacebookChannel/EarnSteps.png")
+            </div>
+            <div>
+                <br />
+                <p class="left offerPromoMsg">
+                    @Html.BoldText("1. Complete Offers & Promotions")<br />
+                    Choose the methods below to complete offers and promotions and receive Facebook
+                    Credits.
+                </p>
+                <p class="right usCreditMsg">
+                    @Html.BoldText("2. Redeem Facebook Credits")<br />
+                    Use your earnt credits against <a href="" onclick="LoadGetCreditsPage(); return false;">
+                        UberStrike Credits</a> or sale items in <a href="" onclick="LoadBundlePage(); return false;">
+                            Hot Deals</a>.
+                </p>
+                <div class="clear">
+                </div>
+                <br />
+            </div>
+            <div class="earnCreditPageArrowContainer">
+                <div style="position: relative">
+                    <div class="earnCreditPagebundArrow">
+                    </div>
+                </div>
+                <div class="earnCreditPageOffersPromo">
+                    <a id="purchaseButton" class="left Continue" style="font-size: 22px" onclick="EarnCredits()">Offers</a>
+                    <div class="left" style="margin:10px">
+                        @Html.BoldText("Or")</div>
+                    <div class="left" style="z-index: 10; margin-top:-10px;">
+                        <div style="width: 100px; height: 100px; right: 0px;">
+                                <embed src="@Url.DealSpotIframeUrl((long) ViewBag.FacebookApplicationId, Model.FacebookThirdPartyId)" width="100" height="100" trustContent="true" allowScriptAccess="always" width="500" height="500" type="application/x-shockwave-flash" wmode="transparent"></embed>
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

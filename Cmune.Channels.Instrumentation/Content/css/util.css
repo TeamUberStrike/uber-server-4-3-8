@@ -1,0 +1,45 @@
+﻿.left
+{
+    float: left;
+}
+
+.right
+{
+    float: right;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.warningMessage
+{
+    color: #FF9000 !important;
+    font-weight:bold;
+}
+.errorMessage
+{
+    color: red !important;
+    font-weight: bold;
+}
+.successMessage
+{
+    color: Green !important;
+    font-weight:bold;
+}
+
+.hide
+{
+    display: none;
+}
+
+.it
+{
+	font-style: italic;
+}
+
+.grey
+{
+    color:grey;
+}

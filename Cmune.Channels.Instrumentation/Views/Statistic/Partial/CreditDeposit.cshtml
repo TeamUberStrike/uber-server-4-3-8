@@ -1,0 +1,49 @@
+﻿@model CurrencyDepositView
+<div style="margin: 25px 0 0 100px;">
+    @if (Model != null)
+    {
+        <table class="paymentTable">
+            <tr>
+                <td style="text-align: center; font-weight: bold;">
+                    Deposit date
+                </td>
+                <td style="text-align: center; font-weight: bold;">
+                    Cmid
+                </td>
+                <td style="text-align: center; font-weight: bold;">
+                    US$
+                </td>
+                <td style="text-align: center; font-weight: bold;">
+                    Channel
+                </td>
+                <td style="text-align: center; font-weight: bold;">
+                    Is admin action
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Model.DepositDate.ToNiceDisplay()
+                </td>
+                <td>
+                    <a href='@Url.Action("See", "Member")?cmid=@Model.Cmid' target="_blank">
+                        @Model.Cmid
+                    </a>
+                </td>
+                <td>
+                    @Model.UsdAmount.ToString("C2")
+                </td>
+                <td>
+                    @(((ChannelType)Model.ChannelId).ToString())
+                </td>
+                <td>
+                    @Model.IsAdminAction
+                </td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <p>
+            There is no transaction matching</p>
+    }
+</div>

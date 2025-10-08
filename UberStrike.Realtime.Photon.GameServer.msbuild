@@ -1,0 +1,23 @@
+<Project DefaultTargets="PublishSite" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+
+  <PropertyGroup>
+    <PublishPath>$(ArtifactDir)\UberStrike.Realtime.GameServer</PublishPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SocketServerConfig Include="UberStrike.Realtime.Photon.GameServer\Deploy\bin_Win64\PhotonServer.config.deploy" />
+    <ApplicationConfig Include="UberStrike.Realtime.Photon.GameServer\App.config.deploy" />
+    <PhotonBinaries Include="UberStrike.Realtime.Photon.GameServer\Deploy\bin_Win64\*.*" />
+    <ProjectToBuild Include="UberStrike.Realtime.Photon.GameServer\UberStrike.Realtime.GameServer.csproj" />
+  </ItemGroup>
+
+  <Target Name="PublishSite">
+    <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=$(Configuration);OutDir=..\$(PublishPath)\Application\bin\" />
+    <Copy SourceFiles="@(PhotonBinaries)" DestinationFolder="$(PublishPath)\bin_Win64\" />
+    <Copy SourceFiles="@(SocketServerConfig)" DestinationFiles="$(PublishPath)\bin_Win64\PhotonServer.config" />
+    <Copy SourceFiles="@(ApplicationConfig)" DestinationFiles="$(PublishPath)\Application\bin\UberStrike.Realtime.Photon.GameServer.dll.config" />
+  </Target>
+
+</Project>

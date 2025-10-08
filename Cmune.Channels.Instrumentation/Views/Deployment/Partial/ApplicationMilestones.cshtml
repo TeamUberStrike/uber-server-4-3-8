@@ -1,0 +1,45 @@
+﻿@model List<ApplicationMilestoneView>
+@if (Model != null && Model.Count > 0)
+{
+    int i = 0;
+
+    <table class="currentInventory searchResultTable" style="width: 600px; margin: auto;">
+        <tr>
+            <th>
+                Release date
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (var milestone in Model)
+        {
+            <tr class="@(i % 2 == 1 ? "mod" : "")">
+                <td>
+                    <span id="milestoneDate@(milestone.MilestoneId)">@milestone.MilestoneDate.ToNiceDisplay(false)</span>
+                </td>
+                <td>
+                    <span id="milestoneDescription@(milestone.MilestoneId)">@milestone.Description</span>
+                </td>
+                <td>
+                    <a id="displayEditMilestone@(milestone.MilestoneId)Link" href="#" onclick="displayEditMilestone(@milestone.MilestoneId, '@TextUtilities.ConvertTextForJavaScript(milestone.MilestoneDate.ToString("yyyy-MM-dd HH:mm:ss"))', '@TextUtilities.ConvertTextForJavaScript(milestone.Description)');" class="editLink">
+                    </a>
+                </td>
+                <td>
+                    <a id="deleteMilestone@(milestone.MilestoneId)Link" href="#" onclick="deleteMilestone(@milestone.MilestoneId);" class="deleteLink">
+                    </a>
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+}
+else
+{
+    <p style="margin: 25px 0 25px 0;">
+        This application doesn't have any milestone.</p>
+}

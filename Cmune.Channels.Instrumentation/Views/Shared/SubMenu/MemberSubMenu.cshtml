@@ -1,0 +1,9 @@
+﻿@{ViewBag.SubActiveTab = ViewBag.SubActiveTab == null ? "" : ViewBag.SubActiveTab;}
+
+<div id="statsMenu" class="Menu">
+    <a href="@Url.Action("Index", "Member")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.MemberSubTabs.Search.ToString() ? "submenuActiveTab":"")">Search members</a>
+    <a href="@Url.Action("ManageMemberAccess", "Member")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.MemberSubTabs.ManageMemberAccess.ToString() ? "submenuActiveTab":"")">Manage members access</a>
+    <a href="@Url.Action("DoCustomActions", "Member")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.MemberSubTabs.DoCustomActions.ToString() ? "submenuActiveTab":"")">Custom actions</a>
+    <a href="@Url.Action("CustomQueries", "Member")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.MemberSubTabs.CustomQueries.ToString() ? "submenuActiveTab":"")">Custom queries</a>
+    <a href="@Url.Action("SeeBannedIps", "Member")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.MemberSubTabs.BannedIps.ToString() ? "submenuActiveTab":"")">Banned Ips</a>
+</div>

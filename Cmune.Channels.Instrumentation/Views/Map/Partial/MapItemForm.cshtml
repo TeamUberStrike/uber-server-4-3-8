@@ -1,0 +1,6 @@
+﻿<form method="post" action="">
+Recommend Item for the map : @Model.DisplayName
+<br />
+    @Html.DropDownList("RecommendedItemList", Html.GetSelectListItemView((List<int>)ViewBag.RecommendableItems, (ItemCache)ViewBag.ItemCache, (string)Model.RecommendedItemId.ToString()))
+    <input type="button" value="Save" onclick="SaveMapItem('@Url.Action("SaveMapItem", "Map")', '@Url.Action("GetMapItems", "Map")', '@ViewBag.ApplicationVersion', '@Model.MapId', $('#RecommendedItemList').val())" />
+</form>

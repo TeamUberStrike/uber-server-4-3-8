@@ -1,0 +1,26 @@
+﻿@model List<AccountPreviousNameDisplay>
+
+@if (Model.Count > 0)
+{
+    int i = 0;
+    <table class="searchResultTable">
+        <tr>
+            <th>Linked to account</th>
+            <th>Until</th>
+            <th>Modified from</th>
+        </tr>
+        @foreach (var account in Model)
+        {
+        <tr class="@(i % 2 == 1 ? "mod" : "")">
+            <td><a href="@Url.Action("See", "Member")?cmid=@account.Cmid" target="_blank">@account.AccountName</a></td>
+            <td>@account.ChangeDate.ToString("MM/dd/yy HH:mm:ss")</td>
+            <td>@account.Ip</td>
+        </tr>
+            i++;
+        }
+    </table>
+}
+else
+{
+    <p>Either this user name is still linked to an account or it was never user before.</p>
+}

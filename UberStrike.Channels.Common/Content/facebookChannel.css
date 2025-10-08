@@ -1,0 +1,711 @@
+﻿/* OVERRIDES
+----------------------------------------------------------*/
+input
+{
+    font-size: 12px;
+    font-weight: normal;
+    background: #FFFFFF;
+    color: #666666;
+    border: 2px solid #323232;
+    padding: 4px;
+}
+
+body
+{
+    font-size: 14px;
+    font-family: "Segoe UI" , "Arial" , "Helvetica" , "Verdana" , "sans-serif" , "Helvetica Neue" , "Lucida Grande";
+    margin: 0px;
+    padding: 0px;
+}
+
+a
+{
+    text-decoration: none;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+
+h2
+{
+    color: #a6a6a6;
+    font-size: 15px;
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+h3
+{
+    color: #DEA409;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+    margin: 10px 0 10px 0;
+    text-indent: 45px;
+}
+
+h4
+{
+    color: #DEA409;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: left;
+    margin: 10px 0 10px 0;
+    text-indent: 65px;
+}
+
+
+/* PAGE */
+
+#page_header #openGamePage
+{
+    color: Gray;
+    padding: 4px;
+    text-decoration: none;
+    display: block;
+    width: 150px;
+}
+
+#page_header #toploader
+{
+    display: none;
+    margin-top: 9px;
+    margin-right: 5px;
+}
+
+#page_header #fullscreen
+{
+    color: Gray;
+}
+
+#game_body
+{
+    background-color: #171717;
+}
+
+/* CMUNE HEADER
+----------------------------------------------------------*/
+#game_header
+{
+    /*line-height:19px;     background: url("/CommonChannel/Content/images/cmuneHeader_Background_reverse.jpg") repeat-x;*/
+}
+
+#game_header .logo
+{
+    float: left;
+    display: block;
+    background: url("/CommonChannel/Content/images/cmuneHeader_UberStrikeLogo3.png") no-repeat black;
+    margin: 0px 12px 0px 12px;
+    padding: 0px;
+    width: 126px;
+    height: 36px;
+}
+
+#page_main
+{
+}
+
+#page_main .uberstrikeBanner
+{
+ 
+    height: 88px;
+    width: 100%;
+    margin: auto;
+    overflow:hidden;
+}
+
+#game_header .tabarea
+{
+    float: left;
+    padding: 0;
+    height: 37px;
+}
+
+#game_header .tabarea .tab
+{
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 37px;
+    line-height: 37px;
+    padding: 0px 12px 0px 12px;
+    border-left: 1px solid #6A6A6A;
+    border-right: 1px solid #6A6A6A;
+    margin: 0px 1px;
+}
+
+
+#game_header .tabarea .tab:focus
+{
+    background-color: #353535;
+}
+
+#game_header .tabarea .selectedTab
+{
+    background-color: #ffc41b !important;
+    color: Black;
+}
+
+#game_header .cmune_header_tab_link_offers
+{
+    color: #FFC41B;
+}
+
+#game_header .cmune_header_tab_link_offers img
+{
+    vertical-align: middle;
+    position: relative;
+    bottom: 2px;
+}
+
+#game_header .servertime
+{
+    background-image: url("/CommonChannel/Content/images/cmuneHeader_ServerTimeNew.jpg");
+    background-repeat: no-repeat;
+    margin: 8px 8px 0 0;
+    width: 164px;
+    height: 22px;
+    line-height: 21px;
+    position: absolute;
+    right: 0px;
+}
+
+#game_header .servertime .label
+{
+    float: left;
+    font-weight: bold;
+    text-indent: 20px;
+    font-size: 12px;
+    color: #C5C5C5;
+}
+
+
+#game_header .servertime .text
+{
+    float: right;
+    margin: 0px 6px 0 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: #172139;
+    text-align: right;
+    width: 55px;
+}
+
+#game_container
+{
+}
+
+.homeLink
+{
+    display: block;
+    float: left;
+}
+
+/* MAIN PAGE
+---------------------------------------------------------- */
+
+#page
+{
+}
+
+#page_main
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+.main_page_navbar
+{
+    padding: 0px;
+    background-image: url('/CommonChannel/Content/images/mainPage_AppNavBar.jpg');
+    background-repeat: repeat-x;
+    border-top: 2px solid #262626;
+    border-bottom: 2px solid #262626;
+    width: 760px;
+    height: 43px;
+    margin: 0px 0px 0px 0px;
+}
+
+.main_page_navbar_tab
+{
+    padding: 0px 12px 0px 12px;
+    height: 18px;
+    margin: 14px 0 0 0;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    float: left;
+}
+
+.main_page_app_navbar_leftshadow
+{
+    margin: -2px 0 0 0;
+    padding: 0px;
+    width: 8px;
+    height: 47px;
+    float: left;
+    background-image: url('/CommonChannel/Content/images/mainPage_AppNavBar_LeftShadow.jpg');
+    background-repeat: no-repeat;
+}
+
+.main_page_app_navbar_rightshadow
+{
+    margin: -2px 0 0 0;
+    padding: 0px;
+    width: 8px;
+    height: 47px;
+    float: right;
+    background-image: url('/CommonChannel/Content/images/mainPage_AppNavBar_RightShadow.jpg');
+    background-repeat: no-repeat;
+}
+
+.main_page_content
+{
+    width: 728px;
+    padding: 16px;
+}
+
+/* SOCIAL CAROUSEL
+---------------------------------------------------------- */
+
+#SocialCarouselContainer
+{
+    background-color: #171717;
+}
+
+.social_carousel
+{
+    /*background-image: url("/CommonChannel/Content/images/socialCarousel_Background.jpg");*/
+    background-repeat: repeat-x;
+    height: 114px;
+    color: white;
+    overflow: hidden;
+    width: 762px;
+    margin: auto;
+}
+
+.social_carousel_tab
+{
+    text-align: center;
+    float: left;
+    background-color: #171717;
+    border-top: 1px solid #323232;
+    border-left: 1px solid #323232;
+    border-bottom: 1px solid #323232;
+    border-right: 1px solid black;
+    width: 93px;
+    height: 110px;
+    margin: 1px 0px 1px 0px;
+    overflow: hidden;
+}
+
+.social_carousel_tab .darkGray
+{
+    margin-top: 8px;
+}
+
+.social_carousel_tab .facebookName
+{
+    line-height: 11px;
+    font-size: 11px;
+    color: #FFC41B;
+    text-align: left;
+    overflow: hidden;
+    width: 60px;
+    font-weight: bold;
+}
+.social_carousel_tab .stat img
+{
+    float: left;
+    margin-right: 2px;
+}
+.social_carousel_tab .stat
+{
+    line-height: 20px;
+    text-align: left;
+    font-size: 11px;
+}
+.social_carousel_tab .friendStat
+{
+    font-size: 11px;
+}
+
+.tab_first
+{
+    /*    border-left:1px solid black;*/
+}
+
+.tab_last
+{
+    /*     border-right: 1px solid #323232;*/
+}
+
+.inviteButton
+{
+    display: block;
+    line-height: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.inviteButton:hover
+{
+    background-color: #FFC41B;
+    color: black;
+}
+
+
+/* MAIN PAGE FOOTER
+---------------------------------------------------------- */
+
+#game_footer
+{
+    background-image: url('/CommonChannel/Content/images/cmuneFooterPanel.png');
+    background-repeat: repeat-x;
+    height: 37px;
+    border-top: 1px solid #323232;
+    color: #C5C5C5;
+}
+
+.game_footer_tab
+{
+    padding: 0px 12px 0px 12px;
+    margin: 11px 0 0 0;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.game_footer_tab_inactive
+{
+    padding: 0px 12px 0px 12px;
+    margin: 11px 0 0 0;
+    font-size: 11px;
+    text-align: center;
+}
+
+#game_footer #copyrightLink:hover
+{
+    color: #A0D125;
+}
+
+/* */
+
+div#unityPlayer
+{
+    margin: 0px;
+    padding: 0px;
+    cursor: default;
+    width: 760px;
+    height: 560px;
+    margin: auto;
+}
+
+#GamePageContainer
+{
+    overflow: hidden;
+    float: left;
+}
+
+#InviteFriendsPageContainer, #GetCreditsPageContainer, #ProfilePageContainer, #BundlePageContainer, #OfferPageContainer, #RankingPageContainer
+{
+    width: 760px;
+    margin: auto;
+    min-height: 560px;
+    display: none;
+}
+
+/* PROFILE */
+
+.profileContent
+{
+    /*border: 1px solid #4D4D4D;     background-color: #414141;*/
+    background-color: White;
+    padding: 14px;
+    min-height: 378px;
+    color: Black;
+}
+
+.profileContent a
+{
+    color: Black;
+}
+
+.profileStatsTab
+{
+}
+
+.profileStatsTab td
+{
+    padding: 2px 5px 2px 5px;
+}
+
+.profileStatsTabContainer p
+{
+    font-weight: bold;
+    color: #DEA409;
+}
+
+
+/* INSTALL FLOW
+----------------------------------------------------------*/
+
+
+
+.install_step1_lower
+{
+    clear: left;
+    text-align: center;
+}
+
+.installPluginMonitor
+{
+    background: url("/CommonChannel/Content/images/cmune-monitor.png") no-repeat;
+    width: 344px;
+    height: 250px;
+    padding-top: 13px;
+    display: inline-block;
+}
+
+/* GENERICS
+----------------------------------------------------------*/
+
+.unity_logo
+{
+    vertical-align: middle;
+}
+
+strong
+{
+    font-weight: bold;
+}
+
+.standard_button
+{
+    display: inline-block;
+    height: 21px;
+    line-height: 18px;
+    padding: 0px 8px;
+    background: #303030;
+    color: #FFFFFF;
+    border: 1px solid #6A6A6A;
+    font-weight: bold;
+    cursor: pointer;
+    background: url("/CommonChannel/Content/images/cmuneHeader_Background_reverse.jpg");
+}
+
+.standard_button:active
+{
+    background-color: #555555;
+    background-image: none;
+    color: #cccccc !important;
+}
+
+.standard_button:hover
+{
+    color: white;
+}
+
+
+.standard_checkbox
+{
+    padding: 6px;
+    background: #303030;
+    color: #a5a5a5;
+    border: 1px solid #737373;
+    margin: 4px;
+}
+.standard_checkbox A:link
+{
+    color: #a5a5a5;
+    text-decoration: none;
+}
+
+.standard_checkbox A:hover
+{
+    color: #afafaf;
+    text-decoration: underline;
+}
+
+.button
+{
+    background: #303030;
+    color: #a5a5a5;
+    border: 2px solid #737373;
+    margin: 4px;
+}
+
+.lightError
+{
+    color: #FF0000;
+}
+
+.superRewardsOffers
+{
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 728px;
+}
+
+/** **/
+
+.rankPro
+{
+    background: url("/CommonChannel/Content/images/rank_pro.png") no-repeat;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    float: left;
+    margin-right: 2px;
+}
+
+.rankIntermediate
+{
+    background: url("/CommonChannel/Content/images/rank_intermediate.png") no-repeat;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    float: left;
+    margin-right: 2px;
+}
+
+.rankNoob
+{
+    background: url("/CommonChannel/Content/images/rank_noob.png") no-repeat;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    float: left;
+    margin-right: 2px;
+}
+
+/* menu button */
+
+.flame
+{
+    float: left;
+    width: 13px;
+    height: 13px;
+    background: url("/CommonChannel/Content/images/animated-flame.gif") no-repeat;
+    margin-right: 5px;
+}
+
+
+/** Bundle page **/
+
+#bundlePage .panel_default
+{
+    text-align: left;
+}
+
+/** Earn Credit Page */
+.earnCreditsPage .offerPromoMsg
+{
+    width: 300px;
+}
+
+.earnCreditsPage .usCreditMsg
+{
+    width: 290px;
+}
+
+.earnCreditsPage .usCreditMsg a
+{
+    color: #6C83B5;
+}
+
+
+.earnCreditsPage .panel_body
+{
+    padding: 20px !important;
+}
+
+.earnCreditPageArrowContainer .earnCreditPageOffersPromo
+{
+    font-size: 22px;
+    position: relative;
+    left: 440px;
+    top: 100px;
+}
+
+.earnCreditPageArrowContainer
+{
+    height: 200px;
+}
+
+.earnCreditPagebundArrow
+{
+    background: url("/CommonChannel/Content/images/BundleTransaction/arrow.png") no-repeat scroll 0 0 transparent;
+    height: 110px;
+    left: 216px;
+    position: absolute;
+    top: 45px;
+    width: 215px;
+}
+
+/* other */
+#confirmationFading
+{
+    margin: auto;
+    width: 300px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background-color: #627AAD;
+    display: none;
+    color: white;
+    font-family: Segoe UI, Arial;
+    font-size: 24px;
+    position: relative;
+    top: 100px;
+    border-radius: 8px;
+}
+
+
+.panel_default
+{
+    background-color: #FFFFFF;
+    border: 1px solid #4d4d4d;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.panel_body
+{
+    text-align: left;
+    padding: 10px;
+}
+
+/**/
+
+#EmailDuplicationPage #screen
+{
+    background: url("/CommonChannel/Content/images/FacebookChannel/FbBackground.jpg") no-repeat scroll 0 0 transparent;
+    width: 768px;
+    height: 600px;
+    margin: auto;
+    margin-top: 55px;
+}
+
+#EmailDuplicationPage #logo
+{
+    background: url("/CommonChannel/Content/images/FacebookChannel/CmuneLogo.jpg") no-repeat scroll 0 0 transparent;
+    width: 83px;
+    height: 63px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#EmailDuplicationPage #screen #content
+{
+    color: white;
+    font-weight: bold;
+    left: 50px;
+    position: relative;
+    top: 240px;
+    width: 660px;
+}

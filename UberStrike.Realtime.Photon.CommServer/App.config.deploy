@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<configuration>
+  <configSections>
+    <section name="sendGridSettings" type="SendGridSdk.Models.SendGridConfigurationSection, SendGridSdk" />
+  </configSections>
+  <appSettings>
+    <!-- Application Configuration -->
+    <add key="ApplicationVersion" value="&ApplicationVersion"/>
+    <add key="BuildType" value="&BuildType"/>
+    <add key="DebugLevel" value="&DebugLevel"/>
+    <add key="WebserviceBaseUrl" value="&WebserviceBaseUrl"/>
+    <add key="InstrumentationBaseUrl" value="&InstrumentationWebserviceBaseUrl"/>
+
+    <!-- Encryption Configuration -->
+    <add key="CmunePassPhrase" value="s2a542av1a5d21" />
+    <add key="CmuneInitVector" value="C15netodx9234d67" />
+
+    <!-- Mail Server Configuration -->
+    <add key="SmtpIP" value="67.228.44.4"/>
+    <add key="SmtpUser" value="cmuneMailer"/>
+    <add key="SmtpPassword" value="cmune$1"/>
+    <add key="NotificationReciever" value="photon@cmune.com"/>
+    <add key="SendNotifications" value="false"/>
+
+  </appSettings>
+  
+  <sendGridSettings smtpServer="smtp.sendgrid.net"
+                apiUser="Cmune"
+                apiKey="cmune$1" />
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
+  </startup>
+</configuration>

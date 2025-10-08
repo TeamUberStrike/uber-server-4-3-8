@@ -1,0 +1,1 @@
+<%@ ServiceHost Service="UberStrike.DataCenter.WebService.CWS.ShopWebServiceContract" %>

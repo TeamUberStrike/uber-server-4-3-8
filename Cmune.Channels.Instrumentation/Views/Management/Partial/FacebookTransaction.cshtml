@@ -1,0 +1,36 @@
+﻿@model FacebookTransactionDisplay
+
+@if (Model != null) {
+<table class="searchResultTable" style="width:500px; text-align:left;">
+    <tr>
+        <td>Order Id:</td>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <td>From Facebook Id:</td>
+        <td>@Model.From</td>
+    </tr>
+    <tr>
+        <td>Amount:</td>
+        <td>@((Model.Amount / 10).ToString("C2"))</td>
+    </tr>
+    <tr>
+        <td>Status:</td>
+        <td>@Model.Status</td>
+    </tr>
+    <tr>
+        <td>Country:</td>
+        <td>@Model.Country</td>
+    </tr>
+    <tr>
+        <td>Created time:</td>
+        <td>@Model.CreatedTime</td>
+    </tr>
+    <tr>
+        <td>Updated time:</td>
+        <td>@Model.UpdatedTime</td>
+    </tr>
+</table>
+} else {
+@:No transaction matching with this Id
+}

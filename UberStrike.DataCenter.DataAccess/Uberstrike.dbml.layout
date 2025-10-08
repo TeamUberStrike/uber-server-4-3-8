@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 21, 24.625" name="Uberstrike">
+  <DataContextMoniker Name="/UberstrikeDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f4eb1c7b-8aa6-4391-a185-09c595656907" absoluteBounds="9.75, 11.75, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/UberstrikeDataContext/AllTimeTotalRanking" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e098be3e-f44d-4640-bf45-60b42316c7a4" absoluteBounds="9.765, 12.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="abe353d8-7faf-4add-8d3f-4512ded0c98c" absoluteBounds="12.75, 0.75, 2, 4.8477197265624987">
+      <DataClassMoniker Name="/UberstrikeDataContext/WeeklyTotalRanking" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8cef0e5a-4e91-4ee9-957d-cab7e41ad0af" absoluteBounds="12.765, 1.21, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="adacc433-47df-4165-bf02-997e69c28ed8" absoluteBounds="9.5, 4, 2, 2.347801106770834">
+      <DataClassMoniker Name="/UberstrikeDataContext/ApplicationVersion" />
+      <nestedChildShapes>
+        <elementListCompartment Id="24e6cc54-c6ca-47d8-ad26-4b0b407ae76a" absoluteBounds="9.515, 4.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8c863028-d7c2-4184-ae1b-12018394f0dd" absoluteBounds="3.75, 12.75, 2, 1.9631982421874987">
+      <DataClassMoniker Name="/UberstrikeDataContext/ClientDownloadStat" />
+      <nestedChildShapes>
+        <elementListCompartment Id="41e6b9d6-9dd2-4c6c-9570-6c12950e32fa" absoluteBounds="3.765, 13.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bf150423-f597-4cb3-abd7-08620f4156e8" absoluteBounds="3.75, 6.125, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/UberstrikeDataContext/Cyworld" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c9bb09a0-9fa0-4084-a72d-e82f1215e9e2" absoluteBounds="3.765, 6.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d722dcee-72f4-4888-a03e-36b8856e7394" absoluteBounds="12.75, 6.75, 2, 1.7708968098958335">
+      <DataClassMoniker Name="/UberstrikeDataContext/CyworldReferrer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="88c4b60c-5616-43b1-9969-89e06910d491" absoluteBounds="12.765, 7.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3a6fc2bf-07af-45b8-83fa-76ee51d99926" absoluteBounds="12.75, 9.75, 2, 4.6554182942708309">
+      <DataClassMoniker Name="/UberstrikeDataContext/DailyRanking" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5a5277b6-a568-4e55-ab92-efadb1644a0f" absoluteBounds="12.765, 10.21, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0e7151a9-1672-44da-97b9-66d2a94e01f1" absoluteBounds="15.75, 0.75, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/UberstrikeDataContext/FacebookReferrer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b429df32-b939-4041-9b14-9a54aa39d9f3" absoluteBounds="15.765, 1.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="02cdcc97-8eae-44ff-8918-b5f154d9c7a7" absoluteBounds="0.75, 15.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/UberstrikeDataContext/ItemFunctionalConfig" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a5e428c8-8a62-4a70-8721-09768b28f42b" absoluteBounds="0.765, 16.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a103652f-eb32-4dda-8fe1-35a1e7fc866b" absoluteBounds="3.75, 15.75, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/UberstrikeDataContext/ItemGearConfig" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0be9c8b0-cd98-4e89-b829-b045fb5a13e3" absoluteBounds="3.765, 16.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2dfbe838-05d0-4886-b68c-193e7a6b252e" absoluteBounds="15.75, 7.75, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/UberstrikeDataContext/ItemsAttributedOnTutorial" />
+      <nestedChildShapes>
+        <elementListCompartment Id="15f447c6-a398-4a4f-9bd5-3ec3890a4c40" absoluteBounds="15.765, 8.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="74052ad2-9f2b-48e9-9bb1-8fa646195431" absoluteBounds="15.75, 10.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/UberstrikeDataContext/ItemSpecialConfig" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d6ed3aba-8127-4fc3-8552-2a04737e7219" absoluteBounds="15.765, 11.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6f588cee-6603-475f-a593-ad456e2c06ef" absoluteBounds="12.75, 15.75, 2, 4.0785139973958309">
+      <DataClassMoniker Name="/UberstrikeDataContext/ItemWeaponConfig" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d3e97c3f-76dc-40fd-ae7d-318e67c7080f" absoluteBounds="12.765, 16.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f512b350-c592-4c02-834f-ca26e0f53cae" absoluteBounds="15.75, 13.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/UberstrikeDataContext/ItemWeaponModConfig" />
+      <nestedChildShapes>
+        <elementListCompartment Id="541e57f1-e562-43c4-95cc-97d22365ef37" absoluteBounds="15.765, 14.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c6be4c0d-3116-4bab-a4e0-70ecfa808547" absoluteBounds="6.75, 16.75, 2, 1.7708968098958309">
+      <DataClassMoniker Name="/UberstrikeDataContext/LiveFeed" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5d7dbe4d-5fe1-420b-9574-584da577bcd4" absoluteBounds="6.765, 17.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bb8e7903-c1c3-4b73-ae3a-dac2c9513ca3" absoluteBounds="15.75, 16.75, 2, 6.7707340494791666">
+      <DataClassMoniker Name="/UberstrikeDataContext/Loadout" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4ab8dbf6-48a9-4143-a1b1-4349b1c0a4cb" absoluteBounds="15.765, 17.21, 1.9700000000000002, 6.2107340494791661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="317d2cf1-4860-46ef-9eb2-dd73c1b41a0d" absoluteBounds="0.75, 18.75, 2, 2.3478011067708309">
+      <DataClassMoniker Name="/UberstrikeDataContext/MapUsage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d1e0f4d3-f0a7-4857-817b-bf3d7a5d1b42" absoluteBounds="0.765, 19.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="022e0d43-ccb6-4609-a11d-4420a0d0ab4f" absoluteBounds="3.5, 8.125, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/UberstrikeDataContext/MySpace" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7d745439-8f4c-48d4-ad13-d8ec35cad726" absoluteBounds="3.515, 8.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e0e8f72e-2849-4db9-a9da-c147f1e8ee24" absoluteBounds="18.75, 7.75, 2, 1.7708968098958335">
+      <DataClassMoniker Name="/UberstrikeDataContext/MySpaceReferrer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1f296740-dadc-4da6-a42a-1b60d53d8a89" absoluteBounds="18.765, 8.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8a427534-3196-4cd0-9f90-90a4075869db" absoluteBounds="9.5, 1.125, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/UberstrikeDataContext/PhotonServer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="379096eb-9101-46ab-bd99-358241d88599" absoluteBounds="9.515, 1.585, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4e3d0939-53d7-4ee4-b2ed-25dea916647e" absoluteBounds="6.75, 2.875, 2, 1.7708968098958335">
+      <DataClassMoniker Name="/UberstrikeDataContext/PhotonsGroup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cd743f5c-45d6-4b7b-9fa9-22f860b59d1e" absoluteBounds="6.765, 3.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9e9c1a8b-10e5-4b44-b15d-c3df0c21f946" absoluteBounds="18.75, 10.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/UberstrikeDataContext/PlayerLevelCap" />
+      <nestedChildShapes>
+        <elementListCompartment Id="04c3b73a-be4f-4451-82e1-1c853f5ff52c" absoluteBounds="18.765, 11.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="583567d9-25e4-44d8-bf8a-b4347e613e9b" absoluteBounds="18.75, 13.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/UberstrikeDataContext/PlayerXPEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="123eeb80-f2b1-4092-aa55-608c55f66ac7" absoluteBounds="18.765, 14.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="49c69886-7c92-49b6-bd19-8b8de7d7438a" absoluteBounds="18.75, 16.75, 2, 1.7708968098958309">
+      <DataClassMoniker Name="/UberstrikeDataContext/PortalReferrer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9e80f329-9fa5-4f80-b01e-12f2968260b9" absoluteBounds="18.765, 17.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="eba2b26b-4832-4beb-8e83-46deb0a6facd" absoluteBounds="3.75, 19.75, 2, 1.7708968098958309">
+      <DataClassMoniker Name="/UberstrikeDataContext/PromotionContent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f9a19eae-33e3-4e6d-8909-4fe17fccb920" absoluteBounds="3.765, 20.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a78fbe62-fbff-4f15-bd07-ac11380aeb0b" absoluteBounds="6.75, 19.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/UberstrikeDataContext/PromotionContentElement" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f4336161-e523-473b-a609-18752d7fc0e8" absoluteBounds="6.765, 20.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="aa9fc281-e392-46b9-9fba-ff4d34bee5ce" absoluteBounds="18.75, 19.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/UberstrikeDataContext/ReferrerSource" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1100217f-9635-4c35-b1d1-a8f435ae2ced" absoluteBounds="18.765, 20.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d26342c4-f895-4791-a1ac-c65c49b0dee5" absoluteBounds="3.75, 0.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/UberstrikeDataContext/TmpRanking" />
+      <nestedChildShapes>
+        <elementListCompartment Id="35c031af-1e19-4268-9c3b-fc3efc3ce6ac" absoluteBounds="3.765, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e60ad470-065a-4e52-ab24-d9257fe83978" absoluteBounds="9.75, 20.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/UberstrikeDataContext/TutorialStep" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0c6567cc-a241-4f7b-a6ac-f8a8f05506d4" absoluteBounds="9.765, 21.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b632ff9e-7308-4742-b844-f667538f3785" absoluteBounds="6.75, 8, 2, 3.1170068359375014">
+      <DataClassMoniker Name="/UberstrikeDataContext/UserInstall" />
+      <nestedChildShapes>
+        <elementListCompartment Id="71a40725-afa1-4394-bd9e-c95aaedcd09e" absoluteBounds="6.765, 8.46, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d1ed9404-299d-49f6-99f0-940f3dee6959" absoluteBounds="9.5, 8.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/UberstrikeDataContext/UserInstallStep" />
+      <nestedChildShapes>
+        <elementListCompartment Id="98fa00b7-6ce8-48c6-abec-e6f22ac37efa" absoluteBounds="9.515, 9.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c0880ce7-a002-499d-ab8a-bfe546d8dd28" absoluteBounds="0.75, 1.5, 2, 12.539777018229165">
+      <DataClassMoniker Name="/UberstrikeDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="04ef5c93-5b12-4fcf-b94b-e2613b345782" absoluteBounds="0.765, 1.96, 1.9700000000000002, 11.979777018229166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.75 : 4.32294840494792); (9.5 : 4.32294840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/UberstrikeDataContext/PhotonsGroup/PhotonsGroup_ApplicationVersion" />
+      <nodes>
+        <classShapeMoniker Id="4e3d0939-53d7-4ee4-b2ed-25dea916647e" />
+        <classShapeMoniker Id="adacc433-47df-4165-bf02-997e69c28ed8" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.75 : 3.17390055338542); (9.5 : 3.17390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/UberstrikeDataContext/PhotonsGroup/PhotonsGroup_PhotonServer" />
+      <nodes>
+        <classShapeMoniker Id="4e3d0939-53d7-4ee4-b2ed-25dea916647e" />
+        <classShapeMoniker Id="8a427534-3196-4cd0-9f90-90a4075869db" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.75 : 9.53929768880208); (9.5 : 9.53929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/UberstrikeDataContext/UserInstall/UserInstall_UserInstallStep" />
+      <nodes>
+        <classShapeMoniker Id="b632ff9e-7308-4742-b844-f667538f3785" />
+        <classShapeMoniker Id="d1ed9404-299d-49f6-99f0-940f3dee6959" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 6.72199625651042); (3.75 : 6.72199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/UberstrikeDataContext/User/User_Cyworld" />
+      <nodes>
+        <classShapeMoniker Id="c0880ce7-a002-499d-ab8a-bfe546d8dd28" />
+        <classShapeMoniker Id="bf150423-f597-4cb3-abd7-08620f4156e8" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 8.72199625651042); (3.5 : 8.72199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/UberstrikeDataContext/User/User_MySpace" />
+      <nodes>
+        <classShapeMoniker Id="c0880ce7-a002-499d-ab8a-bfe546d8dd28" />
+        <classShapeMoniker Id="022e0d43-ccb6-4609-a11d-4420a0d0ab4f" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="0621065b-7f21-4549-84b0-c074dbd7bbe5" absoluteBounds="3.75, 2.75, 2, 2.5401025390625">
+      <DataClassMoniker Name="/UberstrikeDataContext/KongregateReferrer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="12e12191-acca-46c0-8cee-01926a520695" absoluteBounds="3.765, 3.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9517da65-2ec1-4a37-9eda-6c212fb6ceed" absoluteBounds="9.375, 16.75, 2, 1.9631982421875023">
+      <DataClassMoniker Name="/UberstrikeDataContext/MapVersion" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1261a4bf-304d-4951-b675-72cfa67a740a" absoluteBounds="9.39, 17.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="670ba0d7-c168-49f5-9fd7-57800ff2d37e" absoluteBounds="3.875, 22.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/UberstrikeDataContext/WeeklySpecial" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e3492b4f-bdfb-4f89-a8f5-81a521b5de0d" absoluteBounds="3.8899999999999997, 22.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="19168394-9088-412e-b5d1-f98f96180c91" absoluteBounds="6.875, 12.75, 2, 2.5401025390625">
+      <DataClassMoniker Name="/UberstrikeDataContext/Map" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bcd61b00-18e9-441a-ab73-648f6d4a42ef" absoluteBounds="6.89, 13.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e0de682b-9124-4d98-92c3-bab4a6abddf4" absoluteBounds="18.25, 3.625, 2, 2.5401025390625">
+      <DataClassMoniker Name="/UberstrikeDataContext/ItemQuickUseConfig" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9769ed26-1dd5-4c28-9dd2-fcf96a328429" absoluteBounds="18.265, 4.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

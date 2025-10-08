@@ -1,0 +1,87 @@
+﻿@model List<WeeklySpecialView>
+
+<p>
+    @if (Model.Where(q => q.EndDate == null).Count() > 0)
+    {
+        <span class="it">You need to end the current weekly special before being able to start a new one</span>
+    }
+    else
+    {
+        <a id="addWeeklySpecialLink" href="#" onclick="loadAddWeeklySpecialForm(); return false;">Create a weekly special</a>
+    }
+</p>
+
+<table class="searchResultTable" style="margin-top:15px; margin-bottom:20px">
+    <tr>
+        <th></th>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Starting date</th>
+        <th>Ending date</th>
+        <th>Item</th>
+        <th></th>
+        <th></th>
+    </tr>
+@{int i = 0;}
+@foreach (WeeklySpecialView weeklySpecial in Model)
+{
+    bool isCurrent = weeklySpecial.EndDate == null;
+    string trClass = String.Empty;
+
+    if (isCurrent)
+    {
+        trClass = "highlight";
+    }
+    else if (i % 2 == 0)
+    {
+        trClass = "mod";
+    }
+    
+    <tr class="@trClass">
+        <td><img src="@Url.Content("~/Content/img/next.gif")" style="cursor:pointer;" alt="Display weekly special" onclick="$('#@String.Format("weeklySpecial{0}", weeklySpecial.Id)').toggle()" /></td>
+        <td>@weeklySpecial.Id</td>
+        <td>@weeklySpecial.Title</td>
+        <td>@weeklySpecial.StartDate.ToNiceDisplay(false)</td>
+        <td>
+            @if (weeklySpecial.EndDate.HasValue)
+            {
+                @weeklySpecial.StartDate.ToNiceDisplay(false)
+            }
+            else
+            {
+                @:-
+            }
+        </td>
+        <td>@(((ItemCache)ViewBag.ItemCache).GetItemName(weeklySpecial.ItemId)) (@weeklySpecial.ItemId)</td>
+        <td>
+            @if (isCurrent)
+            {
+                <a id="@String.Format("editWeeklySpecial{0}", weeklySpecial.ItemId)" href="#" onclick="loadEditWeeklySpecialForm(@weeklySpecial.Id); return false;">Edit</a>
+            }
+        </td>
+        <td>
+            @if (isCurrent)
+            {
+                <a id="@String.Format("endWeeklySpecial{0}", weeklySpecial.ItemId)" href="#" onclick="endWeeklySpecial(@weeklySpecial.Id); return false;">End</a>
+            }
+        </td>
+    </tr>
+    <tr id="@String.Format("weeklySpecial{0}", weeklySpecial.Id)" class="@trClass" style="display:none;">
+        <td colspan="8">
+            <div class="left" style="width:430px;">
+                <img src="@weeklySpecial.ImageUrl" alt="@weeklySpecial.Title" style="margin:auto;" />
+            </div>
+            <div class="left" style="width:450px; margin-left:15px;">
+                @weeklySpecial.Text
+            </div>
+            <div class="clear" />
+        </td>
+    </tr>
+    i++;
+}
+</table>
+
+@if (Model.Count == 0)
+{
+    <p style="margin-bottom:20px;">There is no weekly special</p>
+}

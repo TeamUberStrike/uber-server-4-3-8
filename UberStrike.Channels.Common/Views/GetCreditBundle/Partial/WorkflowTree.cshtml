@@ -1,0 +1,19 @@
+﻿<div class="worflowTree">
+    @if (!(bool)ViewBag.SkipSelectPayment)
+    {
+        <div class="step" id="Step@(PaymentStepsEnum.SelectPayment.ToString())">
+            <div class="left num">
+                1</div>
+            <span>Select Payment</span></div>
+    }
+    <div class="step" id="Step@(PaymentStepsEnum.SelectPack.ToString())">
+        <div class="left num">
+            @(((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook) ? "1" : "2")
+        </div>
+        <span>Select Uberstrike Credits</span></div>
+    <div class="step" id="Step@(PaymentStepsEnum.CompleteTransaction.ToString())">
+        <div class="left num">
+            @(((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook) ? "2" : "3")
+        </div>
+        <span>Complete Transaction!</span></div>
+</div>

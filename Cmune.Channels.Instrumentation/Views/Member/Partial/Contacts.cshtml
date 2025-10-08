@@ -1,0 +1,44 @@
+﻿@model List<ContactDisplay>
+
+<div id="friendsArea">
+    <p style="text-align:left; margin-bottom:15px;">
+        <span class="bold">@(((PaginationModel)ViewBag.ContactsPaginationModel).TotalCount)</span> contacts
+    </p>
+    <div class="clear">
+    </div>
+    @if (Model.Count > 0)
+    {
+        foreach (var contact in Model)
+        {
+    <div class="left" style="margin:5px; padding:5px; width:230px; height:140px;">
+        <div class="left" style="width:53px;">
+            <img src="@Url.Content("~/Content/img/suricat.jpg")" style="width:53px;" alt="Suricat" />
+        </div>
+        <div class="left" style="font-weight:bold; height:36px; padding-left:15px; width:160px;">
+            <a href="@Url.Action("See", "Member")?cmid=@contact.Cmid" target="_blank">@contact.Name</a>
+        </div>
+        <table class="statisticTable left" style="width:100%">
+            <tr>
+                <th>
+                    @Html.Label("Ranking")
+                </th>
+                <td>
+                    @Html.Label(contact.Ranking.ToString())
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.Label("Kills")
+                </th>
+                <td>
+                    @Html.Label(contact.Kills.ToString())
+                </td>
+            </tr>
+        </table>
+    </div>
+        }
+    <div class="clear">
+    </div>
+    }
+    @Html.GeneratePagination((PaginationModel)ViewBag.ContactsPaginationModel, "getContacts();")
+</div>

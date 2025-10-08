@@ -1,0 +1,24 @@
+﻿@model ChannelUserViewModel
+<div id="selectPaymentStepContent">
+    <div class="nextXLargeBtn left" onclick="LoadSelectPackStep('@(PaymentProviderType.PlaySpan)', 'CH'); return false;">
+        <span class="label">Credit Card</span>
+        <span class="imageContainer"><img src="@(Url.Image("icons/visa.png"))" title="VISA" alt="VISA" />
+        <img src="@(Url.Image("icons/mastercard.png"))" title="MasterCard"  alt="MasterCard" /></span>
+    </div>
+    <div class="nextXLargeBtn left" onclick="LoadSelectPackStep('@(PaymentProviderType.PlaySpan)', 'P3'); return false;">
+        <span class="label">PayPal</span>
+        <span class="imageContainer"><img src="@(Url.Image("icons/paypal.png"))" title="PayPal"  alt="PayPal" /></span>
+    </div>
+    <div class="clear">
+    </div>
+    <div class="nextXLargeBtn left" onclick="LoadSelectPackStep('@(PaymentProviderType.PlaySpan)', 'UG'); return false;">
+        <span class="label">Playspan</span>
+        <span class="imageContainer"><img src="@(Url.Image("icons/playspan_logo.png"))" title="Playspan" alt="Playspan" width="30" height="30" /></span>
+    </div>
+    <div class="nextXLargeBtn left" onclick="window.location.href='@Url.Action("SuperRewards")?id=@(ViewBag.SuperRewardsUserId)&ch=@(Model.Channel)&cm=@(Model.Cmid)'; return false;">
+        <span class="label">Earn Free Credits</span>
+        <span class="imageContainer"><img src="@(Url.Image("icons/smallUSCredit.png"))" title="Uberstrike Credit"  alt="Uberstrike Credit"/></span>
+    </div>
+    <div class="clear">
+    </div>
+</div>

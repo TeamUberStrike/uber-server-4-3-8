@@ -1,0 +1,125 @@
+﻿@{
+    var itemWeaponConfigView = (UberstrikeWeaponConfigView)ViewBag.ItemWeaponConfigViewModel;
+}
+<br />
+<div>
+    <table style="margin: 0 15px 0 0;">
+        <tr>
+            <td>
+                <h3>
+                    Level Required</h3>
+                @Html.LabelFor(d => itemWeaponConfigView.LevelRequired, "")
+                @Html.TextBoxFor(d => itemWeaponConfigView.LevelRequired, new { @class = "itemStat" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3>
+                    Custom properties</h3>
+                <div id="customPropertiesFormWeapon" />
+                <input type="button" value="Add" onclick="addCustomPropertyWeapon(); return false;" />
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<table style="margin: 15px 0 0 0;" id="itemWeaponStatTable">
+    <tr>
+        <td>
+            Damage per projectile:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.DamagePerProjectile, new { @class = "itemStat" })
+        </td>
+        <td>
+            Start ammo:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.StartAmmo, new { @class = "itemStat" })
+        </td>
+        <td>
+            Projectile speed:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.ProjectileSpeed, new { @class = "itemStat" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Projectiles per shot:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.ProjectilesPerShot, new { @class = "itemStat" })
+        </td>
+        <td>
+            Max ammo:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.MaxAmmo, new { @class = "itemStat" })
+        </td>
+        <td>
+            Missile force impulse:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.MissileForceImpulse, new { @class = "itemStat" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Rate of fire:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.RateOfFire, new { @class = "itemStat" })
+        </td>
+        <td>
+            Damage knockback:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.DamageKnockback, new { @class = "itemStat" })
+        </td>
+        <td>
+            Missile bounciness:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.MissileBounciness, new { @class = "itemStat" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Accuracy spread:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.AccuracySpread, new { @class = "itemStat" })
+        </td>
+        <td>
+            Recoil kickback:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.RecoilKickback, new { @class = "itemStat" })
+        </td>
+        <td>
+            Splash radius:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.SplashRadius, new { @class = "itemStat" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+            Recoil movement:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.RecoilMovement, new { @class = "itemStat" })
+        </td>
+        <td>
+            Missile time to detonate:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemWeaponConfigView.MissileTimeToDetonate, new { @class = "itemStat" })
+        </td>
+    </tr>
+</table>

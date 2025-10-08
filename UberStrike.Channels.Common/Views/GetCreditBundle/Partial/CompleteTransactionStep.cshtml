@@ -1,0 +1,19 @@
+﻿@model ChannelUserViewModel
+<div>
+    <div style="height:450px">
+        @if (Model.PaymentProviderType == PaymentProviderType.PlaySpan)
+        {
+            <!-- PlaySpan payment div -->
+@*            <div id="div_b" style="display:none;"></div>*@
+                <div id="div_b" style="display:none;padding:13px;position:absolute;left:0px;margin-top:-10px;"></div>
+            
+                        <script type="text/javascript">
+                            BuyUltimatePayHelper("@Model.Cmid", "USD", '@ViewBag.Amount', '', '@ViewBag.PlayspanHash', '@UberStrike.Channels.Utils.HttpContextFactory.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Action("PlaySpanXD")', '@ViewBag.DeveloperId', '@ViewBag.PlayspanMerchtrans', true, '@Model.PaymentType');
+            </script>
+        }
+    </div>
+    <div onclick="LoadSelectPackStep()" style="color: White;">
+        <div class="previousBtn">
+            Back</div>
+    </div>
+</div>

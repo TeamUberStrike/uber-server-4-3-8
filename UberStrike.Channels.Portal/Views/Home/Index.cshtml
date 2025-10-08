@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Free to Play Browser-based FPS - No Download - Mac & PC MMOFPS - Free First Person Shooter Game - Fast Paced Online Shooter - Cmune";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var rssFeed = ViewBag.RssFeed;
+}
+<!-- for google videos -->
+@section HeaderJavaScript{
+    <script src="http://www.google.com/uds/api?file=uds.js&v=1.0&source=uds-vbw" type="text/javascript"></script>
+    <script type="text/javascript">
+        window._uds_vbw_donotrepair = true;
+    </script>
+    <script src="http://www.google.com/uds/solutions/videobar/gsvideobar.js?mode=new"
+        type="text/javascript"></script>
+    <style type="text/css">
+@@import url("http://www.google.com/uds/css/gsearch.css");
+</style>
+    <style type="text/css">
+@@import url("http://www.google.com/uds/solutions/videobar/gsvideobar.css");
+</style>
+}
+<div class="mainPageContentLeft">
+    @Html.Partial("LoginPartial")
+
+    <div class="panel_default" style="margin:8px 0 0 0;">
+        <div class="panel_header">
+            JUST RELEASED
+	    </div>
+        <a href="./download">
+            <img style="border:1px solid black; margin:4px 4px 4px 4px;" src="@Url.Image("PortalChannel/UberStrike-HD-Side-Banner.jpg")" alt="UberStrike HD" width="238px" />
+        </a>
+    </div>
+
+    @Html.Partial("Videos")
+</div>
+<div class="mainPageContentMid">
+    <div class="panel_default">
+        <div class="panel_header">
+            LATEST NEWS</div>
+        <div id="DisplayRssFeedContainer">
+            @if (ConfigurationUtilities.ReadConfigurationManagerBool("WordPressEnabled"))
+            {
+                <div class="mainPageContentLeftYouTube">
+                    @Html.ImageTag(Url, "loading_orange.gif")
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="mainPageContentRightPromotion">
+    <div>
+        @Html.Partial("PromotionPanelPartial")
+    </div>
+    <div class="mainPageContentRight">
+        @Html.Partial("FacebookLikeBox")
+    </div>
+    <div class="mainPageContentRight">
+        @Html.Partial("TwitterWidget")
+    </div>
+</div>
+<div class="clear">
+</div>
+@if (ConfigurationUtilities.ReadConfigurationManagerBool("WordPressEnabled"))
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@(Url.Action("DisplayRssFeed", "Home"))',
+                success: function (data) {
+                    $("#DisplayRssFeedContainer").html(data);
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,38 @@
+﻿<div id="littleTopMenu">
+    <div class="cmune_header_tab left">
+        <a href="@Url.Home()" class="homeLink"></a>
+    </div>
+    <div class="cmune_header_tab left">
+        <a href="@Url.Forum()" target="_blank">Forum</a>
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        if (((UserProfileModel)ViewBag.UserProfile).Member != null)
+        {
+            if (((UserProfileModel)ViewBag.UserProfile).Member.IsAccountComplete)
+            {
+        <div class="cmune_header_tab left">
+            <a href="@Url.Profile()?cmid=@(((UserProfileModel)ViewBag.UserProfile).Member.CMID)" target="_blank">
+                Profile</a>
+        </div>
+            }
+        <div class="cmune_header_tab left">
+            <a href="@Url.Account()" target="_blank">Account</a>
+        </div>
+        <div class="cmune_header_tab left">
+            <a href="@Url.CreditBundle()" target="_blank" style="color:#FEC42C;">GET CREDITS</a>
+        </div>
+        <div class="cmune_header_tab left">
+            <a href="@Url.ItemAndPointBundle()" target="_blank" style="color:#FEC42C;">GET BUNDLES</a>
+        </div>
+        <div class="cmune_header_tab left">
+            <a href="@Url.RedeemEpin()" target="_blank" style="color:#FEC42C;">REDEEM E-PIN</a>
+        </div>
+        <div class="cmune_header_tab left">
+            <a href="@Url.Ranking()" target="_blank">Ranking</a>
+        </div>
+        }
+    }
+    <div class="clear">
+    </div>
+</div>

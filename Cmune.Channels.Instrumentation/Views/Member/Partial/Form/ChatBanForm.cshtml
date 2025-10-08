@@ -1,0 +1,38 @@
+﻿<form id="editMemberFormComplement" action="" method="post">
+<p style="margin:0 0 15px 0; padding-top: 15px;">
+    Currently this member is: <span style="font-weight:bold;">@ViewData["DisableInfoLiteral"].ToString()</span>
+</p>
+<p style="margin:0 0 15px 0;">
+    You can change his status here:<br />
+</p>
+@{BanMode mode = ((BanMode)ViewData["memberAccessIsChatDisabled"]);}
+<table>
+    <tr>
+        <td colspan="2">
+            @Html.RadioButton("newMemberAccessIsChatDisabled", (int)BanMode.No, (mode == BanMode.No) ? true : false)<label for="newMemberAccessIsChatDisabled">Not banned</label><br />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.RadioButton("newMemberAccessIsChatDisabled", (int)BanMode.Temporary, (mode == BanMode.Temporary) ? true : false, new { id = "newNemberAccessIsChatDisabled2" })<label for="newNemberAccessIsChatDisabled2">Ban him for the next</label><br />
+        </td>
+        <td>
+            @Html.DropDownList("disablingDuration", (List<SelectListItem>)ViewData["disablingDuration"], new { onclick = "$('#newNemberAccessIsChatDisabled2').attr('checked', true);" }) days.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.RadioButton("newMemberAccessIsChatDisabled", (int)BanMode.Permanent, (mode == BanMode.Permanent) ? true : false, new { id = "newNemberAccessIsChatDisabled3" })<label for="newNemberAccessIsChatDisabled3">Ban permanently</label><br />
+        </td>
+    </tr>
+</table>
+<span style="width: 95%; text-align: center; display: block;"></span>
+<p style="padding-top: 15px;">
+    If you wish you can say a few words to this member explaining why you are bannning this user from the chat:</p>
+@Html.TextArea("explanationTextBox", new { Width = "99%" })
+<p style="padding-top: 15px; text-align: center;">
+    <span>Action taker:</span> @Html.DropDownList("adminNames", ViewData["adminNames"] as SelectList, new { onchange = "setAdmin($('#adminNames').val(), $('#adminNames option:selected').text());" })
+    <input type="button" id="disableUserButton" value="Do It!" onclick="ChangeMemberAccess('changeIsChatDisabled')" />
+    <input type="button" onclick="Shadowbox.close()" value="Cancel" />
+</p>
+</form>

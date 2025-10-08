@@ -1,0 +1,93 @@
+﻿@model LoginUserModel
+@{
+    var userProfile = (UserProfileModel)ViewBag.UserProfile;
+}
+<script type="text/javascript">
+
+</script>
+<div class="panel_default">
+    <div class="panel_header">
+        PLAY NOW
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        <div class="mainPageContentLeftStart">
+            @using (Html.BeginForm("LogOff", "Account"))
+            {
+                <div class="startButtonRollover">
+                    <a href="@Url.Play()" ></a>
+                </div>
+@*                <img src="@Url.Image("start_button.jpg")"
+                            alt="Start Game!" style="border: 0px" />
+*@                <p class="panel_item_textcontent" style="text-align: center;">
+    Welcome
+    @if (userProfile.UserName != String.Empty && userProfile.Member.IsAccountComplete)
+    {
+        @userProfile.UserName
+    }
+    else if (userProfile.UserName != String.Empty && !userProfile.Member.IsAccountComplete)
+    {
+        <span>back !</span>
+    }
+    else
+    {
+        <span>@((userProfile.ChannelType == ChannelType.WebFacebook && userProfile.FacebookUserModel != null) ? userProfile.FacebookUserModel.FirstName : "")!</span>
+    }
+                </p>
+                <br />
+                <div class="mainPageContentLeftFB">
+                    @if (userProfile.ChannelType != ChannelType.WebFacebook)
+                    {
+                        <input type="submit" value="Log Off" class="darkGray" />
+                    }
+                    else
+                    {
+                        <a href="" onclick="facebooklogout(); return false;">@Html.ImageTag(Url, "facebookLogOutButton.png")
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div style="margin: 5px;">
+            <form method="post" action="@Url.Account()/Login" id="loginForm" >
+            @Html.Hidden("ReturnUrl", ((string)ViewBag.ReturnUrl).IsNullOrFullyEmpty() ? "" : (string)ViewBag.ReturnUrl) <!-- // very important -->
+            <table style="width: 100%; border: none; margin: 0px; padding: 0px;">
+                <tr>
+                    <td>
+                        @Html.TextBoxFor(m => m.Email, new { @title = "Enter your email address.", @class = "cmuneInput", @style = "width: 128px;" })
+                        @Html.PasswordFor(m => m.Password, new { @title = "Enter your password.", @class = "cmuneInput", @style = "width: 128px;" })
+                    </td>
+                    <td>
+                        <input type="submit" value="Log In!" class="darkGray" style="position: relative;
+                            top: 20px;" onclick="portallogin(); return false;" />
+                    </td>
+                </tr>
+            </table>
+            </form>
+            @if (ViewBag.errorMessage != "")
+            {
+                <div class="errorMessage">@ViewBag.errorMessage</div>
+            }
+            <div style="padding: 4px;">
+                @Html.UberstrikeValidationSummary()
+            </div>
+            <div class="panel_item_textcontent" style="margin: 0 0 5px 5px;">
+                @*                New here? <a href="@Url.PlayAndRegistration()?LoginMode=EmailPasswordRego">SIGN UP</a>
+*@ New here? <a href="@Url.Account()/SignUp" style="font-weight: bold;color: #fec42c;">
+    SIGN UP</a> and play for FREE!
+            </div>
+            <div class="mainPageContentLeftLost">
+                <a href="@Url.Account()/RecoverPassword" style="color:#CCCCCC;">Lost Password?</a>
+            </div>
+            <div style="text-align: center; padding: 10px 0px 20px 0px;">
+                or</div>
+            @*<a href="https://www.facebook.com/dialog/oauth?client_id=@(Facebook.FacebookApplication.Current.AppId)&redirect_uri=@Url.Encode(Facebook.FacebookApplication.Current.CanvasUrl)" target="_blank">@Html.ImageTag(Url,"facebook-connect-button.png")</a>*@
+            <div style="text-align: center; margin: auto; padding-bottom: 15px;">
+                <a id="fb-auth" onclick="facebooklogin(); return false;" href="">@Html.ImageTag(Url, "facebook-connect-button.png")</a>
+            </div>
+        </div>
+    }
+</div>

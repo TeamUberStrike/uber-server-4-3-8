@@ -1,0 +1,105 @@
+﻿@model ChannelUserViewModel
+@{
+    int y = 0;
+    int usdToKreds = CommonConfig.UsdToKreds;
+    var bundles = (List<BundleView>)ViewBag.Bundles;
+}
+<div style="padding: 10px">
+    <div>
+        <div class="left">
+            @Html.ImageTag(Url, "bundle/UBCreditMedium1.png", "Buy a bundle", "Buy a bundle")
+        </div>
+        <p style="margin-left: 65px;">
+            @Html.BoldText("UberStrike Credits")<br />
+            Get UberStrike Credits to buy special items!
+        </p>
+        <div class="clear">
+        </div>
+        <br />
+        <br />
+    </div>
+    <div class="left" style="margin-right: 30px">
+        @foreach (BundleView bundle in bundles.OrderByDescending(d => d.USDPrice).ToList())
+        {
+            <div class="bundle">
+                @Html.RadioButton("bundleId", bundle.Id, false, new { onclick = "DisplayBundle(" + bundle.Id + ")", Id = "bundle" + bundle.USDPrice, Class = bundle.Id == (int)ViewBag.SelectedBundleId ? "selected" : "" })
+                <span style="width: 40px; height: 40px; display: inline-block">
+                    @Html.ImageTag("http://static.cmune.com/UberStrike/CommonChannel/images/" + bundle.IconUrl, "vertical-align:middle")
+                </span>
+                <label class="mini_label" id="bundleIdLabel@(bundle.Id)" for="bundle@(bundle.USDPrice)" style="width:70px;display:inline-block">
+                    @Html.BoldText(bundle.Credits.ToString())
+                </label>
+                 @if (Model.Channel == ChannelType.Kongregate)
+                 {
+                    @Html.BoldText((bundle.USDPrice * (decimal)usdToKreds).ToString("F0")) <span class="gray bold">Kreds</span>
+                 }
+                 else
+                 {
+                    @Html.BoldText("$" + bundle.USDPrice.ToString("F2")) <span class="gray bold">USD</span>
+                 }
+                @if (bundle.PromotionTag != "")
+                {
+                    <span class="bold" style="color: #109610">@bundle.PromotionTag</span>
+                }
+            </div>
+                y++;
+                if (y == (int)Math.Ceiling(((decimal)bundles.Count / 2m)))
+                {
+            @Html.Raw("</div><div class=\"left\">")
+                }
+        }
+    </div>
+    <div class="clear">
+    </div>
+    <div id="arrowAndContinue">
+        <div style="position: relative">
+            <div class="@(((ChannelType)ViewBag.ChannelType) == ChannelType.WebFacebook ? "creditBundleArrow" : "creditBundleOrangeArrow")">
+            </div>
+        </div>
+        <p>
+            <script type="text/javascript">
+                $("#purchaseButton").bind("click", function () {
+                    LoadCompleteTransactionStep($("input:radio[name='bundleId']:checked").val());
+                    return false;
+                });
+            </script>
+            <a id="purchaseButton" class="right Continue" style="font-size: 22px">Continue </a>
+        </p>
+    </div>
+    <br />
+    @if (!((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook) && !((ChannelType)ViewBag.ChannelType == ChannelType.Kongregate))
+    {
+        <div class="footer">
+            <div class="gray">
+                All payments are subject to Cmune's <a href="http://www.cmune.com/index.php/terms-of-service/"
+                    target="_blank">@Html.BoldText("Terms of Service")</a>
+            </div>
+            <br />
+            <div class="left">
+                <div class="@(((ChannelType)ViewBag.ChannelType) == ChannelType.WebFacebook ? "trustPaymentIcons" : "portalTrustPaymentIcons")">
+                </div>
+            </div>
+            <div class="right">
+                <div class="securePaymentImage">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    }
+    <script type="text/javascript">
+        function DisplayBundle(bundleId) {
+            $(".bundle .mini_label").removeClass("uberstrikeColor");
+            $("#bundleIdLabel" + bundleId).addClass("uberstrikeColor");
+        }
+        $(".bundle .selected").click();
+    </script>
+    @if (!((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook) && !((ChannelType)ViewBag.ChannelType == ChannelType.Kongregate))
+    {
+        <div onclick="LoadSelectPaymentStep()" style="color: White">
+            <div class="previousBtn">
+                Back
+            </div>
+        </div>
+    }
+</div>

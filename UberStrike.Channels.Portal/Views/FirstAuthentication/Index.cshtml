@@ -1,0 +1,18 @@
+﻿@model FirstAuthModel
+@{
+    Layout = null;
+}
+<html>
+<head>
+</head>
+<body>
+    <div style="width:760px; margin:auto;">
+        <form method="post" action="@Url.Action("Login")">
+        Login: @Html.TextBoxFor(m => Model.FirstAuthLogin)<br />
+        Password: @Html.PasswordFor(m => Model.FirstPasswordLogin)
+        <input value="Ok" type="submit" />
+        <div style="color:red">@ViewBag.FirstLoginFailed</div>
+        </form>
+    </div>
+</body>
+</html>

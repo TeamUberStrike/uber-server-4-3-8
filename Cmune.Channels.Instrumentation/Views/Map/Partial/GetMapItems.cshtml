@@ -1,0 +1,46 @@
+﻿@model MapClusterView
+@{    
+    string appVersion = String.Empty;
+
+    if (Model != null)
+    {
+        appVersion = Model.ApplicationVersion;
+    }
+}
+<form method="post" action="">
+<table class="searchResultTable">
+    <tr>
+        <th>
+            Map Id
+        </th>
+        <th>
+            Map Name
+        </th>
+        <th>
+            Item
+        </th>
+        <th>
+        </th>
+    </tr>
+    @{
+        int i = 0;
+    }
+    @foreach (var map in Model.Maps)
+    {
+        <tr class="@(i % 2 == 1 ? "mod" : "")">
+            <td>@map.MapId
+            </td>
+            <td>@map.DisplayName
+            </td>
+            <td>@(map.ItemId != 0 ? new HtmlString(String.Format("{0} - {1}", map.ItemId, ((ItemCache)ViewBag.ItemCache).GetItemName(map.ItemId))) : Html.WarningNotif(Url, "No item recommendation", "No item recommendation"))
+            </td>
+            <td>
+                <a id="@String.Format("editMap{0}Link", @map.MapId)" href="#" onclick="LoadEditMapItem('@Url.Action("LoadEditMapItem", "Map")', '@ViewBag.ApplicationVersion', @map.MapId); return false;"
+                title="Edit map">
+                    <img src="@Url.Content("~/Content/img/b_edit.png")" alt="Edit recommendation" /></a>
+            </td>
+        </tr>
+        i++;
+    }
+</table>
+</form>

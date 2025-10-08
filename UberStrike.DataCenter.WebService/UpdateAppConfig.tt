@@ -1,0 +1,12 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension=".txt" #>
+<#@ Assembly Name="$(SolutionDir)T4Helper/bin/Debug/T4Helper.dll" #>
+<#
+	string currentVersion = "4.3.5";
+	T4Utils.WriteLine = this.WriteLine;
+	
+	WebServiceAppConfig.Update((IServiceProvider)this.Host, "App.config", "http://localhost:9000");
+	WebServiceAppConfig.Update((IServiceProvider)this.Host, "Web.config.dev", "http://ws.uberstrike.dev.cmune.net/" + currentVersion);
+	WebServiceAppConfig.Update((IServiceProvider)this.Host, "Web.config.external.qa", "http://ws.uberstrike.qa.uberstrike.com/" + currentVersion);
+	WebServiceAppConfig.Update((IServiceProvider)this.Host, "Web.config.prod", "http://ws.uberstrike.uberstrike.com/" + currentVersion);
+#>

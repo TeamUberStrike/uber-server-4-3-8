@@ -1,0 +1,8 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <input type="button" onclick="window.location='@(ViewBag.ApplicationPath)Account/LogOff'" value="Log Off" />
+}
+else
+{
+    <input type="button" onclick="window.location='@(ViewBag.ApplicationPath)Account/LogOn'" value="Log On" />
+}

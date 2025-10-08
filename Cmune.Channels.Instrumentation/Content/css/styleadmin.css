@@ -1,0 +1,673 @@
+﻿@import url("reset.css");
+@import url("util.css");
+
+body
+{
+    font-size: 14px;
+    font-family: segoe ui, Arial, Helvetica, sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+h1
+{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+h2
+{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+h3
+{
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+}
+
+a
+{
+    color: #5F8400;
+}
+
+.hr
+{
+    border-top:1px solid #CCCCCC;
+}
+
+input[type=button], input[type=submit]
+{
+    cursor: pointer;
+}
+
+fieldset
+{
+    border: 1px solid #CCCCCC !important;
+    padding: 5px;
+}
+
+legend
+{
+    border: 1px solid #CCCCCC !important;
+    padding: 1px 7px 3px 7px;
+    font-weight: bold;
+}
+
+/***** Utilities *****/
+
+.disabledDataRow
+{
+    font-style: italic;
+    color: #A2A2A2 !important;
+}
+
+.sync-good
+{
+    color: #4AD32F;
+}
+
+.sync-error
+{
+    color: #FF2B06;
+}
+
+span.helper
+{
+    font-size: 8pt;
+    color: #CCCCCC;
+}
+
+.error
+{
+    color: #FF2B06;
+}
+
+.infoMessage
+{
+    display: block;
+    margin: 10px 0 10px 0;
+    margin: auto;
+    width: 70%;
+    padding: 10px 25px 10px 25px;
+    border: 5px solid #04B429;
+    background-color: #02CE2E;
+    font-weight: bold;
+    text-align: center;
+    color: #000;
+}
+
+.biginput
+{
+    width:300px;
+}
+
+/* Ajax feedback */
+
+.ajaxFeedback
+{
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    padding: 6px 50px 8px 50px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.ajaxFeedbackSuccess
+{
+    background-color: #A0D125;
+}
+
+.ajaxFeedbackError
+{
+    background-color: #FF2B06;
+}
+
+#GlobalAjaxLoader
+{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    padding: 10px;
+    background-color: #FDE171;
+    border-bottom-right-radius: 10px;
+}
+
+/* */
+
+#summarySuccessMessage
+{
+    padding: 8px 0 8px 0;
+    font-weight: bold;
+    background-color: #A0D125;
+}
+
+#summaryErrorMessage
+{
+    padding: 8px 0 8px 0;
+    font-weight: bold;
+    background-color: #FF2B06;
+}
+
+#shadowSummaryErrorMessage
+{
+    padding: 2px;
+    background-color: #FF2B06;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.gray
+{
+    color: Gray !important;
+}
+
+.italic
+{
+    font-style: italic;
+}
+
+.alignright
+{
+    text-align:right;
+}
+
+/* Pagination */
+
+.pagination
+{
+    margin: 10px 0 0 0;
+}
+
+.selectedPageAnchor
+{
+    color: Black;
+    background-color: #A0D125;
+}
+
+.pageAnchor
+{
+    padding: 5px 5px 5px 5px;
+}
+
+/* End pagination */
+
+.editLink
+{
+    display: block;
+    background: url("../../Content/img/b_edit.png") no-repeat;
+    width: 16px;
+    height: 16px;
+}
+
+.deleteLink
+{
+    display: block;
+    background: url("../../Content/img/b_drop.png") no-repeat;
+    width: 16px;
+    height: 16px;
+}
+
+/********************/
+
+/*** Master Page ***/
+
+#Page
+{
+}
+
+#Page #Head
+{
+    height: 60px;
+    width: 100%;
+    background-color: black;
+}
+
+#Page #Body
+{
+    margin-bottom: 20px;
+}
+
+#Page #Body a:hover
+{
+    text-decoration: underline;
+}
+
+#environnementLabel
+{
+    color: white;
+    font-size: 30px;
+    float: left;
+    font-weight: bold;
+    margin: 12px 0 0 15px;
+}
+
+#timeexecution
+{
+    margin-top: 25px;
+    margin-left: 5px;
+    color: White;
+}
+
+#serverTimeLabel
+{
+    color: white;
+    float: right;
+    margin: 8px 8px 0 0;
+}
+
+#MainMenu
+{
+    background-color: black;
+}
+
+#MainMenu a
+{
+    text-shadow: 0px 2px 3px #666;
+    text-decoration: none;
+}
+
+.mainmenuTab
+{
+    background-color: silver;
+    float: left;
+    font-weight: bold;
+    height: 27px;
+    margin: 0 2px;
+    padding: 0 10px;
+    text-align: left;
+}
+
+.mainmenuActiveTab
+{
+    background-color: #E8E8E8;
+}
+
+.mainmenuActiveTab a
+{
+    color: #000000 !important;
+}
+
+.mainmenuTab a
+{
+    color: #F1F1F1;
+}
+
+.mainmenuTabIcon
+{
+    float: left;
+    width: 16px;
+    height: 16px;
+    padding-top: 6px;
+}
+
+.mainmenuTabText
+{
+    float: left;
+    padding-top: 7px;
+    padding-left: 4px;
+}
+
+.Menu
+{
+    background-color: #E8E8E8;
+    clear: both;
+    color: #565656;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 35px;
+    text-align: center;
+}
+
+.Menu a
+{
+    color: black;
+    padding: 9px;
+    text-decoration: none !important;
+}
+
+.Menu a:hover
+{
+    background-color: #A0D125;
+    color: white;
+}
+
+.Menu .inter
+{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.submenuActiveTab
+{
+    background-color: #A0D125;
+}
+
+/* Go to top */
+
+.goTopLink
+{
+    position: fixed;
+    top: 600px;
+    left: 0px;
+    cursor: pointer;
+}
+
+/* */
+
+/*******/
+
+/*** Member PAGE ***/
+
+#MemberSeeContent .titleMiddle
+{
+    text-align: left;
+    font-size: 14px;
+    color: #333333;
+    width: 405px;
+}
+
+#MemberSeeContent table.currentInventory
+{
+    border-collapse: collapse;
+}
+
+#MemberSeeContent table.currentInventory td
+{
+    padding: 5px 7px 5px 7px;
+}
+
+#PlayerStatisticPanel
+{
+    overflow: hidden;
+}
+
+.editBox
+{
+    background-color: #B7B8BA;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
+
+.userSearchTable
+{
+    margin-top: 20px;
+}
+
+.userSearchTable td
+{
+    padding: 3px 3px 3px 3px;
+}
+
+/*********/
+
+/*** Item Page ***/
+
+input.itemStat
+{
+    width: 45px;
+}
+
+table#itemWeaponStatTable td
+{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.creditPack
+{
+    padding: 10px;
+    margin: 10px;
+    width: 350px;
+    float: left;
+    background-color: #E8E8E8;
+    text-align: left;
+}
+
+.creditPackBundle
+{
+    background-color: #D1EFF8;
+}
+
+.creditPackPack
+{
+    background-color: #F2D1BD;
+}
+
+.creditPack .mainInfos .info
+{
+    display: inline-block;
+    width: 220px;
+}
+
+.creditPackItems
+{
+    text-align: center !important;
+    width: 100%;
+}
+
+/******/
+
+/*** Stats ***/
+
+#statsDiv select
+{
+    font-family: "Courier New" , Courier, monospace;
+}
+
+#statsDiv h1
+{
+    text-align: center;
+    margin: 50px 0 50px 0;
+}
+
+#statsDiv h2
+{
+    text-align: center;
+    margin: 15px 0 15px 0;
+}
+
+#statsDiv td
+{
+    padding: 2px 8px 2px 8px;
+}
+
+/******/
+
+/**** Table ****/
+
+.statisticTable
+{
+    width: 80%;
+}
+
+.statisticTable th
+{
+    background-color: #565656;
+    padding: 5px;
+    color: White;
+}
+
+.statisticTable td
+{
+    text-align: center;
+    padding: 2px;
+}
+
+.searchResultTable
+{
+    width: 80%;
+}
+
+.searchResultTable th
+{
+    background-color: #565656;
+    font-style: bold;
+    color: white;
+    padding: 5px;
+    text-align: center;
+}
+
+.searchResultTable tr.mod
+{
+    background-color: #B6B7B9;
+}
+
+.searchResultTable tr.highlight
+{
+    background-color: #FEE662;
+}
+
+.searchResultTable td
+{
+    text-align: left;
+    padding: 5px;
+}
+
+.searchResultTable .alignleft th
+{
+    text-align:left !important;
+}
+
+.searchResultTable
+{
+}
+
+.searchResultTable td.highlight
+{
+    background-color: #FEE662;
+}
+
+.greyDiv
+{
+    background-color: #B7B8BA;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+/*******/
+
+/*** Other ****/
+
+.paymentTable td
+{
+    padding: 0 4px 0 4px;
+}
+
+.chartHolder
+{
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 40px;
+}
+
+div#GreenLight
+{
+    background: url("../../Content/img/monitor-status-1.gif") no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+div#RedLight
+{
+    background: url("../../Content/img/monitor-status-0.gif") no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+.label
+{
+    min-width: 120px;
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+}
+
+.info
+{
+    display:inline-block;
+    width:220px;
+}
+
+.smallInfo
+{
+    display:inline-block;
+    width:150px;
+}
+
+ol, ul
+{
+    list-style-type: disc;
+    margin: 0 0 0 50px;
+}
+
+.modifiedField
+{
+    border: 2px solid #0000FF;
+}
+
+.niceDiv
+{
+    margin: 30px 0 30px 0;
+    background-color: #F2F2F2;
+    padding: 8px;
+    border: 1px solid #F2F2F2;
+    border-radius: 10px;
+}
+
+.niceDiv h1
+{
+	text-align:center;
+}
+
+.niceDiv p
+{
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.validation-summary-errors, .field-validation-error
+{
+    color: #FF2B06;
+}
+
+
+/** deployment - application version **/
+
+#ApplicationVersionForm label
+{
+    width: 150px;
+    display:inline-block;
+}
+
+/*** luckydraw **/
+
+#MysteryBoxForm label
+{
+	display:inline-block;
+	width:150px;
+}
+
+#LuckyDrawForm label
+{
+	display:inline-block;
+	width:150px;
+}
+
+#luckyDrawPriceContainer
+{
+	width:370px;
+	margin:15px 0 15px 20px;
+}

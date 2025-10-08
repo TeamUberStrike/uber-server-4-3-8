@@ -1,0 +1,68 @@
+﻿@model PromotionContentViewModel
+<form id="addEditPromotionAds" action="" method="post">
+@Html.HiddenFor(d => d.PromotionContentId)
+<span class="label">Name </span>
+@Html.TextBoxFor(d => d.Name)<br />
+<span class="label">StartDate </span>
+@Html.TextBoxFor(d => d.StartDate)<br />
+<span class="label">EndDate </span>
+@Html.TextBoxFor(d => d.EndDate)<br />
+<span class="label">IsPermanent </span>
+@Html.CheckBoxFor(d => d.IsPermanent)<br />
+<fieldset style="border: 1px #CCCCCC solid !important;">
+    <legend>Contains pictures</legend>
+    <div id="BundleItemsField">
+        <div>
+            <div class="left" style="width: 30px;">
+                &nbsp;</div>
+            <div class="left" style="width: 120px;">
+                Channel Type</div>
+            <div class="left" style="width: 150px;">
+                Channel Element</div>
+            <div class="left" style="width: 150px;">
+                Filename
+            </div>
+            <div class="left" style="width: 150px;">
+                Filename Title
+            </div>
+            <div class="left" style="width: 150px;">
+                Anchor Link
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        @{int i = 0;}
+        @while (Model.PromotionContentElements != null && Model.PromotionContentElements.Count > 0 && i < Model.PromotionContentElements.Count)
+        {
+            <div>
+                Pic:
+                @Html.DropDownList("OwnedChannelType" + Model.PromotionContentElements[i].PromotionContentElementId, Html.GetDropDownListItems(Html.ListOfChannelTypeToSelectItems((List<ChannelType>)ViewBag.ListOfChannelType), ((int)Model.PromotionContentElements[i].ChannelType).ToString()))
+                @Html.DropDownList("OwnedChannelElement" + Model.PromotionContentElements[i].PromotionContentElementId, Html.GetDropDownListItems(Html.ListOfChannelElementToSelectItems((List<ChannelElement>)ViewBag.ListOfChannelElement), ((int)Model.PromotionContentElements[i].ChannelElement).ToString()))
+                @Html.TextBox("OwnedFilename" + Model.PromotionContentElements[i].PromotionContentElementId, Model.PromotionContentElements[i].Filename)
+                @Html.TextBox("OwnedFilenameTitle" + Model.PromotionContentElements[i].PromotionContentElementId, Model.PromotionContentElements[i].FilenameTitle)
+                @Html.TextBox("OwnedAnchorLink" + Model.PromotionContentElements[i].PromotionContentElementId, Model.PromotionContentElements[i].AnchorLink)
+            </div>
+            i++;
+        }
+        @{
+            var jsSerializer = new JavaScriptSerializer();
+            var jsonListOfChannelType = jsSerializer.Serialize(Html.ListOfChannelTypeToSelectItems((List<ChannelType>)ViewBag.ListOfChannelType));
+            var jsonListOfChannelElement = jsSerializer.Serialize(Html.ListOfChannelElementToSelectItems((List<ChannelElement>)ViewBag.ListOfChannelElement));
+        }
+        <div id="promotionAdsItems">
+        </div>
+        <input type="button" onclick='AddPromotionAdsItemField("", @jsonListOfChannelElement, @jsonListOfChannelType);'
+            value="Add picture" />
+        <br />
+        <br />
+        @if (Model.PromotionContentId > 0)
+        {
+            <input type="button" value="Modify" onclick="AddEditPromotion();" />
+        }
+        else
+        {
+            <input type="button" value="Create promotion Content" onclick="AddEditPromotion();" />
+        }
+    </div>
+</fieldset>
+</form>

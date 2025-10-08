@@ -1,0 +1,120 @@
+﻿@model LoadoutView
+<h3 style="margin: 30px 0 30px 0;">
+    User loadout</h3>
+@if (Model != null)
+{
+    var itemCache = (ItemCache)ViewBag.ItemCache;
+    <table class="searchResultTable">
+        <tr>
+            <th>
+                Slot
+            </th>
+            <th>
+                Item
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Holo
+            </td>
+            <td>@itemCache.GetItemName(Model.Webbing)
+            </td>
+        </tr>
+        <tr class="mod">
+            <td>
+                Head
+            </td>
+            <td>@itemCache.GetItemName(Model.Head)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Face
+            </td>
+            <td>@itemCache.GetItemName(Model.Face)
+            </td>
+        </tr>
+        <tr class="mod">
+            <td>
+                Gloves
+            </td>
+            <td>@itemCache.GetItemName(Model.Gloves)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Upper Body
+            </td>
+            <td>@itemCache.GetItemName(Model.UpperBody)
+            </td>
+        </tr>
+        <tr class="mod">
+            <td>
+                LowerBody
+            </td>
+            <td>@itemCache.GetItemName(Model.LowerBody)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Boots
+            </td>
+            <td>@itemCache.GetItemName(Model.Boots)
+            </td>
+        </tr>
+        <tr class="mod">
+            <td>
+                Melee
+            </td>
+            <td>@itemCache.GetItemName(Model.MeleeWeapon)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Primary
+            </td>
+            <td>@itemCache.GetItemName(Model.Weapon1)
+            </td>
+        </tr>
+        <tr class="mod">
+            <td>
+                Secondary
+            </td>
+            <td>@itemCache.GetItemName(Model.Weapon2)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Tertiary
+            </td>
+            <td>@itemCache.GetItemName(Model.Weapon3)
+            </td>
+        </tr>
+        <tr class="mod">
+            <td>
+                Quick Item 1
+            </td>
+            <td>@itemCache.GetItemName(Model.QuickItem1)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Quick Item 2
+            </td>
+            <td>@itemCache.GetItemName(Model.QuickItem2)
+            </td>
+        </tr>
+        <tr class="mod">
+            <td>
+                Quick Item 3
+            </td>
+            <td>@itemCache.GetItemName(Model.QuickItem3)
+            </td>
+        </tr>
+    </table>
+}
+else
+{
+    <p>
+        This user doen't have a loadout.</p>
+}

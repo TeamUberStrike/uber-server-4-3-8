@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Login";
+}
+<div class="panel_default" style="margin-top:50px; margin-bottom:50px; width:200px; margin-left:auto; margin-right:auto;">
+    <div class="panel_header">
+        Login
+    </div>
+    <div style="margin: 5px; text-align:center;">
+        <form method="post" action="@Url.Account()/Login" id="loginForm" >
+        @Html.Hidden("ReturnUrl", Url.Account() + "/UpdateAccount")
+        @Html.Hidden("Channel", ((int)ViewBag.Channel))
+        <a id="fb-auth" onclick="loginFacebookExternal($('#ReturnUrl').val(), $('#Channel').val()); return false;" href="" style="text-decoration:none">
+            @Html.ImageTag(Url, "facebook-connect-button.png")</a>
+        </form>
+    </div>
+</div>

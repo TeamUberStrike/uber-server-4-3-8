@@ -1,0 +1,130 @@
+﻿@model List<Cmune.DataCenter.Common.Entities.BundleView>
+@{int c = 0;}
+@foreach (var bundleView in Model)
+{
+    <div class="creditPack @((bundleView.Credits > 0) ? "creditPackPack" : "creditPackBundle")">
+        <div>
+            <div class="right">
+                <a href="" onclick="LoadAddEditBundleForm(@bundleView.Id); return false;">Edit</a>
+            </div>
+            @if (bundleView.IsDefault)
+            {
+                <div class="right" style="color: #EEE; background-color: #000; padding: 1px 10px 3px 10px;
+                    font-weight: bold; border-radius: 5px; margin: -3px 20px 0 0;">
+                    IS DEFAULT
+                </div>
+            }
+            <h3>
+                @bundleView.Name</h3>
+        </div>
+        <br />
+        <div class="mainInfos">
+            <div>
+                <span class="label">Picture Name:</span> <span class="info">
+                    @bundleView.ImageUrl</span>
+            </div>
+            <div>
+                <span class="label">Logo Name:</span>
+                @bundleView.IconUrl
+            </div>
+            <div>
+                <span class="label">Description:</span> <span class="info">
+                    @bundleView.Description</span>
+            </div>
+            <div>
+                <span class="label">USD price:</span> <span class="info">
+                    @bundleView.USDPrice.ToString("F2")</span>
+            </div>
+            <div>
+                <span class="label">Is On Sale:</span> <span class="info">
+                    @bundleView.IsOnSale</span>
+            </div>
+            <div>
+                <span class="label">Category:</span> <span class="info">
+                    @bundleView.Category</span>
+            </div>
+            <div>
+                <span class="label">Available on:</span> <span class="info">
+                    @{int j = 0;}
+                    @foreach (Cmune.DataCenter.Common.Entities.ChannelType availableChannel in bundleView.Availability)
+                    {
+                        @(j != 0 ? ", " + availableChannel : "" + availableChannel)
+                        j++;
+                    }
+                    @(bundleView.Availability.Count == 0 ? "nowhere" : "")
+                </span>
+            </div>
+            <div>
+                <span class="label">Promotion Tag:</span> <span class="info">
+                    @bundleView.PromotionTag</span>
+            </div>
+            <div>
+                <span class="label">Mac Store Id:</span> <span class="info">
+                    @bundleView.MacAppStoreUniqueId</span>
+            </div>
+            <div>
+                <span class="label">iOS Store Id:</span> <span class="info">
+                    @bundleView.IosAppStoreUniqueId</span>
+            </div>
+        </div>
+        <br />
+        <fieldset>
+            <legend>Contains</legend>
+            <div>
+                <span class="label">Point:</span>
+                @bundleView.Points
+            </div>
+            <div>
+                <span class="label">Credits:</span>
+                @bundleView.Credits
+            </div>
+            <br />
+            <div class="creditPackItems">
+                @if (bundleView.BundleItemViews.Count > 0)
+                {
+                    <table class="searchResultTable" style="width: 100%">
+                        <tr>
+                            <th>
+                                ItemId
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Duration
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                        </tr>
+                        @{int i = 0;}
+                        @foreach (var bundleItemViews in bundleView.BundleItemViews)
+                        {
+                            <tr class="@(i % 2 == 1 ? "mod" : "")">
+                                <td>
+                                    @bundleItemViews.ItemId.ToString()
+                                </td>
+                                <td>
+                                    @(((ItemCache)ViewBag.ItemCache).GetItemName(bundleItemViews.ItemId))
+                                </td>
+                                <td>
+                                    @bundleItemViews.Duration.ToString()
+                                </td>
+                                <td>
+                                    @bundleItemViews.Amount.ToString()
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </table>
+                }
+            </div>
+        </fieldset>
+    </div>
+                c++;
+                if ((c % 3) == 0)
+                {
+    <div class="clear">
+    </div>
+                }
+}

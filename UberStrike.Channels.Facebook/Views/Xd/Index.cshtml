@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/Views/Xd/_Layout.cshtml";
+}
+@{
+    var PublishVersion = System.Configuration.ConfigurationManager.AppSettings["PublishVersion"];
+}
+@section HeaderSection{
+    <script src="@(Url.Content("~/Scripts/ultimatepay-api.js"))?p=@(PublishVersion)" type="text/javascript"></script>
+    <script type="text/javascript">
+        Playspan.XDReceiver = true; 
+    </script>
+}

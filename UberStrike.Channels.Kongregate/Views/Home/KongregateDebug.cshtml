@@ -1,0 +1,24 @@
+﻿<div id="debugContainer" style="position: fixed; background-color: white; z-index: 1000; right: 0px;">
+    <div>
+        <input type="button" onclick="$('#debug').toggle()" value="GameFrame Debug" style="cursor: pointer;" />
+    </div>
+    <div id="debug" style="display: none; overflow: scroll;">
+        <div>
+            <div>
+                <div id="widthHeight">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function TestFunction() {
+        var str = "";
+        str += "screen size :  " + screen.width + 'x' + screen.height + "<br/>";
+        str += "game frame : " + GetGameFrameWidth() + 'x' + GetGameFrameHeight() + "<br/>";
+        str += "shell size : " + GetShellWidth() + 'x' + GetShellHeight() + "<br/>";
+        str += "unity size : " + GetUnityWidth() + 'x' + GetUnityHeight() + "<br/>";
+        return str;
+    }
+    $("#widthHeight").html(TestFunction());
+</script>

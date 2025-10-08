@@ -1,0 +1,27 @@
+﻿@{
+    if ((TransactionType)ViewBag.TransactionType == TransactionType.Credit)
+    {
+        ViewBag.Title = "UberStrike - Get Credits";
+    }
+    else if ((TransactionType)ViewBag.TransactionType == TransactionType.ItemAndPoint)
+    {
+        ViewBag.Title = "UberStrike - Get Bundles";
+    }
+}
+<div style="clear: both">
+</div>
+<div style="text-align: center">
+    <div class="main_page_content">
+        <br />
+        @if ((TransactionType)ViewBag.TransactionType == TransactionType.Credit)
+        { 
+            <iframe id="creditBundleIframe" src="@Url.CommonChannelUrl()/GetCreditBundle?channel=@((((UserProfileModel)ViewBag.UserProfile).ChannelType))&cmid=@(((UserProfileModel)ViewBag.UserProfile).Member.CMID)"
+            frameborder="0" width="728" height="600" scrolling="no" style="margin: auto;"></iframe>
+        }
+        else if ((TransactionType)ViewBag.TransactionType == TransactionType.ItemAndPoint)
+        {
+            <iframe id="itemBundleIframe" src="@Url.CommonChannelUrl()/GetBundle?channel=@((((UserProfileModel)ViewBag.UserProfile).ChannelType))&cmid=@(((UserProfileModel)ViewBag.UserProfile).Member.CMID)"
+            frameborder="0" width="728" height="900" scrolling="no" style="margin: auto;"></iframe>
+        }
+    </div>
+</div>

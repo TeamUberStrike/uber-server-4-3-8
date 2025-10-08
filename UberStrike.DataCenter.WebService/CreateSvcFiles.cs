@@ -1,0 +1,13 @@
+﻿CreateSvcFiles.cs
+delete file
+Uberstrike.WebService.CrossDomainWebService.svc
+Uberstrike.WebService.CWS.ApplicationWebService.Contract.svc
+Uberstrike.WebService.CWS.AuthenticationWebService.Contract.svc
+Uberstrike.WebService.CWS.ClanWebService.Contract.svc
+Uberstrike.WebService.CWS.ModerationWebService.Contract.svc
+Uberstrike.WebService.CWS.PrivateMessageWebService.Contract.svc
+Uberstrike.WebService.CWS.RelationshipWebService.Contract.svc
+Uberstrike.WebService.CWS.ShopWebService.Contract.svc
+Uberstrike.WebService.CWS.UserWebService.Contract.svc
+Uberstrike.WebService.DescriptorWebService.svc
+Uberstrike.WebService.ServerWebService.svc

@@ -1,0 +1,31 @@
+﻿@model List<PlayerLevelCapView>
+<form id="levelCapsForm" action="" method="post">
+<input id="levelCapsTopButton" type="submit" onclick="editLevelCaps(); return false;"
+    value="Edit" />
+<table>
+    <tr>
+        <th>
+            Level
+        </th>
+        <th>
+            XP
+        </th>
+    </tr>
+    @if (Model.Count > 0)
+    {
+        foreach (var levelCap in Model)
+        {
+        <tr>
+            <td>@levelCap.Level
+            </td>
+            <td>
+                <input type="text" id="xp@(levelCap.PlayerLevelCapId)" name="xp@(levelCap.PlayerLevelCapId)" value="@levelCap.XPRequired" />
+            </td>
+        </tr>
+        }
+    }
+</table>
+<input type="hidden" id="levelCapsId" name="levelCapsId" value="@(String.Join(",", Model.Select(x => x.PlayerLevelCapId).ToList()))" />
+<input id="levelCapsBottomButton" type="submit" onclick="editLevelCaps(); return false;"
+    value="Edit" />
+</form>

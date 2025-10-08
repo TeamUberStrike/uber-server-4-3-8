@@ -1,0 +1,77 @@
+﻿@model List<FacebookBasicStatisticView>
+@{
+    Layout = null;
+    int i = 0;
+}
+<div id="socialCarouselListView">
+<div class="left" style="width:1px; height:111px; margin:1px 0px; border-right:1px solid black"></div>
+    @foreach (var fbStatView in Model)
+    {
+        i++;
+        if (fbStatView.FacebookId > 0)
+        {
+        <div id="member@(fbStatView.Cmid)Div" class="social_carousel_tab @(i == Model.Count ? "tab_last" : "") @(i == 1 ? "tab_first" : "")">
+                <div class="left" style="width:27px; text-align:left; margin-left:2px;"><span class="friendStat">Lv.@fbStatView.Level</span></div>
+                <p id='facebookName@(fbStatView.FacebookId)Span' class="facebookName">
+                   @fbStatView.FirstName
+                </p>
+                <img id='facebookProfilePicture@(fbStatView.FacebookId)Img' src="@(fbStatView.PicturePath)" alt="" width="50px" height="50px" style="margin:1px;" />
+           
+            
+            <div class="stat">
+                @if (fbStatView.SocialRank == 1)
+                {
+                    <span class="rankPro"></span>
+                }
+                else if (fbStatView.SocialRank == 2 || fbStatView.SocialRank == 3)
+                {
+                    <span class="rankIntermediate"></span>
+                }
+                else
+                {
+                    <span class="rankNoob"></span>
+                }
+                <div><span class="friendStat">Rank @fbStatView.SocialRank</span> 
+                </div>
+            </div>
+       
+        </div>
+        <script type="text/javascript">
+            function displayUberStrikeName(event, name) {
+                $('#uberStrikeNameSpan').html(name);
+                var tPosX = event.pageX + 30;
+                var tPosY = event.pageY;
+                $('#uberStrikeNameDiv').css({ top: tPosY, left: tPosX, display: 'block' });
+            }
+
+            function hideUberStrikeName() {
+                $('#uberStrikeNameDiv').css({ display: 'none' });
+            }
+
+            $('#member@(fbStatView.Cmid)Div').mouseover(function (event) {
+                displayUberStrikeName.call(this, event, '@fbStatView.NameJavaScriptDisplay');
+            }).mouseout(function () {
+                hideUberStrikeName();
+            });
+        </script>
+        }
+        else if (fbStatView.FacebookId == 0)
+        {
+        <div class="social_carousel_tab @(i == Model.Count ? "tab_last" : "")">
+            <div class="facebookName">&nbsp;</div>
+            <img src='@Url.Image("socialCarousel_NoPicture.png")' alt="Nobody there :(" width="50px" height="50px" style="margin:1px" />
+            <span class="darkGray" onclick="LoadInviteFriendsPage();">
+               Invite
+            </span>
+        </div>
+        }
+    }
+    <div class="clear"></div>
+</div>
+
+<!-- To display the UberStrike name of a player as a popup -->
+<div id="uberStrikeNameDiv" style="display:none; position: absolute; background-color: #171717;
+    border: 1px solid #323232; width: 100px; padding: 5px;overflow:hidden;">
+    
+    <span id="uberStrikeNameSpan" style=" color: #FFC41B;"></span>
+</div>

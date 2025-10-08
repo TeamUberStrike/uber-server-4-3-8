@@ -1,0 +1,7 @@
+﻿<div id="deploymentMenu" class="Menu">
+    <a href="@Url.Action("ManageApplicationVersions", "Deployment")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.DeploymentSubTabs.ManageApplicationVersions.ToString() ? "submenuActiveTab":"")">Application versions</a>
+    <a href="@Url.Action("Index","Servers")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.DeploymentSubTabs.Servers.ToString() ? "submenuActiveTab":"")">Server Inventory</a>
+    <a href="@Url.Action("ManagePhotons", "Deployment")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.DeploymentSubTabs.Photons.ToString() ? "submenuActiveTab":"")">Photons Clusters</a>
+    <a href="@Url.Action("ManageMaps", "Deployment")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.DeploymentSubTabs.Maps.ToString() ? "submenuActiveTab":"")">Maps</a>
+    <a href="@Url.Action("CreateApplicationMilestones", "Deployment")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.DeploymentSubTabs.Milestones.ToString() ? "submenuActiveTab":"")">Milestones</a>
+</div>

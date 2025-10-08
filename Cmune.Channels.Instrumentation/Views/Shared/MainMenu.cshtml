@@ -1,0 +1,45 @@
+﻿<div id="MainMenu">
+    @{ var currentUserRoles = (List<string>)ViewBag.MembershipUserRoles;}
+    @if (currentUserRoles.Contains(MembershipRoles.Administrator.ToString()))
+    {
+        <div  id="DashboardTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Dashboard.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Dashboard" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Dashboard.png")" />
+            <a href="@Url.Action("Index", "Home")" class="mainmenuTabText">Dashboard</a>
+        </div>
+        <div  id="StatsTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Statistics.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Statistics" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Statistics.png")" />
+            <a href="@Url.Action("Index", "Statistic")" class="mainmenuTabText">Statistics</a>
+        </div>
+        <div  id="MembersTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Members.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Members" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Members.png")" />
+            <a href="@Url.Action("Search", "Member")" class="mainmenuTabText">Members</a>
+        </div>
+        <div  id="ClansTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Clans.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Clans" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Members.png")" />
+            <a href="@Url.Action("Index", "Clan")" class="mainmenuTabText">Clans</a>
+        </div>
+        <div  id="ItemsTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Items.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Items" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Items.png")" />
+            <a href="@Url.Action("Index", "Item")" class="mainmenuTabText">Items</a>
+        </div>
+        <div  id="GamesTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Deployment.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Deployment" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Deployment.png")" />
+            <a href="@Url.Action("ManageApplicationVersions", "Deployment")" class="mainmenuTabText">
+                Deployment</a>
+        </div>
+        <div  id="ServerMonitoringTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Monitoring.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Monitoring" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Monitoring.png")" />
+            <a href="@Url.Action("SeePhotonsHealth", "Monitoring")" class="mainmenuTabText">Monitoring</a>
+        </div>
+        <div  id="ManagementTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Management.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Management" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Utils.png")" />
+            <a href="@Url.Action("Index", "Management")" class="mainmenuTabText">Management</a>
+        </div>
+        <div  id="AdminTab" class="mainmenuTab @(ViewBag.ActiveTab.ToString() == CmuneMenu.MainTabs.Utilities.ToString() ? "mainmenuActiveTab" : "")">
+            <img alt="Utils" class="mainmenuTabIcon" src="@Url.Content("~/Content/img/SectionIcons/Utils.png")" />
+            <a href="@Url.Action("Index", "Utility")" class="mainmenuTabText">Utilities</a>
+        </div>
+    }
+    <div style="clear: both">
+    </div>
+</div>

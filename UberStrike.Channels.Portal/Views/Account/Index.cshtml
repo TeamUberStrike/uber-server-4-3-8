@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Account";
+    UserProfileModel userProfile = ViewBag.UserProfile;
+}
+<div class="panel_default" style="float: left; margin: 8px 0 0 0px; width: 725px;">
+    <div class="panel_header">
+        MANAGE YOUR CMUNE ACCOUNT
+    </div>
+    <div class="panel_body">
+       <p style="padding-left: 7px;">
+        Account name: @ViewBag.MemberUserName <span class="right">Date joined:
+            @userProfile.Member.ResLastSyncDate.ToShortDateString()</span>
+            <div class="clear"></div>
+    </p><br />
+    @if (userProfile.Member.Login.IsNullOrFullyEmpty() || userProfile.Member.Password.IsNullOrFullyEmpty())
+    {
+        @Html.Partial("AccountCompletion", new CompleteAccountModel() { Email = ((UserProfileModel)ViewBag.UserProfile).FacebookUserModel.Email})
+    }
+    else
+    {
+        @Html.Partial("ChangePasswordPartial")
+        @Html.Partial("SendEmailVerification")
+        @Html.Partial("ChangeEmailPartial")
+        @Html.Partial("EmailMarketingSubscription")
+    }
+    <br />
+    </div>
+</div>
+<div style="float: right; margin: 8px 0 0 8px; width: 254px;">
+        @Html.Partial("PromotionPanelPartial")
+</div>
+<div class="clear">
+</div>

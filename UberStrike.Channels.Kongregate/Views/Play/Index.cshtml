@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Play";
+    var userProfile = (UserProfileModel)ViewBag.UserProfile;
+}
+@section HeaderJavaScript{
+    <script type="text/javascript">
+        var webServicesBaseURL = '@ConfigurationManager.AppSettings["InstrumentationWsBaseUrl"]';
+        var webChannel = @((int)ChannelType.Kongregate);
+        var locale = '@ViewBag.DefaultCulture';
+        var cookieDomainName = '@ConfigurationManager.AppSettings["CookieDomainName"]';
+        var imagesRoot = '@Url.Image()';
+        var appBaseUrl = '@Url.AppBaseUrl()';
+        var commonVideoRoot = '@ConfigurationManager.AppSettings["CommonVideoRoot"]';
+        var refreshTopMenuUrl = '@(Url.Action("RefreshTopMenu", "Home"))';
+        function GetKongregateUsername() {
+            return kongregate.services.getUsername();
+        }
+        var processUnityInstallFlowUrl = '@Url.Action("ProcessUnityInstallFlow", "Home")';
+    </script>
+}
+@section MenuSection{
+    @if (ViewBag.IsDevEnv)
+    {
+        @Html.Partial("Debug", userProfile);
+    }
+    <div id="UberstrikeMenu" style="height: 25px;">
+    </div>
+}
+<script type="text/javascript">
+    var unityArgs = '@Html.Raw(ViewBag.unityArgs)';
+    var cmid = @(userProfile.Member.CMID);
+    var IsTrackingEnabled = @((!ViewBag.IsAccountComplete).ToString().ToLower());
+    var IsKongregateStatisticEnabled = true;
+    UnityEvent.OnLoadSuccess = function () {
+        GetTopMenu();
+    }
+    EmbedUnity(unityArgs, GetUnityWidth(), GetUnityHeight(), webChannel);
+</script>
+<div id="unityPlayer">
+    <div class="missing" style="height: 560px; text-align: center; padding-top: 60px;">
+        <p style="text-align: center; padding-top: 20px; color: white;">
+            </p>
+    </div>
+</div>

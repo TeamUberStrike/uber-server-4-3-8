@@ -1,0 +1,106 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        <%= ViewBag.Title %>
+    </title>
+    <link href="<%= Url.Content("~/Content/css/styleadmin.css")%>?v=<%= ViewBag.PublishVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= Url.Content("~/Scripts/shadowbox-3-0-3/shadowbox.css")%>?v=<%= ViewBag.PublishVersion %>" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<%= Url.Content("~/Scripts/jquery-1.4.1.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/Scripts/shadowbox-3-0-3/shadowbox.js") %>?v=<%= ViewBag.PublishVersion %>"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/Scripts/js/formCleaner.js") %>?v=<%= ViewBag.PublishVersion %>"></script>
+    <script type="text/javascript">
+        var applicationPath = '<%= ViewBag.ApplicationPath %>';
+        var imagesRoot = '<%= ViewBag.ImagesRoot %>';
+        var cookieDomainName = '<%= ViewBag.CookieDomainName %>';
+        var loadingImage = $('<img />').attr('src', '<%= Url.Content("~/Content/img/ajax-loader-pac-man.gif")%>?v=<%= ViewBag.PublishVersion %>');
+    </script>
+    <script type="text/javascript" src="<%= Url.Content("~/Scripts/js/jsadmin.js") %>?v=<%= ViewBag.PublishVersion %>"></script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+    <div id="Page">
+        <div id="Head">
+            <script type="text/javascript">
+                Shadowbox.init({
+                    displayNav: true,
+                    modal: true,
+                    enableKeys: false,
+                    animate: false,
+                    animateFade: false,
+                    players: ['img', 'html', 'iframe']
+                });
+            </script>
+            <div>
+                <img src="<%= Url.Content("~/Content/img/TitleBanner.jpg")%>" alt="Cmune Instrumentation" class="left" />
+                <p id="environnementLabel">
+                    <%= ViewData["EnvironnementLiteral"] %>
+                </p>
+                <div class="left hide" id="GlobalAjaxLoader">
+                    <img src="<%= Url.Content("~/Content/img/ajax-loader-greenbar.gif")%>" alt="Loading..." />
+                </div>
+                <script type="text/javascript">
+                    var timeexecution = 0;
+                    timeexecutionDiv = "#timeexecution";
+                    var isError = false;
+                    $("#GlobalAjaxLoader").bind("ajaxSend", function () {
+                        isError = false;
+                        timeexecution = new Date().getTime();
+                        $(timeexecutionDiv).hide();
+                        $(this).show();
+                        $("#sb-ajax-loading").show();
+                    }).bind("ajaxComplete", function (data) {
+                        $(timeexecutionDiv).html((new Date().getTime() - timeexecution) / 1000 + 's');
+                        $(this).hide();
+                        $("#sb-ajax-loading").hide();
+                        if (isError == true) {
+                            $(timeexecutionDiv).addClass("errorMessage");
+                        }
+                        else
+                            $(timeexecutionDiv).removeClass("errorMessage");
+                        $(timeexecutionDiv).show();
+                    }).bind("ajaxError", function (data) {
+                        isError = true;
+                    });
+                </script>
+                <span id="timeexecution" class="left none"></span><span id="serverTimeLabel">Cmune time:
+                    <%= ViewData["ServerTimeLiteral"] %></span>
+                <div class="left" style="color:White">
+                </div>
+                <div class="clear">
+                </div>
+                <span class="right"><% Html.RenderPartial("LogOnUserControl"); %></span>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+
+        <div id="operationFeedbackDiv" class="ajaxFeedback" style="display:none;z-index:1000">
+        </div>
+
+        <div id="goToTopDiv" class="goTopLink" onclick="javascript:scroll(0,0);">
+            <img src="<%= Url.Content("~/Content/img/page_top.png") %>?v=<%= ViewBag.PublishVersion %>" alt="Go to top" />
+        </div>
+        <% if ((bool)ViewBag.IsActiveTabSet)
+           {
+               Html.RenderPartial("MainMenu", ViewData);
+           }%>
+        <% 
+            if ((bool)ViewBag.IsSubActiveTabSet)
+            {
+                Html.RenderPartial(Html.GetSubTabsPath((Enum)ViewBag.SubActiveTab), ViewData);
+            } 
+        %>
+        <div id="Body">
+            <center>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </center>
+        </div>
+        <div id="Footer">
+        </div>
+    </div>
+</body>
+</html>

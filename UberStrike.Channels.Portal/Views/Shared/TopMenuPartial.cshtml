@@ -1,0 +1,47 @@
+﻿@{
+    var userProfile = (UserProfileModel)ViewBag.UserProfile;
+}
+<div class="main_page_navbar">
+    <a href="@Url.Home()" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.Home()) || Request.RawUrl == Url.Content("~/") || Request.RawUrl == Url.Content("~/").Substring(0, Url.Content("~/").Length - 1))
+                                                          { <text>style="color:#FEC42C;"</text> } }>
+        HOME</a> <a href="@Url.Forum()" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.Forum()))
+                                                                        { <text>style="color:#FEC42C;"</text> } }>
+            FORUM</a>
+    @if (Request.IsAuthenticated)
+    {
+        if (userProfile != null && userProfile.Member != null)
+        {
+            if (userProfile.Member.IsAccountComplete)
+            {
+        <a href="@Url.Profile()?cmid=@(userProfile.Member.CMID)" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.Profile()))
+                                                                                                 { <text>style="color:#FEC42C;"</text> } }>
+            PROFILE</a>
+            }
+        <a href="@Url.Account()" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.Account()))
+                                                                 { <text>style="color:#FEC42C;"</text> } }>
+            ACCOUNT
+            @if (userProfile.Member.Login.IsNullOrFullyEmpty() && userProfile.Member.Password.IsNullOrFullyEmpty())
+            {
+                <span>@Html.ImageTag(Url, "icons/icon_new.gif")</span>
+            }
+        </a>
+        <a href="@Url.CreditBundle()" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.CreditBundle()))
+                                                                      { <text>style="color:#FEC42C;"</text> } }>
+            GET CREDITS</a>
+        <a href="@Url.ItemAndPointBundle()" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.ItemAndPointBundle()))
+                                                                            { <text>style="color:#FEC42C;"</text> } }>
+            GET BUNDLES</a>
+        <a href="@Url.RedeemEpin()" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.RedeemEpin()))
+                                                                            { <text>style="color:#FEC42C;"</text> } }>REDEEM EPIN</a>
+        }
+    }
+    <a href="@Url.Ranking()" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.Ranking()))
+                                                             { <text>style="color:#FEC42C;"</text> } }>
+        <span>RANKING</span> </a>
+    <a href="@Url.Download()" class="main_page_navbar_tab" @{ if (Request.RawUrl.Contains(Url.Download()))
+                                                             { <text>style="color:#FEC42C;"</text> } }>
+        <span>DOWNLOAD</span> </a>
+    <div class="right" id="portalAjaxLoader">@Html.ImageTag(Url, "loading_orange.gif")</div>
+    <div class="clear">
+    </div>
+</div>

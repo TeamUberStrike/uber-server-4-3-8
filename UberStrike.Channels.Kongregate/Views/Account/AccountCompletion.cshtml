@@ -1,0 +1,74 @@
+﻿@model CompleteAccountModel
+@{
+    ViewBag.Title = "Account Completion";
+}
+<div style="height: 15px">
+</div>
+<div id="kongregateUberstrikePanel">
+    <div id="screen">
+        <div id="block" style="font-weight: bold">
+            <div class="panel_item_textcontent" style="text-align: left">
+                <p>
+                    Please complete and validate your email address to gain 1500 UberStrike points!
+                </p>
+                <br />
+                <br />
+                @using (Html.BeginForm("ChangeEmailForm", "Account", FormMethod.Post, new { id = "ChangeEmailForm", autocomplete = "off" }))
+                {
+                    <div>
+                        <label class="formlabel">
+                            Your email</label>
+                        @Html.TextBoxFor(m => m.NewEmail, new { @class = "cmuneInput", style = "width:250px" })
+                    </div>
+                    <br />
+                    <div>
+                        <label class="formlabel">
+                            Your password
+                        </label>
+                        @Html.PasswordFor(m => m.Password, new { @class = "CmuneInput", style = "width:250px" })
+                    </div>
+                    <br />
+                    <div>
+                        <label class="formlabel">
+                            Confirmation
+                        </label>
+                        @Html.PasswordFor(m => m.PasswordConfirmation, new { @class = "CmuneInput", style = "width:250px" })
+                    </div>
+                    <div style="text-align: left; margin: 20px 0 0 123px;">
+                        <input type="submit" value="Save Email" class="bigRedWhite" style="cursor: pointer" /><br />
+                        <br />
+                        <div id="change_email_div">
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#toggleChangeEmail').click(function () {
+        $('#ChangeEmailForm').toggle('slow');
+    });
+
+    $('#ChangeEmailForm').bind('submit', function () {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Complete", "Account")' + "?" + GetKongregateLoginData(),
+            data: $(this).serialize(),
+            success: function (data) {
+                if (data.errorMessage != "") {
+                    ToggleSummary("#change_email_div", false, data.errorMessage);
+                }
+                else {
+                    ToggleSummary("#change_email_div", true, "Your email has successfully been changed! You will receive soon an email to validate your email");
+                    ClearForm("#ChangeEmailForm");
+                    setTimeout(function () {
+                        $("#CompleteEmail").hide();
+                        LoadPlayPage();
+                    }, 3000);
+                }
+            }
+        });
+        return false;
+    });
+</script>

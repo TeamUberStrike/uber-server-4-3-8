@@ -1,0 +1,75 @@
+﻿@model List<EpinBatchView>
+<table class="searchResultTable" style="width: 100%; font-size: 13px;">
+    <tr>
+        <th>
+            Batch Id
+        </th>
+        <th>
+            Generation date
+        </th>
+        <th>
+            Provider
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Credits
+        </th>
+        <th>
+            Is admin
+        </th>
+        <th>
+            Is retired
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+    </tr>
+    @if (Model.Count > 0)
+    {
+        int i = 0;
+
+        foreach (var batch in Model)
+        {
+        <tr class="@(i % 2 == 1 ? "mod" : "")">
+            <td>
+                @batch.BatchId
+            </td>
+            <td>
+                @batch.BatchDate.ToNiceDisplay()
+            </td>
+            <td>
+                @CommonConfig.PaymentProviderName[batch.EpinProvider]
+            </td>
+            <td>
+                @batch.Amount
+            </td>
+            <td>
+                @batch.CreditAmount
+            </td>
+            <td>
+                @batch.IsAdmin
+            </td>
+            <td>
+                <span class="@(batch.IsRetired ? "bold" : "")">@batch.IsRetired</span>
+            </td>
+            <td>
+                <a href="@Url.Action("ExportBatch", "Management")?batchId=@batch.BatchId&exportMode=xlxs">
+                    <img src="@Url.Content("~/Content/img/xlxs_icon.png")" alt="Export to Xlxs" /></a>
+            </td>
+            <td>
+                <a id="retire@(batch.BatchId)Link" href="#" onclick="changeBatchRetirementStatus(@batch.BatchId); return false;">@(batch.IsRetired ? "Unretire" : "Retire")</a>
+            </td>
+        </tr>
+            i++;
+        }
+    }
+</table>
+@Html.GeneratePagination((PaginationModel)ViewBag.EpinBatchesPaginationModel, "getEpinBatches();")
+@if (Model.Count == 0)
+{
+    <p>
+        There is no batch.</p>
+}

@@ -1,0 +1,68 @@
+﻿@model ChangeEmailModel
+@{
+    UserProfileModel userProfile = ViewBag.UserProfile;
+
+}
+<div class="panel_item" id="change_email_div" style="padding: 15px 0px 15px 5px;">
+    <div class="panel_item_header">
+        <input id="toggleChangeEmail" class="right darkGray" value="Change Email" type="button" />
+        Email address
+    </div>
+    <div class="panel_item_textcontent" style="text-align: left">
+        Email: @(userProfile.Member.Login)
+        <br />
+        @using (Html.BeginForm("ChangeEmailForm", "Account", FormMethod.Post, new { id = "ChangeEmailForm", autocomplete = "off", style = "display:none" }))
+        {
+
+            <table>
+                <tr>
+                    <td>
+                        Password:
+                    </td>
+                    <td>
+                        @Html.PasswordFor(m => m.Password, new { @class = "cmuneInput" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Your new email:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.NewEmail, new { @class = "cmuneInput" })
+                    </td>
+                </tr>
+            </table>
+            <div style="text-align:left; padding: 20px 0 0px 90px;">
+                <input type="submit" value="Change Email" class="darkGray" /><br /><br />
+              After you change your e-mail address you'll need to re-verify your account above.
+            </div>
+        }
+        @Html.Partial("MessageSummary")
+    </div>
+</div>
+<script type="text/javascript">
+    $('#toggleChangeEmail').click(function () {
+        $('#ChangeEmailForm').toggle('slow');
+    });
+
+    $('#ChangeEmailForm').bind('submit', function () {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Account()/ChangeEmail',
+            data: $(this).serialize(),
+            success: function (data) {
+                if (data.errorMessage != "") {
+                    DisplayErrorSummary("#change_email_div", data.errorMessage);
+                }
+                else {
+                    DisplaySuccessSummary("#change_email_div", "Your email has successfully been changed!");
+                    ClearForm("#ChangeEmailForm");
+                    setTimeout(function () {
+                        window.location.reload(), 2000
+                    });
+                }
+            }
+        });
+        return false;
+    });
+</script>

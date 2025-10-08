@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "FBLogin";
+}
+<div style="text-align: center">
+<div class="main_page_content">
+    <div style="text-align: center; margin: auto; padding-bottom: 15px;">
+    <h1>
+        Redeem E-PIN</h1>
+        @Html.Hidden("ReturnUrl", ((string)ViewBag.ReturnUrl).IsNullOrFullyEmpty() ? "" : (string)ViewBag.ReturnUrl)
+        <!-- // very important -->
+        <span><br/>Continue with Facebook to redeem Game Cards and ePin code<br/>to your account<br/></span><br/><br/>
+        <a id="fb-auth" onclick="facebooklogin(); return false;" href="" style="text-decoration:none">
+            @Html.ImageTag(Url, "facebook-connect-button.png")</a>
+    </div>
+</div>
+</div>

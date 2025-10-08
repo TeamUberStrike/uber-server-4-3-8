@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title></title>
+    @Html.FacebookChannelCssFile(Url)
+    @Html.FacebookChannelJavaScriptFile(Url)
+</head>
+<body>
+    <div>
+        <div id="EmailDuplicationPage">
+            <div id="screen">
+                <div id="content">
+                    @RenderBody()
+                </div>
+            </div>
+            <div id="logo">
+            </div>
+        </div>
+        <script type="text/javascript">
+            var baseUrl = "@Url.AppBaseUrl()";
+            var ApplicationPath = '@Url.AppBaseUrl()';
+            var FacebookApplicationUrl = '@ViewBag.FacebookApplicationUrl';
+        </script>
+    </div>
+</body>
+</html>

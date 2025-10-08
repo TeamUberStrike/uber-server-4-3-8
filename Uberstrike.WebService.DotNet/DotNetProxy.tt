@@ -1,0 +1,136 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="$(SolutionDir)T4Helper/bin/Debug/T4Helper.dll" #>
+<#
+	T4Utils.WriteLine = this.WriteLine;
+	T4Utils.FileHeader();
+	
+	string projectName = "UberStrike.DataCenter.WebService";
+	var interfaces = WebServiceAttributeParser.GetProjectInterfaces((IServiceProvider)this.Host, projectName);
+#>
+using System.IO;
+using System.ServiceModel;
+using System.Xml;
+using Cmune.Core.Models.Views;
+using UberStrike.Core.Serialization;
+
+namespace UberStrike.WebService.DotNet
+{
+<#
+	//Here we declare the interfaces for IIS
+	foreach(var interfac in interfaces)
+	{
+		if(interfac.UseBinarySerialization)
+		{
+			string interfaceName = interfac.Name + WebServiceConstants.InternalWebServiceSuffix;
+			string serviceName = projectName + "."+ WebServiceConstants.InternalWebServiceNamespace + "." + interfac.ClassName + WebServiceConstants.InternalWebServiceSuffix + WebServiceConstants.WebServiceEndpointSuffix;
+			string className = interfac.ClassName;
+#>
+	#region <#=interfaceName#>
+	
+	[ServiceContractAttribute(ConfigurationName = "<#=serviceName#>")]
+	internal interface <#=interfaceName#>
+	{
+<#
+		foreach(var method in interfac.Methods)
+		{
+			if(!method.IsVoid)
+			{
+#>
+        [OperationContractAttribute(Action = "http://tempuri.org/<#=interfaceName#>/<#=method.UniqueName#>", ReplyAction = "http://tempuri.org/<#=interfaceName#>/<#=method.UniqueName#>Response")]
+		byte[] <#=method.UniqueName#>(byte[] data);
+		
+<#
+			}
+			else
+			{
+#>
+        [OperationContractAttribute(Action = "http://tempuri.org/<#=interfaceName#>/<#=method.UniqueName#>", IsOneWay = true)]
+		void <#=method.UniqueName#>(byte[] data);
+		
+<#
+			}
+		}
+#>
+
+	}
+	
+	internal class <#=className#>InternalClient : ClientBase<<#=interfaceName#>>, <#=interfaceName#>
+	{
+		public <#=className#>InternalClient() 
+			: base(new BasicHttpBinding() { MaxReceivedMessageSize = 10000000, ReaderQuotas = new XmlDictionaryReaderQuotas() { MaxDepth = <#=WebServiceConstants.MaxDepth#>, MaxStringContentLength =  <#=WebServiceConstants.MaxStringContentLength#>, MaxArrayLength =  <#=WebServiceConstants.MaxArrayLength#>, MaxBytesPerRead =  <#=WebServiceConstants.MaxBytesPerRead#>, MaxNameTableCharCount =  <#=WebServiceConstants.MaxNameTableCharCount#> } }, new EndpointAddress(new System.Uri(Configuration.WebserviceBaseUrl + "<#=serviceName#>")))
+		{ }
+		
+<#
+		foreach(var method in interfac.Methods)
+		{
+			if(!method.IsVoid)
+			{	
+#>
+		public byte[] <#=method.UniqueName#>(byte[] data)
+		{
+			return base.Channel.<#=method.UniqueName#>(data);
+		}
+		
+<#
+			}
+			else
+			{
+#>
+		public void <#=method.UniqueName#>(byte[] data)
+		{
+			base.Channel.<#=method.UniqueName#>(data);
+		}
+		
+<#
+			}
+		}
+#>
+	}
+	
+	public static class <#=className#>Client
+	{
+<#
+	foreach(var method in interfac.Methods)
+	{
+		if(method.IsObsolete) WriteLine("		" + method.GetObsoleteHeader());
+#>
+		public static <#=method.ReturnType#> <#=method.Name#>(<#=method.PrintArgumentDeclaration()#>)
+		{
+			MemoryStream stream = new MemoryStream();
+<#			for(int i=0; i < method.Arguments.Count; i++)
+			{
+#>
+				UberStrike.Core.Serialization.<#=Serialization.GetProxyName(method.Arguments[i].Key, method.ArgumentKinds[i])#>.Serialize(stream, <#=method.Arguments[i].Value#>);
+<#
+			}
+			
+			if(!method.IsVoid)
+			{
+#>
+			var data = new <#=className#>InternalClient().<#=method.UniqueName#>(Cmune.Util.Cryptography.RijndaelEncrypt(stream.ToArray(), Configuration.EncryptionPassPhrase, Configuration.EncryptionInitVector));
+		 	
+			MemoryStream returnData = new MemoryStream(Cmune.Util.Cryptography.RijndaelDecrypt(data, Configuration.EncryptionPassPhrase, Configuration.EncryptionInitVector));
+			return UberStrike.Core.Serialization.<#=Serialization.GetProxyName(method.ReturnType, method.ReturnKind)#>.Deserialize(returnData<#=Serialization.GetDeserializeArguments(method.ReturnType)#>);
+<#
+			}
+			else
+			{
+#>
+			new <#=className#>InternalClient().<#=method.UniqueName#>(Cmune.Util.Cryptography.RijndaelEncrypt(stream.ToArray(), Configuration.EncryptionPassPhrase, Configuration.EncryptionInitVector));
+<#	
+			}
+#>
+		}
+		
+<#
+		}
+#>
+	}
+	#endregion
+	
+<#
+		}
+	}
+#>
+}

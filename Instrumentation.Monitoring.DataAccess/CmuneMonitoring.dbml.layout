@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.875" name="CmuneMonitoring">
+  <DataContextMoniker Name="/CmuneMonitoringDataContext" />
+  <nestedChildShapes>
+    <classShape Id="74cfbfcc-5bbd-41d6-8485-4a567858d760" absoluteBounds="3.5, 6.25, 2, 2.1554996744791675">
+      <DataClassMoniker Name="/CmuneMonitoringDataContext/ManagedServerMonitoring" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a1d4eff2-ab8e-4870-95e3-e176004b8ebb" absoluteBounds="3.515, 6.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="80bf0fb1-e1b9-46d4-969d-ee77edc36072" absoluteBounds="6.75, 0.75, 2, 3.1170068359375005">
+      <DataClassMoniker Name="/CmuneMonitoringDataContext/UnityException" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0fcf3faf-b986-4992-acbe-477b6743e7e8" absoluteBounds="6.765, 1.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="016ecac2-fe5d-4c8f-aaac-6c6f4b0d52ed" absoluteBounds="0.75, 5, 2, 4.6554182942708326">
+      <DataClassMoniker Name="/CmuneMonitoringDataContext/ManagedServer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9cc386c0-0d85-4655-8457-8d727bea40b1" absoluteBounds="0.765, 5.46, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6236c4ef-1b81-4259-b81d-2da278670223" absoluteBounds="3.5, 0.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CmuneMonitoringDataContext/PhotonMonitoringDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3ff8e643-ac41-46d5-a9ab-d5f19b5c7696" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="57e2a4ea-bcd7-40b1-a459-5b599c9a21ff" absoluteBounds="0.75, 1.125, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/CmuneMonitoringDataContext/PhotonMonitoringInstance" />
+      <nestedChildShapes>
+        <elementListCompartment Id="db73e631-2165-47bb-b507-b357959b9d57" absoluteBounds="0.765, 1.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 7.32774983723958); (3.5 : 7.32774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CmuneMonitoringDataContext/ManagedServer/ManagedServer_ManagedServerMonitoring" />
+      <nodes>
+        <classShapeMoniker Id="016ecac2-fe5d-4c8f-aaac-6c6f4b0d52ed" />
+        <classShapeMoniker Id="74cfbfcc-5bbd-41d6-8485-4a567858d760" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.01044840494792); (3.5 : 2.01044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CmuneMonitoringDataContext/PhotonMonitoringInstance/PhotonMonitoringInstance_PhotonMonitoringDetail" />
+      <nodes>
+        <classShapeMoniker Id="57e2a4ea-bcd7-40b1-a459-5b599c9a21ff" />
+        <classShapeMoniker Id="6236c4ef-1b81-4259-b81d-2da278670223" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

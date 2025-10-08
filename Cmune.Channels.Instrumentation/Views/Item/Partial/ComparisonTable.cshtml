@@ -1,0 +1,326 @@
+﻿@model ComparisonViewModel
+@{
+    ViewBag.Title = "ComparisonTable";
+    var itemTypeId = (int)ViewBag.ItemTypeId;
+}
+<div style="text-align: left">
+    DEV : 1st row
+    <br />
+    PROD : 2nd row
+</div>
+<br />
+<div>
+    <table class="searchResultTable">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Supported
+            </th>
+            <th>
+                In Shop
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Crds/Day
+            </th>
+            <th>
+                Pts/Day
+            </th>
+            <th>
+                Perm Crds
+            </th>
+            <th>
+                Perm Pts
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Class
+            </th>
+            <th>
+                Purchase
+            </th>
+            <th>
+                Featured
+            </th>
+            <th>
+                New
+            </th>
+            <th>
+                Popular
+            </th>
+            <th>
+                Pack 1
+                <br />
+                amount
+            </th>
+            <th>
+                Pack 2
+                <br />
+                amount
+            </th>
+            <th>
+                Pack 3
+                <br />
+                Amount
+            </th>
+            <th>
+                Max
+                <br />
+                ownable
+            </th>
+            <th>
+                Enable
+                <br />
+                1 Day
+            </th>
+            <th>
+                Enable
+                <br />
+                7 Days
+            </th>
+            <th>
+                Enable
+                <br />
+                30 Days
+            </th>
+            <th>
+                Enable
+                <br />
+                90 Days
+            </th>
+            <th>
+                Max
+                <br />
+                duration
+                <br />
+                (days)
+            </th>
+            @if (itemTypeId == 1)
+            {
+                <th>
+                    Accuracy<br />
+                    Spread
+                </th>            
+                <th>
+                    Damage<br />
+                    Knockback
+                </th>            
+                <th>
+                    Damage<br />
+                    Per<br />
+                    Projectile
+                </th>            
+                <th>
+                    Max<br />
+                    Ammo
+                </th>            
+                <th>
+                    Missile<br />
+                    Bounciness
+                </th>            
+                <th>
+                    Missile<br />
+                    Force<br />
+                    Impulse
+                </th>            
+                <th>
+                    Missile<br />
+                    Time<br />
+                    ToDetonate
+                </th>            
+                <th>
+                    Projectile<br />
+                    Speed
+                </th>            
+                <th>
+                    Projectiles<br />
+                    Per<br />
+                    Shot
+                </th>            
+                <th>
+                    Rate<br />
+                    Of<br />
+                    Fire
+                </th>            
+                <th>
+                    Recoil<br />
+                    Kickback
+                </th>
+                <th>
+                    Recoil<br />
+                    Movement
+                </th>
+                <th>
+                    Splash<br />
+                    Radius
+                </th>
+                <th>
+                    Start<br />
+                    Ammo
+                </th>
+            }
+            else if (itemTypeId == 2)
+            {
+            }
+            else if (itemTypeId == 3)
+            {
+                <th>
+                    Armor<br />
+                    Absorption<br />
+                    Percent
+                </th>
+                <th>
+                    Armor<br />
+                    Points
+                </th>
+                <th>
+                    Armor<br />
+                    Weight
+                </th>
+            }
+        </tr>
+        @{ 
+            List<UberstrikeItemView> uberstrikeItemViewDev = new List<UberstrikeItemView>();
+            if (itemTypeId == 1)
+            {
+                uberstrikeItemViewDev = Model.UberstrikeItemShopView.WeaponItems.OrderBy(d => d.ItemId).Select(d => (UberstrikeItemView)d).ToList();
+            }
+            else if (itemTypeId == 2)
+            {
+                uberstrikeItemViewDev = Model.UberstrikeItemShopView.WeaponModItems.OrderBy(d => d.ItemId).Select(d => (UberstrikeItemView)d).ToList();
+            }
+            else if (itemTypeId == 3)
+            {
+                uberstrikeItemViewDev = Model.UberstrikeItemShopView.GearItems.OrderBy(d => d.ItemId).Select(d => (UberstrikeItemView)d).ToList();
+            }
+            else if (itemTypeId == 4)
+            {
+                uberstrikeItemViewDev = Model.UberstrikeItemShopView.QuickUseItems.OrderBy(d => d.ItemId).Select(d => (UberstrikeItemView)d).ToList();
+            }
+            else if (itemTypeId == 5)
+            {
+                uberstrikeItemViewDev = Model.UberstrikeItemShopView.FunctionalItems.OrderBy(d => d.ItemId).Select(d => (UberstrikeItemView)d).ToList();
+            }
+            else if (itemTypeId == 6)
+            {
+                uberstrikeItemViewDev = Model.UberstrikeItemShopView.SpecialItems.OrderBy(d => d.ItemId).Select(d => (UberstrikeItemView)d).ToList();
+            }
+            for (int i = 0; i < uberstrikeItemViewDev.Count; i++)
+            {
+                var itemDev = uberstrikeItemViewDev[i];
+                UberstrikeItemView itemProd = null;
+                if (itemTypeId == 1)
+                {
+                    itemProd = (UberstrikeItemView)Model.UberstrikeItemShopViewToCompare.WeaponItems.Where(d => d.ItemId == itemDev.ItemId).FirstOrDefault();
+                }
+                else if (itemTypeId == 2)
+                {
+                    itemProd = (UberstrikeItemView)Model.UberstrikeItemShopViewToCompare.WeaponModItems.Where(d => d.ItemId == itemDev.ItemId).FirstOrDefault();
+                }
+                else if (itemTypeId == 3)
+                {
+                    itemProd = (UberstrikeItemView)Model.UberstrikeItemShopViewToCompare.GearItems.Where(d => d.ItemId == itemDev.ItemId).FirstOrDefault();
+                }
+                else if (itemTypeId == 4)
+                {
+                    itemProd = (UberstrikeItemView)Model.UberstrikeItemShopViewToCompare.QuickUseItems.Where(d => d.ItemId == itemDev.ItemId).FirstOrDefault();
+                }
+                else if (itemTypeId == 5)
+                {
+                    itemProd = (UberstrikeItemView)Model.UberstrikeItemShopViewToCompare.FunctionalItems.Where(d => d.ItemId == itemDev.ItemId).FirstOrDefault();
+                }
+                else if (itemTypeId == 6)
+                {
+                    itemProd = (UberstrikeItemView)Model.UberstrikeItemShopViewToCompare.SpecialItems.Where(d => d.ItemId == itemDev.ItemId).FirstOrDefault();
+                }
+                if (itemProd != null)
+                {
+            <tr class="@(i % 2 == 1 ? "mod" : "")">
+                @Html.CompareItemValues(Url, "td", "Id", itemDev.ItemId.ToString(), itemProd.ItemId.ToString())
+                @Html.CompareItemValues(Url, "td", "Is Disable", (!itemDev.IsDisable).ToString(), (!itemProd.IsDisable).ToString())
+                @Html.CompareItemValues(Url, "td", "Is For Sale", itemDev.IsForSale.ToString(), itemProd.IsForSale.ToString())
+                @Html.CompareItemValues(Url, "td", "Name", itemDev.Name, itemProd.Name)
+                @Html.CompareItemValues(Url, "td", "Credits/Day", itemDev.CreditsPerDay.ToString(), itemProd.CreditsPerDay.ToString())
+                @Html.CompareItemValues(Url, "td", "Points/Day", itemDev.PointsPerDay.ToString(), itemProd.PointsPerDay.ToString())
+                @Html.CompareItemValues(Url, "td", "Permanent Points", itemDev.PermanentPoints.ToString(), itemProd.PermanentPoints.ToString())
+                @Html.CompareItemValues(Url, "td", "Permanent Credits", itemDev.PermanentCredits.ToString(), itemProd.PermanentCredits.ToString())
+                @Html.CompareItemValues(Url, "td", "Type Id", itemDev.TypeId.ToString(), itemProd.TypeId.ToString())
+                @Html.CompareItemValues(Url, "td", "Class Id", itemDev.ClassId.ToString(), itemProd.ClassId.ToString())
+                @Html.CompareItemValues(Url, "td", "Purchase Type", itemDev.PurchaseType.ToString(), itemProd.PurchaseType.ToString())
+                @Html.CompareItemValues(Url, "td", "Is Featured", itemDev.IsFeatured.ToString(), itemProd.IsFeatured.ToString())
+                @Html.CompareItemValues(Url, "td", "Is New", itemDev.IsNew.ToString(), itemProd.IsNew.ToString())
+                @Html.CompareItemValues(Url, "td", "Is Popular", itemDev.IsPopular.ToString(), itemProd.IsPopular.ToString())
+                @Html.CompareItemValues(Url, "td", "Pack One Amount", itemDev.PackOneAmount.ToString(), itemProd.PackOneAmount.ToString())
+                @Html.CompareItemValues(Url, "td", "Pack Two Amount", itemDev.PackTwoAmount.ToString(), itemProd.PackTwoAmount.ToString())
+                @Html.CompareItemValues(Url, "td", "Pack Three Amount", itemDev.PackThreeAmount.ToString(), itemProd.PackThreeAmount.ToString())
+                @Html.CompareItemValues(Url, "td", "Maximum Ownable Amount", itemDev.MaximumOwnableAmount.ToString(), itemProd.MaximumOwnableAmount.ToString())
+                @Html.CompareItemValues(Url, "td", "Enable 1 Day", itemDev.Enable1Day.ToString(), itemProd.Enable1Day.ToString())
+                @Html.CompareItemValues(Url, "td", "Enable 7 Days", itemDev.Enable7Days.ToString(), itemProd.Enable7Days.ToString())
+                @Html.CompareItemValues(Url, "td", "Enable 30 Days", itemDev.Enable30Days.ToString(), itemProd.Enable30Days.ToString())
+                @Html.CompareItemValues(Url, "td", "Enable 90 Days", itemDev.Enable90Days.ToString(), itemProd.Enable90Days.ToString())
+                @Html.CompareItemValues(Url, "td", "Maximum Duration Days", itemDev.MaximumDurationDays.ToString(), itemProd.MaximumDurationDays.ToString())
+                @if (itemTypeId == 1)
+                {
+                    var itemDev2 = (UberstrikeItemWeaponView)itemDev;
+                    var itemProd2 = (UberstrikeItemWeaponView)itemProd;
+                    @Html.CompareItemValues(Url, "td", "Accuracy Spread", itemDev2.Config.AccuracySpread.ToString(), itemProd2.Config.AccuracySpread.ToString())
+                    @Html.CompareItemValues(Url, "td", "Damage Knockback", itemDev2.Config.DamageKnockback.ToString(), itemProd2.Config.DamageKnockback.ToString())
+                    @Html.CompareItemValues(Url, "td", "Damage Per Projectile", itemDev2.Config.DamagePerProjectile.ToString(), itemProd2.Config.DamagePerProjectile.ToString())
+                    @Html.CompareItemValues(Url, "td", "Max Ammo", itemDev2.Config.MaxAmmo.ToString(), itemProd2.Config.MaxAmmo.ToString())
+                    @Html.CompareItemValues(Url, "td", "Missile Bounciness", itemDev2.Config.MissileBounciness.ToString(), itemProd2.Config.MissileBounciness.ToString())
+                    @Html.CompareItemValues(Url, "td", "Missile Force Impulse", itemDev2.Config.MissileForceImpulse.ToString(), itemProd2.Config.MissileForceImpulse.ToString())
+                    @Html.CompareItemValues(Url, "td", "Missile Time To Detonate", itemDev2.Config.MissileTimeToDetonate.ToString(), itemProd2.Config.MissileTimeToDetonate.ToString())
+                    @Html.CompareItemValues(Url, "td", "Projectile Speed", itemDev2.Config.ProjectileSpeed.ToString(), itemProd2.Config.ProjectileSpeed.ToString())
+                    @Html.CompareItemValues(Url, "td", "Projectiles PerShot", itemDev2.Config.ProjectilesPerShot.ToString(), itemProd2.Config.ProjectilesPerShot.ToString())
+                    @Html.CompareItemValues(Url, "td", "RateOf Fire", itemDev2.Config.RateOfFire.ToString(), itemProd2.Config.RateOfFire.ToString())
+                    @Html.CompareItemValues(Url, "td", "Recoil Kickback", itemDev2.Config.RecoilKickback.ToString(), itemProd2.Config.RecoilKickback.ToString())
+                    @Html.CompareItemValues(Url, "td", "Recoil Movement", itemDev2.Config.RecoilMovement.ToString(), itemProd2.Config.RecoilMovement.ToString())
+                    @Html.CompareItemValues(Url, "td", "Splash Radius", itemDev2.Config.SplashRadius.ToString(), itemProd2.Config.SplashRadius.ToString())
+                    @Html.CompareItemValues(Url, "td", "Start Ammo", itemDev2.Config.StartAmmo.ToString(), itemProd2.Config.StartAmmo.ToString())
+                }
+                else if (itemTypeId == 2)
+                {
+                }
+                else if (itemTypeId == 3)
+                {
+                    var itemDev2 = (UberstrikeItemGearView)itemDev;
+                    var itemProd2 = (UberstrikeItemGearView)itemProd;
+                    @Html.CompareItemValues(Url, "td", "Defense Bonus", itemDev2.Config.ArmorAbsorptionPercent.ToString(), itemProd2.Config.ArmorAbsorptionPercent.ToString())
+                    @Html.CompareItemValues(Url, "td", "Armor Carried", itemDev2.Config.ArmorPoints.ToString(), itemProd2.Config.ArmorPoints.ToString())
+                    @Html.CompareItemValues(Url, "td", "Armor Weight", itemDev2.Config.ArmorWeight.ToString(), itemProd2.Config.ArmorWeight.ToString())
+                }
+                else if (itemTypeId == 4)
+                {
+                    var itemDev2 = (UberstrikeItemQuickUseView)itemDev;
+                    var itemProd2 = (UberstrikeItemQuickUseView)itemProd;
+                }
+                else if (itemTypeId == 5)
+                {
+                    var itemDev2 = (UberstrikeItemFunctionalView)itemDev;
+                    var itemProd2 = (UberstrikeItemFunctionalView)itemProd;
+                }
+                else if (itemTypeId == 6)
+                {
+                    var itemDev2 = (UberstrikeItemSpecialView)itemDev;
+                    var itemProd2 = (UberstrikeItemSpecialView)itemProd;
+                }
+            </tr>
+                }
+                else
+                {
+            <tr>
+                <td colspan="28">
+                    <span style="color: red">@itemDev.ItemId - @itemDev.Name [MISSING ITEM] </span>
+                </td>
+            </tr>
+                }
+            }
+        }
+    </table>
+</div>

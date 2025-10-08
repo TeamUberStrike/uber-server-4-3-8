@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "ProcessInstallFlow";
+}
+<div class="shadowbackground">
+    <div class="dlgContent">
+        <h2 class="dlgHeader">
+            <p>@ViewBag.I18nText["windowTitle"]</p>
+        </h2>
+        <div class="dlgBody">
+            <div class="install_step1_lower">
+                <br />
+                <p>@Html.Raw(ViewBag.I18nText["welcomeSentence"])</p>
+                <br />
+                <p>
+                    @Html.Raw(ViewBag.I18nText["continueInstall"])
+                </p>
+                <br />
+                <br />
+                <p>
+                    <a class="bigRedWhite" href="@ViewBag.UnityObjectUAInstallUrl" onclick="@(ViewBag.UnityObjectUAInstallonclick); setTimeout('wsTracking(2)', 800); return true;">
+                        <strong>Continue</strong></a>
+                </p>
+                <br /><br />
+                @if (Html.UnityInstallIsOneClickPluginEnabled() || (Html.UnityInstallIsWindowPlatform() || Html.UnityInstallIsMacPlatform()))
+                {
+                    @ViewBag.I18nText["continueInstallError"]; <a style="color:#9A0002" href="@Html.UnityInstallGetUnityDownloadLink()">@ViewBag.I18nText["clickHere"]</a>
+                }
+                </p>
+                <br />
+                <div>
+                    <div class="installPluginMonitor">
+                        <div style="height: 187px; overflow: hidden">
+                            <object width="320" height="212" type="application/x-shockwave-flash" data="https://www.youtube.com/v/4pryvDbzKbY&amp;loop=1&amp;modestbranding=1&amp;autoplay=1"
+                                wmode="transparent">
+                                <param name="movie" value="https://www.youtube.com/v/4pryvDbzKbY&amp;loop=1&amp;modestbranding=1&amp;autoplay=1">
+                                <param name="wmode" value="transparent">
+                            </object>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <br />
+        <div class="dlgButtons">
+            <div class="left">@ViewBag.I18nText["supportLink"] <a target="_blank" href="@CommonConfig.CmuneSupportCenterUrl">
+                support center</a></div>
+            <a href="http://unity3d.com/" target="_blank">
+                <img src="@Url.Image("unity_logo.png")" height="23px" /></a> <a href="http://www.cmune.com/"
+                    target="_blank" />
+            <img src="@Url.Image("cmune_logo.png") height="23px" /></a>
+        </div>
+    </div>
+</div>
