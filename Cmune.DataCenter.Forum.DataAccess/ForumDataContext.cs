@@ -30,7 +30,7 @@ namespace Cmune.DataCenter.Forum.DataAccess
 
                         if (forumDBDataSourceConfig.Equals(DatabaseDeployment.Dev))
                         {
-                            dataSource = "Data Source=192.168.1.200;Initial Catalog=MvParadisePaintballForum;Persist Security Info=True;User ID=sa;Password=cmune$1";
+                            dataSource = "Data Source=DESKTOP-LNSADFU;Initial Catalog=MvParadisePaintballForum;Persist Security Info=True;User ID=sa;Password=cmune$1";
                         }
                         else if (forumDBDataSourceConfig.Equals(DatabaseDeployment.Staging))
                         {
