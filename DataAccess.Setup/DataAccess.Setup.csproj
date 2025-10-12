@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllTimeTotalRanking.cs" />
+    <Compile Include="CreateUberstrikeDatabase.cs" />
     <Compile Include="Uberstrike.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
