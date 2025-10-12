@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3900EBB1-F4E0-45C3-AE3F-8631E68D9AA8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UberStrike.UnitySdk</RootNamespace>
+    <AssemblyName>UberStrike.UnitySdk</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>..\References\Exitgames\Photon3Unity3D.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\References\UnityEngine\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\ApiVersion.cs" />
+    <Compile Include="NewRealtime\BasePeer.cs" />
+    <Compile Include="NewRealtime\CommClientProxy.cs">
+      <DependentUpon>CommClientProxy.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="NewRealtime\GameClientProxy.cs">
+      <DependentUpon>GameClientProxy.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="NewRealtime\Interfaces\IEventDispatcher.cs" />
+    <Compile Include="NewRealtime\Interfaces\IOperationSender.cs" />
+    <Compile Include="NewRealtime\Interfaces\IRoomLogic.cs" />
+    <Compile Include="NewRealtime\PhotonPeerListener.cs" />
+    <Compile Include="Realtime\Models\ArmorInfo.cs" />
+    <Compile Include="Realtime\Models\CharacterInfo.cs" />
+    <Compile Include="Realtime\Models\EndOfMatchData.cs" />
+    <Compile Include="Realtime\Models\GameDamage.cs" />
+    <Compile Include="Realtime\Models\GameEventInfo.cs" />
+    <Compile Include="Realtime\Models\GameMetaData.cs" />
+    <Compile Include="Realtime\Models\IGameMetaData.cs" />
+    <Compile Include="Realtime\Models\PlayerEventInfo.cs" />
+    <Compile Include="Realtime\Models\PlayerPosition.cs" />
+    <Compile Include="Realtime\Models\RaidbotInfo.cs" />
+    <Compile Include="Realtime\Models\RotationVector3.cs" />
+    <Compile Include="Realtime\Models\ShortVector3.cs" />
+    <Compile Include="Realtime\Models\StatsCollection.cs" />
+    <Compile Include="Realtime\Models\StatsInfo.cs" />
+    <Compile Include="Realtime\Models\StatsSummary.cs" />
+    <Compile Include="Realtime\Models\WeaponInfo.cs" />
+    <Compile Include="Realtime\Serialization\UberStrikeByteConverter.cs" />
+    <Compile Include="Realtime\Serialization\UberStrikeDataType.cs" />
+    <Compile Include="Realtime\Types\GameConstants.cs" />
+    <Compile Include="Realtime\Types\GameFlags.cs" />
+    <Compile Include="Realtime\Types\NetworkClassIds.cs" />
+    <Compile Include="Realtime\Types\NetworkMethodIds.cs" />
+    <Compile Include="Realtime\Types\UberstrikeEnums.cs" />
+    <Compile Include="Helper\ConvertStatistics.cs" />
+    <Compile Include="Helper\SystemTime.cs" />
+    <Compile Include="Helper\LimitedQueue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helper\TextUtility.cs" />
+    <Compile Include="Helper\TextUtilities.cs" />
+    <Compile Include="Helper\ValidationUtilities.cs" />
+    <Compile Include="WebServices\Configuration.cs" />
+    <Compile Include="WebServices\SoapClient.cs" />
+    <Compile Include="WebServices\UnityProxy.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnityProxy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\WebServiceStarter.cs" />
+    <Compile Include="WebServices\WebServiceStatistics.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="MSBuild\Ilmerge.CSharp.targets" />
+    <None Include="NewRealtime\CommClientProxy.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CommClientProxy.cs</LastGenOutput>
+    </None>
+    <None Include="NewRealtime\GameClientProxy.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GameClientProxy.cs</LastGenOutput>
+    </None>
+    <None Include="WebServices\UnityProxy.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UnityProxy.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cmune.Core.Models\Cmune.Core.Models.csproj">
+      <Project>{52BFDE82-2E5E-4BF7-A0A3-492C2962A5A7}</Project>
+      <Name>Cmune.Core.Models</Name>
+      <IlMerge>true</IlMerge>
+    </ProjectReference>
+    <ProjectReference Include="..\Realtime.Photon.Client\Cmune.Realtime.Client.csproj">
+      <Project>{9E78D405-5D9E-4AA0-AC40-4E690B92C76C}</Project>
+      <Name>Cmune.Realtime.Client</Name>
+      <IlMerge>true</IlMerge>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.Core.Models\UberStrike.Core.Models.csproj">
+      <Project>{E55E0833-752C-4250-A161-DAF2A72F7868}</Project>
+      <Name>UberStrike.Core.Models</Name>
+      <IlMerge>true</IlMerge>
+    </ProjectReference>
+    <ProjectReference Include="..\Uberstrike.Core.Serialization\UberStrike.Core.Serialization.csproj">
+      <Project>{3795D2B1-B971-48E5-AC22-BFB46FA20902}</Project>
+      <Name>UberStrike.Core.Serialization</Name>
+      <IlMerge>true</IlMerge>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="MSBuild\Ilmerge.CSharp.targets" />
+  <!-- <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" /> -->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

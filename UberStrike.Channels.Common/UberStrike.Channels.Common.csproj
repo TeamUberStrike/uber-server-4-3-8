@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{178A9036-2903-4272-939D-4896FD1BDF71}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UberStrike.Channels.Common</RootNamespace>
+    <AssemblyName>UberStrike.Channels.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Facebook, Version=5.4.1.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\FacebookSdk\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Web, Version=5.4.1.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\FacebookSdk\Facebook.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Web.Mvc">
+      <HintPath>..\References\FacebookSdk\Facebook.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\NLog\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\CommonCache.cs" />
+    <Compile Include="Business\ItemCache.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\CacheInvalidationController.cs" />
+    <Compile Include="Controllers\EpinController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GetBundleController.cs" />
+    <Compile Include="Controllers\GetCreditBundleController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RankingController.cs" />
+    <Compile Include="FilterAttributes\MyHandleErrorAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\BuyingDurationTypeConverterHelper.cs" />
+    <Compile Include="Helpers\CommonMediaHelper.cs" />
+    <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\KongregateBundleView.cs" />
+    <Compile Include="Models\PaymentStepsEnum.cs" />
+    <Compile Include="Models\PersonalBestsModel.cs" />
+    <Compile Include="Models\RankingDisplay.cs" />
+    <Compile Include="Models\SignInModel.cs" />
+    <Compile Include="Models\ChannelUserViewModel.cs" />
+    <Compile Include="Models\UserLoadoutModel.cs" />
+    <Compile Include="Models\UserProfileViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\app_offline.htm" />
+    <Content Include="Content\cmune.css" />
+    <Content Include="Content\error.css" />
+    <Content Include="Content\facebookChannel.css" />
+    <Content Include="Content\images\animated-flame.gif" />
+    <Content Include="Content\images\app_offline.jpg" />
+    <Content Include="Content\images\bundleBox.png" />
+    <Content Include="Content\images\BundleTransaction\arrow.png" />
+    <Content Include="Content\images\BundleTransaction\arrowOrange.png" />
+    <Content Include="Content\images\BundleTransaction\portalTrustIcons.png" />
+    <Content Include="Content\images\BundleTransaction\securePayment.png" />
+    <Content Include="Content\images\BundleTransaction\trustIcons.png" />
+    <Content Include="Content\images\bundle\10.jpg" />
+    <Content Include="Content\images\bundle\100.jpg" />
+    <Content Include="Content\images\bundle\15k-points.png" />
+    <Content Include="Content\images\bundle\20.jpg" />
+    <Content Include="Content\images\bundle\200.jpg" />
+    <Content Include="Content\images\bundle\3.jpg" />
+    <Content Include="Content\images\bundle\30.jpg" />
+    <Content Include="Content\images\bundle\5.jpg" />
+    <Content Include="Content\images\bundle\50.jpg" />
+    <Content Include="Content\images\bundle\500.jpg" />
+    <Content Include="Content\images\bundle\BlackCorps.png" />
+    <Content Include="Content\images\bundle\BlackCorps270.png" />
+    <Content Include="Content\images\bundle\BlackCorps75.png" />
+    <Content Include="Content\images\bundle\BlackCorpsIcon.png" />
+    <Content Include="Content\images\bundle\Commando-Pack-Icon.png" />
+    <Content Include="Content\images\bundle\Commando-Pack-Icon2.png" />
+    <Content Include="Content\images\bundle\Commando-Pack-Icon3.png" />
+    <Content Include="Content\images\bundle\Commando-Pack.png" />
+    <Content Include="Content\images\bundle\Demolition270.png" />
+    <Content Include="Content\images\bundle\Demolition75.png" />
+    <Content Include="Content\images\bundle\doctorBundleIcon.png" />
+    <Content Include="Content\images\bundle\DoctorPackBundle.png" />
+    <Content Include="Content\images\bundle\HalloweenPackBundle.png" />
+    <Content Include="Content\images\bundle\HalloweenPointBundle.png" />
+    <Content Include="Content\images\bundle\Hitman270.png" />
+    <Content Include="Content\images\bundle\Hitman75.png" />
+    <Content Include="Content\images\bundle\Juggernaut.png" />
+    <Content Include="Content\images\bundle\JuggernautIcon.png" />
+    <Content Include="Content\images\bundle\MafiaBundle.jpg" />
+    <Content Include="Content\images\bundle\MafiaBundleIcon.jpg" />
+    <Content Include="Content\images\bundle\MafiaBundleIcon.png" />
+    <Content Include="Content\images\bundle\Magnus270.png" />
+    <Content Include="Content\images\bundle\MasterBlaster.png" />
+    <Content Include="Content\images\bundle\MasterBlaster270.png" />
+    <Content Include="Content\images\bundle\MasterBlaster75.png" />
+    <Content Include="Content\images\bundle\MasterBlasterIcon.png" />
+    <Content Include="Content\images\bundle\MASUberSanta.png" />
+    <Content Include="Content\images\bundle\medieval.png" />
+    <Content Include="Content\images\bundle\MedievalIcons40x40.png" />
+    <Content Include="Content\images\bundle\MedievalMagnus75.png" />
+    <Content Include="Content\images\bundle\medivalicon.png" />
+    <Content Include="Content\images\bundle\MythicNinja75.png" />
+    <Content Include="Content\images\bundle\MythicNinjaBundle.jpg" />
+    <Content Include="Content\images\bundle\MythicNinjaBundleIcon.jpg" />
+    <Content Include="Content\images\bundle\MythicNinjaIcon.png" />
+    <Content Include="Content\images\bundle\Neo270.png" />
+    <Content Include="Content\images\bundle\Neo75.png" />
+    <Content Include="Content\images\bundle\Ninja.png" />
+    <Content Include="Content\images\bundle\Ninja270.png" />
+    <Content Include="Content\images\bundle\NinjaIcon.png" />
+    <Content Include="Content\images\bundle\Painmaker270.png" />
+    <Content Include="Content\images\bundle\Painmaker75.png" />
+    <Content Include="Content\images\bundle\PerfectLoadoutBundle.jpg" />
+    <Content Include="Content\images\bundle\PerfectLoadoutBundleIcon.jpg" />
+    <Content Include="Content\images\bundle\PerfectLoadoutIcon.png" />
+    <Content Include="Content\images\bundle\PointBlank270.png" />
+    <Content Include="Content\images\bundle\PointBlank75.png" />
+    <Content Include="Content\images\bundle\PointsPack.png" />
+    <Content Include="Content\images\bundle\PointsPack15000.png" />
+    <Content Include="Content\images\bundle\PointsPackIcon.png" />
+    <Content Include="Content\images\bundle\PointsPackTran.png" />
+    <Content Include="Content\images\bundle\PointsPackZombieHotDeals.png" />
+    <Content Include="Content\images\bundle\RunGun.png" />
+    <Content Include="Content\images\bundle\RunGunIcon.png" />
+    <Content Include="Content\images\bundle\Sentinal.png" />
+    <Content Include="Content\images\bundle\SentinalIcon.png" />
+    <Content Include="Content\images\bundle\sentinelBundleLogo.png" />
+    <Content Include="Content\images\bundle\skeletonBundleIcon.png" />
+    <Content Include="Content\images\bundle\SpringGrenade270.png" />
+    <Content Include="Content\images\bundle\SpringGrenade75.png" />
+    <Content Include="Content\images\bundle\SuperSpyBundle.png" />
+    <Content Include="Content\images\bundle\SuperSpyThumb.png" />
+    <Content Include="Content\images\bundle\UBCreditMedium1.png" />
+    <Content Include="Content\images\bundle\UBCreditSmall1.png" />
+    <Content Include="Content\images\bundle\uberBundleIcon.png" />
+    <Content Include="Content\images\bundle\UberPackBundle.png" />
+    <Content Include="Content\images\bundle\UberSanta270.png" />
+    <Content Include="Content\images\bundle\UberZombie2.png" />
+    <Content Include="Content\images\bundle\UberZombieHotDeal.png" />
+    <Content Include="Content\images\bundle\UberZombieTran.png" />
+    <Content Include="Content\images\bundle\web-BlackCorps.png" />
+    <Content Include="Content\images\bundle\web-Demolition.png" />
+    <Content Include="Content\images\bundle\web-Hitman.png" />
+    <Content Include="Content\images\bundle\web-Magnus.png" />
+    <Content Include="Content\images\bundle\web-MasterBlaster.png" />
+    <Content Include="Content\images\bundle\web-Neo.png" />
+    <Content Include="Content\images\bundle\web-Ninja.png" />
+    <Content Include="Content\images\bundle\web-Painmaker.png" />
+    <Content Include="Content\images\bundle\web-SpringGrenade.png" />
+    <Content Include="Content\images\bundle\web-thumb-BlackCorps.png" />
+    <Content Include="Content\images\bundle\web-thumb-Demolition.png" />
+    <Content Include="Content\images\bundle\web-thumb-Hitman.png" />
+    <Content Include="Content\images\bundle\web-thumb-Magnus.png" />
+    <Content Include="Content\images\bundle\web-thumb-MasterBlaster.png" />
+    <Content Include="Content\images\bundle\web-thumb-Neo.png" />
+    <Content Include="Content\images\bundle\web-thumb-Ninja.png" />
+    <Content Include="Content\images\bundle\web-thumb-Painmaker.png" />
+    <Content Include="Content\images\bundle\web-thumb-SpringGrenade.png" />
+    <Content Include="Content\images\bundle\web-thumb-UberSanta.png" />
+    <Content Include="Content\images\bundle\web-UberSanta.png" />
+    <Content Include="Content\images\bundle\ZombieIcon.png" />
+    <Content Include="Content\images\bundle\ZombieIcon2.png" />
+    <Content Include="Content\images\cmune-monitor.png" />
+    <Content Include="Content\images\cmuneFooterPanel.png" />
+    <Content Include="Content\images\cmuneHeader_Background.jpg" />
+    <Content Include="Content\images\cmuneHeader_Background_reverse.jpg" />
+    <Content Include="Content\images\credit\10.jpg" />
+    <Content Include="Content\images\credit\100.jpg" />
+    <Content Include="Content\images\credit\20.jpg" />
+    <Content Include="Content\images\credit\200.jpg" />
+    <Content Include="Content\images\credit\3.jpg" />
+    <Content Include="Content\images\credit\30.jpg" />
+    <Content Include="Content\images\credit\5.jpg" />
+    <Content Include="Content\images\credit\50.jpg" />
+    <Content Include="Content\images\credit\500.jpg" />
+    <Content Include="Content\images\Epin\Gamesultan.gif" />
+    <Content Include="Content\images\Epin\Gamesultan.png" />
+    <Content Include="Content\images\facebook-connect-button.png" />
+    <Content Include="Content\images\FacebookChannel\CmuneLogo.jpg" />
+    <Content Include="Content\images\FacebookChannel\EarnSteps.png" />
+    <Content Include="Content\images\FacebookChannel\FbBackground.jpg" />
+    <Content Include="Content\images\facebookLogOutButton.png" />
+    <Content Include="Content\images\icons\icon_new.gif" />
+    <Content Include="Content\images\icons\playspan_logo.png" />
+    <Content Include="Content\images\icons\smallUSCredit.png" />
+    <Content Include="Content\images\Icon_cmune.png" />
+    <Content Include="Content\images\Icon_facebook.png" />
+    <Content Include="Content\images\Icon_mac.png" />
+    <Content Include="Content\images\KongregateChannel\ajax-loader-kg.gif" />
+    <Content Include="Content\images\KongregateChannel\ajax-loader-kongregate.gif" />
+    <Content Include="Content\images\KongregateChannel\uberstrikePanel.jpg" />
+    <Content Include="Content\images\opacity_background.png" />
+    <Content Include="Content\images\PortalChannel\backgroundFinal-portal.jpg" />
+    <Content Include="Content\images\PortalChannel\betasidebanner.jpg" />
+    <Content Include="Content\images\PortalChannel\download\DownloadIcon.png" />
+    <Content Include="Content\images\PortalChannel\download\DownloadMac.png" />
+    <Content Include="Content\images\PortalChannel\download\DownloadPC.png" />
+    <Content Include="Content\images\PortalChannel\download\MacAppStore.png" />
+    <Content Include="Content\images\PortalChannel\UberStrike-HD-Side-Banner.jpg" />
+    <Content Include="Content\images\PortalChannel\WeppageheadBar.jpg" />
+    <Content Include="Content\images\start_buttons.jpg" />
+    <Content Include="Content\images\uberstrikeBtn.jpg" />
+    <Content Include="Content\images\unityinstall\firefox2.jpg" />
+    <Content Include="Content\images\unityinstall\mac-ch.jpg" />
+    <Content Include="Content\images\unityinstall\mac-ff.jpg" />
+    <Content Include="Content\images\unityinstall\win-ch.jpg" />
+    <Content Include="Content\images\unityinstall\win-ff.jpg" />
+    <Content Include="Content\images\unityinstall\win-ie8.jpg" />
+    <Content Include="Content\images\unityinstall\win-ie9.jpg" />
+    <Content Include="Content\images\unityinstall\win-java.jpg" />
+    <Content Include="Content\images\unityinstall\win-safari.jpg" />
+    <Content Include="Content\images\unityinstall\xp-ie.jpg" />
+    <Content Include="Content\images\unityloader\_logo.png" />
+    <Content Include="Content\images\unityloader\_progressbar.png" />
+    <Content Include="Content\images\unityloader\_progressframe.png" />
+    <Content Include="Content\images\cmuneHeader_Background_S2.png" />
+    <Content Include="Content\images\cmuneHeader_Home.png" />
+    <Content Include="Content\images\cmuneHeader_Logo.jpg" />
+    <Content Include="Content\images\cmuneHeader_ServerTime.jpg" />
+    <Content Include="Content\images\cmuneHeader_ServerTimeNew.jpg" />
+    <Content Include="Content\images\cmuneHeader_TabButtonBackground.png" />
+    <Content Include="Content\images\cmuneHeader_UberStrikeLogo3.png" />
+    <Content Include="Content\images\cmune_logo.png" />
+    <Content Include="Content\images\facebookCredits.png" />
+    <Content Include="Content\images\favicon.ico" />
+    <Content Include="Content\images\forum\backCmune.jpg" />
+    <Content Include="Content\images\forum\barBottomMenuGame.gif" />
+    <Content Include="Content\images\forum\barTopMenuGame.gif" />
+    <Content Include="Content\images\forum\bckCmune2.jpg" />
+    <Content Include="Content\images\forum\cmuneLogo.png" />
+    <Content Include="Content\images\forum\CommunityBtnOn.jpg" />
+    <Content Include="Content\images\forum\footerBack.jpg" />
+    <Content Include="Content\images\forum\HomeBtnOff.jpg" />
+    <Content Include="Content\images\forum\PPlogo3.jpg" />
+    <Content Include="Content\images\forum\ProfileBtnOff.jpg" />
+    <Content Include="Content\images\forum\SupportBtnOff.jpg" />
+    <Content Include="Content\images\icons\mastercard.png" />
+    <Content Include="Content\images\icons\paypal.png" />
+    <Content Include="Content\images\icons\visa.png" />
+    <Content Include="Content\images\loading_orange.gif" />
+    <Content Include="Content\images\logo2.jpg" />
+    <Content Include="Content\images\mainPage_AppNavBar.jpg" />
+    <Content Include="Content\images\mainPage_AppNavBar_LeftShadow.jpg" />
+    <Content Include="Content\images\mainPage_AppNavBar_RightShadow.jpg" />
+    <Content Include="Content\images\next.png" />
+    <Content Include="Content\images\nextLarge.png" />
+    <Content Include="Content\images\nextXLarge.png" />
+    <Content Include="Content\images\opacBtn.png" />
+    <Content Include="Content\images\opacity70.png" />
+    <Content Include="Content\images\panel_Header_Background.jpg" />
+    <Content Include="Content\images\unity_logo.png" />
+    <Content Include="Content\kongregateChannel.css" />
+    <Content Include="Content\layoutFacebook.css" />
+    <Content Include="Content\layoutPortal.css" />
+    <Content Include="Content\portalChannel.css" />
+    <Content Include="Content\images\previous.png" />
+    <Content Include="Content\images\start_button.jpg" />
+    <Content Include="Content\images\iconCredits.png" />
+    <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\images\panda.png" />
+    <Content Include="Content\images\rank_intermediate.png" />
+    <Content Include="Content\images\rank_noob.png" />
+    <Content Include="Content\images\rank_pro.png" />
+    <Content Include="Content\images\socialCarousel_NoPicture.png" />
+    <Content Include="Content\images\unityinstall\ch-2.jpg" />
+    <Content Include="Content\images\unityinstall\ch.jpg" />
+    <Content Include="Content\images\unityinstall\ff-mac-2.jpg" />
+    <Content Include="Content\images\unityinstall\ff-mac-3.jpg" />
+    <Content Include="Content\images\unityinstall\ff-mac.jpg" />
+    <Content Include="Content\images\unityinstall\ff-vista-2.jpg" />
+    <Content Include="Content\images\unityinstall\ff-vista.jpg" />
+    <Content Include="Content\images\unityinstall\ie-vista.jpg" />
+    <Content Include="Content\images\unityinstall\ie-xp.jpg" />
+    <Content Include="Content\images\unityinstall\install-mac.jpg" />
+    <Content Include="Content\images\unityinstall\install-win.jpg" />
+    <Content Include="Content\images\unityinstall\install_bg.jpg" />
+    <Content Include="Content\images\unityinstall\java-vista.jpg" />
+    <Content Include="Content\images\unityinstall\logo.jpg" />
+    <Content Include="Content\images\unityinstall\saf-mac.jpg" />
+    <Content Include="Content\images\unityinstall\saf-vista-2.jpg" />
+    <Content Include="Content\images\unityinstall\saf-vista.jpg" />
+    <Content Include="Content\images\yellowBtn.png" />
+    <Content Include="Content\layout.css" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\util.css" />
+    <Content Include="Content\videos\preview.swf" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.5.1.js" />
+    <Content Include="Scripts\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\BrowserDetect.js" />
+    <Content Include="Scripts\Brwsniff.js" />
+    <Content Include="Scripts\js\BrowserDetectWrapper.js" />
+    <Content Include="Scripts\js\FacebookChannel\FacebookJSSDKWrapper.js" />
+    <Content Include="Scripts\js\FacebookChannel\layout.js" />
+    <Content Include="Scripts\js\FacebookChannel\ProcessUnityInstall.js" />
+    <Content Include="Scripts\js\FacebookChannel\FBSocial.js" />
+    <Content Include="Scripts\js\FacebookChannel\UnityEmbedExtend.js" />
+    <Content Include="Scripts\js\KongregateChannel\KongregateAPIWrapper.js" />
+    <Content Include="Scripts\js\KongregateChannel\layout.js" />
+    <Content Include="Scripts\js\KongregateChannel\ProcessUnityInstall.js" />
+    <Content Include="Scripts\js\KongregateChannel\UnityEmbedExtend.js" />
+    <Content Include="Scripts\js\layout.js" />
+    <Content Include="Scripts\js\PortalChannel\layout.js" />
+    <Content Include="Scripts\js\PortalChannel\ProcessUnityInstall.js" />
+    <Content Include="Scripts\js\PortalChannel\UnityEmbedExtend.js" />
+    <Content Include="Scripts\js\ProcessUnityInstall.js" />
+    <Content Include="Scripts\js\ranking.js" />
+    <Content Include="Scripts\js\UberStrike.js" />
+    <Content Include="Scripts\js\UltimatepayCall.js" />
+    <Content Include="Scripts\md5.js" />
+    <Content Include="Scripts\postmessage.js" />
+    <Content Include="Scripts\ServerTime.js" />
+    <Content Include="Scripts\js\Tracking.js" />
+    <Content Include="Scripts\shadowbox-3_0_3\close.png" />
+    <Content Include="Scripts\shadowbox-3_0_3\expressInstall.swf" />
+    <Content Include="Scripts\shadowbox-3_0_3\loading.gif" />
+    <Content Include="Scripts\shadowbox-3_0_3\next.png" />
+    <Content Include="Scripts\shadowbox-3_0_3\pause.png" />
+    <Content Include="Scripts\shadowbox-3_0_3\play.png" />
+    <Content Include="Scripts\shadowbox-3_0_3\player.swf" />
+    <Content Include="Scripts\shadowbox-3_0_3\previous.png" />
+    <Content Include="Scripts\shadowbox-3_0_3\shadowbox.css" />
+    <Content Include="Scripts\shadowbox-3_0_3\shadowbox.js" />
+    <Content Include="Scripts\ultimatepay-api.js" />
+    <Content Include="Scripts\js\UnityEmbed.js" />
+    <Content Include="Scripts\js\UnityObject.js" />
+    <Content Include="Scripts\js\WebServices.js" />
+    <Content Include="Scripts\modernizr-1.7.js" />
+    <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="obj\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GetCreditBundle\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GetCreditBundle\Partial\WorkflowTree.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GetCreditBundle\Partial\SelectPaymentStep.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GetCreditBundle\Partial\CompleteTransactionStep.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_ErrorLayout.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Shared\Debug.cshtml" />
+    <Content Include="Views\GetCreditBundle\SuperRewards.cshtml" />
+    <Content Include="Views\GetCreditBundle\PlaySpanXD.cshtml" />
+    <Content Include="Views\GetBundle\Index.cshtml" />
+    <Content Include="Views\GetBundle\Partial\SelectBundleStep.cshtml" />
+    <Content Include="Views\GetBundle\Partial\CompleteBundleTransactionStep.cshtml" />
+    <Content Include="Views\GetCreditBundle\Partial\SelectCreditBundleStep.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Ranking\_Ranking.cshtml" />
+    <Content Include="Views\Ranking\Index.cshtml" />
+    <Content Include="Views\Epin\Index.cshtml" />
+    <Content Include="Views\Epin\ValidateEpin.cshtml" />
+    <Content Include="Views\Account\ConnectWith.cshtml" />
+    <Content Include="Views\Account\ConnectWithCmune.cshtml" />
+    <Content Include="Views\Account\ConnectWithFacebook.cshtml" />
+    <Content Include="Views\GetCreditBundle\Partial\ThankYouForShoppingWithUs.cshtml" />
+    <Content Include="Views\Epin\turkishIndex.cshtml" />
+    <Content Include="Views\Epin\turkishValidateEpin.cshtml" />
+    <None Include="Web.config.dev">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.config.external.qa">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web.config.prod">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cmune.Core.Models\Cmune.Core.Models.csproj">
+      <Project>{52BFDE82-2E5E-4BF7-A0A3-492C2962A5A7}</Project>
+      <Name>Cmune.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.Business\Cmune.DataCenter.Business.csproj">
+      <Project>{86B8C51C-EFD0-403A-89AA-62911F5D72C9}</Project>
+      <Name>Cmune.DataCenter.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.DataAccess\Cmune.DataCenter.DataAccess.csproj">
+      <Project>{109DC74A-FA20-4260-B233-4CDCA3B103D0}</Project>
+      <Name>Cmune.DataCenter.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.Utils\Cmune.DataCenter.Utils.csproj">
+      <Project>{AB5D0AA6-E5B8-4F3D-9340-8047A5C4BE88}</Project>
+      <Name>Cmune.DataCenter.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SendGridSdk\SendGridSdk.csproj">
+      <Project>{A93B3002-8E5E-4A77-BEB3-FE34767A222B}</Project>
+      <Name>SendGridSdk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.Channels.Utils\UberStrike.Channels.Utils.csproj">
+      <Project>{B985E205-E3AE-43C1-8125-4E4CD1827493}</Project>
+      <Name>UberStrike.Channels.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.Core.Models\UberStrike.Core.Models.csproj">
+      <Project>{E55E0833-752C-4250-A161-DAF2A72F7868}</Project>
+      <Name>UberStrike.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.Business\UberStrike.DataCenter.Business.csproj">
+      <Project>{4377E35E-FB9D-4C2C-961C-201D72CF411C}</Project>
+      <Name>UberStrike.DataCenter.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.DataAccess\UberStrike.DataCenter.DataAccess.csproj">
+      <Project>{D28992B7-2755-4789-B6FE-83FF5AAB0CCB}</Project>
+      <Name>UberStrike.DataCenter.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.Utils\UberStrike.DataCenter.Utils.csproj">
+      <Project>{85E49673-69F7-41EB-92D3-E0BE04402C3D}</Project>
+      <Name>UberStrike.DataCenter.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3437</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/CommonChannel</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ABBDB67A-7E75-456D-8EC1-6631E5173C24}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UberStrike.Realtime.Photon.CommServer</RootNamespace>
+    <AssemblyName>UberStrike.Realtime.Photon.CommServer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <WarningsAsErrors>114, 219, 414, </WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ExitGamesLibs, Version=0.9.6.2, Culture=neutral, PublicKeyToken=eac0edd9746a4aa0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Exitgames\ExitGamesLibs.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.1, Culture=neutral, PublicKeyToken=2bb32138a3ceff71, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Exitgames\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon.SocketServer">
+      <HintPath>..\References\Exitgames\Photon.SocketServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonHostRuntimeInterfaces, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6cb1467adaa73020, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\References\Exitgames\PhotonHostRuntimeInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\References\UnityEngine\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationConfiguration.cs" />
+    <Compile Include="CommApplicationCenter.cs" />
+    <Compile Include="Common\Models\ArmorInfo.cs" />
+    <Compile Include="Common\Models\CharacterInfo.cs" />
+    <Compile Include="Common\Models\EndOfMatchData.cs" />
+    <Compile Include="Common\Models\GameDamage.cs" />
+    <Compile Include="Common\Models\GameEventInfo.cs" />
+    <Compile Include="Common\Models\GameMetaData.cs" />
+    <Compile Include="Common\Models\IGameMetaData.cs" />
+    <Compile Include="Common\Models\PlayerEventInfo.cs" />
+    <Compile Include="Common\Models\PlayerPosition.cs" />
+    <Compile Include="Common\Models\RaidbotInfo.cs" />
+    <Compile Include="Common\Models\RotationVector3.cs" />
+    <Compile Include="Common\Models\ShortVector3.cs" />
+    <Compile Include="Common\Models\StatsCollection.cs" />
+    <Compile Include="Common\Models\StatsInfo.cs" />
+    <Compile Include="Common\Models\StatsSummary.cs" />
+    <Compile Include="Common\Models\WeaponInfo.cs" />
+    <Compile Include="Common\Serialization\UberStrikeByteConverter.cs" />
+    <Compile Include="Common\Serialization\UberStrikeDataType.cs" />
+    <Compile Include="Common\Types\GameConstants.cs" />
+    <Compile Include="Common\Types\GameFlags.cs" />
+    <Compile Include="Common\Types\NetworkClassIds.cs" />
+    <Compile Include="Common\Types\NetworkMethodIds.cs" />
+    <Compile Include="Common\Types\UberstrikeEnums.cs" />
+    <Compile Include="Common\Utils\ConvertStatistics.cs" />
+    <Compile Include="Common\Utils\SystemTime.cs" />
+    <Compile Include="CommPeer.cs" />
+    <Compile Include="CommServerApplication.cs" />
+    <Compile Include="CommServerRoom.cs" />
+    <Compile Include="CommServerNetworkClassFactory.cs" />
+    <Compile Include="NewRealtime\CommApplication.cs" />
+    <Compile Include="NewRealtime\Lobby\ChatGroup.cs" />
+    <Compile Include="NewRealtime\CommServerPeer.cs" />
+    <Compile Include="NewRealtime\Lobby\ContactList.cs" />
+    <Compile Include="NewRealtime\Interfaces\ILobbyRoomEvents.cs" />
+    <Compile Include="NewRealtime\Interfaces\ILobbyRoomOperations.cs" />
+    <Compile Include="NewRealtime\Interfaces\ICommPeerEvents.cs" />
+    <Compile Include="NewRealtime\Interfaces\ICommPeerOperations.cs" />
+    <Compile Include="NewRealtime\Lobby\LobbyRoom.cs" />
+    <Compile Include="NewRealtime\ServerProxy.cs">
+      <DependentUpon>ServerProxy.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityManager.cs" />
+    <Compile Include="ServerCommCenter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config.deploy">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\bin_Win64\PhotonServer.config.deploy">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\bin_Win64\PhotonServer.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NewRealtime\ServerProxy.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ServerProxy.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cmune.Core.Models\Cmune.Core.Models.csproj">
+      <Project>{52BFDE82-2E5E-4BF7-A0A3-492C2962A5A7}</Project>
+      <Name>Cmune.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.Utils\Cmune.DataCenter.Utils.csproj">
+      <Project>{AB5D0AA6-E5B8-4F3D-9340-8047A5C4BE88}</Project>
+      <Name>Cmune.DataCenter.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realtime.Photon.Server\Cmune.Realtime.Server.csproj">
+      <Project>{71B185DC-DD0F-493E-A662-A1F1A485563F}</Project>
+      <Name>Cmune.Realtime.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SendGridSdk\SendGridSdk.csproj">
+      <Project>{A93B3002-8E5E-4A77-BEB3-FE34767A222B}</Project>
+      <Name>SendGridSdk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.Core.Models\UberStrike.Core.Models.csproj">
+      <Project>{E55E0833-752C-4250-A161-DAF2A72F7868}</Project>
+      <Name>UberStrike.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uberstrike.Core.Serialization\UberStrike.Core.Serialization.csproj">
+      <Project>{3795D2B1-B971-48E5-AC22-BFB46FA20902}</Project>
+      <Name>UberStrike.Core.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uberstrike.Realtime.Server\Uberstrike.Realtime.Server.csproj">
+      <Project>{E033D828-EE82-4179-9A54-D785CF59C9DD}</Project>
+      <Name>Uberstrike.Realtime.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uberstrike.WebService.DotNet\UberStrike.WebService.DotNet.csproj">
+      <Project>{5FA653DB-9044-445B-ABC8-D4B2B7737DB6}</Project>
+      <Name>UberStrike.WebService.DotNet</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /d /i /y  "$(TargetDir)*.*" "$(SolutionDir)UberStrike.Realtime.Photon.CommServer\Deploy\Application\bin"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
