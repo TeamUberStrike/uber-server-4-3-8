@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9CC0CDB6-CA9F-44BB-A61C-C9DFA8A50ED9}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UberStrike.Channels.Kongregate</RootNamespace>
+    <AssemblyName>UberStrike.Channels.Kongregate</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <TargetFrameworkProfile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.0.4.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\NLog\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CacheInvalidationController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OfferController.cs" />
+    <Compile Include="Controllers\PlayController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RankingController.cs" />
+    <Compile Include="FilterAttributes\MyHandleErrorAttribute.cs" />
+    <Compile Include="FilterAttributes\SessionActionFilter.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\BrowserHelper.cs" />
+    <Compile Include="Helpers\KongregateMediaHelper.cs" />
+    <Compile Include="Helpers\MenuHelper.cs" />
+    <Compile Include="Helpers\ProcessInstallFlowHelper.cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CompleteAccountModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cmune.Core.Models\Cmune.Core.Models.csproj">
+      <Project>{52BFDE82-2E5E-4BF7-A0A3-492C2962A5A7}</Project>
+      <Name>Cmune.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.Business\Cmune.DataCenter.Business.csproj">
+      <Project>{86B8C51C-EFD0-403A-89AA-62911F5D72C9}</Project>
+      <Name>Cmune.DataCenter.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.DataAccess\Cmune.DataCenter.DataAccess.csproj">
+      <Project>{109DC74A-FA20-4260-B233-4CDCA3B103D0}</Project>
+      <Name>Cmune.DataCenter.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.Utils\Cmune.DataCenter.Utils.csproj">
+      <Project>{AB5D0AA6-E5B8-4F3D-9340-8047A5C4BE88}</Project>
+      <Name>Cmune.DataCenter.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Instrumentation.Business\Instrumentation.Business.csproj">
+      <Project>{6BFE05B6-B379-461F-887C-14FC0AA7EB46}</Project>
+      <Name>Instrumentation.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.Channels.Utils\UberStrike.Channels.Utils.csproj">
+      <Project>{B985E205-E3AE-43C1-8125-4E4CD1827493}</Project>
+      <Name>UberStrike.Channels.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.Core.Models\UberStrike.Core.Models.csproj">
+      <Project>{E55E0833-752C-4250-A161-DAF2A72F7868}</Project>
+      <Name>UberStrike.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.Business\UberStrike.DataCenter.Business.csproj">
+      <Project>{4377E35E-FB9D-4C2C-961C-201D72CF411C}</Project>
+      <Name>UberStrike.DataCenter.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.DataAccess\UberStrike.DataCenter.DataAccess.csproj">
+      <Project>{D28992B7-2755-4789-B6FE-83FF5AAB0CCB}</Project>
+      <Name>UberStrike.DataCenter.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.Utils\UberStrike.DataCenter.Utils.csproj">
+      <Project>{85E49673-69F7-41EB-92D3-E0BE04402C3D}</Project>
+      <Name>UberStrike.DataCenter.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Play\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\_LayoutKongregateAPI.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\LogOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\CreationError.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\ConnectWith.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Debug.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\KongregateDebug.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Offer\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\AccountCompletion.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\GetGuestPage.cshtml" />
+    <Content Include="Views\Shared\_GuestLayout.cshtml" />
+    <Content Include="Views\Home\GetTopMenu.cshtml" />
+    <Content Include="Views\Home\ProcessUnityInstallFlow.cshtml" />
+    <Content Include="Views\Offer\ItemBundles.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Shared\_ErrorLayout.cshtml" />
+    <Content Include="Views\Account\DeletedAccount.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Ranking\Index.cshtml" />
+    <None Include="Web.config.dev">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.config.external.qa">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.config.prod">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56320</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/KongregateChannel</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

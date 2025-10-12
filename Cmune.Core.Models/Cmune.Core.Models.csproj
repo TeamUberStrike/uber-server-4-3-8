@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{52BFDE82-2E5E-4BF7-A0A3-492C2962A5A7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cmune.DataCenter.Common</RootNamespace>
+    <AssemblyName>Cmune.DataCenter.Common</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums.cs" />
+    <Compile Include="Views\BoxTransactionView.cs" />
+    <Compile Include="Views\ApplicationMilestoneView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ApplicationView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\BannedIpView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\BasicClanView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\BugView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\BundleItemView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\BundleView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CheckApplicationVersionView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ClanCreationReturnView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ClanMemberView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ClanRequestAcceptView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ClanRequestDeclineView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ClanView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommonConfig.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ContactGroupView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ContactRequestAcceptView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ContactRequestDeclineView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ContactRequestView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ConvertEntities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CoreEnumsErrorMessage.cs" />
+    <Compile Include="Views\CreditPackItemView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CreditPackView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CurrencyDepositView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\EpinView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\GroupCreationView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\GroupInvitationView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ItemInventoryView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ItemTransactionView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ItemView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\LuckyDrawSetUnityView.cs" />
+    <Compile Include="Views\LuckyDrawSetView.cs" />
+    <Compile Include="Views\LuckyDrawUnityView.cs" />
+    <Compile Include="Views\LuckyDrawView.cs" />
+    <Compile Include="Views\LuckyDrawSetItemView.cs" />
+    <Compile Include="Views\MemberPositionUpdateView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MemberReportView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MemberView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MemberWalletView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MessageThreadView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ModerationActionView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MysteryBoxItemView.cs" />
+    <Compile Include="Views\MysteryBoxUnityView.cs" />
+    <Compile Include="Views\MysteryBoxView.cs" />
+    <Compile Include="Views\MysteryBoxWonItemUnityView.cs" />
+    <Compile Include="Views\PackageView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\PhotonClusterView.cs" />
+    <Compile Include="Views\PhotonView.cs" />
+    <Compile Include="Views\PointDepositView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\PrivateMessageView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\PublicProfileView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\PrizeElementView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

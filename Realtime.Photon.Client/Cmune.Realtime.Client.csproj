@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9E78D405-5D9E-4AA0-AC40-4E690B92C76C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cmune.Realtime.Photon.Client</RootNamespace>
+    <AssemblyName>Cmune.Realtime.Photon.Client</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <WarningsAsErrors>114, 219, 414, </WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>..\References\Exitgames\Photon3Unity3D.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\References\UnityEngine\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Attributes\Attributes.cs" />
+    <Compile Include="Common\Attributes\CmuneAttribute.cs" />
+    <Compile Include="Common\Attributes\CmuneSync.cs" />
+    <Compile Include="Common\Attributes\NetworkClassID.cs" />
+    <Compile Include="Common\Attributes\NetworkFunctionID.cs" />
+    <Compile Include="Common\Defines\CmuneDefines.cs" />
+    <Compile Include="Common\Defines\CountryCodes.cs" />
+    <Compile Include="Common\Defines\NetworkClassID.cs" />
+    <Compile Include="Common\Defines\NetworkMethodID.cs" />
+    <Compile Include="Common\Defines\OperationCodes.cs" />
+    <Compile Include="Common\Defines\RPC.cs" />
+    <Compile Include="Common\Instrumentation\ServerLoadData.cs" />
+    <Compile Include="Common\IO\ByteArraySerializable.cs" />
+    <Compile Include="Common\IO\CmuneDataType.cs" />
+    <Compile Include="Common\IO\DefaultByteConverter.cs" />
+    <Compile Include="Common\IO\IByteArray.cs" />
+    <Compile Include="Common\IO\IByteConverter.cs" />
+    <Compile Include="Common\IO\RealtimeSerialization.cs" />
+    <Compile Include="Common\IO\StringConversion.cs" />
+    <Compile Include="Common\Player\CommUserInfo.cs" />
+    <Compile Include="Common\Player\UserInfo.cs" />
+    <Compile Include="Common\Rooms\CmuneGuid.cs" />
+    <Compile Include="Common\Rooms\CmuneRoomID.cs" />
+    <Compile Include="Common\Rooms\ConnectionAddress.cs" />
+    <Compile Include="Common\Rooms\IRoomMetaData.cs" />
+    <Compile Include="Common\Rooms\RoomMetaData.cs" />
+    <Compile Include="Common\Scene\CmuneTransform.cs" />
+    <Compile Include="Common\Scene\NetworkPackage.cs" />
+    <Compile Include="Common\Security\ISecureMemory.cs" />
+    <Compile Include="Common\Security\SecureMemory.cs" />
+    <Compile Include="Common\Security\SecureMemoryMonitor.cs" />
+    <Compile Include="Common\Synchronization\CmuneDeltaSync.cs" />
+    <Compile Include="Common\Synchronization\CmuneNetworkClass.cs" />
+    <Compile Include="Common\Synchronization\INetworkClass.cs" />
+    <Compile Include="Common\Synchronization\INetworkSynchronizable.cs" />
+    <Compile Include="Common\Synchronization\SyncObject.cs" />
+    <Compile Include="Common\Synchronization\SyncObjectBuilder.cs" />
+    <Compile Include="Common\Utils\CmuneList.cs" />
+    <Compile Include="Common\Utils\Conversion.cs" />
+    <Compile Include="Common\Utils\OperationFactory.cs" />
+    <Compile Include="Common\Utils\OperationUtils.cs" />
+    <Compile Include="Common\Utils\PerformanceStats.cs" />
+    <Compile Include="Common\Utils\PlayerIdCache.cs" />
+    <Compile Include="Common\Utils\ProcessData.cs" />
+    <Compile Include="Common\Utils\ReflectionHelper.cs" />
+    <Compile Include="Connection\CrossdomainPolicy.cs" />
+    <Compile Include="Connection\PhotonClient.cs" />
+    <Compile Include="Connection\PhotonPeerListener.cs" />
+    <Compile Include="Events\Events.cs" />
+    <Compile Include="Helper\Ciphers\NullCryptographyPolicy.cs" />
+    <Compile Include="Helper\Ciphers\Cryptography.cs" />
+    <Compile Include="Helper\Ciphers\ICryptographyPolicy.cs" />
+    <Compile Include="Helper\CmuneDebug.cs" />
+    <Compile Include="Helper\CmuneEventHandler.cs" />
+    <Compile Include="Helper\CmuneException.cs" />
+    <Compile Include="Helper\CmunePrint.cs" />
+    <Compile Include="Helper\CmunePrintBit.cs" />
+    <Compile Include="Helper\Comparison.cs" />
+    <Compile Include="Helper\ConvertBytes.cs" />
+    <Compile Include="Helper\ExtendableEnum.cs" />
+    <Compile Include="Helper\ExtendableEnumBoundsAttribute.cs" />
+    <Compile Include="Helper\MemberInfoField.cs" />
+    <Compile Include="Helper\MemberInfoMethod.cs" />
+    <Compile Include="Helper\MemberInfoProperty.cs" />
+    <Compile Include="Helper\ReflectionHelper.cs" />
+    <Compile Include="NetworkManager\CmuneNetworkState.cs" />
+    <Compile Include="Rmi\ClientNetworkClass.cs" />
+    <Compile Include="Rmi\IClientNetworkClass.cs" />
+    <Compile Include="Rmi\NetworkMessenger.cs" />
+    <Compile Include="Rmi\RemoteFunctionCall.cs" />
+    <Compile Include="Rmi\RemoteMethodInterface.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rmi\SynchronizationCenter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Conversion.cs" />
+    <Compile Include="Utils\CoroutineMonitor.cs" />
+    <Compile Include="Utils\GameServerEvaluation.cs" />
+    <Compile Include="Utils\NetworkStatistics.cs" />
+    <Compile Include="Utils\ServerLoadRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\ServerRequest.cs" />
+    <Compile Include="Utils\UnityDebug.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cmune.Core.Models\Cmune.Core.Models.csproj">
+      <Project>{52BFDE82-2E5E-4BF7-A0A3-492C2962A5A7}</Project>
+      <Name>Cmune.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.Core.Models\UberStrike.Core.Models.csproj">
+      <Project>{E55E0833-752C-4250-A161-DAF2A72F7868}</Project>
+      <Name>UberStrike.Core.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
