@@ -1,0 +1,4 @@
+
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Uberstrike.Realtime.Photon.PolicyServer\Deploy\bin_Win64>PhotonSocketServer.exe /run PolicyServerLocal
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.Realtime.Photon.CommServer\Deploy\bin_Win64>PhotonSocketServer.exe /run CommServerLocal
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.Realtime.Photon.GameServer\Deploy\bin_Win64>PhotonSocketServer.exe /run GameServerLocal
