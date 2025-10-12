@@ -78,6 +78,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Cmune.DataCenter.DataAccess\Cmune.designer.cs">
+      <Link>Cmune.designer.cs</Link>
+    </Compile>
+    <Compile Include="..\Cmune.DataCenter.DataAccess\CmuneDataContext.cs">
+      <Link>CmuneDataContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Cmune.DataCenter.Forum.DataAccess\Forum.designer.cs">
+      <Link>Forum.designer.cs</Link>
+    </Compile>
+    <Compile Include="..\Cmune.DataCenter.Forum.DataAccess\ForumDataContext.cs">
+      <Link>ForumDataContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Instrumentation.DataAccess\Instrumentation.designer.cs">
+      <Link>Instrumentation.designer.cs</Link>
+    </Compile>
+    <Compile Include="..\Instrumentation.DataAccess\InstrumentationDataContext.cs">
+      <Link>InstrumentationDataContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Instrumentation.Monitoring.DataAccess\CmuneMonitoring.designer.cs">
+      <Link>CmuneMonitoring.designer.cs</Link>
+    </Compile>
+    <Compile Include="..\Instrumentation.Monitoring.DataAccess\CmuneMonitoringDataContext.cs">
+      <Link>CmuneMonitoringDataContext.cs</Link>
+    </Compile>
     <Compile Include="..\UberStrike.DataCenter.DataAccess\Uberstrike.designer.cs">
       <Link>Uberstrike.designer.cs</Link>
     </Compile>
