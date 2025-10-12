@@ -1,0 +1,217 @@
+server instance name(default)
+
+MSSQLSERVER
+
+NT Service\MSSQLSERVER
+
+
+DESKTOP-LNSADFU\xaver
+
+
+
+Required Databases
+MvParadisePaintball - Main UberStrike game database
+
+This is the primary game database (renamed from Paradise Paintball, the game's original name)
+Cmune - Platform/account database
+
+Stores account information, items, transactions
+Instrumentation - Analytics and monitoring
+
+Stores performance metrics and statistics
+aspnetdb - ASP.NET membership database
+
+Handles user authentication for admin tools
+Database Setup Steps
+Create these databases in your SQL Server:
+
+Run the SQL scripts against their corresponding databases:
+
+Run Cmune.DataCenter.DataAccess scripts on the Cmune database
+Run UberStrike.DataCenter.DataAccess scripts on the MvParadisePaintball database
+Run Instrumentation scripts on the Instrumentation database
+For aspnetdb, use aspnet_regsql.exe tool (comes with .NET Framework)
+Update your connection strings to point to your local SQL Server instance:
+
+The database names should match exactly as shown in the connection strings for the backend to work properly.
+
+user: sa password:cmune$1
+user: CoreDbo, password: thunderbus888
+
+USE [master]
+GO
+ALTER LOGIN [sa] ENABLE;
+GO
+ALTER LOGIN [sa] WITH PASSWORD = 'cmune$1';
+GO
+
+
+USE [master]
+GO
+CREATE LOGIN [CoreDbo] WITH PASSWORD = 'thunderbus888', DEFAULT_DATABASE=[master], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF;
+GO
+
+-- Create CoreDbo user in Cmune database and grant permissions
+USE [Cmune]
+GO
+CREATE USER [CoreDbo] FOR LOGIN [CoreDbo];
+GO
+ALTER ROLE [db_owner] ADD MEMBER [CoreDbo];
+GO
+
+-- Create CoreDbo user in MvParadisePaintball database and grant permissions
+USE [MvParadisePaintball]
+GO
+CREATE USER [CoreDbo] FOR LOGIN [CoreDbo];
+GO
+ALTER ROLE [db_owner] ADD MEMBER [CoreDbo];
+GO
+
+-- Create CoreDbo user in Instrumentation database and grant permissions
+USE [Instrumentation]
+GO
+CREATE USER [CoreDbo] FOR LOGIN [CoreDbo];
+GO
+ALTER ROLE [db_owner] ADD MEMBER [CoreDbo];
+GO
+
+USE [master]
+GO
+CREATE DATABASE [Cmune]
+GO
+
+-- Optional: Configure recovery model and other settings
+ALTER DATABASE [Cmune] SET RECOVERY SIMPLE
+GO
+
+USE [master]
+GO
+CREATE DATABASE [MvParadisePaintball]
+GO
+
+-- Optional: Configure recovery model and other settings
+ALTER DATABASE [MvParadisePaintball] SET RECOVERY SIMPLE
+GO
+
+USE [master]
+GO
+CREATE DATABASE [Instrumentation]
+GO
+
+-- Optional: Configure recovery model and other settings
+ALTER DATABASE [Instrumentation] SET RECOVERY SIMPLE
+GO
+
+aspnetdb
+
+
+
+
+
+
+
+
+
+
+Unity 3.5.5 installed in C:\Program Files (x86)\Unity\Editor
+
+
+
+start Webservice
+build and compile project UberStrike.DataCenter.WebService, will start wcfs
+start the three photons
+start uber, should work now 
+
+troubleshoot: create all databases: aspnetdb as well 
+change ip addresses to 127.0.0.1
+change datasource= strings with correct microsoft server sql server name
+
+existing databases:
+Cmune
+CmuneMonitoring
+Instrumentation
+aspnetdb
+MvParadisePaintball
+MvParadisePaintballForum
+
+there is no .dbml file for aspnetdb
+
+-- Add SA user to all databases with admin privileges
+-- Run AddSAToAllDatabases.sql script to:
+-- 1. Enable SA login with password 'cmune$1'
+-- 2. Add SA user to all databases
+-- 3. Grant db_owner role to SA in each database
+
+user: sa password:cmune$1 (admin on all databases)
+user: CoreDbo, password: thunderbus888
+user id: InstrumentationDbo, password: thunderbus888
+user id: MvParadisePaintballDbo, password: thunderbus888
+user id: CmuneMonitoringDbo, password: thunderbus888
+
+conflicting:
+User ID=MvParadisePaintballDbo;Password=CmuneMaster$1"
+
+
+tool to generate sql from dbml file
+C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools>SqlMetal.exe
+SqlMetal /dbml:Model.dbml /script:Database.sql
+SqlMetal /dbml:C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml /script:UberStrike.sql
+SqlMetal /dbml:C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml /server:DESKTOP-LNSADFU /database:MvParadisePaintball /script:C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.sql
+ExportSQLCE.exe "Data Source=C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml;" C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.sql
+
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin>SqlMetal "C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml" /code:"C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\UberStrike.cs"
+
+sqlmetal does not create tables etc
+
+sqlcmd -S DESKTOP-LNSADFU -d aspnetdb -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d Cmune -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball4 -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball4 -U CoreDbo -P "thunderbus888"
+
+MvParadisePaintball
+MvParadisePaintball
+login/authentication works fine
+
+sqlcmd -S DESKTOP-LNSADFU -U sa -P "cmune$1" -Q "DROP DATABASE [Instrumentation];"
+
+with npm install -g @dbml/cli create tables and databases
+then execute the sql commands that I found as these should create the values needed, they dont actually put values, so they are useless
+
+dbml files:
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Cmune.DataCenter.DataAccess\Cmune.dbml
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Cmune.DataCenter.Forum.DataAccess\Forum.dbml
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Instrumentation.DataAccess\Instrumentation.dbml
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Instrumentation.Monitoring.DataAccess\CmuneMonitoring.dbml
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml
+
+net stop "SQL Server (MSSQLSERVER)"
+net start "SQL Server (MSSQLSERVER)"
+
+ & "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /reference:System.Data.Linq.dll UberStrike.DataCenter.DataAccess\UberStrike.cs CreateUberstrikeDatabase.cs 
+ .\CreateUberstrikeDatabase.exe
+ 
+ since linq.CreateDatabase does not add users to database, it must be done manually
+ 
+ add users to all databases with admin rights, treat same as sa
+
+sqlcmd -S DESKTOP-LNSADFU -E -Q "USE [CmuneMonitoring]; CREATE USER [sa] FOR LOGIN [sa]; ALTER ROLE [db_owner] ADD MEMBER [sa];"
+
+sqlcmd -S DESKTOP-LNSADFU -E -Q "USE [Instrumentation]; CREATE USER [sa] FOR LOGIN [sa]; ALTER ROLE [db_owner] ADD MEMBER [sa];"
+
+user sa seems to be broken for some reason
+
+create a new sql server and test there
+make sure sa is accessible with:
+ALTER LOGIN [sa] ENABLE; ALTER LOGIN [sa] WITH PASSWORD = 'cmune$1';
+GO
+
+
+add users to server with: AddUsersAsAdmin.sql
+DataAccess.Setup\DataAccess.Setup.csproj works fine and creates the databases
+
+test connections with:
+
+sqlcmd -S DESKTOP-LNSADFU -d Cmune -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U CoreDbo -P "thunderbus888"
