@@ -13,8 +13,7 @@ class Program
             { "MvParadisePaintballForum", new Cmune.DataCenter.Forum.DataAccess.ForumDataContext() },
             { "Cmune", new Cmune.DataCenter.DataAccess.CmuneDataContext() },
             { "CmuneMonitoring", new Cmune.Instrumentation.Monitoring.DataAccess.CmuneMonitoringDataContext() },
-            { "Instrumentation", new Cmune.Instrumentation.DataAccess.InstrumentationDataContext() },
-            { "aspnetdb", new Cmune.Instrumentation.DataAccess.InstrumentationDataContext() }
+            { "Instrumentation", new Cmune.Instrumentation.DataAccess.InstrumentationDataContext() }
         };
 
         foreach (var eachDatabase in databases)
@@ -30,7 +29,7 @@ class Program
             }
             catch (SqlException ex)
             {
-                Console.WriteLine($"Database creation failed for {databaseName}");
+                Console.WriteLine($"Database creation failed for {databaseName}: {ex.Message}");
             }
         }
     }
