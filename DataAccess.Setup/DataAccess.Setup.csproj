@@ -78,7 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllTimeTotalRanking.cs" />
     <Compile Include="CreateUberstrikeDatabase.cs" />
     <Compile Include="Uberstrike.designer.cs">
       <AutoGen>True</AutoGen>
@@ -92,7 +91,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -136,26 +134,6 @@
       <Project>{E55E0833-752C-4250-A161-DAF2A72F7868}</Project>
       <Name>UberStrike.Core.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="4.3.3\00-Cleanup.sql" />
-    <Content Include="4.3.3\01-FacebookReferrers.sql" />
-    <Content Include="4.3.3\02-Cleanup.sql" />
-    <Content Include="4.3.3\03-ItemsAttributedOnTutorial.sql" />
-    <Content Include="4.3.3\04-LevelLoading.sql" />
-    <Content Include="4.3.3\05-TutorialSteps.sql" />
-    <Content Include="4.3.3\06-PromotionContent.sql" />
-    <Content Include="4.3.3\07-MapUsage.sql" />
-    <Content Include="4.3.3\08-UserInstall.sql" />
-    <Content Include="4.3.4\00-Rollback-ApplicationVersions.sql" />
-    <Content Include="4.3.4\00-ApplicationVersions.sql" />
-    <Content Include="4.3.5\01-ApplicationVersions.sql" />
-    <Content Include="4.3.6\03-Maps.sql" />
-    <Content Include="4.3.6\01-MapVersions.sql" />
-    <Content Include="4.3.6\02-WeeklySpecials.sql" />
-    <Content Include="4.3.6\04-KongregateReferrers.sql" />
-    <Content Include="4.3.7\01-QuickUseConfig.sql" />
-    <Content Include="4.3.7\02-ItemConfig.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Uberstrike.dbml.layout">

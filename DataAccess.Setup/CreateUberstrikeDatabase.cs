@@ -1,5 +1,6 @@
 using System;
 using System.Data.Linq;
+using System.Data.SqlClient;
 
 class Program
 {
@@ -7,16 +8,15 @@ class Program
     {
         var context = new UberStrike.DataCenter.DataAccess.UberstrikeDataContext();
         
-        Console.WriteLine("Checking if database exists...");
-        if (context.DatabaseExists())
+        Console.WriteLine("Creating database and schema...");
+        try
         {
-            Console.WriteLine("Database already exists...");
-        }
-        else
-        {
-            Console.WriteLine("Creating database and schema...");
             context.CreateDatabase();
-            Console.WriteLine("Database and schema created.");
+            Console.WriteLine("Database and schema created successfully.");
+        }
+        catch (SqlException ex)
+        {
+            Console.WriteLine($"Database creation failed: {ex.Message}");
         }
     }
 }
