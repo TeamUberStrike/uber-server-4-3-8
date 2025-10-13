@@ -215,3 +215,7 @@ test connections with:
 sqlcmd -S DESKTOP-LNSADFU -d Cmune -U sa -P "cmune$1"
 sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U sa -P "cmune$1"
 sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U CoreDbo -P "thunderbus888"
+
+working:
+sqlcmd -S DESKTOP-LNSADFU\MYSECONDSERVER -d Cmune -U sa -P "cmune$1"  
+sqlcmd -S DESKTOP-LNSADFU\MYSECONDSERVER -d MvParadisePaintball -U CoreDbo -P "thunderbus888"
