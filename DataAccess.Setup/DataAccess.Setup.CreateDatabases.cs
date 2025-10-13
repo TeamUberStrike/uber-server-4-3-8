@@ -21,7 +21,6 @@ class Program
             string databaseName = eachDatabase.Key;
             var database = eachDatabase.Value;
 
-            Console.WriteLine($"Creating database and schema for {databaseName}...");
             try
             {
                 database.CreateDatabase();
