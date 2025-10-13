@@ -26,7 +26,7 @@ namespace UberStrike.DataCenter.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU;Initial Catalog=MvParadisePaintball;Persist Security In" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=MvParadisePaintball;Persist Security In" +
             "fo=True;User ID=sa")]
         public string MvParadisePaintballConnectionString {
             get {
@@ -37,7 +37,7 @@ namespace UberStrike.DataCenter.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU;Initial Catalog=MvParadisePaintball;User ID=sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=MvParadisePaintball;User ID=sa")]
         public string MvParadisePaintballConnectionString1 {
             get {
                 return ((string)(this["MvParadisePaintballConnectionString1"]));
