@@ -219,3 +219,38 @@ sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U CoreDbo -P "thunderbus888"
 working:
 sqlcmd -S DESKTOP-LNSADFU\MYSECONDSERVER -d Cmune -U sa -P "cmune$1"  
 sqlcmd -S DESKTOP-LNSADFU\MYSECONDSERVER -d MvParadisePaintball -U CoreDbo -P "thunderbus888"
+
+USE [MvParadisePaintball];
+GO
+
+INSERT INTO [dbo].[PhotonsGroups] ([Name], [Description], [CreationDate], [ModificationDate])
+VALUES ('DefaultGroup', 'Default photon group', GETDATE(), GETDATE());
+GO
+
+USE [MvParadisePaintball]
+INSERT INTO [dbo].[ApplicationVersions] 
+    ([Version],
+     [WebPlayerFileName],
+     [Channel],
+     [ModificationDate],
+     [IsEnabled],
+     [WarnPlayer],
+     [PhotonClusterId])
+VALUES 
+    ('4.3.8',                     -- Version from XML
+     'WebPlayer_4.3.8.unity3d',   -- Example filename
+     4,                            -- Channel = WindowsStandalone
+     GETDATE(),                    -- Current timestamp
+     1,                            -- IsEnabled = true
+     0,                            -- WarnPlayer = false
+     1);   
+GO
+
+
+unity 3.5.5 location:
+C:\Program Files (x86)\Unity\Editor
+
+
+INSERT INTO dbo.Applications (Name, Description)
+VALUES ('MyApp', 'Description of MyApp');
+GO
