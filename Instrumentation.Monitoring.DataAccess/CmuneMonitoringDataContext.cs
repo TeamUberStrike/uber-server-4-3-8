@@ -38,7 +38,7 @@ namespace Cmune.Instrumentation.Monitoring.DataAccess
 
                         if (monitoringDBDataSourceConfig.Equals(DatabaseDeployment.Dev))
                         {
-                            dataSource = "Data Source=DESKTOP-LNSADFU;Initial Catalog=CmuneMonitoring;Persist Security Info=True;User ID=sa;Password=cmune$1";
+                            dataSource = "Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=CmuneMonitoring;Persist Security Info=True;User ID=sa;Password=cmune$1";
                         }
                         else if (monitoringDBDataSourceConfig.Equals(DatabaseDeployment.Staging))
                         {

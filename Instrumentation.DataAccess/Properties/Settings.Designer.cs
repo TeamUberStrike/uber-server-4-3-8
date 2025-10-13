@@ -37,7 +37,7 @@ namespace Cmune.Instrumentation.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU;Initial Catalog=Instrumentation;Persist Security Info=T" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Instrumentation;Persist Security Info=T" +
             "rue;User ID=InstrumentationDbo")]
         public string InstrumentationConnectionString1 {
             get {
