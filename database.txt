@@ -254,3 +254,23 @@ C:\Program Files (x86)\Unity\Editor
 INSERT INTO dbo.Applications (Name, Description)
 VALUES ('MyApp', 'Description of MyApp');
 GO
+
+items
+steam version: 
+ItemType
+Tier
+ItemClass
+ID
+
+fill this database as well:
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PlayerLevelCaps")]
+	public partial class PlayerLevelCap : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PlayerLevelCapId;
+		
+		private int _Level;
+		
+		private int _XPRequired;
