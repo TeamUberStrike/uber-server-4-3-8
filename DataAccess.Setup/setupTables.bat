@@ -1,2 +1,3 @@
 setupItemTypes.sql
 setupItemClasses.sql
+setupLevels.sql
