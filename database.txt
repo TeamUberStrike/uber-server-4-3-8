@@ -381,3 +381,56 @@ PopupText: Grab yours now!
 ItemId: 1310
 StartDate: 1st November 2025
 EndDate: 8th November 2025
+
+Maps
+		private string _AppVersion;
+		
+		private string _DisplayName;
+		
+		private string _Description;
+		
+		private string _SceneName;
+		
+		private bool _InUse;
+		
+		private bool _IsBlueBox;
+
+		{ 1, "LevelMonkeyIsland" },
+        { 2, "LevelLostParadise2" },
+        { 3, "LevelTheWarehouse" },
+        { 4, "LevelTempleOfTheRaven" },
+        { 5, "LevelFortWinter" },
+        { 6, "LevelGideonsTower" },
+        { 7, "LevelSkyGarden" },
+        { 8, "LevelCuberStrike" },
+        { 10, "LevelSpaceportAlpha" },
+
+MapVersions:
+
+		private int _MapId;
+		
+		private string _AppVersion;
+		
+		private string _FileName;
+		
+		private System.DateTime _LastUpdatedDate;
+		
+		private int _MapType;
+
+    public enum MapType
+    {
+        None = 0,
+        StandardDefinition = 1,
+        HighDefinition = 2,
+    }
+
+MapId from 1-8, 10
+AppVersion: "4.3.8"
+FileName: ""
+LastUpdatedDate: 1st November 2025
+MapType: 2
+
+
+MapToLoad.FileName
+is the file path of:
+http://localhost:9000/Maps/4.3.8/ when loadMapsUsingWebService is true
