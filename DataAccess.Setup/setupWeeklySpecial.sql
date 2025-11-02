@@ -10,5 +10,5 @@ VALUES
      'http://uberforever.eu/weeklyspecial/WeeklySpecial_NinjaHolo.jpg',
      1310,
      '2025-11-01',
-     '2025-11-08');
+     NULL);
 GO
