@@ -274,3 +274,110 @@ fill this database as well:
 		private int _Level;
 		
 		private int _XPRequired;
+
+
+ItemFunctionalConfigs
+
+ItemGearConfigs
+
+ItemSpecialConfigs
+
+ItemWeaponConfigs
+
+ItemWeaponModConfigs
+
+ItemQuickUseConfigs
+
+ItemGearConfigs, ItemWeaponConfigs, ItemQuickUseConfigs, ItemFunctionalConfigs
+ItemWeaponConfig:
+		private int _ItemWeaponConfigId;
+		
+		private int _ItemId;
+		
+		private int _LevelRequired;
+		
+		private int _DamageKnockback;
+		
+		private int _DamagePerProjectile;
+		
+		private int _RateOfFire;
+		
+		private int _AccuracySpread;
+		
+		private int _RecoilKickback;
+		
+		private int _StartAmmo;
+		
+		private int _MaxAmmo;
+		
+		private int _MissileTimeToDetonate;
+		
+		private int _MissileForceImpulse;
+		
+		private int _MissileBounciness;
+		
+		private int _SplashRadius;
+		
+		private int _ProjectilesPerShot;
+		
+		private int _ProjectileSpeed;
+		
+		private int _RecoilMovement;
+
+
+ItemGearConfigs
+
+		private int _ItemGearConfigId;
+		
+		private int _ItemId;
+		
+		private int _LevelRequired;
+		
+		private int _ArmorPoints;
+		
+		private int _ArmorAbsorptionPercent;
+		
+		private int _ArmorWeight;
+        
+
+ItemQuickUseConfigs:
+		private int _ItemQuickUseConfigId;
+		
+		private int _ItemId;
+		
+		private int _LevelRequired;
+		
+		private int _UsesPerLife;
+		
+		private int _UsesPerRound;
+		
+		private int _UsesPerGame;
+		
+		private int _CoolDownTime;
+		
+		private int _WarmUpTime;
+		
+		private int _BehaviourType;
+
+
+    public enum QuickItemLogic
+    {
+        None = 0,
+        SpringGrenade = 1,
+        HealthPack = 2,
+        ArmorPack = 3,
+        AmmoPack = 4,
+        ExplosiveGrenade = 5,
+    }
+
+email: xaver24@gmail.com
+password: lala
+
+
+
+ImageUrl: http://uberforever.eu/weeklyspecial/WeeklySpecial_NinjaHolo.jpg
+PopupTitle: Weekly Special Ninja Holo
+PopupText: Grab yours now!
+ItemId: 1310
+StartDate: 1st November 2025
+EndDate: 8th November 2025
