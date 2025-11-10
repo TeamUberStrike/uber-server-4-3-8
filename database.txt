@@ -557,3 +557,13 @@ LevelCuberStrike.unity3d
         { 10, "LevelSpaceportAlpha" },
 
 		1016 ordinator rifle
+
+next steps:
+scripts to setup database, make sure they are complete and working
+update microsoft sql version to latest and verify with fresh database
+update Unity to Unity 6
+run Photon on Linux Docker container using Winboat
+run entire server on Linux using Docker containers
+use docker compose to start services inside containers
+CI to automatically build everything, one click to deploy server
+add license to both repositories, what about cmune license: dont commit the license, during build copy paste the license accordingly?
