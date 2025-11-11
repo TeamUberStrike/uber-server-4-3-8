@@ -26,7 +26,7 @@ namespace Cmune.Instrumentation.Monitoring.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.200;Initial Catalog=CmuneMonitoring;Persist Security Info=T" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=CmuneMonitoring;Persist Security Info=T" +
             "rue;User ID=sa")]
         public string CmuneMonitoringConnectionString {
             get {
@@ -37,7 +37,7 @@ namespace Cmune.Instrumentation.Monitoring.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.200;Initial Catalog=CmuneMonitoring;User ID=sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=CmuneMonitoring;User ID=sa")]
         public string CmuneMonitoringConnectionString1 {
             get {
                 return ((string)(this["CmuneMonitoringConnectionString1"]));
@@ -47,7 +47,7 @@ namespace Cmune.Instrumentation.Monitoring.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.200;Initial Catalog=CmuneMonitoring;User ID=sa;Password=cmu" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=CmuneMonitoring;User ID=sa;Password=cmu" +
             "ne$1")]
         public string CmuneMonitoringConnectionString2 {
             get {

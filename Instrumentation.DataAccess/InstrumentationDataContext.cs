@@ -36,7 +36,7 @@ namespace Cmune.Instrumentation.DataAccess
 
                         if (instrumenationDbDataSourceConfig.Equals(DatabaseDeployment.Dev))
                         {
-                            dataSource = "Data Source=192.168.1.200;Initial Catalog=Instrumentation;Persist Security Info=True;User ID=sa;Password=cmune$1";
+                            dataSource = "Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Instrumentation;Persist Security Info=True;User ID=sa;Password=cmune$1";
                         }
                         else if (instrumenationDbDataSourceConfig.Equals(DatabaseDeployment.Staging))
                         {

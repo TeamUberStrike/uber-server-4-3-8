@@ -26,7 +26,7 @@ namespace Cmune.DataCenter.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.200;Initial Catalog=Cmune;Persist Security Info=True;User I" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;Persist Security Info=True;User I" +
             "D=sa")]
         public string CmuneConnectionString {
             get {
@@ -37,7 +37,7 @@ namespace Cmune.DataCenter.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.200;Initial Catalog=Cmune;Persist Security Info=True;User I" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;Persist Security Info=True;User I" +
             "D=sa;Password=cmune$1")]
         public string CmuneConnectionString1 {
             get {
@@ -48,7 +48,7 @@ namespace Cmune.DataCenter.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.200;Initial Catalog=Cmune;User ID=sa;Password=cmune$1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;User ID=sa;Password=cmune$1")]
         public string CmuneConnectionString2 {
             get {
                 return ((string)(this["CmuneConnectionString2"]));
@@ -58,7 +58,7 @@ namespace Cmune.DataCenter.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.200;Initial Catalog=Cmune;User ID=sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;User ID=sa")]
         public string CmuneConnectionString3 {
             get {
                 return ((string)(this["CmuneConnectionString3"]));

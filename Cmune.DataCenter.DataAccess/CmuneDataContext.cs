@@ -43,7 +43,7 @@ namespace Cmune.DataCenter.DataAccess
 
                         if (cmuneDBDataSourceConfig.Equals(DatabaseDeployment.Dev))
                         {
-                            dataSource = "Data Source=192.168.1.200;Initial Catalog=Cmune;Persist Security Info=True;User ID=sa;Password=cmune$1";
+                            dataSource = "Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;Persist Security Info=True;User ID=sa;Password=cmune$1";
                         }
                         else if (cmuneDBDataSourceConfig.Equals(DatabaseDeployment.Staging))
                         {

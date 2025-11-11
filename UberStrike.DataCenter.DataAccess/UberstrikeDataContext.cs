@@ -31,7 +31,7 @@ namespace UberStrike.DataCenter.DataAccess
 
                         if (paradiseDBDataSourceConfig.Equals(DatabaseDeployment.Dev))
                         {
-                            dataSource = "Data Source=192.168.1.200;Initial Catalog=MvParadisePaintball;Persist Security Info=True;User ID=sa;Password=cmune$1";
+                            dataSource = "Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=MvParadisePaintball;Persist Security Info=True;User ID=sa;Password=cmune$1";
                         }
                         else if (paradiseDBDataSourceConfig.Equals(DatabaseDeployment.Staging))
                         {
