@@ -1,0 +1,155 @@
+﻿<#@ template hostSpecific="true" debug="true"#>
+<#@ output extension=".txt" #>
+<#@ Assembly Name="System.Xml" #>
+<#@ Assembly Name="$(SolutionDir)T4Helper/bin/Debug/T4Helper.dll" #>
+<#@ assembly name="$(SolutionDir)Cmune.Core.Models/bin/Debug/Cmune.DataCenter.Common.dll" #>
+<#@ assembly name="$(SolutionDir)UberStrike.Core.Models/bin/Debug/UberStrike.Core.ViewModel.dll" #>
+<#@ assembly name="$(SolutionDir)References/UnityEngine/UnityEngine.dll" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Xml" #>
+<#
+	string[] assemblies =
+	{
+		"Cmune.Core.Models/bin/Debug/Cmune.DataCenter.Common.dll",
+		"UberStrike.Core.Models/bin/Debug/Uberstrike.Core.ViewModel.dll",
+	};
+	
+	foreach(string path in assemblies)
+	{
+		Assembly a = Assembly.Load(System.IO.File.ReadAllBytes(Host.ResolvePath("") + "/../" + path));
+#>
+using System.IO;
+
+namespace UberStrike.Core.Serialization
+{
+<#
+	System.Text.StringBuilder ignoredTypes = new System.Text.StringBuilder();
+
+    foreach (var t in a.GetTypes())
+    {
+        if (t.IsSerializable)
+        {
+			if(!t.IsValueType && !t.IsEnum)
+			{
+#>
+	public static class <#=Serialization.GetProxyName(t)#>
+	{
+		public static void Serialize(Stream stream, <#=t.FullName.Replace('+','.')#> instance)
+		{
+			int nullMask = 0;
+			if(instance != null)
+			{
+				using (MemoryStream s = new MemoryStream())
+                {
+<#
+				int count = 0;
+	        	foreach(var f in Serialization.GetFields(t))
+				{
+					if(f.CanRead && f.CanWrite)
+					{
+						string args;
+						string proxy = Serialization.GetSerializerName(f.PropertyType, out args);
+						if(f.PropertyType.IsValueType && !Serialization.IsNullable(f.PropertyType))
+						{
+#>
+					<#=proxy#>.Serialize(s, instance.<#=f.Name#><#=args#>);
+<#
+						}
+						else
+						{
+#>
+					if(instance.<#=f.Name#> != null) <#=proxy#>.Serialize(s, instance.<#=Serialization.IsNullable(f.PropertyType) ? f.Name+" ?? default("+Nullable.GetUnderlyingType(f.PropertyType).FullName+")" : f.Name#><#=args#>);
+					else nullMask |= 1 << <#=count#>; 
+<#
+						count++;
+						}
+					}
+				}
+#>
+
+					Int32Proxy.Serialize(stream, ~nullMask);
+					s.WriteTo(stream);
+				}
+			}
+			else
+			{
+				Int32Proxy.Serialize(stream, 0);
+			}
+		}
+		
+		public static <#=t.FullName.Replace('+','.')#> Deserialize(Stream bytes)
+        {
+			int nullMask = Int32Proxy.Deserialize(bytes);
+			
+			<#=t.FullName.Replace('+','.')#> instance = null;
+			if(nullMask != 0)
+			{
+            	instance = new <#=t.FullName.Replace('+','.')#>();
+<#
+				count = 0;
+				foreach(var f in Serialization.GetFields(t))
+				{
+					if(f.CanRead && f.CanWrite)
+					{
+						string args;
+						string proxy = Serialization.GetDeserializerName(f.PropertyType, out args);
+						if(f.PropertyType.IsValueType && !Serialization.IsNullable(f.PropertyType))
+						{
+#>
+				instance.<#=f.Name#> = <#=proxy#>.Deserialize(bytes<#=args#>);
+<#
+						}
+						else
+						{
+#>
+				if((nullMask & (1 << <#=count#>)) != 0) instance.<#=f.Name#> = <#=proxy#>.Deserialize(bytes<#=args#>);
+<#
+							count++;
+						}
+					}
+				}
+#>
+			}
+			
+			return instance;
+		}
+	}
+<#
+			}
+        }
+		else if(!t.IsAbstract && t.IsVisible)
+		{
+			ignoredTypes.AppendLine("// IGNORED: "+ t.Name);
+		}
+    }
+	
+	this.GenerationEnvironment.Insert(0, ignoredTypes.ToString());
+#>
+}
+<#
+		string[] name = path.Split(new char[] {'\\', '/'});
+		MultiOutput.SaveOutput(name[0] + ".cs", this.GenerationEnvironment, (IServiceProvider)this.Host, this.Host.TemplateFile);
+	}
+#>
+<#+
+public string GetDefault(Type t)
+{
+	if(Serialization.IsNullable(t))
+	{
+		return GetDefault(Nullable.GetUnderlyingType(t));
+	}
+	else if(t == typeof(DateTime))
+	{
+		return "(System.DateTime)null";
+	}
+	else if(t.IsValueType)
+	{
+		return "default("+t.FullName+")";
+	}
+	else
+	{
+		return "null";
+	}
+}
+#>

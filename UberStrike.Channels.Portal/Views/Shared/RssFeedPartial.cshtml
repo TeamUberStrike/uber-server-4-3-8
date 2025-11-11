@@ -1,0 +1,23 @@
+﻿@model List<UberStrikeFeedModel>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+    <div class="panel_item" style="margin: 17px 0px 4px 0px;">
+        <div class="panel_item_header">
+            @Html.Raw(item.Title)
+        </div>
+@*        <div class="panel_item_tag">
+            @Html.Raw(item.Tag)
+        </div>
+*@        <div class="panel_item_textcontent" style="text-align: left; clear: both">
+            <p>
+                @Html.Raw(item.Description)
+            </p>
+        </div>
+        <div class="panel_item_date">
+            Posted at @(((DateTime)item.Date).ToString("HH:mm MM/dd/yyyy"))
+        </div>
+    </div>
+    }
+}

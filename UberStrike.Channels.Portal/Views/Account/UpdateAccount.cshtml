@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Update your email and password";
+}
+
+<div class="panel_default" style="margin-top:50px; margin-bottom:50px; width:400px; margin-left:auto; margin-right:auto;">
+    <div class="panel_header">
+        Update your email and password
+    </div>
+<div style="margin: 5px;">
+    <form id="updateForm" name="updateForm" method="post" action="">
+    <table style="width: 100%; border: none; margin: 0px; padding: 0px;">
+        <tr>
+            <td>
+                Your new email:
+            </td>
+            <td>
+                @Html.TextBox("Email", (string)ViewBag.EmailAddress, new { @title = "Enter your email address.", @class = "cmuneInput", @style = "width:174px;" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Your new password:
+            </td>
+            <td>
+                @Html.Password("Password", null, new { @title = "Enter your password.", @class = "cmuneInput", @style = "width:174px;" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Type it again:
+            </td>
+            <td>
+                @Html.Password("ConfirmPassword", null, new { @title = "Enter your password.", @class = "cmuneInput", @style = "width:174px;" })
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-top:15px;" colspan="2">
+                <div id="resultMessageContainer"></div>
+                <input id="updateAccountButton" type="submit" value="Change" class="darkGray" onclick="updateAccount(); return false;" />
+            </td>
+        </tr>
+    </table>
+    </form>
+    <div id="successDiv" style="display:none; padding:40px; text-align:center;">
+        Your account was updated, you can now login into UberStrike HD.
+    </div>
+</div>
+</div>

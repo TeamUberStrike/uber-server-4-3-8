@@ -1,0 +1,29 @@
+﻿@{
+    var itemGearConfigView = (UberstrikeGearConfigView)ViewBag.ItemGearConfigViewModel;
+}
+<div>
+    @Html.LabelFor(d => itemGearConfigView.LevelRequired, "Level Required")
+    @Html.TextBoxFor(d => itemGearConfigView.LevelRequired, new { @class = "itemStat" })
+</div>
+<table style="margin: 15px 0 0 0;">
+    <tr>
+        <td style="width: 25%">
+            Armor Carried (0-200AP):
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemGearConfigView.ArmorPoints, new { @class = "itemStat" })
+        </td>
+        <td style="width: 25%">
+            Defense Bonus (0-25%)
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemGearConfigView.ArmorAbsorptionPercent, new { @class = "itemStat" })
+        </td>
+        <td style="width: 25%">
+            Armor Weight:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemGearConfigView.ArmorWeight, new { @class = "itemStat" })
+        </td>
+    </tr>
+</table>

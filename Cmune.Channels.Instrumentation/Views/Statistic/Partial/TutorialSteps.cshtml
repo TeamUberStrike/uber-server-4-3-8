@@ -1,0 +1,30 @@
+﻿@model List<TutorialStepView>
+
+<table class="searchResultTable" style="margin:15px 0 0 0; width:auto;">
+    <tr>
+        <th>Step Id</th>
+        <th>Step Type</th>
+        <th>Step Date</th>
+    </tr>
+    @{int i = 0;}
+
+        @foreach (var step in Model)
+        {
+    <tr class="@(i % 2 == 1 ? "mod":"")">
+        <td>
+            @(((int)step.StepType).ToString())
+        </td>
+        <td>
+            @step.StepType.ToString()
+        </td>
+        <td>
+            @step.StepTime.ToNiceDisplay()
+        </td>
+    </tr>
+            i++;
+        }  
+</table>
+
+@if (Model.Count == 0) {
+<p>There is no step to display.</p>
+}

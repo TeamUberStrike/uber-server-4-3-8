@@ -1,0 +1,17 @@
+﻿<div class="panel_default" style="margin: 15px 0 0 0px;">
+    <div class="panel_header">
+        Unsubscribe
+    </div>
+    <div class="panel_item">
+        @if (ViewBag.IsUnsubscribed)
+        {
+            <div class="successMessage">
+                You've been unsuscribed, we won't send you marketing email anymore.</div>
+        }
+        else
+        {
+            <div class="errorMessage">
+                It seem's you've clicked on a wrong link.</div>
+        }
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿<div class="panel_default">
+    @if (!ViewBag.HasError)
+    {
+    }
+    <div class="panel_header">
+        <div class="right previousBtn" onclick="window.parent.ResetGetCreditBundlePage(); window.location.href='@Url.Action("Index")?channel=@(ViewBag.ChannelType)&cmid=@(ViewBag.Cmid)'; return false;">
+            Back
+        </div>
+        Complete offers and earn credits for free!
+    </div>
+    <div class="panel_bar">
+        @if (!ViewBag.HasError)
+        {
+            <h2>
+                Hi @ViewBag.Name. Please note that it may take up to 24 hours before credits are applied to your profile.
+            </h2>
+        }
+        else
+        { 
+            <p>
+                <span class="lightError">We were unable to load the payment.</span>
+            </p>
+        }
+    </div>
+    @if (!ViewBag.HasError)
+    {
+        <div class="superRewardsOffers">
+            <div style="z-index: 0; height: 40px; text-align: center;">
+                <img src="@Url.Image("loader.gif")" alt="Loading offers..." />
+            </div>
+            <div style="">
+                <iframe src="http://www.superrewards-offers.com/super/offers?h=@(ViewBag.SuperRewardsApplicationId)&uid=@(ViewBag.UserId)&custom_d=@(ViewBag.DeveloperId)&custom_c=@(ViewBag.Cmid)&custom_h=@(ViewBag.Hash)" frameborder="0" width="728" height="2120" scrolling="no" style="position:relative; top:-40px; left:0px;z-index:5;">
+                </iframe>
+            </div>
+        </div>
+    }
+    <script type="text/javascript">
+        window.parent.ResizeGetCreditBundlePage(2200); 
+    </script>
+</div>

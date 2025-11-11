@@ -1,0 +1,32 @@
+﻿@model ItemDeprecationModel
+@if (ViewBag.IsExist == true)
+{
+    <p @Html.Raw(Model.NumberOfUsers > 1000 ?  "class=\"warningMessage\"" : "")>
+       @Html.Raw(Model.NumberOfUsers > 1000 ? "WARNING:" : "") @Model.ItemName <span>is used by @Model.NumberOfUsers user(s)</span>
+    </p>
+    <form id="itemDeprecationForm" action="" method="">
+    @Html.HiddenFor(d => Model.ItemId)
+    @Html.HiddenFor(d => Model.ItemName)
+    <br />
+    <label style="width: 100px; display: inline-block;">
+        Daily price</label>@Html.TextBoxFor(d => Model.DailyPrice)
+    <br />
+    <label style="width: 100px; display: inline-block;">
+        Permanent price</label>@Html.TextBoxFor(d => Model.PermanentPrice)
+    <br />
+    <p>
+        Refund will be based on the above values, the process will refrund 25% bonus on
+        top</p>
+    <br />
+    <div id="pricingDefinitionError" class="errorMessage">
+    </div>
+    <br />
+    <input type="button" onclick="DeprecateItem($('#itemDeprecationForm').serialize(), $('#DailyPrice').val(), $('#PermanentPrice').val())"
+        value="Deprecate" />
+    </form>
+}
+else
+{
+    <div class="errorMessage">
+        Item not found or already disabled</div>
+}

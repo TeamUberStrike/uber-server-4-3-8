@@ -1,0 +1,95 @@
+﻿@{
+    Layout = "_LayoutKongregateAPI.cshtml";
+    ViewBag.Title = "Home Page";
+}
+@section HeaderCss{
+    <!-- Give the shell no border/scroll bars and match the Kongregate background color.
+         If your game needs scrollbars, you might need to modify these styles -->
+    <style type="text/css">
+        html
+        {
+            border: none;
+            overflow: hidden;
+            background-color: #333;
+            height: 100%;
+        }
+        body
+        {
+            border: none;
+            background-color: #333;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+}
+@section HeaderJavaScript{
+    <!-- Load the Kongregate Javascript API -->
+    <script type="text/javascript" src="http://www.kongregate.com/javascripts/kongregate_api.js"></script>
+    <script type="text/javascript">
+        // Called when the API is finished loading
+
+        var ApplicationUrl = '@Url.AppBaseUrl()';
+        var KongregateUserId = 0;
+        var KongregateUserName = 0;
+        var KongregateGameAuthToken = 0;
+
+        function onKgLoadCompleted() {
+            // Get a global reference to the kongregate API. This way, pages included in the
+            // iframe can access it by using "parent.kongregate"
+            kongregate = kongregateAPI.getAPI();
+
+            // Embed the game into the "contentdiv" div, which is defined below. You can also
+            // manually create your own iframe, this function is just for convenience. 
+            // This example also passes along the kongregate user_id and game_auth_token so 
+            // that the page can use them for authentication.
+            //var kongregateUserId = kongregate.services.getUserId();
+
+            if (!kongregate.services.isGuest() > 0) {
+                launchGameFrame();
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: ApplicationUrl + '/Home/GetGuestPage',
+                    success: function (data) {
+                        $("#contentdiv").html(data);
+                        kongregate.services.addEventListener("login", onKongregateInPageLogin);
+                        kongregate.services.resizeGame(GetGameFrameWidth(), GetGameFrameHeight());
+                        ResizeShell(GetShellWidth(), GetShellHeight());
+                    }
+                });
+            }
+        }
+
+        function launchGameFrame() {
+            // Get the user's new login credentials
+            KongregateUserId = kongregate.services.getUserId();
+            KongregateUserName = kongregate.services.getUsername();
+            KongregateGameAuthToken = kongregate.services.getGameAuthToken();
+
+            var params = "kongregate_user_id=" + KongregateUserId +
+                       "&kongregate_username=" + KongregateUserName +
+                       "&kongregate_game_auth_token=" + KongregateGameAuthToken +
+                       "&random=" + (Math.random() * 1000000000);
+            kongregate.services.resizeGame(GetGameFrameWidth(), GetGameFrameHeight());
+            var iframeUrl = "";
+            iframeUrl = '@Url.Action("", "Play")';
+            kongregateAPI.embedFrame(iframeUrl + "?" + params, "contentdiv");
+            ResizeShell(GetShellWidth(), GetShellHeight());
+        }
+
+        function onKongregateInPageLogin(event) {
+            launchGameFrame();
+        }
+
+        // Begin the process of loading the Kongregate API:
+
+    </script>
+}
+@*@Html.Partial("KongregateDebug")
+*@
+<div id="contentdiv">
+</div>
+<script type="text/javascript">
+    kongregateAPI.loadAPI(onKgLoadCompleted);
+</script>

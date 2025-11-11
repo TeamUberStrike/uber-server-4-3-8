@@ -1,0 +1,15 @@
+﻿<div class="panel_default">
+    <div class="panel_header">
+        UBER PROMOTION
+	</div>
+
+    @if (!String.IsNullOrWhiteSpace(ViewBag.RightPromotionAnchorLink))
+    {
+    @:<a href="@ViewBag.RightPromotionAnchorLink" target="_blank">
+    }
+        <img style="border: 1px solid black; margin: 2px 3px 0 3px;" src="@Url.Image((string)ViewBag.RightPromotionFilename)"  alt="@ViewBag.RightPromotionFilenameTitle" width="242px"  />
+    @if (!String.IsNullOrWhiteSpace(ViewBag.RightPromotionAnchorLink))
+    {
+    @:</a>
+    }
+</div>

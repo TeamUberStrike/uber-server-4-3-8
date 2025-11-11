@@ -1,0 +1,32 @@
+﻿<div>
+    <form id="sendPrivateMessagForm" action="" method="post">
+    @Html.Hidden("memberCmid")
+    <div>
+        Subject:<br />
+        @Html.TextBox("subjectTextBox", null, new { style = "width:250px; background-color:lightyellow; margin-top:8px;", maxlength = "139" })
+    </div>
+    <div style="margin-top: 10px;">
+        Content:<br />
+        @Html.TextArea("contentTextArea", null, new { style = "width:475px; height:130px; background-color:lightyellow; margin-top:8px;" })
+    </div>
+    <div style="text-align: center; margin: 20px 0 30px 0;">
+        <input type="submit" id="sendPrivateMessageButton" onclick="sendPrivateMessage(); return false;"
+            value="Send PM" />
+        <input type="button" id="cancelSendPrivateMessageButton" onclick="Shadowbox.close();"
+            value="Cancel" />
+    </div>
+    <p style="text-align: center; margin-bottom: 10px;">
+        Templates:</p>
+    <ul>
+        <li><a href="#" onclick="displayPrivateMessageTemplate(6); return false;">xp farming
+            warning</a></li>
+        <li><a href="#" onclick="displayPrivateMessageTemplate(1); return false;">Speed hacking
+            warning</a></li>
+        <li><a href="#" onclick="displayPrivateMessageTemplate(2); return false;">Collider exploit</a></li>
+        <li><a href="#" onclick="displayPrivateMessageTemplate(3); return false;">Inappropriate
+            name</a></li>
+        <li><a href="#" onclick="displayPrivateMessageTemplate(4); return false;">Forced reversal</a></li>
+        <li><a href="#" onclick="displayPrivateMessageTemplate(5); return false;">Map mixing</a></li>
+    </ul>
+    </form>
+</div>

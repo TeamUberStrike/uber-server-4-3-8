@@ -1,0 +1,407 @@
+﻿body
+{
+    font-size: 14px;
+    font-family: "Segoe UI" , "Arial" , "Helvetica" , "Verdana" , "sans-serif" , "Helvetica Neue" , "Lucida Grande";
+    margin: 0px;
+    padding: 0px;
+}
+
+.grey
+{
+    color: Grey;
+}
+
+.h1title
+{
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+}
+
+.aligncenter
+{
+    text-align: center;
+}
+
+#uberstrikePanel
+{
+    background: url("/CommonChannel/Content/images/FacebookChannel/FbBackground.jpg") no-repeat scroll 0 0 transparent;
+    width: 760px;
+    height: 590px;
+    margin: auto;
+}
+
+#uberstrikePanel #screen
+{
+}
+
+#uberstrikePanel #block
+{
+    color: White;
+    width: 680px;
+    height: 315px;
+    position: relative;
+    top: 230px;
+    left: 40px;
+}
+
+#uberstrikePanel #logo
+{
+    background: url("/CommonChannel/Content/images/FacebookChannel/CmuneLogo.jpg") no-repeat scroll 0 0 transparent;
+    width: 83px;
+    height: 63px;
+    margin: auto;
+}
+
+#uberstrikePanel #screen #content
+{
+    color: white;
+    font-weight: bold;
+    position: relative;
+    left: 50px;
+    top: 240px;
+    width: 660px;
+}
+
+#kongregateUberstrikePanel
+{
+    background: url("/CommonChannel/Content/images/KongregateChannel/uberstrikePanel.jpg") no-repeat scroll 0 0 transparent;
+    width: 723px;
+    height: 560px;
+    margin: auto;
+}
+
+
+#kongregateUberstrikePanel #block
+{
+    color: White;
+    width: 680px;
+    height: 315px;
+    position: relative;
+    top: 230px;
+    left: 40px;
+}
+
+#kongregateUberstrikePanel #logo
+{
+    background: url("/CommonChannel/Content/images/FacebookChannel/CmuneLogo.jpg") no-repeat scroll 0 0 transparent;
+    width: 83px;
+    height: 63px;
+    margin: auto;
+}
+
+#kongregateUberstrikePanel #screen #content
+{
+    color: white;
+    font-weight: bold;
+    position: relative;
+    left: 50px;
+    top: 240px;
+    width: 660px;
+}
+
+.bigRedWhite
+{
+    font-size: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(top, #ff2819 0%, #ab0000);
+    background: -webkit-gradient( linear, left top, left bottom,  from(#ff2819), to(#ab0000));
+    border-radius: 0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border: 1px solid #7d0000;
+    -moz-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,0.7);
+    -webkit-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,0.7);
+    text-shadow: 0px -1px 0px rgba(000,000,000,0.4), 0px 1px 0px rgba(255,255,255,0.3);
+}
+.bigRedWhite:hover
+{
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00) );
+    background: -moz-linear-gradient( center top, #ce0100 5%, #fe1a00 100% );
+    background-color: #ce0100;
+}
+
+.shadowbackground
+{
+    width: 520px;
+    margin: auto;
+    background: #696B6A;
+    padding: 10px;
+    font-family: Segoe UI;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.dlgHeader
+{
+    background: none repeat scroll 0 0 #9A0002;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    text-align: left;
+    vertical-align: middle;
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+}
+
+
+.dlgHeader p
+{
+    padding: 6px;
+}
+
+.dlgContent
+{
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: White;
+    border: 1px solid #6E0005;
+    text-align: center;
+}
+
+.dlgButtons
+{
+    background-color: #F2F2F2;
+    border-top: 1px solid #CCCCCC;
+    bottom: 0px;
+    left: 1px;
+    font-size: 12px;
+    height: 29px;
+    line-height: 28px;
+    text-align: right;
+    text-indent: 10px;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+
+.dlgButtons img
+{
+    vertical-align: middle;
+}
+
+.dlgButtons a
+{
+    color: #9A0002 !important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.dlgButtons a:hover
+{
+    text-decoration: underline;
+}
+.dlgButtons span
+{
+    line-height: 20px;
+}
+
+.dlgButton
+{
+    background-color: #3DBBCC;
+    border: 1px solid #CCCCCC;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 15px;
+    padding: 2px 4px;
+}
+
+.installPluginMonitor
+{
+    background: url("/CommonChannel/Content/images/cmune-monitor.png") no-repeat;
+    width: 344px;
+    height: 250px;
+    padding-top: 13px;
+    display: inline-block;
+}
+
+#UberstrikeMenu a
+{
+    margin-left: 2px;
+}
+
+#UberstrikeMenu .selectedTab
+{
+    background: #D1D1D1;
+    border: 1px solid #D1D1D1;
+    box-shadow: none; /*    padding: 4px 9px;*/
+    text-shadow: 1px 1px 0 #D7D7D7;
+}
+
+.formlabel
+{
+    display: inline-block;
+    width: 120px;
+}
+
+h3
+{
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+    margin: 10px 0 10px 0;
+    text-indent: 45px;
+}
+
+.panel_default_invisible
+{
+    color: White;
+}
+
+.panel_default
+{
+    background-color: #DDDDDD;
+    border: 1px solid #990000;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.panel_header
+{
+    background: none;
+    padding: 0px 12px;
+    height: 45px;
+    line-height: 48px;
+    font-size: 17px;
+    font-weight: bold;
+    color: black;
+    text-align: left;
+}
+
+.panel_header #uberstrikeUserName
+{
+    color: #990000;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.panel_header_clear
+{
+    padding: 0px 12px;
+    height: 45px;
+    line-height: 48px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #a6a6a6;
+    text-align: left;
+}
+
+
+.panel_bar
+{
+    color: #A6A6A6;
+    text-align: center;
+    background-color: #363636;
+    padding: 10px 0px;
+}
+
+.panel_body
+{
+    text-align: left;
+    padding: 10px;
+}
+
+.rankingTable
+{
+    width: 500px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rankingTable td
+{
+    padding: 2px 5px 2px 5px;
+    text-align: right;
+}
+
+.rankingTable th
+{
+    padding: 2px 5px 2px 5px;
+    color: #990000;
+    text-align: center;
+    font-weight: bold;
+}
+
+.rankingTable a
+{
+    color: #990000;
+}
+
+.pagination
+{
+    width: 280px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.pagination a
+{
+    color: black;
+    text-decoration: none;
+}
+
+.selectedPageAnchor
+{
+    color: #000;
+    background-color: #FEC42C;
+}
+
+.pageAnchor
+{
+    padding: 5px 5px 5px 5px;
+}
+
+.rankingTable .grid
+{
+    background-color: #DCB3B3;
+}
+
+.servertime
+{
+    background-image: url("/CommonChannel/Content/images/cmuneHeader_ServerTimeNew.jpg");
+    background-repeat: no-repeat;
+    margin: 8px 8px 0 0;
+    width: 164px;
+    height: 22px;
+    line-height: 21px;
+    position: absolute;
+    right: 0px;
+}
+
+.servertime .label
+{
+    float: left;
+    font-weight: bold;
+    text-indent: 20px;
+    font-size: 12px;
+    color: #C5C5C5;
+}
+
+.rankingMenu
+{
+    cursor: pointer;
+}
+
+.rankingMenuSelected
+{
+    cursor: pointer;
+    text-decoration: underline;
+}

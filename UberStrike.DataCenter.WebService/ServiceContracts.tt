@@ -1,0 +1,258 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="$(SolutionDir)T4Helper/bin/Debug/T4Helper.dll" #>
+<#
+	T4Utils.WriteLine = this.WriteLine;
+	T4Utils.FileHeader();
+#>
+using System;
+using System.IO;
+using System.ServiceModel;
+using System.ServiceModel.Web;
+using Cmune.DataCenter.Utils;
+using UberStrike.DataCenter.WebService.Crypto;
+using UberStrike.Core.Serialization;
+using UberStrike.DataCenter.WebService.Interfaces;
+<#
+	var interfaces = WebServiceAttributeParser.GetProjectInterfaces((IServiceProvider)this.Host, "UberStrike.DataCenter.WebService");
+#>               
+
+namespace UberStrike.DataCenter.WebService.<#=WebServiceConstants.InternalWebServiceNamespace#>
+{
+	//Interfaces: <#=interfaces.Count#>
+	#region Interfaces
+	
+<#
+	//Here we declare the interfaces for IIS
+	foreach(var i in interfaces)
+	{
+		if(i.UseBinarySerialization)
+		{
+#>
+	[ServiceContract]
+	public interface <#=i.Name#><#=WebServiceConstants.InternalWebServiceSuffix#>
+    {
+<#
+		foreach (var method in i.Methods)
+    	{
+			//if(!method.IsObsolete)
+			{
+#>
+		[OperationContract<#=method.IsVoid ? "(IsOneWay = true)" : ""#>]
+		[WebInvoke]
+		<#=method.IsVoid ? "void" : "byte[]"#> <#=method.UniqueName#>(byte[] data);
+		
+<#
+			}
+		}
+#>
+	}
+
+<#
+		}
+	}
+#>
+	#endregion
+	
+	#region De/Serialization
+	
+<#
+	
+	//Here we declare the base classes for all webservices
+	foreach(var i in interfaces)
+	{
+		if(i.UseBinarySerialization)
+		{
+#>
+	public class <#=i.ClassName#><#=WebServiceConstants.InternalWebServiceSuffix#> : <#=i.Name#><#=WebServiceConstants.InternalWebServiceSuffix#>
+    {
+		private string initVector;
+		private string passPhrase;
+	
+		public <#=i.ClassName#><#=WebServiceConstants.InternalWebServiceSuffix#>()
+		{
+		    initVector = Cmune.DataCenter.Utils.ConfigurationUtilities.ReadConfigurationManager(Cmune.DataCenter.Common.Entities.CommonAppSettings.InitVector);
+            passPhrase = Cmune.DataCenter.Utils.ConfigurationUtilities.ReadConfigurationManager(Cmune.DataCenter.Common.Entities.CommonAppSettings.PassPhrase);
+        }
+
+<#
+		foreach (var method in i.Methods)
+    	{
+			//if(!method.IsObsolete)
+			{
+#>
+		public <#=method.IsVoid ? "void" : "byte[]"#> <#=method.UniqueName#>(byte[] data)
+		{
+			string exceptionMessage = System.String.Empty;
+			string debugMessage = System.String.Empty;
+			
+			try
+			{
+<#
+			if(method.EnableEncryption)
+			{
+				if (method.Arguments.Count > 0)
+				{
+#>
+			 	using(MemoryStream stream = new MemoryStream(Cryptography.RijndaelDecrypt(data, passPhrase, initVector)))
+				{
+<#
+				}
+			}
+			else
+			{
+				if (method.Arguments.Count > 0)
+				{
+#>
+			 	using(MemoryStream stream = new MemoryStream(data))
+				{
+<#
+				}
+			}
+			
+				for(int arg=0; arg<method.Arguments.Count; arg++)
+    			{
+#>
+            		<#=method.Arguments[arg].Key#> _<#=method.Arguments[arg].Value#> = UberStrike.Core.Serialization.<#=Serialization.GetProxyName(method.Arguments[arg].Key, method.ArgumentKinds[arg])#>.Deserialize(stream);
+<#
+				}
+				if(method.Arguments.Count > 0)	this.WriteLine("");
+#>
+					debugMessage = <#=method.DebugArguments()#>;
+<#
+			if(method.IsVoid)
+			{
+#>
+					WebServiceLayerManager.<#=i.ClassName#>.<#=method.Name#>
+		            (
+<#
+				for(int arg=0; arg<method.Arguments.Count; arg++)
+    			{
+#>
+            				_<#=method.Arguments[arg].Value#><#=(arg<method.Arguments.Count-1) ? "," : ""#>
+<#
+				}
+#>
+					);
+<#
+			}
+			else
+			{
+#>
+					using(MemoryStream returnData = new MemoryStream())
+					{
+		            	UberStrike.Core.Serialization.<#=Serialization.GetProxyName(method.ReturnType, method.ReturnKind)#>.Serialize(returnData, 
+		                	WebServiceLayerManager.<#=i.ClassName#>.<#=method.Name#>
+		                	(
+<#
+				if(method.Arguments.Count==0) WriteLine("            			//no arguments");
+				for(int arg=0; arg<method.Arguments.Count; arg++)
+    			{
+#>
+                    			_<#=method.Arguments[arg].Value#><#=(arg<method.Arguments.Count-1) ? "," : ""#>
+<#
+				}
+#>
+		               		)<#=Serialization.GetSerializeArguments(method.ReturnType)#>
+		            	);
+<#
+				if(method.EnableEncryption)
+				{
+#>
+							
+						return Cryptography.RijndaelEncrypt(returnData.ToArray(), passPhrase, initVector);
+					}
+<#
+				}
+				else
+				{
+#>
+							
+						return returnData.ToArray();
+					}
+<#
+				}
+			}
+
+			if (method.Arguments.Count > 0)
+			{
+#>
+				}
+<#
+			}
+#>
+			
+			}
+			catch (System.Security.Cryptography.CryptographicException ex)
+			{
+				exceptionMessage = LogUtil.LogException(ex, data);
+			}
+			catch (System.Exception ex2)
+			{
+				exceptionMessage = LogUtil.LogException(ex2, debugMessage);
+			}
+<#
+			if (!method.IsVoid)
+			{
+#>
+			
+			throw new Exception(exceptionMessage);
+<#
+			}
+#>
+		}
+		
+<#
+			}
+		}
+#>
+	}
+	
+<#
+		}
+	}
+#>
+	#endregion
+	
+	internal static class LogUtil
+	{
+		public static string LogException(System.Security.Cryptography.CryptographicException ex, byte[] data)
+        {
+            string logMessage = string.Empty;
+            string userAgent = WebOperationContext.Current.IncomingRequest.Headers["User-Agent"];
+            string url = OperationContext.Current.RequestContext.RequestMessage.Headers.To.AbsoluteUri;
+
+            if (data == null) logMessage = "null";
+            else if (data.Length == 0) logMessage = "empty";
+            else logMessage = System.Convert.ToBase64String(data);
+
+            CmuneLog.LogException(ex, string.Format("Deserialization/Decryption error:<br />Time: {0}<br />UserAgent: {1}<br />IP: {2}<br />Byte[]: {3}<br />Url: {4}", System.DateTime.Now.ToString("HH:mm:ss.sss"), userAgent, WebServiceUtil.GetCurrentContextNetworkAddress(), logMessage, url));
+           
+            return ex.GetType().ToString();
+        }
+		
+		public static string LogException(System.Exception ex, string debugMessage)
+        {
+			CmuneLog.LogException(ex, debugMessage);
+			return ex.GetType().ToString();
+		}
+	}
+
+	internal static class WebServiceLayerManager
+	{
+<#
+		//Here we declare the base classes for all webservices
+	foreach(var i in interfaces)
+	{
+		if(i.UseBinarySerialization)
+		{
+#>
+		public static <#=i.Name#> <#=i.ClassName#> = new <#=i.ClassName#>();
+<#
+		}
+	}
+#>
+	}
+<#
+#>
+}

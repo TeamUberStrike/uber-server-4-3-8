@@ -1,0 +1,22 @@
+﻿<div class="left" style="width: 100%; text-align: left">
+    <a href="@Url.Action("Search", "Member")">Search another user</a> - Name: @Html.TextBox("searchByNameTextBox")
+    Email: @Html.TextBox("searchByEmailTextBox") FacebookId: @Html.TextBox("searchByFacebookIdTextBox")
+    <input id="searchAnotherUserButton" type="submit" value="Search" onclick="loadMember(); return false;" />
+    <script type="text/javascript">
+        $("#searchByNameTextBox").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#searchAnotherUserButton").click();
+            }
+        });
+        $("#searchByEmailTextBox").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#searchAnotherUserButton").click();
+            }
+        });
+        $("#searchByFacebookIdTextBox").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#searchAnotherUserButton").click();
+            }
+        });
+    </script>
+</div>

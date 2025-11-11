@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CacheInvalidation.aspx.cs" Inherits="Cmune.Channels.Callback.CacheInvalidation" %>

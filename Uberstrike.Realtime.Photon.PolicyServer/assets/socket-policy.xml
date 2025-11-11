@@ -1,0 +1,3 @@
+<cross-domain-policy>
+  <allow-access-from domain="*" to-ports="5055-5059,5155-5159,5255-5259" />
+</cross-domain-policy>

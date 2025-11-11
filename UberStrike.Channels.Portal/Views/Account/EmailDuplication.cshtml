@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Account Verification";
+}
+<div id="EmailDuplicationPage" style="width: 768px; margin: auto">
+    <br />
+    <div id="screen" class="panel_default">
+        <div class="panel_header">
+            <p style="font-size: 20px">
+                Existing account detected for <span class="uberstrikeYellow">@ViewBag.Email</span>
+            </p>
+        </div>
+        <div id="content" class="panel_body" style="font-weight: bold;padding:20px;">
+            <p style="font-size: 16px;">
+                Why has this happened ?</p>
+            <br />
+            <br />
+            <div style="font-size: 15px">
+                <p style="color: grey;">
+                    The email address you use on Facebook is also the email address you use to play
+                    Uberstrike.
+                    <br />
+                    <br />
+                    <br />
+                    Enter your UberStrike password below securely & one time only to verify that you
+                    own both accounts.<br />
+                    After that you'll be able to access the same account seamlessly across all platforms.<br />
+                </p>
+                <form id="linkFacebookAccountForm" method="post" action="" onsubmit="GoLinkFacebookAccount();return false;">
+                <br />
+                @Html.Hidden("linkingEmail", (string)ViewBag.Email)
+                @Html.Hidden("linkingFacebookId", ((long)ViewBag.FacebookId).ToString())
+                <br />
+                @Html.Password("linkingPassword", "", new { style = "width:250px;margin-right:20px;" })
+                @Html.Button("validateLink", "Verify", "greenWhite", "GoLinkFacebookAccount();")
+                </form>
+                <br />
+                <div id="linkSummaryMessage" style="height: 45px; font-style: italic">
+                </div>
+                <div class="right">
+                    <a href="" onclick="facebooklogout(); return false;">@Html.ImageTag(Url, "facebookLogOutButton.png")
+                    </a>
+                </div>
+                <div style="width:400px">
+                Have we detected your account incorrectly ?<br />
+                <span style="color: grey">Please visit our </span><a href="@CommonConfig.CmuneSupportCenterUrl"
+                    class="uberstrikeYellow" style="text-decoration: underline;" target="_blank">support center</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div id="logo">
+    </div>
+    <br />
+</div>
+<script type="text/javascript">
+    var ApplicationPath = '@Url.AppBaseUrl()';
+    var FacebookApplicationUrl = '@ViewBag.FacebookApplicationUrl';
+    var baseUrl = "@Url.AppBaseUrl()";
+</script>

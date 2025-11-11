@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Connect With";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+<div>
+    <script type="text/javascript">
+        var kongregate = parent.kongregate;
+        function ReloadPage() {
+            params = "&kongregate_user_id=" + kongregate.services.getUserId() +
+                       "&kongregate_username" + kongregate.services.getUsername() +
+                       "&kongregate_game_auth_token=" + kongregate.services.getGameAuthToken() +
+                       "&random=" + (Math.random() * 1000000000);
+            window.location.href = '@Url.Action("", "Play")?callBack=true' + params;
+        }
+    </script>
+    <div class="aligncenter" style="padding-top:15px">
+        <iframe align="middle" src="@Url.CommonChannelUrl()/Account/ConnectWith?channel=@(ChannelType.Kongregate)&h=@(HttpUtility.UrlEncode(ViewBag.Hash))&userName=&referrer=" allowtransparency="true" frameborder="0" width="760" height="590" scrolling="no">
+        </iframe>
+    </div>
+</div>

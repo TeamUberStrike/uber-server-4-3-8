@@ -1,0 +1,86 @@
+﻿@model UberStrike.Channels.Utils.Models.FacebookUserModel
+@{
+    ViewBag.Title = "Home Page";
+}
+@section HeaderJavascript{
+    <script type="text/javascript">
+        var developerId = '@ViewBag.DeveloperId';
+        var unityArgs = '@Html.Raw(ViewBag.UnityArguments)';
+        var cmid = '@Model.Cmid';
+    </script>
+    <script type="text/javascript">
+        var webServicesBaseURL = '@ConfigurationManager.AppSettings["InstrumentationWsBaseUrl"]';
+        var superRewardsIframeUrl = '@Url.Action("Iframe", "Offer")';
+        var cookieDomainName = '@ConfigurationManager.AppSettings["CookieDomainName"]';
+    </script>
+    @{
+        var PublishVersion = ConfigurationManager.AppSettings["PublishVersion"];
+    }
+    <script type="text/javascript">
+        Shadowbox.init({
+            displayNav: true,
+            modal: true,
+            enableKeys: false,
+            animate: false,
+            animateFade: false
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            StartServerClock();
+            UnityEvent.OnLoadSuccess = function () {
+                DisplayBanner();
+                $(window).resize(function () { ResizeUnity(); });
+            }
+            UnityEvent.OnLoadFailure = function () {
+                DisplayBanner();
+            }
+            //760, 560
+            EmbedUnity(unityArgs, GetUnityWidth(), GetUnityHeight(), webChannel);
+            //EmbedUnity(unityArgs,  760, 560, webChannel);
+        });
+    </script>
+}
+<div id="messageDiv" style="display: none; position: relative; top: 0px; left: 0px;">
+    <div style="position: absolute; width: 100%; padding-top: 50px; margin: auto; text-align: center;">
+        <p>
+            <span id="messageContentSpan"></span>
+        </p>
+        <p style="color: #9F9F9F; margin-bottom: 40px">
+            <span id="messageUrlSpan"></span>
+        </p>
+        <p>
+            <a id="messageLinkA" href="" onclick="" class="silver">Open this link in another tab</a>
+            <a href="" onclick="hideMessage();return false;" class="darkGray">Go back to Game</a>
+        </p>
+    </div>
+</div>
+<div>
+    <div id="unityPlayer">
+    </div>
+    <div id="playSpanDiv">
+    </div>
+    <!-- PlaySpan payment div -->
+    <div id="div_b" style="display: none; padding: 10px; display: block; position: absolute; top: 150px; left: 50%; margin-left: -385px;">
+    </div>
+</div>
+@if (ViewBag.IsFriendsCarouselEnable)
+{
+    <div id="SocialCarouselContainer">
+        <div id="SocialCarousel" class="social_carousel">
+            <img src="@Url.Image("loader.gif")" alt="loading..." />
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/Friend/LoadUsingAppFriends")',
+                data: { signed_request: '@ViewBag.SignedRequest' },
+                success: function (data) {
+                    $('#SocialCarousel').html(data);
+                }
+            });
+        });
+    </script>
+}

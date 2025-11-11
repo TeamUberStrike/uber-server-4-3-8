@@ -1,0 +1,35 @@
+﻿@model CompleteAccountModel
+<p>
+    In order to access extra account features and to be able to post on the forum you need to verify your account below first:
+</p>
+<br />
+<form method="post" id="accountCompletion" action="@Url.AccountCompletion()" autocomplete="off">
+
+   @* @(((UserProfileModel)ViewBag.UserProfile).FacebookUserModel.Email)*@
+<span class="label" for="userProfileEmail">Email </span>@Html.TextBoxFor(m => m.Email, new { @class = "cmuneInput", id = "userProfileEmail"})<br />
+    
+<span class="label">Password </span>@Html.PasswordFor(m => m.Password, new { @class = "cmuneInput" })<br />
+<span class="label">Verify Password </span>@Html.PasswordFor(m => m.VerifyPassword, new { @class = "cmuneInput" })<br />
+@Html.Partial("MessageSummary")
+<input type="button" value="Complete Account" onclick="completeAccount()" class="right darkGray" />
+</form>
+<script type="text/javascript">
+    function completeAccount() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AccountCompletion", "Account")',
+            data: $('#accountCompletion').serialize(),
+            success: function (data) {
+                if (data.isError) {
+                    DisplayErrorSummary("#accountCompletion", data.message);
+                }
+                else {
+                    DisplaySuccessSummary("#accountCompletion", data.message);
+                    setTimeout(function () {
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    }, 2000);
+                }
+            }
+        });
+    }
+</script>

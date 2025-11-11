@@ -1,0 +1,35 @@
+﻿<div style="background-color: #DDDDDD; height: 23px; padding-top: 2px;">
+    <a class="tab silver selectedTab" id="@MenuHelper.Tab.Play" href="" onclick="LoadPlayPage(); return false;">
+        Play</a><a class="tab orangeBlack" id="@MenuHelper.Tab.CreditBundles" href="" onclick="LoadCreditBundlePage(); return false;">
+            Get Credits</a> <a class="tab redWhite" id="@MenuHelper.Tab.ItemBundles" href="" onclick="LoadItemBundlePage(); return false;">
+                Hot Deals</a>
+    @if ((bool)ViewBag.IsFakeEmail)
+    {
+       @*  <a class="tab orangeBlack" id="@MenuHelper.Tab.CompleteEmail" href="" onclick="LoadCompleteEmailPage(); return false;">
+            Complete Account</a> &*@
+    }
+    <a href="" id="@MenuHelper.Tab.Profile" onclick="LoadProfilePage(); return false;" class="tab  silver">
+        Profile</a> <a href="" id="@MenuHelper.Tab.Ranking" onclick="LoadRankingPage(); return false;" class="tab  silver">
+            Ranking</a>
+    <div class="right" style="width: 20px; height: 20px">
+@*        <div class="hide" id="KgAjaxLoader">
+            @Html.ImageTag(Url, "KongregateChannel/ajax-loader-kg.gif")
+        </div>*@
+        @Html.TopLoader(Url)
+    </div>
+    <span style="float: right; position: relative; right: 5px; top: 3px; font-weight: bold;
+        color: grey">Fullscreen : ALT + F </span>
+@*    <script type="text/javascript">
+        $("#KgAjaxLoader").bind("ajaxSend", function () {
+            $("#KgAjaxLoader").show();
+        }).bind("ajaxComplete", function (data) {
+            $("#KgAjaxLoader").hide();
+        });
+    </script>*@
+    @*   <div class="servertime">
+        <div class="label">
+            Server time</div>
+        <div id="clock" class="text">
+        </div>
+    </div>*@
+</div>

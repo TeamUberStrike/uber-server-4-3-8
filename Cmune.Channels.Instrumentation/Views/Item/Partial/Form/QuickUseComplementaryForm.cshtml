@@ -1,0 +1,72 @@
+﻿@{
+    var itemQuickUseConfigView = (ItemQuickUseConfigView)ViewBag.ItemQuickUseConfigViewModel;
+    ItemView ItemView = ViewBag.ItemView;
+}
+<br />
+<div>
+    <table style="margin: 0 15px 0 0;">
+        <tr>
+            <td>
+                <h3>
+                    Level Required</h3>
+                @Html.LabelFor(d => itemQuickUseConfigView.LevelRequired, "")
+                @Html.TextBoxFor(d => itemQuickUseConfigView.LevelRequired, new { @class = "itemStat" })
+            </td>
+            <td>
+                <h3>
+                    Behaviour Type:</h3>
+                @Html.DropDownListFor(d => itemQuickUseConfigView.BehaviourType, Html.GetDropDownListQuickItemLogicItems(itemQuickUseConfigView.BehaviourType.ToString()))
+            </td>
+            <td>
+                <h3>
+                    Max Ownable Amount:</h3>
+                @Html.TextBoxFor(d => ItemView.MaximumOwnableAmount, new { @class = "itemStat" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3>
+                    Custom properties</h3>
+                <div id="customPropertiesFormQuick" />
+                <input type="button" value="Add" onclick="addCustomPropertyQuickItem(); return false;" />
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<table style="margin: 15px 0 0 0;" id="itemWeaponStatTable">
+    <tr>
+        <td>
+            Uses Per Life:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemQuickUseConfigView.UsesPerLife, new { @class = "itemStat" })
+        </td>
+        <td>
+            Uses Per Round:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemQuickUseConfigView.UsesPerRound, new { @class = "itemStat" })
+        </td>
+        <td>
+            Uses Per Game:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemQuickUseConfigView.UsesPerGame, new { @class = "itemStat" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            CoolDown Time:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemQuickUseConfigView.CoolDownTime, new { @class = "itemStat" })ms
+        </td>
+        <td>
+            WarmUp Time:
+        </td>
+        <td>
+            @Html.TextBoxFor(d => itemQuickUseConfigView.WarmUpTime, new { @class = "itemStat" })ms
+        </td>
+    </tr>
+</table>

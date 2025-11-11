@@ -1,0 +1,34 @@
+<Project DefaultTargets="PublishSite" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+
+  <PropertyGroup>
+    <PublishPath>$(ArtifactDir)\UberStrike.Channels.Kongregate</PublishPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CommonToBuild Include="UberStrike.Channels.Common\UberStrike.Channels.Common.csproj" />
+    <SiteToBuild Include="UberStrike.Channels.Kongregate\UberStrike.Channels.Kongregate.csproj" />
+  </ItemGroup>
+
+  <Target Name="PublishCommon">
+    <MSBuild Projects="@(CommonToBuild)"
+             Properties="Configuration=$(Configuration);WebProjectOutputDir=..\$(PublishPath)\CommonChannel\;OutDir=..\$(PublishPath)\CommonChannel\bin\" />
+
+    <Copy SourceFiles="UberStrike.Channels.Common\Web.config.dev;
+                        UberStrike.Channels.Common\Web.config.external.qa;
+                        UberStrike.Channels.Common\Web.config.prod;"
+          DestinationFolder="$(PublishPath)\CommonChannel" />
+  </Target>
+
+  <Target Name="PublishSite" DependsOnTargets="PublishCommon">
+    <MSBuild Projects="@(SiteToBuild)"
+             Properties="Configuration=$(Configuration);WebProjectOutputDir=..\$(PublishPath)\;OutDir=..\$(PublishPath)\bin\" />
+
+    <Copy SourceFiles="UberStrike.Channels.Kongregate\Web.config.dev;
+                        UberStrike.Channels.Kongregate\Web.config.external.qa;
+                        UberStrike.Channels.Kongregate\Web.config.prod;"
+          DestinationFolder="$(PublishPath)" />
+  </Target>
+
+</Project>

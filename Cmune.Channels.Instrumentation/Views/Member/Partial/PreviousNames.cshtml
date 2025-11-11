@@ -1,0 +1,45 @@
+﻿@model List<MemberPreviousNameDisplay>
+<div id="memberPreviousEmails" style="margin: 45px 0 0 0;">
+    <h3>
+        Previous names
+    </h3>
+    @if (Model.Count > 0)
+    {
+        int i = 0;
+        <table class="searchResultTable" style="margin: 15px 0 0 0;">
+            <tr>
+                <th>
+                    Previous name
+                </th>
+                <th>
+                    Change date
+                </th>
+                <th>
+                    IP
+                </th>
+            </tr>
+            @foreach (var previousName in Model)
+            {
+                <tr class="@(i % 2 == 1 ? "mod" : "")">
+                    <td>
+                        @previousName.PreviousName
+                    </td>
+                    <td>
+                        @previousName.ChangeDate.ToNiceDisplay(true)
+                    </td>
+                    <td>
+                        @previousName.Ip
+                    </td>
+                </tr>
+                i++;
+            }
+        </table>
+    }
+    else
+    {
+        <p style="text-align: left; margin: 15px 0 0 0;">
+            This member didn't change his name since we started recording data (since the 14th
+            of February 2012)
+        </p>
+    }
+</div>

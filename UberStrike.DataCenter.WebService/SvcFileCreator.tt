@@ -1,0 +1,22 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension="txt" #>
+<#@ Assembly Name="$(SolutionDir)T4Helper/bin/Debug/T4Helper.dll" #>
+<#
+	T4Utils.WriteLine = this.WriteLine;
+	string projectName = "UberStrike.DataCenter.WebService";
+	var interfaces = WebServiceAttributeParser.GetProjectInterfaces((IServiceProvider)this.Host, projectName);
+
+	//Here we declare the interfaces for IIS
+	foreach(var i in interfaces)
+	{
+		string serviceName = projectName + ".";
+		if(i.UseBinarySerialization)
+			serviceName += WebServiceConstants.InternalWebServiceNamespace + "." + i.ClassName + WebServiceConstants.InternalWebServiceSuffix;
+		else
+			serviceName += i.ClassName;
+#>
+<%@ ServiceHost Service="<#=serviceName#>" %>
+<#
+		MultiOutput.SaveOutput(serviceName + ".svc", this.GenerationEnvironment, (IServiceProvider)this.Host, this.Host.TemplateFile);
+	}
+#>

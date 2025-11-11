@@ -1,0 +1,445 @@
+﻿@using UberStrike.DataCenter.Common.Entities
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    UberStrike.Channels.Common.Models.UserProfileViewModel userProfileView = ViewBag.UserProfileView;
+    UberStrike.Channels.Common.Models.UserLoadoutModel loadout = userProfileView.Loadout;
+    UberStrike.Channels.Common.Models.PersonalBestsModel personalBests = userProfileView.PersonalBestsPerLife;
+    UberStrike.Channels.Common.Models.AllTimeStatsModel allTimeStats = userProfileView.AllTimesStats;
+    UberStrike.Channels.Common.Models.WeaponsStatsModel weaponsStats = userProfileView.WeaponsStats;
+
+    ViewBag.Title = "UberStrike - Profile";
+
+    if (ViewBag.ErrorMessage == String.Empty)
+    {
+        ViewBag.Title = String.Format("UberStrike - {0}'s Profile", userProfileView.UserName);
+    }
+    else
+    {
+        ViewBag.Title = "UberStrike - Member not found";
+    }
+}
+<div class="panel_default">
+    <div class="panel_header">
+        @if (ViewBag.ErrorMessage == String.Empty)
+        {
+            <div class="fleft">
+                <span id="uberstrikeUserName">@userProfileView.UserName</span><br />
+            </div>
+            <div class="fright" style="text-align: right;">
+                <span style="font-size: 14px;">UberStrike player since @userProfileView.JoinedDateTime.ToLongDateString()</span><br />
+            </div>
+            <div class="clear">
+            </div>
+        }
+    </div>
+    <div class="panel_body">
+        @if (ViewBag.ErrorMessage == string.Empty)
+        {
+            if (ViewBag.WarningMessage == String.Empty)
+            {
+                if ((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook)
+                {
+            <span class="right">@ViewBag.appCallbackUrl?cmid=@ViewBag.Cmid
+            </span>
+                }
+            <h2 style="font-size: 14px; font-weight: bold; text-indent: 0px; margin-left: 4px;">
+                <p>
+                    Global Rank: @userProfileView.GlobalRank<br />
+                    Level: @userProfileView.Level (@userProfileView.Xp XP)<br />
+                    Clan: @( (userProfileView.ClanTag.IsNullOrFullyEmpty()) ? "-" : userProfileView.ClanTag)</h2>
+                if (ViewBag.UserProfileView.IsUberStrikeUser)
+                {
+            <div class="fleft" style="width: 234px;">
+                <h3>
+                    Loadout</h3>
+                <table class="profileStat">
+                    <tr>
+                        <td>
+                            Head
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.Head.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Face
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.Face.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Upper Body
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.UpperBody.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Gloves
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.Gloves.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Lower Body
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.LowerBody.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Boots
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.Boots.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Primary Weapon
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.Weapon1.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Secondary Weapon
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.Weapon2.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tertiary Weapon
+                        </td>
+                        <td style="font-size: 12px;">@Html.Raw(loadout.Weapon3.Name)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="fleft" style="width: 236px;">
+                <h3>
+                    Per life record</h3>
+                <table class="profileStat">
+                    <tr>
+                        <td>
+                            Most Kills
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostKills
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Most XP Earned
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostXpEarned
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Most Damage Received
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostDamageReceived
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Most Damage Dealt
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostDamageDealt
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Most Health Picked Up
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostHealthPickedUp
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Most Armor Picked Up
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostArmorPickedUp
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Most Headshots
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostHeadShots
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Most Nutshots
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostNutShots
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Most Consecutive Snipes
+                        </td>
+                        <td style="text-align: right;">@personalBests.MostConsecutiveSnipes
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="fleft" style="width: 234px;">
+                <h3>
+                    All time record</h3>
+                <table class="profileStat">
+                    <tr>
+                        <td>
+                            Kills
+                        </td>
+                        <td style="text-align: right;">@allTimeStats.Kills
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Deaths
+                        </td>
+                        <td style="text-align: right;">@allTimeStats.Deaths
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span title="Kill Death Ratio">KDR</span>
+                        </td>
+                        <td style="text-align: right;">@allTimeStats.Kdr.ToString("N2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Accuracy
+                        </td>
+                        <td style="text-align: right;">@allTimeStats.Accuracy.ToString("P2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Headshots
+                        </td>
+                        <td style="text-align: right;">@allTimeStats.Headshots
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Nutshots
+                        </td>
+                        <td style="text-align: right;">@allTimeStats.Nutshots
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="clear">
+            </div>
+            <div class="fleft" style="width: 300px; margin-top: 7px; margin-bottom: 12px; margin-left: auto;
+                margin-right: auto;">
+                <h3>
+                    Weapon classes</h3>
+                <table class="profileStat" style="width: 100%;">
+                    <tr>
+                        <th>
+                        </th>
+                        <th>
+                            Kill record<br />
+                            per life
+                        </th>
+                        <th>
+                            Total Kills
+                        </th>
+                        <th>
+                            Accuracy
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Melee
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MostMeleeKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.TotalMeleeKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MeleeAccuracy.ToString("P2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Handgun
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MostHandGunKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.TotalHandGunKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.HandGunAccuracy.ToString("P2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Machinegun
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MostMachineGunKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.TotalMachineGunKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MachineGunAccuracy.ToString("P2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Shotgun
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MostShotGunKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.TotalShotGunKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.ShotGunAccuracy.ToString("P2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Sniper
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MostSniperKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.TotalSniperKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.SniperAccuracy.ToString("P2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Splattergun
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MostSplatterGunKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.TotalSplatterGunKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.SplatterGunAccuracy.ToString("P2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Cannon
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MostCannonKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.TotalCannonKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.CannonAccuracy.ToString("P2")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Launcher
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.MostLauncherKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.TotalLauncherKills
+                        </td>
+                        <td style="text-align: right;">
+                            @weaponsStats.LauncherAccuracy.ToString("P2")
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="clear">
+            </div>
+            <p class="it" style="text-align: center;">
+                Data can take up to 10 minutes to update.</p>
+                }
+                if (ViewBag.NearbyUsers != null)
+                {
+            <table class="rankingTable">
+                <tr>
+                    <th>
+                        Rank
+                    </th>
+                    <th>
+                        Clan
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Kills
+                    </th>
+                    <th>
+                        Deaths
+                    </th>
+                    <th>
+                        <span title="Kill Death Ratio">KDR</span>
+                    </th>
+                </tr>
+                @{  int j = 0;
+                    foreach (RankingView ranking in ViewBag.NearbyUsers)
+                    {
+                    <tr class="@( (j % 2 == 0) ? "" : "grid")" @Html.Raw((ranking.Cmid == ViewBag.Cmid) ? "style=\"border:1px solid #FEC42C;\"" : "")>
+                        <td>@ranking.Rank
+                        </td>
+                        <td style="text-align: left;">
+                            @{ if (!ranking.ClanTag.IsNullOrFullyEmpty())
+                               {
+                                @String.Format("[{0}]", ranking.ClanTag)
+                               }
+                            }
+                        </td>
+                        <td style="text-align: left;">
+                            <a href="@ViewBag.appCallbackUrl?cmid=@ranking.Cmid" target="_blank">@ranking.Name</a>
+                        </td>
+                        <td>@ranking.Kills.ToString("N0")
+                        </td>
+                        <td>@ranking.Deaths.ToString("N0")
+                        </td>
+                        <td>@ranking.Kdr.ToString("N2")
+                        </td>
+                    </tr>
+                               j++;
+                    }               
+                }
+            </table>
+                }
+            }
+            else
+            {
+            <p>
+                @ViewBag.WarningMessage
+            </p>
+            }
+        }
+        else
+        {
+            <p>@ViewBag.ErrorMessage</p>
+        }
+    </div>
+</div>
+<div class="clear">
+</div>

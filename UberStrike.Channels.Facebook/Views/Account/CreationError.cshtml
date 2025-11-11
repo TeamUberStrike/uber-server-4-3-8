@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "_AccountCreation.cshtml";
+    ViewBag.Title = "Account Creation Error";
+}
+<div style="font-size: 15px">
+    <p style="color: grey;">
+        <span class="errorMessage">Error : @ViewBag.CreationError</span>
+        <br />
+        The account creation process encountered a problem with the email address you use
+        on Facebook.
+        <br />
+        Please visit our <a href="@CommonConfig.CmuneSupportCenterUrl"
+            class="uberstrikeYellow" style="text-decoration: underline" target="_blank">support center</a>.
+    </p>
+</div>

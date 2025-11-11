@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "ItemBundles";
+    var userProfile = (UserProfileModel)ViewBag.UserProfile;
+    Layout = null;
+}
+<script type="text/javascript">
+</script>
+<div id="iframePageContainer" style="overflow: scroll">
+    <div>
+        <div style="text-align: center">
+            <br />
+            <iframe src="@Url.CommonChannelUrl()/GetBundle?channel=@(ChannelType.Kongregate)&cmid=@(userProfile.Member.CMID)&contentHeight=560"  frameborder="0" width="728" height="700" scrolling="no">
+            </iframe>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#iframePageContainer").height(GetUnityHeight());
+</script>

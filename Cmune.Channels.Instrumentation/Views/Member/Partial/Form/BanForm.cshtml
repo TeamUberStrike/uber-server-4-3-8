@@ -1,0 +1,49 @@
+﻿<form id="editMemberFormComplement" action="" method="post">
+<p style="margin:0 0 15px 0; padding-top: 15px;">
+    Currently this member is: <span style="font-weight:bold;">@ViewData["DisableInfoLiteral"].ToString()</span>
+</p>
+<p style="margin:0 0 15px 0;">
+    You can change his status here:<br />
+</p>
+@{ BanMode mode = ((BanMode)ViewData["memberAccessIsAccountDisabled"]); }
+<table>
+    <tr>
+        <td colspan="2">
+            @Html.RadioButton("newMemberAccessIsAccountDisabled", (int)BanMode.No, false)<label for="newMemberAccessIsAccountDisabled">Not banned</label><br />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.RadioButton("newMemberAccessIsAccountDisabled", (int)BanMode.Temporary, (mode == BanMode.Temporary) ? true : false, new { id = "newNemberAccessIsAccountDisabled2" })<label for="newNemberAccessIsAccountDisabled2">Ban him for the next</label><br />
+        </td>
+        <td>
+            @Html.DropDownList("disablingDuration", (List<SelectListItem>)ViewData["disablingDuration"], new { onclick = "$('#newNemberAccessIsAccountDisabled2').attr('checked', true);", onchange = "displayBanDate($('#disablingDuration').val());" }) days <span id="banUntilSpan"></span>.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.RadioButton("newMemberAccessIsAccountDisabled", (int)BanMode.Permanent, (mode == BanMode.Permanent || mode == BanMode.No) ? true : false, new { id = "newNemberAccessIsAccountDisabled3" })<label for="newNemberAccessIsAccountDisabled3">Ban permanently</label><br />
+        </td>
+    </tr>
+</table>
+<span style="width: 95%; text-align: center; display: block;"></span>
+<p style="padding-top: 15px;">
+    If you wish you can say a few words to this member explaining why you are bannning
+    his account:
+</p>
+@Html.TextArea("explanationTextBox", "xp farming", new { @class = "left" })
+<ul style="float:left; text-align:left; margin-bottom:10px;">
+    <li><a href="#" onclick="displayBanTemplate(5); return false;">xp farming</a></li>
+    <li><a href="#" onclick="displayBanTemplate(1); return false;">Speed hacking</a></li>
+    <li><a href="#" onclick="displayBanTemplate(2); return false;">Collider exploit</a></li>
+    <li><a href="#" onclick="displayBanTemplate(3); return false;">Crude language</a></li>
+    <li><a href="#" onclick="displayBanTemplate(4); return false;">Map mixing</a></li>
+    <li><a href="#" onclick="displayBanTemplate(6); return false;">Payment reversal</a></li>
+</ul>
+<div class="clear"></div>
+<p style="padding-top: 15px; text-align: center;">
+    <span>Action taker:</span> @Html.DropDownList("adminNames", ViewData["adminNames"] as SelectList, new { onchange = "setAdmin($('#adminNames').val(), $('#adminNames option:selected').text());" })
+    <input type="button" id="disableUserButton" value="Do It!" onclick="ChangeMemberAccess('changeIsAccountDisabled')" />
+    <input type="button" onclick="Shadowbox.close()" value="Cancel" />
+</p>
+</form>

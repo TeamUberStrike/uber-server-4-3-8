@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "RedeemEpin";
+}
+<div class="main_page_content">
+    <div style="text-align: left">
+        <a href="" class="darkGray" onclick="LoadHomePage(); return false;">Go back to Game</a>
+    </div>
+    <br />
+    <div class="panel_default">
+        <div class="panel_body" style="min-height: 250px;">
+            <h1>
+                Redeem ePin</h1>
+            <p>
+                You can now redeem Game Cards and ePin codes to claim UberStrike Credits on our
+                dedicated ePin page.</p>
+            <br />
+            <br />
+            <br />
+            <div style="text-align: center;">
+                <a class="Continue" href="" onclick="RegisterEpinStep();FacebookOpen('@ViewBag.UberStrikePortal?autoLogin=true&returnUrl=@ViewBag.UberStrikePortalEpinPage'); return false;">
+                    Continue </a>
+                <br />
+                <br />
+                <br />
+                You can return to play UberStrike on Facebook after
+                <br />
+                <br />
+                <br />
+                <p>
+                    <b>Buy ePin codes and Game Cards from our partners below</b>
+                </p>
+                <br />
+                <a href="http://gamesultan.com/Oyun/uberstrike" target="_blank">@Html.ImageTag(Url, "Epin/Gamesultan.png")</a>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>

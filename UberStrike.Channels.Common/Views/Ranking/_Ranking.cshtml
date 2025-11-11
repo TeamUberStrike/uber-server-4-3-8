@@ -1,0 +1,51 @@
+﻿@using UberStrike.DataCenter.Common.Entities
+
+@model RankingDisplay
+@{
+    string jsMethod = "getAllTimeRanking()";
+    
+    if (Model.RankingType == "daily")
+    {
+        jsMethod = "getDailyRanking()";
+    }
+    else if (Model.RankingType == "weekly")
+    {
+        jsMethod = "getWeeklyRanking()";
+    }
+}
+
+<table class="rankingTable">
+    <tr>
+        <th>Rank</th>
+        <th>Clan</th>
+        <th>Name</th>
+        <th>Level</th>
+        <th>XP</th>
+        <th>Kills</th>
+        <th>Deaths</th>
+        <th><span title="Kill Death Ratio">KDR</span></th>
+    </tr>
+    @{  int j = 0;
+        foreach (RankingView ranking in Model.Ranking)
+        {
+            <tr @( (j % 2 == 0) ? "" : "class=grid")>
+                <td>@ranking.Rank</td>
+                <td style="text-align:left;">
+                    @{ if (!ranking.ClanTag.IsNullOrFullyEmpty())
+                        {
+                            @String.Format("[{0}]", ranking.ClanTag)
+                        }
+                    }
+                </td>
+                <td style="text-align:left;"><a href="@ViewBag.appCallbackUrl?cmid=@ranking.Cmid" target="_blank">@ranking.Name</a></td>
+                <td>@ranking.Level</td>
+                <td>@ranking.Xp.ToString("N0")</td>
+                <td>@ranking.Kills.ToString("N0")</td>
+                <td>@ranking.Deaths.ToString("N0")</td>
+                <td>@ranking.Kdr.ToString("N2")</td>
+            </tr>
+            j++;
+        }               
+    }
+</table>
+@Html.GeneratePagination(Model.Pagination, jsMethod, 10, false, false)

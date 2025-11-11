@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Guest Page";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+<div style="padding-top: 15px;"></div>
+<div id="uberstrikePanel">
+    <div id="screen">
+        <div id="block" style="font-weight: bold">
+            <p class="h1title">
+                #1 FPS on Mac App Store, Facebook & now Kongregate!</p>
+            <br />
+            <br />
+            <p class="grey">
+                @*  Connect an existing Cmune Account
+            <br />
+                Enter your UberStrike account & password securely & one time only to verify that
+                you own both accounts<br />
+                After that you'll be able to access your loadout and in-game statistics on Kongregate.*@
+                Your survival is at stake. Battle online with millions of players in 10 stunning
+                environments.<br />
+                Harness the power of over 40 earthshaking weapons. Meticulously craft your character
+                with precision engineered gear. Use you skill and strategy to join the ranks of the elite.
+            </p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p class="h1title">
+                Intense Multiplayer 3D Action is just a few clicks away:</p>
+            <br />
+            <br />
+            <br />
+            <div class="aligncenter">
+                @Html.Button("validateLink", "Sign Up", "bigRedWhite", "kongregate.services.showRegistrationBox();")
+                &nbsp;&nbsp;or&nbsp;&nbsp;
+                @Html.Button("validateLink", "Log In", "bigRedWhite", "kongregate.services.showSignInBox();")
+            </div>
+        </div>
+    </div>
+</div>

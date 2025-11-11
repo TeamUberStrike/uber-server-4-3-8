@@ -1,0 +1,141 @@
+﻿@model ChannelUserViewModel
+@section HeaderJS{
+    <script type="text/javascript">
+            var displayFacebookCredit = false;
+            var displayKongregateKred = false;
+    @if ((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook)
+    {
+    <text>
+    displayFacebookCredit = true;
+     </text>
+    }
+        @if ((ChannelType)ViewBag.ChannelType == ChannelType.Kongregate)
+        {
+        <text>
+        displayKongregateKred = true;
+        </text>
+        }
+    </script>
+    <script type="text/javascript">
+        var webServicesBaseURL = '@System.Configuration.ConfigurationManager.AppSettings["InstrumentationWsBaseUrl"]';
+    </script>
+}
+<form id="channelUserForm" style="display: none">
+@Html.HiddenFor(d => d.Channel)
+@Html.HiddenFor(d => d.Cmid)
+@Html.HiddenFor(d => d.FacebookThirdPartId)
+@Html.HiddenFor(d => d.PaymentProviderType)
+@Html.HiddenFor(d => d.PaymentType)
+</form>
+<div id="creditBundlePage">
+    <div class="main_page_content">
+        <div class="panel_default">
+            @if (!(bool)ViewBag.NoTreeflow)
+            {
+                <div class="panel_header">
+                    <div class="title">
+                        Add More Uberstrike Credits
+                    </div>
+                </div>
+                @Html.Partial("Partial/WorkflowTree")
+            }
+            <div class="panel_body">
+                <div id="paymentStep" style="@(ViewBag.ContentWidth > 0 ? "width:" + ViewBag.ContentWidth + "px;margin:auto;" : "") @(ViewBag.ContentHeight > 0 ? "min-height:" + ViewBag.ContentHeight + "px;" : "")" >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var SelectPaymentStep = '@(PaymentStepsEnum.SelectPayment)';
+    var SelectPackStep = '@(PaymentStepsEnum.SelectPack)';
+    var CompleteTransactionStep = '@(PaymentStepsEnum.CompleteTransaction)';
+    var ContentHeight = @ViewBag.ContentHeight;
+    var channelType =  @((int) (ChannelType) ViewBag.ChannelType);
+
+    function LoadSelectPaymentStep() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadSelectPaymentStep", "GetCreditBundle")',
+            data : $("#channelUserForm").serialize(),
+            success: function (data) {
+                $("#paymentStep").html(data);
+            }
+        });
+        SetStep(SelectPaymentStep);
+    }
+
+    function loadThankYou() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadThankYouForShoppingWithUs", "GetCreditBundle")',
+            success: function (data) {
+                $("#paymentStep").html(data);
+            }
+        });
+    }
+
+    function LoadSelectPackStep(paymentProviderType, paymentType) {
+        $("#channelUserForm #PaymentProviderType").val(paymentProviderType);
+        $("#channelUserForm #PaymentType").val(paymentType);
+        if (displayKongregateKred)
+        {
+            parent.ShowTopLoader();
+        }
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadSelectCreditBundleStep", "GetCreditBundle")',
+            data: $("#channelUserForm").serialize(),
+            success: function (data) {
+                $("#paymentStep").html(data);
+                if (displayKongregateKred)
+                {
+                    parent.HideTopLoader();
+                }
+            },
+            error: function(data){
+                $("#paymentStep").html("Payment error occured");
+                if (displayKongregateKred)
+                {
+                    parent.HideTopLoader();
+                }
+            }
+        });
+        SetStep(SelectPackStep);
+    }
+
+    function LoadCompleteTransactionStep(bundleId) {
+        if (displayFacebookCredit == true) {
+            window.parent.BuyBundle(bundleId);
+        }
+        else if (displayKongregateKred == true)
+        {
+            if (bundleId != undefined && bundleId > 0)
+                window.parent.BuyBundle(bundleId);
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                data:  $("#channelUserForm").serialize()+"&bundleId=" + bundleId,
+                url: '@Url.Action("LoadCompleteTransactionStep", "GetCreditBundle")',
+                success: function (data) {
+                    $("#paymentStep").html(data);
+                }
+            });
+            SetStep(CompleteTransactionStep);
+        }
+    }
+
+    function LoadStep(CurrentStep) {
+        if (CurrentStep == SelectPaymentStep) {
+            LoadSelectPaymentStep();
+        }
+        else if (CurrentStep == SelectPackStep) {
+            LoadSelectPackStep();
+        }
+    }
+
+    $(document).ready(function () {
+        LoadStep('@ViewBag.CurrentStep');
+    });
+</script>

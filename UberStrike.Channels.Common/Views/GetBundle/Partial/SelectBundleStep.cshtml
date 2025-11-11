@@ -1,0 +1,162 @@
+﻿@model ChannelUserViewModel
+@{
+    int usdToKreds = CommonConfig.UsdToKreds;
+    var bundles = (List<BundleView>) ViewBag.Bundles;
+}
+<div id="selectBundleStep">
+    <div id="bundlesSelection" class="left">
+        <div class="left">
+            @Html.ImageTag(Url, "bundleBox.png", "Buy a bundle", "Buy a bundle")
+        </div>
+        <p style="margin-left: 45px;">
+            @Html.BoldText("Hot Deals")<br />
+            Save big with these <span class="it" style="color: #109610">@Html.BoldText("permanent")</span>
+            item bundles!
+        </p>
+        <div class="clear">
+        </div>
+        <br />
+        @{
+            int y = 0;
+        }
+        @foreach (var row in bundles.OrderByDescending(d => d.USDPrice))
+        {
+            <div class="bundle">
+                @Html.RadioButton("bundleId", row.Id, false, new { onclick = "DisplayBundle(" + row.Id + ")", Id = "bundleId" + row.Id, Class = row.Id == (int)ViewBag.SelectedBundleId ? "selected" : "" })
+                <span style="width: 40px; height: 40px; display: inline-block">@Html.ImageTag(row.IconUrl)</span>
+                <label class="label" id="bundleIdLabel@(row.Id)" for="bundleId@(row.Id)">@Html.BoldText(row.Name)</label>
+                @if (Model.Channel == ChannelType.Kongregate)
+                {
+                    @Html.BoldText((row.USDPrice * (decimal)usdToKreds).ToString("F0")) <span class="gray bold">Kreds</span>
+                }
+                else
+                {
+                    @Html.BoldText("$" + row.USDPrice.ToString("F2")) <span class="gray bold">USD</span>
+                }
+                @if (row.PromotionTag != "")
+                {
+                    <span class="bold" style="color: #109610">@row.PromotionTag</span>
+                }
+            </div>
+                y++;
+        }
+    </div>
+    <div id="bundlesDisplay" class="right">
+        <div style="position: relative;">
+            <div style="position: absolute; right: 200px; top: 237px; z-index: 1000">
+                <div id="bundlesItemsContainer" style="display: none">
+                    <div class="panel_overlay">
+                    </div>
+                    <div id="bundlesItems">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bundlesInfos">
+            @foreach (var row in bundles)
+            {
+                StringBuilder javascriptItemInfos = new StringBuilder();
+                javascriptItemInfos.Append("[");
+                int j = 0;
+                foreach (var item in row.BundleItemViews)
+                {
+                    javascriptItemInfos.Append("{");
+                    javascriptItemInfos.Append("Name:");
+                    javascriptItemInfos.Append("\"" + ((ItemCache)ViewBag.ItemCache).GetItemName(item.ItemId) + "\"");
+                    javascriptItemInfos.Append("}");
+                    if (row.BundleItemViews.Count > (j - 1))
+                    {
+                        javascriptItemInfos.Append(",");
+                    }
+                    j++;
+                }
+                javascriptItemInfos.Append("]");
+                <div id="bundle@(row.Id)" class="bundleBlock" style="display:none">
+                    <div style="height: 210px;">
+                        @Html.ImageTag(row.ImageUrl)</div>
+                    @if (row.BundleItemViews.Count > 0)
+                    {
+                        <div id="bundle@(row.Id)Items" onclick="" class="orangeBlack" style="cursor:pointer">
+                            Item list
+                        </div>
+                    }
+                    <p>
+                        @Html.Raw(row.Description)
+                    </p>
+                </div>
+                <script type="text/javascript">
+                    $('#bundle@(row.Id)Items').mouseover(function (event) { 
+                        DisplayBundleItems(@Html.Raw(javascriptItemInfos.ToString()));
+                    });
+                    $('#bundle@(row.Id)Items').mouseout(function (event){
+                     DisplayBundleItems(@Html.Raw(javascriptItemInfos.ToString()));
+                    });
+                </script>
+            }
+        </div>
+        <div style="position: relative">
+            <div class="@(((ChannelType)ViewBag.ChannelType) == ChannelType.WebFacebook ? "bundleArrow" : "bundleOrangeArrow")">
+            </div>
+        </div>
+        <p>
+            <script type="text/javascript">
+                $("#purchaseButton").bind("click", function () {
+                    LoadCompleteBundleTransactionStep($("input:radio[name='bundleId']:checked").val());
+                    return false;
+                });
+            </script>
+            <a id="purchaseButton" class="right Continue" style="font-size: 22px">Continue </a>
+        </p>
+    </div>
+    <div class="clear">
+    </div>
+    <div class="clear">
+    </div>
+    <br />
+    @if ((ChannelType)ViewBag.ChannelType != ChannelType.Kongregate)
+    {
+        <div class="footer">
+            <div class="gray">
+                All payments are subject to Cmune's <a href="http://www.cmune.com/index.php/terms-of-service/"
+                    target="_blank">@Html.BoldText("Terms of Service")</a>
+            </div>
+            <br />
+            <div class="left">
+                <div class="@(((ChannelType)ViewBag.ChannelType) == ChannelType.WebFacebook ? "trustPaymentIcons" : "portalTrustPaymentIcons")">
+                </div>
+            </div>
+            <div class="right">
+                <div class="securePaymentImage">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    }
+    <script type="text/javascript">
+        function DisplayBundleItems(items) {
+            if ($("#bundlesItems").is(":hidden")) {
+                var toolTipElements = '';
+                toolTipElements += '<ul>';
+                for (var i in items) {
+                    toolTipElements += '<li>';
+                    toolTipElements += items[i].Name; toolTipElements += '</li>';
+                }
+                toolTipElements += '</ul>';
+                $("#bundlesItems").html(toolTipElements);
+                $("#bundlesItemsContainer").show();
+            }
+            else {
+                $("#bundlesItemsContainer").hide();
+            }
+        }
+        function DisplayBundle(bundleId) {
+            $(".bundle .label").removeClass("uberstrikeColor");
+            $("#bundleIdLabel" + bundleId).addClass("uberstrikeColor");
+            $("#bundlesItemsContainer").hide();
+            $("#bundlesInfos .bundleBlock").hide();
+            $("#bundle" + bundleId).show();
+        }
+        $(".bundle .selected").click();
+    </script>
+</div>

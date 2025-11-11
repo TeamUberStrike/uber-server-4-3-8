@@ -1,0 +1,42 @@
+﻿@model List<ItemView>
+
+<table class="searchResultTable" style="margin:25px 0 0 0;">
+    <tr>
+        <th style="width:70px;"></th>
+        <th style="width:70px;">Item Id</th>
+        <th style="width:250px;">Name</th>
+        <th style="width:80px;">Type</th>
+        <th style="width:80px;">Class</th>
+        <th></th>
+    </tr>
+    @if (Model.Count > 0)
+    {
+        int i = 0;
+        foreach (ItemView itemView in Model)
+        {
+    <tr class="@(i % 2 == 1 ? "mod" : "")@(itemView.IsDisable ? " it" : "" )">
+        <td>
+            @if (!itemView.IsDisable)
+            {
+            <a href="" onclick="LoadAddOrEditForm('edit', @itemView.ItemId);return false;">Modify</a>
+            } else {
+            @:Disable
+            }
+        </td>
+        <td>@itemView.ItemId</td>
+        <td>@itemView.Name</td>
+        <td>@(((Dictionary<int, string>) ViewBag.ItemTypesName)[itemView.TypeId])</td>
+        <td>@(((Dictionary<int, string>) ViewBag.ItemClassName)[itemView.ClassId])</td>
+        <td></td>
+    </tr>
+            i++;
+        }
+    }
+</table>
+            
+@Html.GeneratePagination((PaginationModel)ViewBag.PaginationModel, "getItems();")
+
+@if (Model.Count == 0)
+{
+<p style="margin:25px 0 0 0;">There is no item matching with your criteria.</p>
+}

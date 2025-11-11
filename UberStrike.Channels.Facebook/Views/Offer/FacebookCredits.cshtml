@@ -1,0 +1,28 @@
+﻿@model FacebookUserModel
+<div class="main_page_content">
+    <div style="text-align: left">
+        <a href="" class="darkGray" onclick="LoadHomePage(); return false;">Go back to Game</a>
+    </div>
+    <br />
+    <script type="text/javascript">
+        ToggleTopLoader();
+    </script>
+    @if (ViewBag.HasError)
+    {
+        <div class="panel_default">
+            <div class="panel_item">
+                <p>
+                    <span class="lightError">We were unable to load the payment.</span>
+                </p>
+            </div>
+        </div>
+    }
+    @if (!ViewBag.HasError)
+    {
+        <div>
+            <div style="text-align: center;">
+                <iframe src="@Url.CommonChannelUrl()/GetCreditBundle?channel=@(ChannelType.WebFacebook)&cmid=@(ViewBag.Cmid)&contentHeight=440"
+    allowtransparency="true" frameborder="0" width="728" height="488" scrolling="no"></iframe>
+            </div>
+        </div>
+    }</div>

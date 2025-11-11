@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "UberStrike - " + @Html.Raw(ViewBag.ProfileName != null ? ViewBag.ProfileName + "'s" : "") + " Profile";
+
+}
+<div style="float: left; margin: 8px 0 0 0px; width: 727px;" class="">
+    @if (ViewBag.HasError != null && ((bool)ViewBag.HasError) == true)
+    {
+        <div class="panel_default">
+            <div class="panel_body">
+                <span>Sorry the information is unavailable, please visit our </span>
+                <a href="@CommonConfig.CmuneSupportCenterUrl" class="uberstrikeYellow" style="text-decoration: underline">
+                    support center</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div id="frameloader" style="text-align: center; position: relative; top: 40px;">
+            @Html.ImageTag(Url, "loader.gif")
+        </div>
+        <div style="text-align: center; height: 900px;">
+            <iframe onload="$('#frameloader').hide();" src="@Url.CommonChannelUrl()Profile?cmid=@(ViewBag.Cmid)&channelType=@(Cmune.DataCenter.Common.Entities.ChannelType.WebPortal)&appCallbackUrl=@Url.Encode(Url.AppBaseUrl() + "Profile")"
+    allowtransparency="true" frameborder="0" width="728" height="900" scrolling="no"></iframe>
+        </div>
+    }
+</div>
+<div style="float: left; margin: 8px 0 0 8px; width: 254px;">
+    @Html.Partial("PromotionPanelPartial")
+</div>
+<div class="clear">
+</div>

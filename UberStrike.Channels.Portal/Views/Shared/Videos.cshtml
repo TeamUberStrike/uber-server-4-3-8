@@ -1,0 +1,66 @@
+﻿<script type="text/javascript">
+        function LoadVideoBarCmune() {
+            var videoBar;
+            var options = {
+                largeResultSet: false,
+                horizontal: false,
+                autoExecuteList: {
+                    cycleTime: GSvideoBar.CYCLE_TIME_MEDIUM,
+                    cycleMode: GSvideoBar.CYCLE_MODE_LINEAR,
+                    executeList: ["ytchannel:CmuneTV"]
+                }
+            }
+
+            videoBar = new GSvideoBar(document.getElementById("videoBar-bar-Cmune"),
+                                GSvideoBar.PLAYER_ROOT_FLOATING,
+                                options);
+        }
+
+        function LoadVideoBarUberStrike() {
+            var videoBar;
+            var options = {
+                largeResultSet: false,
+                horizontal: false,
+                autoExecuteList: {
+                    cycleTime: GSvideoBar.CYCLE_TIME_MEDIUM,
+                    cycleMode: GSvideoBar.CYCLE_MODE_LINEAR,
+                    executeList: ["UberStrike"]
+                }
+            }
+
+            videoBar = new GSvideoBar(document.getElementById("videoBar-bar-UberStrike"),
+                                GSvideoBar.PLAYER_ROOT_FLOATING,
+                                options);
+        }
+
+</script>
+
+<div class="panel_default" style="margin: 8px 0 0 0;">
+    <div class="panel_header">
+        VIDEOS</div>
+    <div style="text-align: center; margin: 12px 0 12px 13px; color: #808080;">
+        <div style="float: left;">
+        <div style="padding-bottom: 12px;">
+            UberStrike TV</div>
+            <div id="videoBar-bar-Cmune" style="margin: 0px 12px 0 0;">
+                <span style="color: #676767; font-size: 11px; margin: 10px; padding: 4px;">Loading...</span>
+            </div>
+        </div>
+        <div style="float: left;">
+         <div style="padding-bottom: 12px;">
+            Community</div>
+            <div id="videoBar-bar-UberStrike">
+                <span style="color: #676767; font-size: 11px; margin: 10px; padding: 4px;">Loading...</span>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+
+ <script type="text/javascript">
+     // event processing
+    GSearch.setOnLoadCallback(LoadVideoBarCmune);
+    GSearch.setOnLoadCallback(LoadVideoBarUberStrike);
+    //
+</script>

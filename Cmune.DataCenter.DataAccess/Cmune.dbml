@@ -1,0 +1,789 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Cmune" Class="CmuneDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.AnalyticalRelationships" Member="AnalyticalRelationships">
+    <Type Name="AnalyticalRelationship">
+      <Column Name="ARID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="AnalyticalRelationship_MembersRelationship" Member="MembersRelationships" ThisKey="ARID" OtherKey="ARID" Type="MembersRelationship" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Withdrawal" Member="Withdrawals">
+    <Type Name="Withdrawal">
+      <Column Name="WithdrawalId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WithdrawalDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Credits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsAdminAction" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Withdrawal_ItemTransaction" Member="ItemTransactions" ThisKey="WithdrawalId" OtherKey="WithdrawalId" Type="ItemTransaction" />
+      <Association Name="Member_Withdrawal" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Applications" Member="Applications">
+    <Type Name="Application">
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Application_GroupInvitation" Member="GroupInvitations" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="GroupInvitation" />
+      <Association Name="Application_GroupMember" Member="GroupMembers" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="GroupMember" />
+      <Association Name="Application_Group" Member="Groups" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Group" />
+      <Association Name="Application_ItemToApplication" Member="ItemToApplications" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="ItemToApplication" />
+      <Association Name="Application_MemberAccess" Member="MemberAccesses" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="MemberAccess" />
+      <Association Name="Application_MemberReport" Member="MemberReports" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="MemberReport" />
+      <Association Name="Application_ApplicationMilestone" Member="ApplicationMilestones" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="ApplicationMilestone" />
+      <Association Name="Application_ApplicationRegistration" Member="ApplicationRegistrations" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="ApplicationRegistration" />
+      <Association Name="Application_CyworldPassThrough" Member="CyworldPassThroughs" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="CyworldPassThrough" />
+      <Association Name="Application_ModerationAction" Member="ModerationActions" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="ModerationAction" />
+      <Association Name="Application_CreditDeposit" Member="CreditDeposits" ThisKey="ApplicationId" OtherKey="ApplicationID" Type="CreditDeposit" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BugReport" Member="BugReports">
+    <Type Name="BugReport">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContactReporter" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PageConcerned" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ReportDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Member_BugReport" Member="Member" ThisKey="MemberId" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContactGroups" Member="ContactGroups">
+    <Type Name="ContactGroup">
+      <Column Name="ContactGroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OwnerCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Association Name="ContactGroup_ContactToGroup" Member="ContactToGroups" ThisKey="ContactGroupID" OtherKey="ContactGroupID" Type="ContactToGroup" />
+      <Association Name="Member_ContactGroup" Member="Member" ThisKey="OwnerCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContactToGroup" Member="ContactToGroups">
+    <Type Name="ContactToGroup">
+      <Column Name="ContactToGroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContactGroupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContactCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ContactGroup_ContactToGroup" Member="ContactGroup" ThisKey="ContactGroupID" OtherKey="ContactGroupID" Type="ContactGroup" IsForeignKey="true" />
+      <Association Name="Member_ContactToGroup" Member="Member" ThisKey="ContactCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Credits" Member="Credits">
+    <Type Name="Credit">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NbCredits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NbPoints" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExpDateCredit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ExpDatePoint" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Member_Credit" Member="Member" ThisKey="UserId" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ESNS_Relationships" Member="ESNS_Relationships">
+    <Type Name="ESNS_Relationship">
+      <Column Name="ESNSID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HandleID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ESNSGroupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ESNSHandle_ESNS_Relationship" Member="ESNSHandle" ThisKey="HandleID" OtherKey="HandleID" Type="ESNSHandle" IsForeignKey="true" />
+      <Association Name="ESNSIdentity_ESNS_Relationship" Member="ESNSIdentity" ThisKey="ESNSID" OtherKey="ESNSID" Type="ESNSIdentity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ESNSGroups" Member="ESNSGroups">
+    <Type Name="ESNSGroup">
+      <Column Name="ESNSGroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ESNSID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDFromESNS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ESNSIdentity_ESNSGroup" Member="ESNSIdentity" ThisKey="ESNSID" OtherKey="ESNSID" Type="ESNSIdentity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ESNSHandles" Member="ESNSHandles">
+    <Type Name="ESNSHandle">
+      <Column Name="HandleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Handle" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DisplayName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="ESNSHandle_ESNS_Relationship" Member="ESNS_Relationships" ThisKey="HandleID" OtherKey="HandleID" Type="ESNS_Relationship" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ESNSIdentities" Member="ESNSIdentities">
+    <Type Name="ESNSIdentity">
+      <Column Name="CMID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ESNSID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LastSyncDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AutoAccept" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Handle" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsVerified" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="ESNSIdentity_ESNS_Relationship" Member="ESNS_Relationships" ThisKey="ESNSID" OtherKey="ESNSID" Type="ESNS_Relationship" />
+      <Association Name="ESNSIdentity_ESNSGroup" Member="ESNSGroups" ThisKey="ESNSID" OtherKey="ESNSID" Type="ESNSGroup" />
+      <Association Name="Member_ESNSIdentity" Member="Member" ThisKey="CMID" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GroupInvitation" Member="GroupInvitations">
+    <Type Name="GroupInvitation">
+      <Column Name="GroupInvitationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateInvitation" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="InviterCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InviteeCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Gid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsApproved" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Group_GroupInvitation" Member="Group" ThisKey="Gid" OtherKey="GID" Type="Group" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Application_GroupInvitation" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="Member_GroupInvitation" Member="Member" ThisKey="InviteeCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+      <Association Name="Member_GroupInvitation1" Member="Member1" ThisKey="InviterCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GroupMembers" Member="GroupMembers">
+    <Type Name="GroupMember">
+      <Column Name="GMID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CMID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateJoined" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateQuit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GroupId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsCurrent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Application_GroupMember" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="Group_GroupMember" Member="Group" ThisKey="GroupId" OtherKey="GID" Type="Group" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Member_GroupMember" Member="Member" ThisKey="CMID" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Groups" Member="Groups">
+    <Type Name="Group">
+      <Column Name="GID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NbMembers" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Motto" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Address" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Picture" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpdated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TagName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NbMembersLimitation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ColorStyle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FontStyle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OwnerCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Group_GroupInvitation" Member="GroupInvitations" ThisKey="GID" OtherKey="Gid" Type="GroupInvitation" />
+      <Association Name="Group_GroupMember" Member="GroupMembers" ThisKey="GID" OtherKey="GroupId" Type="GroupMember" />
+      <Association Name="Group_RequestGroup" Member="RequestGroups" ThisKey="GID" OtherKey="Gid" Type="RequestGroup" />
+      <Association Name="Application_Group" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="Member_Group" Member="Member" ThisKey="OwnerCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ID3" Member="ID3s">
+    <Type Name="ID3">
+      <Column Name="ID3ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CMID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastSyncDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Member_ID3" Member="Member" ThisKey="CMID" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IdentityValidation" Member="IdentityValidations">
+    <Type Name="IdentityValidation">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CMID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ValidationString" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ValidationSent" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Member_IdentityValidation" Member="Member" ThisKey="CMID" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemClass" Member="ItemClasses">
+    <Type Name="ItemClass">
+      <Column Name="ItemClassId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ItemClass_Item" Member="Items" ThisKey="ItemClassId" OtherKey="ClassId" Type="Item" />
+      <Association Name="ItemType_ItemClass" Member="ItemType" ThisKey="ItemTypeId" OtherKey="ItemTypeId" Type="ItemType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemInventory" Member="ItemInventories">
+    <Type Name="ItemInventory">
+      <Column Name="ItemInventoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AmountRemaining" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Member_ItemInventory" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Item_ItemInventory" Member="Item" ThisKey="ItemId" OtherKey="ItemId" Type="Item" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemToApplication" Member="ItemToApplications">
+    <Type Name="ItemToApplication">
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemToApplicationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Application_ItemToApplication" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="Item_ItemToApplication" Member="Item" ThisKey="ItemId" OtherKey="ItemId" Type="Item" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemType" Member="ItemTypes">
+    <Type Name="ItemType">
+      <Column Name="ItemTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Association Name="ItemType_ItemClass" Member="ItemClasses" ThisKey="ItemTypeId" OtherKey="ItemTypeId" Type="ItemClass" />
+      <Association Name="ItemType_Item" Member="Items" ThisKey="ItemTypeId" OtherKey="TypeId" Type="Item" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MemberAccess" Member="MemberAccesses">
+    <Type Name="MemberAccess">
+      <Column Name="MemberAccessID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsAccountDisabled" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AccountDisabledUntil" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsChatDisabled" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChatDisabledUntil" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsMailDisabled" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MailDisabledUntil" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AccessLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Application_MemberAccess" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="Member_MemberAccess" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MemberReports" Member="MemberReports">
+    <Type Name="MemberReport">
+      <Column Name="MemberReportID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SourceCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TargetCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReportType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Reason" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="ReportContext" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReportDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Application_MemberReport" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="Member_MemberReport" Member="Member" ThisKey="SourceCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+      <Association Name="Member_MemberReport1" Member="Member1" ThisKey="TargetCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MembersRelationships" Member="MembersRelationships">
+    <Type Name="MembersRelationship">
+      <Column Name="RID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MemberCMID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FriendCMID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ARID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AnalyticalRelationship_MembersRelationship" Member="AnalyticalRelationship" ThisKey="ARID" OtherKey="ARID" Type="AnalyticalRelationship" IsForeignKey="true" />
+      <Association Name="Member_MembersRelationship" Member="Member" ThisKey="FriendCMID" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+      <Association Name="Member_MembersRelationship1" Member="Member1" ThisKey="MemberCMID" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PaymentPartners" Member="PaymentPartners">
+    <Type Name="PaymentPartner">
+      <Column Name="PartnerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PartnerName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ShareOnRevenue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PaymentPartner_CreditDeposit" Member="CreditDeposits" ThisKey="PartnerID" OtherKey="PartnerID" Type="CreditDeposit" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PointDeposit" Member="PointDeposits">
+    <Type Name="PointDeposit">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DepositDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="NbPoints" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isAdminAction" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DepositType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Member_PointDeposit" Member="Member" ThisKey="UserId" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PrivateMessages" Member="PrivateMessages">
+    <Type Name="PrivateMessage">
+      <Column Name="PrivateMessageID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FromCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ToCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateSent" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectText" Type="System.String" DbType="NVarChar(140)" CanBeNull="true" />
+      <Column Name="ContentText" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="IsRead" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="HasAttachment" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeletedBySender" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeletedByReceiver" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Member_PrivateMessage" Member="Member" ThisKey="ToCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+      <Association Name="Member_PrivateMessage1" Member="Member1" ThisKey="FromCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RequestContact" Member="RequestContacts">
+    <Type Name="RequestContact">
+      <Column Name="RequestID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InitiatorCMID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReceiverCMID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SentDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Member_RequestContact" Member="Member" ThisKey="InitiatorCMID" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+      <Association Name="Member_RequestContact1" Member="Member1" ThisKey="ReceiverCMID" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RequestGroup" Member="RequestGroups">
+    <Type Name="RequestGroup">
+      <Column Name="Grid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Gid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateRequest" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="IsApproved" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Group_RequestGroup" Member="Group" ThisKey="Gid" OtherKey="GID" Type="Group" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Member_RequestGroup" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlaySpanTransactions" Member="PlaySpanTransactions">
+    <Type Name="PlaySpanTransaction">
+      <Column Name="TransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Pbctrans" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="CreditDepositId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ApplicationMilestones" Member="ApplicationMilestones">
+    <Type Name="ApplicationMilestone">
+      <Column Name="AmId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Application_ApplicationMilestone" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ApplicationRegistrations" Member="ApplicationRegistrations">
+    <Type Name="ApplicationRegistration">
+      <Column Name="ApplicationRegistrationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HashCode" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Application_ApplicationRegistration" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="Member_ApplicationRegistration" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CyworldPassThroughs" Member="CyworldPassThroughs">
+    <Type Name="CyworldPassThrough">
+      <Column Name="CyworldPassThroughId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CyworldId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PassThrough" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="GenerationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Application_CyworldPassThrough" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExchangeRates" Member="ExchangeRates">
+    <Type Name="ExchangeRate">
+      <Column Name="ExchangeRateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Currency" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ConversionRate" Type="System.Decimal" DbType="Decimal(12,6) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PasswordResetHashes" Member="PasswordResetHashes">
+    <Type Name="PasswordResetHashe">
+      <Column Name="PasswordResetHashId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NewPassword" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ValidationHash" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ResetDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SourceIp" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Member_PasswordResetHashe" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PreviousEmails" Member="PreviousEmails">
+    <Type Name="PreviousEmail">
+      <Column Name="PreviousEmailId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PreviousEmailAddress" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SourceIp" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Member_PreviousEmail" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IpGeo" Member="IpGeos">
+    <Type Name="IpGeo">
+      <Column Name="Ip" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Ip2" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CountryCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Countries" Member="Countries">
+    <Type Name="Country">
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CountryName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ModerationActions" Member="ModerationActions">
+    <Type Name="ModerationAction">
+      <Column Name="ModerationActionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActionType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SourceCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SourceIp" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TargetCmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Reason" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Association Name="ModerationAction_BannedIp" Member="BannedIps" ThisKey="ModerationActionId" OtherKey="ModerationActionId" Type="BannedIp" Cardinality="One" />
+      <Association Name="Application_ModerationAction" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="Member_ModerationAction" Member="Member" ThisKey="SourceCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+      <Association Name="Member_ModerationAction1" Member="Member1" ThisKey="TargetCmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BannedIps" Member="BannedIps">
+    <Type Name="BannedIp">
+      <Column Name="BannedIpId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IpAddress" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="BannedUntil" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BanningDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModerationActionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ModerationAction_BannedIp" Member="ModerationAction" ThisKey="ModerationActionId" OtherKey="ModerationActionId" Type="ModerationAction" IsForeignKey="true" />
+      <Association Name="Member_BannedIp" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BundleItems" Member="BundleItems">
+    <Type Name="BundleItem">
+      <Column Name="BundleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="int" CanBeNull="false" />
+      <Association Name="Bundle_BundleItem" Member="Bundle" ThisKey="BundleId" OtherKey="Id" Type="Bundle" IsForeignKey="true" />
+      <Association Name="Item_BundleItem" Member="Item" ThisKey="ItemId" OtherKey="ItemId" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CreditDeposit" Member="CreditDeposits">
+    <Type Name="CreditDeposit">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DepositDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="NbCredit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NbCash" Type="System.Decimal" DbType="Decimal(12,6) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ConversionRate" Type="System.Decimal" DbType="Decimal(12,6) NOT NULL" CanBeNull="false" />
+      <Column Name="isAdminAction" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CurrencyLabel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PartnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionKey" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ApplicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UsdAmount" Type="System.Decimal" DbType="Decimal(12,6) NOT NULL" CanBeNull="false" />
+      <Column Name="BundleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Application_CreditDeposit" Member="Application" ThisKey="ApplicationID" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
+      <Association Name="PaymentPartner_CreditDeposit" Member="PaymentPartner" ThisKey="PartnerID" OtherKey="PartnerID" Type="PaymentPartner" IsForeignKey="true" />
+      <Association Name="Member_CreditDeposit" Member="Member" ThisKey="UserId" OtherKey="CMID" Type="Member" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EpinBatches" Member="EpinBatches">
+    <Type Name="EpinBatch">
+      <Column Name="BatchId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EpinProvider" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreditAmount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BatchDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsAdmin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsRetired" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="EpinBatch_Epin" Member="Epins" ThisKey="BatchId" OtherKey="BatchId" Type="Epin" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Epins" Member="Epins">
+    <Type Name="Epin">
+      <Column Name="EpinId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Pin" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="IsRedeemed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="BatchId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsRetired" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="EpinBatch_Epin" Member="EpinBatch" ThisKey="BatchId" OtherKey="BatchId" Type="EpinBatch" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BundlesAvailability" Member="BundlesAvailabilities">
+    <Type Name="BundlesAvailability">
+      <Column Name="BundleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Bundle_BundlesAvailability" Member="Bundle" ThisKey="BundleId" OtherKey="Id" Type="Bundle" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bundle" Member="Bundles">
+    <Type Name="Bundle">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="LogoName" Member="IconUrl" Storage="_LogoName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PictureName" Member="ImageUrl" Storage="_PictureName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="USDPrice" Type="System.Decimal" DbType="Decimal(12,6) NOT NULL" CanBeNull="false" />
+      <Column Name="IsOnSale" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsPromoted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="USDPromoPrice" Type="System.Decimal" DbType="Decimal(12,6) NOT NULL" CanBeNull="false" />
+      <Column Name="Credits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PromotionTag" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueId" Member="MacAppStoreUniqueId" Storage="_UniqueId" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IosAppStoreUniqueId" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Bundle_BundleItem" Member="BundleItems" ThisKey="Id" OtherKey="BundleId" Type="BundleItem" />
+      <Association Name="Bundle_BundlesAvailability" Member="BundlesAvailabilities" ThisKey="Id" OtherKey="BundleId" Type="BundlesAvailability" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PreviousNames" Member="PreviousNames">
+    <Type Name="PreviousName">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PreviousUserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SourceIp" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Member_PreviousName" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EpinFailedAttempts" Member="EpinFailedAttempts">
+    <Type Name="EpinFailedAttempt">
+      <Column Name="EpinFailedAttemptId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Ip" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Pin" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="AttemptDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Members" Member="Members">
+    <Type Name="Member">
+      <Column Name="CMID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(101)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SessionID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Online" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastAliveAck" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastSyncDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CSNSSharing" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isDisabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ResLastSyncDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StartSceneID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsRegistered" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDisable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsStatsFrozen" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DisableUntil" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsChatDisabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TagName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastChannel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastIp" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsAccountComplete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EmailAddressState" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="MarketingSubscriptionState" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="Member_Withdrawal" Member="Withdrawals" ThisKey="CMID" OtherKey="Cmid" Type="Withdrawal" />
+      <Association Name="Member_BugReport" Member="BugReports" ThisKey="CMID" OtherKey="MemberId" Type="BugReport" />
+      <Association Name="Member_ContactGroup" Member="ContactGroups" ThisKey="CMID" OtherKey="OwnerCmid" Type="ContactGroup" />
+      <Association Name="Member_ContactToGroup" Member="ContactToGroups" ThisKey="CMID" OtherKey="ContactCmid" Type="ContactToGroup" />
+      <Association Name="Member_Credit" Member="Credits" ThisKey="CMID" OtherKey="UserId" Type="Credit" />
+      <Association Name="Member_ESNSIdentity" Member="ESNSIdentities" ThisKey="CMID" OtherKey="CMID" Type="ESNSIdentity" />
+      <Association Name="Member_GroupInvitation" Member="GroupInvitations" ThisKey="CMID" OtherKey="InviteeCmid" Type="GroupInvitation" />
+      <Association Name="Member_GroupInvitation1" Member="GroupInvitations1" ThisKey="CMID" OtherKey="InviterCmid" Type="GroupInvitation" />
+      <Association Name="Member_GroupMember" Member="GroupMembers" ThisKey="CMID" OtherKey="CMID" Type="GroupMember" />
+      <Association Name="Member_Group" Member="Groups" ThisKey="CMID" OtherKey="OwnerCmid" Type="Group" />
+      <Association Name="Member_ID3" Member="ID3s" ThisKey="CMID" OtherKey="CMID" Type="ID3" />
+      <Association Name="Member_IdentityValidation" Member="IdentityValidations" ThisKey="CMID" OtherKey="CMID" Type="IdentityValidation" />
+      <Association Name="Member_ItemInventory" Member="ItemInventories" ThisKey="CMID" OtherKey="Cmid" Type="ItemInventory" />
+      <Association Name="Member_MemberAccess" Member="MemberAccesses" ThisKey="CMID" OtherKey="Cmid" Type="MemberAccess" />
+      <Association Name="Member_MemberReport" Member="MemberReports" ThisKey="CMID" OtherKey="SourceCmid" Type="MemberReport" />
+      <Association Name="Member_MemberReport1" Member="MemberReports1" ThisKey="CMID" OtherKey="TargetCmid" Type="MemberReport" />
+      <Association Name="Member_MembersRelationship" Member="MembersRelationships" ThisKey="CMID" OtherKey="FriendCMID" Type="MembersRelationship" />
+      <Association Name="Member_MembersRelationship1" Member="MembersRelationships1" ThisKey="CMID" OtherKey="MemberCMID" Type="MembersRelationship" />
+      <Association Name="Member_PointDeposit" Member="PointDeposits" ThisKey="CMID" OtherKey="UserId" Type="PointDeposit" />
+      <Association Name="Member_PrivateMessage" Member="PrivateMessages" ThisKey="CMID" OtherKey="ToCmid" Type="PrivateMessage" />
+      <Association Name="Member_PrivateMessage1" Member="PrivateMessages1" ThisKey="CMID" OtherKey="FromCmid" Type="PrivateMessage" />
+      <Association Name="Member_RequestContact" Member="RequestContacts" ThisKey="CMID" OtherKey="InitiatorCMID" Type="RequestContact" />
+      <Association Name="Member_RequestContact1" Member="RequestContacts1" ThisKey="CMID" OtherKey="ReceiverCMID" Type="RequestContact" />
+      <Association Name="Member_RequestGroup" Member="RequestGroups" ThisKey="CMID" OtherKey="Cmid" Type="RequestGroup" />
+      <Association Name="Member_ApplicationRegistration" Member="ApplicationRegistrations" ThisKey="CMID" OtherKey="Cmid" Type="ApplicationRegistration" />
+      <Association Name="Member_PasswordResetHashe" Member="PasswordResetHashes" ThisKey="CMID" OtherKey="Cmid" Type="PasswordResetHashe" />
+      <Association Name="Member_PreviousEmail" Member="PreviousEmails" ThisKey="CMID" OtherKey="Cmid" Type="PreviousEmail" />
+      <Association Name="Member_ModerationAction" Member="ModerationActions" ThisKey="CMID" OtherKey="SourceCmid" Type="ModerationAction" />
+      <Association Name="Member_ModerationAction1" Member="ModerationActions1" ThisKey="CMID" OtherKey="TargetCmid" Type="ModerationAction" />
+      <Association Name="Member_BannedIp" Member="BannedIps" ThisKey="CMID" OtherKey="Cmid" Type="BannedIp" />
+      <Association Name="Member_CreditDeposit" Member="CreditDeposits" ThisKey="CMID" OtherKey="UserId" Type="CreditDeposit" />
+      <Association Name="Member_PreviousName" Member="PreviousNames" ThisKey="CMID" OtherKey="Cmid" Type="PreviousName" />
+      <Association Name="Member_ItemTransaction" Member="ItemTransactions" ThisKey="CMID" OtherKey="Cmid" Type="ItemTransaction" />
+      <Association Name="Member_LoginIp" Member="LoginIps" ThisKey="CMID" OtherKey="Cmid" Type="LoginIp" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemTransactions" Member="ItemTransactions">
+    <Type Name="ItemTransaction">
+      <Column Name="ItemTransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ItemExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WithdrawalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MarketType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DurationType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MarketLocation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecommendationType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Member_ItemTransaction" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+      <Association Name="Withdrawal_ItemTransaction" Member="Withdrawal" ThisKey="WithdrawalId" OtherKey="WithdrawalId" Type="Withdrawal" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Item_ItemTransaction" Member="Item" ThisKey="ItemId" OtherKey="ItemId" Type="Item" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LoginIps" Member="LoginIps">
+    <Type Name="LoginIp">
+      <Column Name="LoginIpId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Ip" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LoginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Member_LoginIp" Member="Member" ThisKey="Cmid" OtherKey="CMID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Items" Member="Items">
+    <Type Name="Item">
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="CreditsPerDayShop" Member="CreditsPerDay" Storage="_CreditsPerDayShop" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PointsPerDayShop" Member="PointsPerDay" Storage="_PointsPerDayShop" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsForSale" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AmountRemainingInShop" Member="AmountRemaining" Storage="_AmountRemainingInShop" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsFeatured" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PurchaseType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PermanentCreditsShop" Member="PermanentCredits" Storage="_PermanentCreditsShop" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsNew" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsPopular" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ClassId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PackOneAmount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PackTwoAmount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PackThreeAmount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaximumOwnableAmount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enable1Day" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Enable7Days" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Enable30Days" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Enable90Days" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MaximumDurationDays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PermanentPointsShop" Member="PermanentPoints" Storage="_PermanentPointsShop" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsDisable" Member="IsDisabled" Storage="_IsDisable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CustomProperties" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Member="IsEnabledInShop" Type="System.Boolean" CanBeNull="false" />
+      <Column Member="CreditsPerDayUnderground" Type="System.Int32" CanBeNull="false" />
+      <Column Member="PermanentCreditsUnderground" Type="System.Int32" CanBeNull="false" />
+      <Column Member="IsEnabledInUnderground" Type="System.Boolean" CanBeNull="false" />
+      <Column Member="AmountRemainingInUnderground" Type="System.Int32" CanBeNull="false" />
+      <Column Member="UsageCount" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Item_ItemInventory" Member="ItemInventories" ThisKey="ItemId" OtherKey="ItemId" Type="ItemInventory" />
+      <Association Name="Item_ItemToApplication" Member="ItemToApplications" ThisKey="ItemId" OtherKey="ItemId" Type="ItemToApplication" />
+      <Association Name="Item_BundleItem" Member="BundleItems" ThisKey="ItemId" OtherKey="ItemId" Type="BundleItem" />
+      <Association Name="Item_ItemTransaction" Member="ItemTransactions" ThisKey="ItemId" OtherKey="ItemId" Type="ItemTransaction" />
+      <Association Name="Item_MysteryBoxItem" Member="MysteryBoxItems" ThisKey="ItemId" OtherKey="ItemId" Type="MysteryBoxItem" />
+      <Association Name="Item_LuckyDrawSetItem" Member="LuckyDrawSetItems" ThisKey="ItemId" OtherKey="ItemId" Type="LuckyDrawSetItem" />
+      <Association Name="ItemClass_Item" Member="ItemClass" ThisKey="ClassId" OtherKey="ItemClassId" Type="ItemClass" IsForeignKey="true" />
+      <Association Name="ItemType_Item" Member="ItemType" ThisKey="TypeId" OtherKey="ItemTypeId" Type="ItemType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MysteryBoxes" Member="MysteryBoxes">
+    <Type Name="MysteryBox">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PriceInPoints" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PriceInCredits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IconUrl" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsAvailableInShop" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ItemsAttributed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ExposeItemsToPlayers" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PointsAttributed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PointsAttributedWeight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreditsAttributed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreditsAttributedWeight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MysteryBox_MysteryBoxItem" Member="MysteryBoxItems" ThisKey="Id" OtherKey="MysteryBoxId" Type="MysteryBoxItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MysteryBoxItems" Member="MysteryBoxItems">
+    <Type Name="MysteryBoxItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DurationType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemWeight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MysteryBoxId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Item_MysteryBoxItem" Member="Item" ThisKey="ItemId" OtherKey="ItemId" Type="Item" IsForeignKey="true" />
+      <Association Name="MysteryBox_MysteryBoxItem" Member="MysteryBox" ThisKey="MysteryBoxId" OtherKey="Id" Type="MysteryBox" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LuckyDraws" Member="LuckyDraws">
+    <Type Name="LuckyDraw">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PriceInPoints" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PriceInCredits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IconUrl" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsAvailableInShop" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="LuckyDraw_LuckyDrawSet" Member="LuckyDrawSets" ThisKey="Id" OtherKey="LuckyDrawId" Type="LuckyDrawSet" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LuckyDrawSets" Member="LuckyDrawSets">
+    <Type Name="LuckyDrawSet">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SetWeight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreditsAttributed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PointsAttributed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ExposeItemsToPlayers" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LuckyDrawId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="LuckyDrawSet_LuckyDrawSetItem" Member="LuckyDrawSetItems" ThisKey="Id" OtherKey="LuckyDrawSetId" Type="LuckyDrawSetItem" />
+      <Association Name="LuckyDraw_LuckyDrawSet" Member="LuckyDraw" ThisKey="LuckyDrawId" OtherKey="Id" Type="LuckyDraw" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LuckyDrawSetItems" Member="LuckyDrawSetItems">
+    <Type Name="LuckyDrawSetItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DurationType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LuckyDrawSetId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Item_LuckyDrawSetItem" Member="Item" ThisKey="ItemId" OtherKey="ItemId" Type="Item" IsForeignKey="true" />
+      <Association Name="LuckyDrawSet_LuckyDrawSetItem" Member="LuckyDrawSet" ThisKey="LuckyDrawSetId" OtherKey="Id" Type="LuckyDrawSet" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BoxTransactions" Member="BoxTransactions">
+    <Type Name="BoxTransaction">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoxType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BoxId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsAdmin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreditPrice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PointPrice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalCreditsAttributed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalPointsAttributed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.BuyItems" Method="BuyItems">
+    <Parameter Name="itemId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="priceCredit" Type="System.Int32" DbType="Int" />
+    <Parameter Name="pricePoint" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rentDuration" Type="System.Int32" DbType="Int" />
+    <Parameter Name="duration" Type="System.Int32" DbType="Int" />
+    <Parameter Name="isProceed" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.BuyItemsAdmin" Method="BuyItemsAdmin">
+    <Parameter Name="itemId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="priceCredit" Type="System.Int32" DbType="Int" />
+    <Parameter Name="pricePoint" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rentDuration" Type="System.Int32" DbType="Int" />
+    <Parameter Name="duration" Type="System.Int32" DbType="Int" />
+    <Parameter Name="isProceed" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeletePrivateMessages" Method="DeletePrivateMessages">
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

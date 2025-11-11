@@ -1,0 +1,40 @@
+﻿@import url("reset.css");
+@import url("util.css");
+
+body {
+  background-color: #242424;
+  color: #FFFFFF;
+	font-size: 14px;
+	font-family: segoe ui, Arial,Helvetica,sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+h2
+{
+	font-weight:bold;
+	font-size:20px;
+	text-align:center;
+}
+
+#Page{
+	width:1024px;
+	margin:auto;
+}
+
+#Page #loginContent{
+    margin: 200px auto auto;
+    width: 400px;
+}
+
+#Page #loginContent form div.editor-label{
+	width:100px;
+}
+
+.validation-summary-errors, .field-validation-error{
+color:#FC9576;
+}
+input[type=button], input[type=submit]
+{
+    cursor:pointer;
+}

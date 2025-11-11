@@ -1,0 +1,30 @@
+﻿@model List<PlayerXPEventView>
+<form id="xpEventsForm" action="" method="post">
+<table>
+    <tr>
+        <th>
+            Event name
+        </th>
+        <th>
+            XP multiplier
+        </th>
+    </tr>
+    @if (Model.Count > 0)
+    {
+        foreach (var xpEvent in Model)
+        {
+        <tr>
+            <td>
+                <input type="text" id="name@(xpEvent.PlayerXPEventId)" name="name@(xpEvent.PlayerXPEventId)" value="@xpEvent.Name" />
+            </td>
+            <td>
+                <input type="text" id="multiplier@(xpEvent.PlayerXPEventId)" name="multiplier@(xpEvent.PlayerXPEventId)" value="@xpEvent.XPMultiplier" />
+            </td>
+        </tr>
+        }
+    }
+</table>
+<input type="hidden" id="xpEventsId" name="xpEventsId" value="@(String.Join(",", Model.Select(x => x.PlayerXPEventId).ToList()))" />
+<input id="xpEventsButton" type="submit" onclick="editXpEvents(); return false;"
+    value="Edit" />
+</form>

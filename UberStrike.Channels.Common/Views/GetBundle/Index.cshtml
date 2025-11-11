@@ -1,0 +1,104 @@
+﻿@model ChannelUserViewModel
+@section HeaderJS{
+    <script type="text/javascript">
+        var displayFacebookCredit = false;
+        var displayKongregateKred = false;
+        @if ((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook)
+        {
+        <text>
+        displayFacebookCredit = true;
+         </text>
+        }
+        @if ((ChannelType)ViewBag.ChannelType == ChannelType.Kongregate)
+        {
+        <text>
+        displayKongregateKred = true;
+        </text>
+        }
+    </script>
+}
+<form id="channelUserForm" style="display: none">
+@Html.HiddenFor(d => d.Channel)
+@Html.HiddenFor(d => d.Cmid)
+@Html.HiddenFor(d => d.FacebookThirdPartId)
+
+</form>
+<div id="bundlePage">
+    <div class="main_page_content">
+        <div class="panel_default">
+            <div class="panel_body">
+                <div id="bundleStep" style="@(ViewBag.ContentWidth > 0 ? "width:" + ViewBag.ContentWidth + "px;margin:auto;" : "") @(ViewBag.ContentHeight > 0 ? "min-height:" + ViewBag.ContentHeight + "px;" : "")" >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var SelectBundleStep = '@(BuyBundleStepsEnum.SelectBundle)';
+    var CompleteBundleTransactionStep = '@(BuyBundleStepsEnum.CompleteBundleTransaction)';
+
+    function LoadSelectBundleStep() {
+    if (displayKongregateKred)
+        {
+        parent.ShowTopLoader();
+        }
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadSelectBundleStep", "GetBundle")',
+            data : $("#channelUserForm").serialize(),
+            success: function (data) {
+                $("#bundleStep").html(data);
+                @if ((ChannelType)ViewBag.ChannelType == ChannelType.WebFacebook)
+                {
+                <text>
+                window.parent.ResizeGetItemBundlePage($(document).height() + 100);
+                </text>
+                }
+                if (displayKongregateKred)
+                {
+                    parent.HideTopLoader();
+                }
+            },
+            error : function(data)
+            {
+              if (displayKongregateKred)
+                {
+                    parent.HideTopLoader();
+                }
+            }
+        });
+    }
+
+
+    function LoadCompleteBundleTransactionStep(bundleId) {
+        if (displayFacebookCredit == true) {
+            window.parent.BuyBundle(bundleId);
+        }
+        else if (displayKongregateKred == true) {
+            if (bundleId != undefined && bundleId > 0)
+                window.parent.BuyBundle(bundleId);
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("LoadCompleteBundleTransactionStep", "GetBundle")',
+                data: $("#channelUserForm").serialize()+"&bundleId=" + bundleId,
+                success: function (data) {
+                    $("#bundleStep").html(data);
+                }
+            });
+            SetStep(CompleteBundleTransactionStep);
+        }
+    }
+
+    function LoadStep(CurrentStep) {
+        if (CurrentStep == SelectBundleStep) {
+            LoadSelectBundleStep();
+        }
+    }
+
+
+    $(document).ready(function () {
+        LoadStep('@ViewBag.CurrentStep');
+    });
+</script>

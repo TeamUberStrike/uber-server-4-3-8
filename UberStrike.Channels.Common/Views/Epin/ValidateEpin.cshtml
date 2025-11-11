@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "ValidateEpin";
+}
+}
+<div class="panel_default_invisible">
+    <div class="panel_body">
+        @if (ViewBag.IsRedemptionBlocked)
+        {
+            <p>
+                You've reached the maximum number of attemtps allowed for the next 30 minutes
+                <br />
+                @*                <br />
+                <br />
+                <a class="orangeBlack" href="" onclick="window.parent.NavigateToUrl('@ViewBag.PortalFaqPage'); return false;">
+                    GO TO FAQ</a>
+*@
+            </p>
+        }
+        else
+        {
+            if (!((bool)ViewBag.IsEpinOperationSucessful))
+            {
+            <h1>
+                Hmm.. Redemption failed</h1>
+            <p>
+                The code you entered is not recognised as a valid code<br />
+                <br />
+                Please check you entered it correctly and try again<br />
+            </p>
+            <br />
+            <br />
+            <br />
+            <a class="orangeBlack" onclick="window.parent.NavigateToUrl('@ViewBag.PortalEpinPage'); return false;" href="">
+                RETRY !</a>
+            }
+            else
+            {
+            <h1>
+                Congratulations!
+            </h1>
+            <p>
+                You've just successfully redeemed you ePin code and @ViewBag.CreditAmountAttributed
+                Credits have been added to your account!
+            </p>
+            <br />
+           
+                if (((ChannelType)ViewBag.ChannelType) == ChannelType.WebFacebook)
+                {
+            <p class="successMessage">
+                Return to Facebook, you may need to reload the game to get your credits.<br />
+            </p>
+                }
+                else if (((ChannelType)ViewBag.ChannelType) == ChannelType.WebPortal)
+                {
+            <br />
+            <br />
+            <a class="orangeBlack" href="" onclick="window.parent.NavigateToUrl('@ViewBag.PortalGamePage'); return false;">
+                Return to game</a>
+                }
+            }
+
+        }
+    </div>
+</div>

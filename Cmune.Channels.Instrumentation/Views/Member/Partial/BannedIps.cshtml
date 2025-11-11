@@ -1,0 +1,77 @@
+﻿@model List<BannedIpView>
+
+<table class="currentInventory searchResultTable" style="width: 99%; margin: 0 0 25px 0;">
+    <tr>
+        <th>
+            IP
+        </th>
+        <th>
+            Network address
+        </th>
+        <th>
+            Banning time
+        </th>
+        <th>
+            Banned until
+        </th>
+        <th>
+            By
+        </th>
+        <th>
+            Targeting
+        </th>
+        <th>
+            Reason
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+    </tr>
+    @if (Model != null && Model.Count > 0)
+        {
+            int i = 0;
+            foreach (var bannedIp in Model)
+            {
+    <tr class="@(i % 2 == 1 ? "mod":"")">
+        <td>
+            @TextUtilities.InetNToA(bannedIp.IpAddress)
+        </td>
+        <td>
+            @bannedIp.IpAddress
+        </td>
+        <td>
+            @bannedIp.BanningDate.ToNiceDisplay()
+        </td>
+        <td>
+            @(bannedIp.BannedUntil.HasValue ? bannedIp.BannedUntil.Value.ToString("dd MMM yy HH:mm:ss") : "Permanent")
+        </td>
+        <td>
+            @bannedIp.SourceName
+        </td>
+        <td>
+            <a href='@Url.Action("See", "Member")?cmid=@bannedIp.TargetCmid' target="_blank">
+                @bannedIp.TargetName</a>
+        </td>
+        <td>
+            @bannedIp.Reason
+        </td>
+        <td>
+            <a id="modifyIpBan@(bannedIp.IpAddress)" href="#" onclick="displayBanIpPopUp('@TextUtilities.InetNToA(bannedIp.IpAddress)', @bannedIp.TargetCmid, 'modifyIpBan@(bannedIp.IpAddress)', 'modify', function() { loadBannedIps() }); return false;">
+                <img src="@Url.Content("~/Content/img/b_edit.png")" alt="Edit IP ban" /></a>
+        </td>
+        <td>
+            <a id="unbanIp@(bannedIp.IpAddress)" href="#" onclick="displayBanIpPopUp('@TextUtilities.InetNToA(bannedIp.IpAddress)', @bannedIp.TargetCmid, 'unbanIp@(bannedIp.IpAddress)', 'unban', function() { loadBannedIps() }); return false;">
+                <img src="@Url.Content("~/Content/img/b_drop.png")" alt="Unban ban" /></a>
+        </td>
+    </tr>
+              i++;
+            }
+    }
+</table>
+@Html.GeneratePagination((PaginationModel)ViewBag.PaginationModel, "loadBannedIps();")
+@if (Model == null || (Model != null && Model.Count == 0))
+    {
+<p class="bold">
+    There is no banned Ip matching with your query</p>
+}

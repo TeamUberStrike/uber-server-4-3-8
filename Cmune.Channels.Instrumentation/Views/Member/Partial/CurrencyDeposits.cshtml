@@ -1,0 +1,75 @@
+﻿@model List<CurrencyDepositView>
+
+<table class="searchResultTable" style="width:100%; font-size:13px;">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Currency amount
+        </th>
+        <th>
+            Credits
+        </th>
+        <th>
+            Points
+        </th>
+        <th>
+            Pack name
+        </th>
+        <th>
+            Payment provider
+        </th>
+        <th>
+            Transaction key
+        </th>
+        <th>
+            Is admin
+        </th>
+    </tr>
+    @if (Model.Count > 0)
+       {
+            int i = 0;
+
+            foreach (var item in Model)
+            {
+    <tr class="@(i % 2 == 1 ? "mod":"")">
+        <td>
+            @item.DepositDate.ToNiceDisplay(true)
+        </td>
+        <td>
+            @item.UsdAmount.ToString("C2")
+        </td>
+        <td>
+            @item.Credits
+        </td>
+        <td>
+            @item.Points
+        </td>
+        <td>
+            @item.BundleName
+        </td>
+        <td>
+            @CommonConfig.PaymentProviderName[item.PaymentProviderId]
+        </td>
+        <td>
+            @item.TransactionKey
+        </td>
+        <td>
+            @item.IsAdminAction
+        </td>        
+    </tr>
+                i++;
+            }
+       }
+</table>
+
+@Html.GeneratePagination((PaginationModel)ViewBag.CurrencyDepositsPaginationModel, "getCurrencyDeposits();")
+
+@if (Model.Count == 0) {
+    <p>There is no currency deposit for this member.</p>
+}
+
+<!--
+    @ViewBag.ElapsedMilliseconds
+-->

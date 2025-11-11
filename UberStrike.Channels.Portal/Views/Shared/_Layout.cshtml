@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="UberStrike - Free to Play Browser-based FPS - No Download - Mac & PC MMOFPS - Free First Person Shooter Game - Fast Paced Online Shooter - Cmune" />
+    <link rel="shortcun icon" type="image/x-icon" href="@Url.Image("favicon.ico")" />
+    @Html.PortalChannelCssFile(Url)
+    @Html.PortalChannelJavaScriptFile(Url)
+    @RenderSection("HeaderJavaScript", false)
+    <script type="text/javascript">
+        var loadingImage = $('<img />').attr('src', '@Url.Image("loading_orange.gif")');
+        var applicationUrl = '@Url.AppBaseUrl()';
+        var resolveXdFragmentUrl = '@Url.AppBaseUrl()Xd/ResolveXdFragment';
+    </script>
+</head>
+<body>
+    <div id="fb-root">
+    </div>
+    <script type="text/javascript">
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@(Facebook.FacebookApplication.Current.AppId)',
+                status: true, 
+                cookie: true,
+                xfbml: true,
+                channelUrl: resolveXdFragmentUrl,
+                oauth: true
+            });
+
+            @if (ViewBag.UserProfile == null && ViewBag.ExecAutoLogin == true)
+            {
+                //autologin 
+                //there is now a bug with FB.getLoginStatus whose callback is not called in sandbox mode
+                <text>
+                $(document).ready(function () {
+                    FB.getLoginStatus(function(response){
+                        if (response.authResponse)
+                        {
+                            facebooklogin();
+                        }
+                    });
+                });
+                </text>
+            }
+            var canLogin = true;
+        };
+
+        (function () {
+            var e = document.createElement('script');
+            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+            e.async = true;
+            document.getElementById('fb-root').appendChild(e);
+        } ());
+
+        $(document).ready(function () {
+            $("#portalAjaxLoader").bind("ajaxSend", function () {
+                $("#portalAjaxLoader").show();
+            }).bind("ajaxComplete", function (data) {
+                $("#portalAjaxLoader").hide();
+            });
+
+            StartServerClock();
+        });
+
+        var logOffUrl  = '@Url.Action("LogOff", "Account")';
+    </script>
+      
+    <div class="page">
+        <div class="cmune_header">
+            @Html.Partial("HeaderPartial")
+        </div>
+        <div class="main_page">
+            <div class="main_page_container"  style="background:url('@Url.Image("opacity_background.png")')"> 
+                <div class="main_page_frame">
+                    @if (ViewBag.BannerDisplay == null || ViewBag.BannerDisplay == true)
+                    {
+                        <div class="main_page_banner">
+                            @if (!String.IsNullOrWhiteSpace(ViewBag.HeaderBannerAnchorLink))
+                            {
+                            @:<a href="@ViewBag.HeaderBannerAnchorLink" target="_blank">
+                            }
+                            <img src="@Url.Image((string)ViewBag.HeaderBannerFilename)"  alt="@ViewBag.HeaderBannerFilenameTitle" />
+                            @if (!String.IsNullOrWhiteSpace(ViewBag.HeaderBannerAnchorLink))
+                            {
+                            @:</a>
+                            }
+                        </div>
+                    }
+                    @if (ViewBag.TopMenuDisplay == null || ViewBag.TopMenuDisplay == true)
+                    {
+                        @Html.Partial("TopMenuPartial")
+                    }
+                    <div class="main_page_content">
+                        @RenderBody()
+                    </div>
+                    <div class="main_footer">
+                        <div class="main_footer_tab fleft" style="color: #727272;">
+                            All Content Copyright (c) Cmune @DateTime.Now.ToString("yyyy").
+                        </div>
+                        <div class="main_footer_tab fright">
+                            <a href="http://www.cmune.com/index.php/contact/" target="_blank">Support</a>
+                        </div>
+                        <div class="main_footer_tab fright">
+                            <a href="http://www.cmune.com/index.php/terms-of-service/" target="_blank">Terms of
+                                Service</a>
+                        </div>
+                        <div class="main_footer_tab fright">
+                            <a href="http://www.cmune.com/index.php/privacy-policy/" target="_blank">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @{string googleAnalyticsTrackingId = ConfigurationUtilities.ReadConfigurationManager("GoogleAnalyticsTrackingId");}
+    @if (!String.IsNullOrWhiteSpace(googleAnalyticsTrackingId))
+    {
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '@googleAnalyticsTrackingId']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    }
+<script type="text/javascript">
+    (function(w, d) { var a = function() { var a = d.createElement('script'); a.type = 'text/javascript';
+        a.async = 'async'; a.src = '//' + ((w.location.protocol === 'https:') ? 's3.amazonaws.com/cdx-radar/' :
+        'radar.cedexis.com/') + '01-10332-radar10.min.js'; d.body.appendChild(a); };
+        if (w.addEventListener) { w.addEventListener('load', a, false); }
+        else if (w.attachEvent) { w.attachEvent('onload', a); }
+    }(window, document));
+</script>
+</body>
+</html>

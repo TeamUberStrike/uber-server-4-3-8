@@ -1,0 +1,107 @@
+﻿@model List<EpinView>
+
+@{
+    string epinIdsToRetire = TextUtilities.Join(",", Model.Where(e => !e.IsRetired).Select(e => e.EpinId).ToList());
+    Dictionary<int, EpinBatchView> batches = (Dictionary<int, EpinBatchView>)ViewData["Batches"];
+    Dictionary<int, int> cmids = (Dictionary<int, int>)ViewData["Cmids"];
+    }
+
+@if (Model.Count > 0 && !epinIdsToRetire.IsNullOrFullyEmpty()) {
+<form id="retireEpinsForm" name="retireEpinsForm" action="" method="post">
+    <input id="epinIdsToRetire" name="epinIdsToRetire" type="hidden" value="@epinIdsToRetire" />
+</form>
+<a id="retireEpinsLink" href="#" onclick="retireEpins(); return false;">Retire all</a>
+}
+
+<table class="searchResultTable" style="width:100%; margin-top:10px; margin-bottom:25px;">
+    <tr>
+        <th>
+            Batch Id
+        </th>
+        <th>
+            Epin Id
+        </th>
+        <th>
+            Pin
+        </th>
+        <th>
+            Provider
+        </th>
+        <th>
+            Credits
+        </th>
+        <th>
+            Generation date
+        </th>
+        <th>
+            Is Admin
+        </th>
+        <th>
+            Is retired
+        </th>
+        <th>
+            Redeemed by Cmid
+        </th>
+        <th>
+        </th>
+    </tr>
+    @if (Model.Count > 0)
+       {
+            int i = 0;
+
+            foreach (var epin in Model)
+            {
+    <tr class="@(i % 2 == 1 ? "mod":"")">
+        <td>
+            @epin.BatchId
+        </td>
+        <td>
+            @epin.EpinId
+        </td>
+        <td>
+            @epin.Pin
+        </td>
+        <td>
+            @CommonConfig.PaymentProviderName[batches[epin.BatchId].EpinProvider]
+        </td>
+        <td>
+            @batches[epin.BatchId].CreditAmount
+        </td>
+        <td>
+            @batches[epin.BatchId].BatchDate.ToNiceDisplay()
+        </td>
+        <td>
+            @batches[epin.BatchId].IsAdmin
+        </td>
+        <td>
+            @if (epin.IsRetired || batches[epin.BatchId].IsRetired) {
+            <span class="bold">
+                @if (batches[epin.BatchId].IsRetired) {
+                @:Retired batch
+                } else {
+                @:True
+                }
+            </span> 
+            } else {
+            @:False
+            }
+        </td>
+        <td>
+            @if (epin.IsRedeemed) {
+            <a href="@Url.Action("See", "Member")%>?cmid=@cmids[epin.EpinId]" target="_blank">@cmids[epin.EpinId]</a>
+            } else {
+            @:-
+            }
+        </td>
+        <td>
+            <a id="retirePin@(epin.EpinId)Link" href="#" onclick="changeEpinRetirementStatus(@epin.EpinId); return false;">@(epin.IsRetired ? "Unretire" : "Retire")</a>
+        </td>
+    </tr>
+            i++;
+        }
+    }
+</table>
+
+@if (Model.Count == 0) {
+    <p>There is no epin matching with your search.</p>
+}

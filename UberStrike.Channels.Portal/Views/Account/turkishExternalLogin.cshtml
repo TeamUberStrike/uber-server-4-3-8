@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "UberStrike - Giriş";
+}
+<div class="panel_default" style="margin-top:50px; margin-bottom:50px; width:200px; margin-left:auto; margin-right:auto;">
+    <div class="panel_header">
+        Login
+    </div>
+<div style="margin: 5px;">
+    <form method="post" action="@Url.Account()/Login" id="loginForm" >
+    @Html.Hidden("ReturnUrl", ((string)ViewBag.ReturnUrl))
+    @Html.Hidden("Channel", ((int)ViewBag.Channel))
+    <table style="width: 100%; border: none; margin: 0px; padding: 0px;">
+        <tr>
+            <td>
+                @Html.TextBox("Email", (string)ViewBag.EmailAddress, new { @title = "E-posta adresinizi girin", @class = "cmuneInput", @style = "width:174px;" })
+                @Html.Password("Password", null, new { @title = "Şifrenizi girin", @class = "cmuneInput", @style = "width:174px;" })
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-top:15px;">
+                <input type="submit" value="Giriş" class="darkGray" onclick="externalLogin(); return false;" /> - <a href="@Url.Account()/RecoverPassword" style="color:#CCCCCC;">Kayıp Parola?</a>
+            </td>
+        </tr>
+    </table>
+    </form>
+    @if (ViewBag.errorMessage != "")
+    {
+        <div class="errorMessage">@ViewBag.errorMessage</div>
+    }
+    <div style="padding: 4px;">
+        @Html.UberstrikeValidationSummary()
+    </div>
+</div>
+</div>

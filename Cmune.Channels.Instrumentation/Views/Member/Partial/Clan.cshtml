@@ -1,0 +1,14 @@
+﻿@model ClanMemberDisplay
+<div style="margin-top:20px;">
+    <h3 style="margin-bottom:20px;">
+        Clan</h3>
+    @if (Model != null)
+    {
+        <span>This member is @Model.Position.ToString() of <a href="@Url.Action("See", "Clan")?ClanId=@Model.ClanId">[@Model.ClanTag] @Model.ClanName</a>
+            since @Model.MemberSince.ToNiceDisplay(true)</span>
+    }
+    else
+    {
+        <span>This member is not part of any clan.</span>
+    }
+</div>

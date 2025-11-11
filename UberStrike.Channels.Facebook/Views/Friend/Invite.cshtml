@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"
+xml:lang="en">
+<head>
+    <title></title>
+    <style type='text/css'>
+        body
+        {
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+        .generic_dialog
+        {
+            position:absolute;
+            left:-20px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        var imagesRoot = '@(Facebook.FacebookApplication.Current.CanvasUrl)/Content/images/';
+    </script>
+    @{
+        var PublishVersion = ConfigurationManager.AppSettings["PublishVersion"];
+    }
+    <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+</head>
+<body>
+    <div id="fb-root">
+    </div>
+    <script type="text/javascript">
+        FB.init({
+            appId: '@Facebook.FacebookApplication.Current.AppId',
+            status: true, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true  // parse XFBML
+        });
+    </script>
+</body>
+</html>

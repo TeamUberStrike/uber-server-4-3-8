@@ -1,0 +1,141 @@
+﻿@model Cmune.Core.Models.Views.PhotonsClusterView
+<div id="photonsGroupDisplayDiv">
+    @if (Model == null)
+    {
+        <span>There is no existing Photons cluster, you can create one:</span>
+    }
+    <form action="" method="post" id="editPhotonGroupsAndPhotonServers">
+    <div class="left" style="width: 200px;" id="PhotonGroupInfo">
+        <span class="bold">Cluster name:</span>
+        @Html.TextBox("NameTextBox", Model.Name)<br />
+        <span class="bold">Cluster Id:</span> <span>@(Model != null ? Model.PhotonsClusterId.ToString() : "")</span>
+        <br />
+        <br />
+        @if (Model != null)
+        {
+            <input id="savePhotonClusterButton" type="submit" value="Save" onclick="savePhotonsCluster(); return false;" />
+        }
+        <input id="displaySavePhotonClusterAsButton" type="submit" value="Save As" onclick="loadSavePhotonsClusterAs(); return false;" />
+        <br />
+        <br />
+        <span class="italic">To delete a photon server, leave the IP or the name field empty.</span>
+    </div>
+    <div class="left">
+        @Html.Hidden("currentPhotonServersCount", (Model != null) ? Model.Photons.Count : 0)
+        @Html.Hidden("photonsGroupId", (Model != null) ? Model.PhotonsClusterId.ToString() : "")
+        <table cellspacing="5" style="margin: auto; margin: 0 0 0 0;">
+            <tr class="bold" style="text-align: center;">
+                <td style="width: 25px;">
+                </td>
+                <td style="width: 100px;">
+                    IP
+                </td>
+                <td style="width: 40px;">
+                    Port
+                </td>
+                <td style="width: 200px;">
+                    Name <span class="italic" style="font-weight: normal;">(max length: @CommonConfig.PhotonsServerNameMaxLenght)</span>
+                </td>
+                <td style="width: 150px;">
+                    Usage
+                </td>
+                <td style="width: 20px;">
+                    Id
+                </td>
+            </tr>
+            @if (Model != null && Model.Photons.Count > 0)
+            {
+                int i = 1;
+                foreach (var item in Model.Photons)
+                {
+                <tr>
+                    <td>
+                        @Html.Hidden("IDHiddenField" + i, item.PhotonId, new { style = "width:98px" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("IPTextBox" + i, Html.GetManagedServersIPItems((List<ManagedServerModel>)ViewBag.ManagedServersList, item.IP))
+                    </td>
+                    <td>
+                        @Html.TextBox("PortTextBox" + i, item.Port, new { style = "width:38px", maxlength = "5" })
+                    </td>
+                    <td>
+                        @Html.TextBox("NameTextBox" + i, item.Name, new { style = "width:198px", maxlength = CommonConfig.PhotonsServerNameMaxLenght })
+                    </td>
+                    <td>
+                        @Html.DropDownList("UsageDropDownList" + i, ((List<SelectListItem>)ViewData["PhotonUsageTypeListData"]).SetSelectValue(((int)item.UsageType).ToString()), new { style = "width:150px" })
+                    </td>
+                    <td style="text-align: center;">
+                        @item.PhotonId
+                    </td>
+                </tr>
+                    i++;
+                }
+            }
+            @for (int i = 1; i <= 15; i++)
+            {
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        @Html.DropDownList(String.Format("NewIPTextBox{0}", i), Html.GetManagedServersIPItems((List<ManagedServerModel>)ViewBag.ManagedServersList))
+                    </td>
+                    <td>
+                        @Html.TextBox(String.Format("NewPortTextBox{0}", i), String.Empty, new { style = "width:38px", maxlength = "5" })
+                    </td>
+                    <td>
+                        @Html.TextBox(String.Format("NewNameTextBox{0}", i), String.Empty, new { style = "width:198px", maxlength = CommonConfig.PhotonsServerNameMaxLenght })
+                    </td>
+                    <td>
+                        @Html.DropDownList(String.Format("NewUsageDropDownList{0}", i), ((List<SelectListItem>)ViewData["PhotonUsageTypeListData"]).SetSelectValue(((int)PhotonUsageType.All).ToString()), new { style = "width:148px" })
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+    <div>
+        <h3>
+            Linked versions:</h3>
+        <div style="width: 180px; font-weight: bold; text-indent: 35px; margin: 30px 0 30px 0;">
+            Current versions:
+        </div>
+        @if (((List<ApplicationVersionViewModel>)ViewData["CurrentLinkedVersionsListView"]).Count > 0)
+        {
+            <span>
+                @foreach (var item in (List<ApplicationVersionViewModel>)ViewData["CurrentLinkedVersionsListView"])
+                {
+                    @:@item.Version - @(((ChannelType)item.Channel).ToString())
+                }
+            </span>
+        }
+        else
+        {
+            <span>There is no current version linked to this specific Photons cluster. </span>
+        }
+        <div style="width: 180px; font-weight: bold; text-indent: 35px; margin: 30px 0 30px 0;">
+            Previous versions:
+        </div>
+        @if (((List<ApplicationVersionViewModel>)ViewData["PreviousLinkedVersionsListView"]).Count > 0)
+        {
+            <span>
+                @foreach (var item in (List<ApplicationVersionViewModel>)ViewData["PreviousLinkedVersionsListView"])
+                {
+                    @:@item.Version - @(((ChannelType)item.Channel).ToString())
+                }
+            </span>
+        }
+        else
+        {
+            <span>There is no previous version linked to this specific Photons cluster. </span>
+        }
+    </div>
+    <br />
+    @if (Model != null)
+    {
+        <input id="Submit1" type="submit" value="Delete" onclick="deletePhotonsCluster(@Model.PhotonsClusterId); return false;" />
+    }
+    </form>
+</div>

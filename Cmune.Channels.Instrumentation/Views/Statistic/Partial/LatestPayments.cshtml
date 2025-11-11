@@ -1,0 +1,72 @@
+﻿@model List<CurrencyDepositView>
+<h3 style="margin: 25px 0 25px 110px;">
+    Latest payments</h3>
+@if (Model.Count > 0)
+{
+
+    DateTime now = DateTime.Now;
+    decimal depositToday = 0;
+    int i = 0;
+
+    while (i < Model.Count && Model[i].DepositDate.DayOfYear == now.DayOfYear)
+    {
+        if (!Model[i].IsAdminAction)
+        {
+            depositToday += Model[i].UsdAmount;
+        }
+
+        i++;
+    }
+
+    <p>
+        Total so far today: <span class="bold">@depositToday.ToString("C2")</span> (only
+        sum up over the displayed payments)</p>
+
+    <div class="left" style="margin: 25px 0 50px 0;">
+        <table class="paymentTable">
+            <tr>
+                <td>
+                </td>
+                <td style="text-align: center; font-weight: bold;">
+                    Deposit date
+                </td>
+                <td style="text-align: center; font-weight: bold;">
+                    Cmid
+                </td>
+                <td style="text-align: center; font-weight: bold;">
+                    $US
+                </td>
+                <td style="text-align: center; font-weight: bold;">
+                    Is admin action
+                </td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.DepositDate.ToString("ddd")
+                    </td>
+                    <td>
+                        @item.DepositDate.ToString("MM/dd HH:mm:ss")
+                    </td>
+                    <td style="text-align: right;">
+                        <a href='@Url.Action("See", "Member")?cmid=@item.Cmid' target="_blank">
+                            @item.Cmid
+                        </a>
+                    </td>
+                    <td style="text-align: right;">
+                        @item.UsdAmount.ToString("C2")
+                    </td>
+                    <td>
+                        @item.IsAdminAction
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+}
+else
+{
+    @:There is no payment to display
+}

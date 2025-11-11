@@ -1,0 +1,120 @@
+﻿@model LuckyDrawView
+@{
+    var ItemViews = (List<ItemView>)ViewBag.ItemViews;
+}
+<script type="text/javascript">
+    $(document).ready({
+        // bind validation for text entry
+    });
+</script>
+<form id="LuckyDrawForm" action="" method="post">
+<div>
+    @Html.HiddenFor(d => d.Id)
+    <div class="left" style="width: 425px">
+        @Html.LabelFor(d => d.Name, "Name")
+        @Html.TextBoxFor(d => d.Name, new { style = "width:250px;" })<br />
+        @Html.LabelFor(d => d.Price, "Price")
+        @Html.TextBoxFor(d => d.Price, new { style = "width:50px;" })
+        @Html.DropDownListFor(d => d.UberStrikeCurrencyType, Html.GetUberStrikeCurrencyType(Model.UberStrikeCurrencyType))
+    </div>
+    <div class="left" style="width: 250px; margin-left: 20px;">
+        @Html.LabelFor(d => d.Description, "Promo text")
+        @Html.TextAreaFor(d => d.Description, new { cols = "30" })
+    </div>
+    <div class="left" style="width: 250px; margin-left: 40px;">
+        @Html.LabelFor(d => d.Category, "Category")
+        @Html.DropDownListFor(d => d.Category, (List<SelectListItem>)Html.GetBundleCategoryType(Model.Category))<br />
+        @Html.LabelFor(d => d.IsAvailableInShop, "Is Available in the shop?")
+        @Html.CheckBoxFor(d => d.IsAvailableInShop)
+    </div>
+    <div class="clear">
+    </div>
+    <div class="left" style="margin-top: 15px;">
+        @Html.LabelFor(d => d.IconUrl, "Thumb")
+        @Html.TextBoxFor(d => d.IconUrl, new { style = "width:450px;" })
+    </div>
+    <div class="clear">
+    </div>
+    <br />
+    <fieldset>
+        <legend>Prizes</legend>
+        @{
+            int x = 0;
+            for (int f = 0; f < CommonConfig.LuckyDrawSetCount; f++)
+            {
+            <div id="luckyDrawPriceContainer" class="left" style="">
+                <fieldset>
+                    <legend>Prize @(f + 1)</legend>
+                    <div>
+                        @Html.HiddenFor(d => Model.LuckyDrawSets[f].Id)
+                        @Html.HiddenFor(d => Model.LuckyDrawSets[f].LuckyDrawId)
+                        @Html.LabelFor(d => Model.LuckyDrawSets[f].SetWeight, "Weight")
+                        @Html.TextBoxFor(d => Model.LuckyDrawSets[f].SetWeight)
+                    </div>
+                    <br />
+                    <div class="hr">
+                    </div>
+                    <br />
+                    <div>
+                        <div id="LuckyDrawSetItemContainer@(x)">
+                            @Html.Label("Name")
+                            @Html.Label("DurationType")
+                            @Html.Label("Amount")
+                            @{int i = 0;}
+                            @for (int g = 0; g < Model.LuckyDrawSets[f].LuckyDrawSetItems.Count; g++)
+                            {
+                                <div>
+                                    @Html.HiddenFor(d => Model.LuckyDrawSets[f].LuckyDrawSetItems[g].Id)
+                                    @Html.HiddenFor(d => Model.LuckyDrawSets[f].LuckyDrawSetItems[g].LuckyDrawSetId)
+                                    @Html.DropDownListFor(d => Model.LuckyDrawSets[f].LuckyDrawSetItems[g].ItemId, Html.GetItems(ItemViews, Model.LuckyDrawSets[f].LuckyDrawSetItems[g].ItemId.ToString()), new { style = "width:220px;" })
+                                    @Html.DropDownListFor(d => Model.LuckyDrawSets[f].LuckyDrawSetItems[g].DurationType, (List<SelectListItem>)Html.GetBuyingDurationType(Model.LuckyDrawSets[f].LuckyDrawSetItems[g].DurationType))
+                                    @Html.TextBoxFor(d => Model.LuckyDrawSets[f].LuckyDrawSetItems[g].Amount, new { style = "width:20px;" })
+                                    @{
+                                i++;
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div>
+                            @Html.Hidden("ItemIdCount_" + x, i)
+                            <input type="button" onclick="AddLuckyDrawSetItem(@x, @Html.GetItemsJson(ItemViews), @Html.GetBuyingDurationTypeTypeJson());" value="Add item"/>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        @Html.LabelFor(d => Model.LuckyDrawSets[f].CreditsAttributed, "Credits")
+                        @Html.TextBoxFor(d => Model.LuckyDrawSets[f].CreditsAttributed)
+                    </div>
+                    <div>
+                        @Html.LabelFor(d => Model.LuckyDrawSets[f].PointsAttributed, "Points")
+                        @Html.TextBoxFor(d => Model.LuckyDrawSets[f].PointsAttributed)
+                    </div>
+                    <br />
+                    <div class="hr">
+                    </div>
+                    <br />
+                    <div>
+                        @Html.LabelFor(d => Model.LuckyDrawSets[f].ImageUrl, "Image")
+                        @Html.TextBoxFor(d => Model.LuckyDrawSets[f].ImageUrl)
+                    </div>
+                    <div>
+                        @Html.LabelFor(d => Model.LuckyDrawSets[f].ExposeItemsToPlayers, "Expose items to player")
+                        @Html.CheckBoxFor(d => Model.LuckyDrawSets[f].ExposeItemsToPlayers)
+                    </div>
+                </fieldset>
+            </div>
+                            x++;
+            }
+            <div class="clear">
+            </div>
+        }
+    </fieldset>
+    <br />
+    <div>
+        <input type="button" name="test" value="Test" onclick="TestLuckyDraw(); return false;" />
+        <input type="button" name="validate" value="Save" onclick="SubmitLuckyDrawForm(); return false" />
+    </div>
+    <div id="TestLuckyDrawResultContainer">
+    </div>
+</div>
+</form>

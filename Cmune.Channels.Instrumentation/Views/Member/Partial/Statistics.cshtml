@@ -1,0 +1,426 @@
+﻿<div style="height: 230px;" id="PlayerStatisticPanel">
+    <table class="statisticTable">
+        <tr>
+            <th colspan="2" style="text-align: center;">
+                <span id="memberNameStats" class="bold"><a href="" onclick="toggleMoreStatistics();return false;">@ViewData["memberName"]'s
+                    Statistics</a> </span>
+            </th>
+        </tr>
+        <tr>
+            <td style="text-align: left;">
+                <b>Ranking</b>
+            </td>
+            <td style="font-weight: bold; font-size: 18px; text-align: right;">
+                <span>
+                    @ViewBag.Ranking</span>
+            </td>
+        </tr>
+        @if (ViewBag.IsUserExisting)
+        {
+            <tr>
+                <td style="text-align: left;">
+                    <b>Level</b>
+                </td>
+                <td style="font-weight: bold; font-size: 18px; text-align: right;">
+                    <span id="levelSpan">
+                        @ViewBag.Level</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    <b>XP</b>
+                </td>
+                <td style="text-align: right;">
+                    <span id="xpSpan">
+                        @ViewBag.Xp</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    <b>Kills</b>
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.Kills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    <b>Deaths</b>
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.Deaths</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    <b>KDR</b>
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.Kdr</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    <b>Accuracy</b>
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.Accuracy</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Shots
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.Shots</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Hits
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.Hits</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Headshots
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.Headshots</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Nutshots
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.NutShots</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    -
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most XP Earned
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostXPEarned</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most Damage Received
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostDamageReceived</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most Damage Dealt
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostDamageDealt</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most Health PickedUp
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostHealthPickedUp</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most Armor PickedUp
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostArmorPickedUp</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most Headshots
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostHeadshots</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most Nutshots
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostNutshots</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Most Consecutive Snipes
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostConsecutiveSnipes</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    -
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Melee Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostMeleeKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Melee Total Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.TotalMeleeKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Melee Accuracy
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MeleeAccuracy</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Handgun Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostHandgunKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Handgun Total Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.TotalHandgunKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Handgun Accuracy
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.HandgunAccuracy</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    MachineGun Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostMachineGunKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    MachineGun Total Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.TotalMachineGunKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    MachineGun Accuracy
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MachineGunAccuracy</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Shotgun Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostShotgunKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Shotgun Total Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.TotalShotgunKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Shotgun Accuracy
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.ShotgunAccuracy</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="text-align: left;">
+                    Sniper Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostSniperKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Sniper Total Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.TotalSniperKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Sniper Accuracy
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.SniperAccuracy</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Splattergun Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostSplattergunKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Splattergun Total Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.TotalSplattergunKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Splattergun Accuracy
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.SplattergunAccuracy</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Cannon Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostCannonKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Cannon Total Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.TotalCannonKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Cannon Accuracy
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.CannonAccuracy</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Launcher Most Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.MostLauncherKills</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">
+                    Launcher Total Kills
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.TotalLauncherKills</span>
+                </td>
+            </tr>
+    
+            <tr>
+                <td style="text-align: left;">
+                    Launcher Accuracy
+                </td>
+                <td style="text-align: right;">
+                    <span>
+                        @ViewBag.LauncherAccuracy</span>
+                </td>
+            </tr>
+        }
+    </table>
+    @if (!ViewBag.IsUserExisting)
+    {
+        <p>
+            This user has no stats</p>
+    }
+</div>

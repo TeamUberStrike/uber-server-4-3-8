@@ -1,0 +1,14 @@
+﻿<div id="statsMenu" class="Menu">
+    <a href="@Url.Action("Index", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Dashboard.ToString() ? "submenuActiveTab":"")">Dashboard</a>
+    <a href="@Url.Action("UserActivity", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.User_Activity.ToString() ? "submenuActiveTab":"")">User Activity</a>
+    <a href="@Url.Action("Revenue", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Revenue.ToString() ? "submenuActiveTab":"")">Revenue</a>
+    <a href="@Url.Action("Regions", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Regions.ToString() ? "submenuActiveTab":"")">Regions</a>
+    <a href="@Url.Action("Channels", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Channels.ToString() ? "submenuActiveTab":"")">Channels</a>
+    <a href="@Url.Action("Referrers", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Referrers.ToString() ? "submenuActiveTab":"")">Referrers</a>
+    <a href="@Url.Action("ItemEconomy", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Item_Economy.ToString() ? "submenuActiveTab":"")">Item Economy</a>
+    <a href="@Url.Action("Social", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Social.ToString() ? "submenuActiveTab":"")">Social</a>
+    <a href="@Url.Action("Retention", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Retention.ToString() ? "submenuActiveTab":"")">Retention</a>
+    <a href="@Url.Action("PaymentProviders", "Statistic")?providerId=5" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Payment.ToString() ? "submenuActiveTab":"")">Payment</a>
+    <a href="@Url.Action("UnityConversionFunnel", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.UnityInstallation.ToString() ? "submenuActiveTab":"")">Unity installation</a>
+    <a href="@Url.Action("TutorialConversionFunnel", "Statistic")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.StatisticSubTabs.Tutorial.ToString() ? "submenuActiveTab":"")">Tutorial</a>
+</div>

@@ -1,0 +1,16 @@
+﻿@model FacebookUserModel
+<div class="main_page_content">
+    <div style="text-align: left">
+        <a href="" class="darkGray" onclick="LoadHomePage(); return false;">Go back to Game</a>
+    </div>
+    <br />
+    @if (!ViewBag.HasError)
+    {
+        <div>
+            <div>
+                <iframe id="itemBundleIframe" src="@Url.CommonChannelUrl()/GetBundle?channel=@(ChannelType.WebFacebook)&cmid=@(ViewBag.Cmid)"
+    allowtransparency="true" frameborder="0" width="728" height="600" scrolling="no"></iframe>
+            </div>
+        </div>
+    }
+</div>

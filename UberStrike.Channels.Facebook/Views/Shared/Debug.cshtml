@@ -1,0 +1,56 @@
+﻿@model FacebookUserModel
+<div id="debugContainer" style="position: fixed; background-color: white; z-index: 1000">
+    <div>
+        <input type="button" onclick="$('#debug').toggle()" value="Debug" style="cursor: pointer;" />
+    </div>
+    <div id="debug" style="display: none; overflow: scroll;">
+        <div>
+            var LoadGetCreditsPageUrl = '@Url.CanvasAction(Html, "", "Offer")'</div>
+        <div>
+            var LoadProfilePageUrl = '@Url.CanvasAction(Html, "", "Profile")'</div>
+        <div>
+            var facebookApplicationId = @(ViewBag.FacebookApplicationId)</div>
+        <div>
+            var applicationId = @ViewBag.FacebookApplicationId</div>
+        <div>
+            var fbUserId = @(Model.FacebookId)</div>
+        <div>
+            var fbThirdPartyId = '@(Model.FacebookThirdPartyId)'</div>
+        <div>
+            var fbFirstName = '@(Model.FirstName)'</div>
+        <div>
+            var fbLastName = '@(Model.LastName)'</div>
+        <div>
+            var fbUsername = '@(Model.UserName)'</div>
+        <div>
+            var fbName = '@(Model.Name)'</div>
+        <div>
+            var fbGender = '@(Model.Gender)'</div>
+        <div>
+            var fbCity = '@(Model.City)'</div>
+        <div>
+            var fbCountry = '@(Model.Country)'</div>
+        <div>
+            var fbPostCode = '@(Model.PostCode)'</div>
+        <div>
+            var fbLocale = '@(Model.Locale)'</div>
+        <div>
+            var fbId3PlayerName = '@(Model.Id3PlayerName)'</div>
+        <div>
+            var Cmid = @Model.Cmid</div>
+        <div>
+            var IsTrackingEnabled = @((Model.IsAccountComplete == false).ToString().ToLower())</div>
+        <div>
+            var IsAuthenticated = @Model.IsAuthenticated.ToString().ToLower()</div>
+        <div>
+            var fbRefPartnerId = @ViewBag.RefPartnerId</div>
+        <div>
+            var locale = '@ViewBag.DefaultCulture'</div>
+        <div>
+            var additionalCanvasSize = '@(ViewBag.IsDevEnv ? 20 : 0)'</div>
+        <div>
+            var SharedLayout_js = '@(Url.Content("~/Scripts/js/Layout.js"))'
+        </div>
+        <br />
+    </div>
+</div>

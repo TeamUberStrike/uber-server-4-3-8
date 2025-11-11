@@ -1,0 +1,63 @@
+﻿@model List<UnityExceptionGroupSummaryView>
+<table class="searchResultTable" style="table-layout: fixed; word-wrap: break-word;">
+    <tr>
+        <th>
+            Exception type
+        </th>
+        <th style="width: 400px;">
+            Exception Message
+        </th>
+        <th>
+            Faultive function
+        </th>
+        <th style="width: 120px;">
+            Latest
+        </th>
+        <th style="width: 50px;">
+            Count
+        </th>
+        <th style="width: 20px;">
+        </th>
+        <th style="width: 20px;">
+        </th>
+    </tr>
+    @if (Model.Count > 0)
+    {
+        int i = 0;
+
+        foreach (var exception in Model)
+        {
+        <tr class="@(i % 2 == 1 ? "mod" : "")">
+            <td>
+                @exception.ExceptionType
+            </td>
+            <td>
+                @exception.ExceptionMessage
+            </td>
+            <td>
+                @exception.FaultiveFunction
+            </td>
+            <td>
+                @exception.LatestException.Value.ToString("MM/dd HH:mm:ss")
+            </td>
+            <td style="text-align: right;">
+                @exception.ExceptionCount
+            </td>
+            <td>
+                <a href="@Url.Action("ExceptionGroup", "Monitoring")?stacktraceHash=@exception.StacktraceHash" title="View exception group">
+                    <img src="@Url.Content("~/Content/img/eye.png")" alt="View exceptions group" /></a>
+            </td>
+            <td>
+                <a href="#" onclick="deleteExceptionGroup('@exception.StacktraceHash'); return false;" title="Delete all the exceptions in this group">
+                    <img src="@Url.Content("~/Content/img/b_drop.png")" alt="Delete exceptions group" /></a>
+            </td>
+        </tr>
+            i++;
+        }
+    }
+</table>
+@if (Model.Count == 0)
+{
+    <p>
+        There is no unity exception (yes I know it seems impossible :P ).</p>
+}

@@ -1,0 +1,234 @@
+﻿@{
+    ItemView ItemView = ViewBag.ItemView;
+}
+<div style="width: 800px;">
+    <p class="it" style="text-align: center;">
+        Put a value of -1 to disable a field<br />
+        @if (ItemView.ItemId == 0)
+        {
+            <span class="bold" style="color: Red;">You can not change the type of an item after
+                creating it!</span>
+        }
+    </p>
+    <form method="post" action="" id="addOrEditItemForm">
+    @Html.HiddenFor(d => ItemView.ItemId)
+    @Html.HiddenFor(d => ItemView.AmountRemaining)
+    @Html.Hidden("CurrentItemTypeId", ItemView.TypeId)
+    @Html.Hidden("CustomPropertiesHidden", (string)ViewBag.ItemViewCustomProperties)
+    @Html.HiddenFor(d => ItemView.CustomProperties)
+    <div style="text-align: left; padding: 15px;">
+        <div class="left">
+            <table>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(d => ItemView.IsForSale)
+                    </td>
+                    <td>
+                        @Html.LabelFor(d => ItemView.IsForSale, "Is for sale")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Name:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Description:
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(d => ItemView.Description)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="left" style="margin: 0 0 30px 30px;">
+            Type:
+            @if (((bool)ViewData["DisableItemTypeDropDownList"]) == true)
+            {
+                @Html.DropDownListFor(d => ItemView.TypeId, (List<SelectListItem>)Html.GetItemTypeList(ItemView.TypeId, false), new { id = "ItemTypeId", disabled = "disabled" })
+            }
+            else
+            {
+                @Html.DropDownListFor(d => ItemView.TypeId, (List<SelectListItem>)Html.GetItemTypeList(ItemView.TypeId, false), new { id = "ItemTypeId", onchange = "displayCorrectComplementaryForm('#ItemTypeId');refreshItemClassDropDownList('#ItemTypeId','#ItemClassId', false)" })
+            }
+            <br />
+            Class:
+            @Html.DropDownListFor(d => ItemView.ClassId, (List<SelectListItem>)Html.GetItemClassList(ItemView.TypeId, ItemView.ClassId, false), new { id = "ItemClassId" })
+            <br />
+            Purchase type: @Html.DropDownListFor(d => ItemView.PurchaseType, (List<SelectListItem>)Html.GetPurchaseTypeList(ItemView.PurchaseType))
+            @*Maximum duration days: @Html.TextBoxFor(d => ItemView.MaximumDurationDays)<br />
+            (-1 for keeping the maximum duration - @ViewData["MaximumDurationLiteral"] days)*@
+        </div>
+        <div class="left" style="margin: 0 0 0 30px;">
+            <table>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(d => ItemView.IsFeatured)
+                        @Html.LabelFor(d => ItemView.IsFeatured, "Is Sale")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(d => ItemView.IsNew)
+                        @Html.LabelFor(d => ItemView.IsNew, "Is New")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(d => ItemView.IsPopular)
+                        @Html.LabelFor(d => ItemView.IsPopular, "Is Hot")
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="clear">
+        </div>
+        <div class="left" style="padding: 5px;">
+            @*Html.CheckBoxFor(d => ItemView.IsEnabledInShop)
+            <label for="IsEnabledInShopCheckBox">Is Enabled in Shop</label>*@
+            <table>
+                <tr>
+                    <td>
+                        Credits per day:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.CreditsPerDay, new { @class = "itemStat" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Points per day:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.PointsPerDay, new { @class = "itemStat", onkeyup = "checkIfFreeItem();", autocomplete = "off" })
+                    </td>
+                </tr>
+                <tr id="freeItemTr" style="display: none;">
+                    <td colspan="2">
+                        <span class="error">This item is free!</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Permanent Credits:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.PermanentCredits, new { @class = "itemStat" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Permanent Points:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.PermanentPoints, new { @class = "itemStat" })
+                    </td>
+                </tr>
+                @*<tr>
+                        <td>Amount remaining<br />(nothing for unlimited):</td>
+                        <td>
+                        @Html.TextBox("AmountRemainingInShopTextBox", ViewData["AmountRemainingInShopTextBox"], new { @class = "itemStat" })
+                        </td>
+                </tr>*@
+            </table>
+        </div>
+        <div class="left" style="padding: 5px; margin: 0px;">
+            <table>
+                <tr>
+                    <td>
+                        Pack one amount:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.PackOneAmount, new { @class = "itemStat" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pack two amount:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.PackTwoAmount, new { @class = "itemStat" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pack three amount:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.PackThreeAmount, new { @class = "itemStat" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Max Duration:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => ItemView.MaximumDurationDays, new { @class = "itemStat" })
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="left" style="padding: 5px; margin: 0px;">
+            <table>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(d => ItemView.Enable1Day, new { @class = "itemStat" })
+                    </td>
+                    <td>
+                        @Html.LabelFor(d => ItemView.Enable1Day, "1 Day")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(d => ItemView.Enable7Days, new { @class = "itemStat" })
+                    </td>
+                    <td>
+                        @Html.LabelFor(d => ItemView.Enable7Days, "7 Days")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(d => ItemView.Enable30Days, new { @class = "itemStat" })
+                    </td>
+                    <td>
+                        @Html.LabelFor(d => ItemView.Enable30Days, "30 Days")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.CheckBoxFor(d => ItemView.Enable90Days, new { @class = "itemStat" })
+                    </td>
+                    <td>
+                        @Html.LabelFor(d => ItemView.Enable90Days, "90 Days")
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="weaponComplementaryFormContainer" style="display: none">
+            @Html.Partial("Partial/Form/WeaponComplementaryForm")
+        </div>
+        <div id="gearComplementaryFormContainer" style="display: none">
+            @Html.Partial("Partial/Form/GearComplementaryForm")
+        </div>
+        <div id="quickUseComplementaryFormContainer" style="display: none">
+            @Html.Partial("Partial/Form/QuickUseComplementaryForm")
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    @if ((bool)ViewData["Add"])
+    {
+        <input type="submit" value="Add this Item" onclick="AddItem(); return false;" />
+    }
+    else
+    {
+        <input type="submit" value="Modify this Item" onclick="EditItem(); return false;" />
+    }
+    </form>
+</div>

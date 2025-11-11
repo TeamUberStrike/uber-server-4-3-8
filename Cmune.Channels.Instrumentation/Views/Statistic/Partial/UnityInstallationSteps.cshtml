@@ -1,0 +1,62 @@
+﻿@model UnityInstallationDisplay
+@if (Model != null)
+{
+    <ul style="margin: 15px 0 0 0;">
+        <li><span class="bold">Channel</span>: @Model.Channel.ToString()
+        </li>
+        <li><span class="bold">Referrer Id</span>: @Model.ReferrerId.ToString()
+        </li>
+        <li><span class="bold">Operating System name</span>: @Model.OsName.ToString()
+        </li>
+        <li><span class="bold">Operating System version</span>: @Model.OsVersion.ToString()
+        </li>
+        <li><span class="bold">Browser Name</span>: @Model.BrowserName.ToString()
+        </li>
+        <li><span class="bold">Browser Version</span>: @Model.BrowserVersion.ToString()
+        </li>
+        <li><span class="bold">Is Java Install Enabled</span>: @Model.IsJavaInstallEnabled.ToString()
+        </li>
+        <li><span class="bold">IP</span>: @Model.Ip.ToString()
+        </li>
+        <li><span class="bold">Has Unity</span>: @Model.HasUnity.ToString()
+        </li>
+        <li><span class="bold">User Agent</span>: @Model.UserAgent.ToString()
+        </li>
+    </ul>
+
+    <table class="searchResultTable" style="margin: 15px 0 0 0; width: auto;">
+        <tr>
+            <th>
+                Step Id
+            </th>
+            <th>
+                Step Type
+            </th>
+            <th>
+                Step Date
+            </th>
+        </tr>
+        @{
+    int i = 0;}
+        @foreach (var item in Model.Steps)
+        {
+            <tr class="@(i % 2 == 1 ? "mod" : "")">
+                <td>
+                    @(((int)item.StepType).ToString())
+                </td>
+                <td>
+                    @item.StepType.ToString()
+                </td>
+                <td>
+                    @item.StepDate.ToNiceDisplay()
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+}
+else
+{
+    <p>
+        There is no step to display.</p>
+}

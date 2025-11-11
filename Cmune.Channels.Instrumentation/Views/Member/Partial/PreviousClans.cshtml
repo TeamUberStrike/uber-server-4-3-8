@@ -1,0 +1,36 @@
+﻿@model List<PreviousClanDisplay>
+@if (Model.Count > 0)
+{
+    int i = 0;
+    <table class="searchResultTable">
+        <tr>
+            <th>
+                Clan
+            </th>
+            <th>
+                Joined on
+            </th>
+            <th>
+                Left on
+            </th>
+        </tr>
+        @foreach (var clanDisplay in Model)
+        {
+            <tr class="@(i % 2 == 1 ? "mod" : "")">
+                <td>
+                    <a href="@Url.Action("See", "Clan")?clanId=@clanDisplay.Id" target="_blank">[@clanDisplay.Tag] @clanDisplay.Name</a>
+                </td>
+                <td>@clanDisplay.DateJoined.ToNiceDisplay(true)
+                </td>
+                <td>@clanDisplay.DateQuit.ToNiceDisplay(true)
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+}
+else
+{
+    <p>
+        This member was not part of another clan before.</p>
+}

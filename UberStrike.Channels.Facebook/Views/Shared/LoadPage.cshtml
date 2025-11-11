@@ -1,0 +1,12 @@
+﻿<script type="text/javascript">
+function loadingPage()
+{
+    var LoadMainTab = '@((Menu.MainTab)ViewBag.LoadMainTab)';
+    if (LoadMainTab != '') {
+        if (LoadMainTab == MenuMainTab_Profile) {
+            LoadProfilePage(@ViewBag.Cmid);
+        }
+    }
+}
+$(document).ready(loadingPage);
+</script>

@@ -1,0 +1,11 @@
+﻿<div class="cmune_header_logo">
+</div>
+@if(ViewBag.LittleTopMenuDisplay != null && ViewBag.LittleTopMenuDisplay == true){
+<div id="littleTopMenuPartial" class="cmune_header_tabarea">
+    @Html.Partial("LittleTopMenuPartial")
+</div>
+}
+<div class="cmune_header_servertime">
+    <div id="clock" class="cmune_header_servertime_text">
+    </div>
+</div>

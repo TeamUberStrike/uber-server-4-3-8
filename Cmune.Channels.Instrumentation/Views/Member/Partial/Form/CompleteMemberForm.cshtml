@@ -1,0 +1,20 @@
+﻿<div id="CompleteUserPanel">
+    <form id="editMemberFormComplement">
+    <p style="padding-top: 15px;">
+        Transform <b>@ViewData["memberName"]</b> into a full Cmune member by entering his
+        email.
+    </p>
+    Email:
+    @Html.TextBox("newMemberEmail")
+    <p style="padding-top: 15px; text-align: center;">
+        <input type="button" onclick="ChangeMemberInfo('changeEmailForCompletion')" value="Do it" />
+        <input type="button" onclick="Shadowbox.close()" value="Cancel" />
+    </p>
+    <span style="width: 95%; text-align: center; display: block;"></span>
+    <p style="padding-top: 15px;">
+        If you wish you can say a few words to this user explaining why you are completing
+        his account:</p>
+    @Html.TextArea("explanationMemberEmail")
+    <input type="checkbox" checked="checked" name="notifyMemberEmailCheckBox" />
+    </form>
+</div>

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MvParadisePaintballForum" Class="ForumDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.phpbb_reports" Member="phpbb_reports">
+    <Type Name="phpbb_report">
+      <Column Name="report_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="reason_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_notify" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="report_closed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="report_time" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="report_text" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="phpbb_post_phpbb_report" Member="phpbb_post" ThisKey="post_id" OtherKey="post_id" Type="phpbb_post" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.phpbb_users" Member="phpbb_users">
+    <Type Name="phpbb_user">
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="group_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_permissions" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_perm_from" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_ip" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="user_regdate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="username_clean" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="user_password" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_passchg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_pass_convert" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="user_email_hash" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="user_birthday" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_lastvisit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_lastmark" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_lastpost_time" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_lastpage" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="user_last_confirm_key" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_last_search" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_warnings" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_last_warning" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_login_attempts" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_inactive_reason" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_inactive_time" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_posts" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_lang" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="user_timezone" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="user_dst" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_dateformat" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="user_style" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_rank" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_colour" Type="System.String" DbType="VarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="user_new_privmsg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_unread_privmsg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_last_privmsg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_message_rules" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_full_folder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_emailtime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_topic_show_days" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_topic_sortby_type" Type="System.Char" DbType="VarChar(1) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_topic_sortby_dir" Type="System.Char" DbType="VarChar(1) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_post_show_days" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_post_sortby_type" Type="System.Char" DbType="VarChar(1) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_post_sortby_dir" Type="System.Char" DbType="VarChar(1) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_notify" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_notify_pm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_notify_type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_allow_pm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_allow_viewonline" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_allow_viewemail" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_allow_massemail" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_options" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_avatar" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="user_avatar_type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_avatar_width" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_avatar_height" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_sig" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_sig_bbcode_uid" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="user_sig_bbcode_bitfield" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="user_from" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="user_icq" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="user_aim" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="user_yim" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="user_msnm" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="user_jabber" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="user_website" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="user_occ" Type="System.String" DbType="VarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="user_interests" Type="System.String" DbType="VarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="user_actkey" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="user_newpasswd" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="user_form_salt" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="phpbb_user_phpbb_session" Member="phpbb_sessions" ThisKey="user_id" OtherKey="session_user_id" Type="phpbb_session" />
+    </Type>
+  </Table>
+  <Table Name="dbo.phpbb_user_group" Member="phpbb_user_groups">
+    <Type Name="phpbb_user_group">
+      <Column Name="group_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="group_leader" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_pending" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.phpbb_posts" Member="phpbb_posts">
+    <Type Name="phpbb_post">
+      <Column Name="post_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="topic_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="forum_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="poster_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="icon_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="poster_ip" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="post_time" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_approved" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_reported" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="enable_bbcode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="enable_smilies" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="enable_magic_url" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="enable_sig" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_username" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="post_subject" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="post_text" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="post_checksum" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="post_attachment" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="bbcode_bitfield" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="bbcode_uid" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="post_postcount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_edit_time" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_edit_reason" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="post_edit_user" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_edit_count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_edit_locked" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="phpbb_post_phpbb_report" Member="phpbb_reports" ThisKey="post_id" OtherKey="post_id" Type="phpbb_report" />
+    </Type>
+  </Table>
+  <Table Name="dbo.phpbb_sessions" Member="phpbb_sessions">
+    <Type Name="phpbb_session">
+      <Column Name="session_id" Type="System.String" DbType="Char(32) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="session_user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="session_forum_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="session_last_visit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="session_start" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="session_time" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="session_ip" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="session_browser" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="session_forwarded_for" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="session_page" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="session_viewonline" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="session_autologin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="session_admin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="phpbb_user_phpbb_session" Member="phpbb_user" ThisKey="session_user_id" OtherKey="user_id" Type="phpbb_user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.phpbb_config" Member="phpbb_configs">
+    <Type Name="phpbb_config">
+      <Column Name="config_name" Type="System.String" DbType="VarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="config_value" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="is_dynamic" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

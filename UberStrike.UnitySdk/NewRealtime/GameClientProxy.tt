@@ -1,0 +1,163 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="$(SolutionDir)T4Helper/bin/Debug/T4Helper.dll" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#
+	T4Utils.WriteLine = this.WriteLine;
+	T4Utils.FileHeader();
+#>
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Cmune.Util;
+using UberStrike.Core.Serialization;
+<#
+	var metaData = RealtimeAttributeParser.GetRpcInterfaces((IServiceProvider)this.Host, "Uberstrike.Realtime.GameServer");
+
+	List<RpcInterfaceView> allOperationInterfaces = new List<RpcInterfaceView>();
+	allOperationInterfaces.AddRange(metaData.ServerOperations);
+	allOperationInterfaces.AddRange(metaData.RoomOperations);
+
+	List<RpcInterfaceView> allEvents = new List<RpcInterfaceView>();
+	allEvents.AddRange(metaData.ServerEvents);
+	allEvents.AddRange(metaData.RoomEvents);
+	
+#>
+
+namespace UberStrike.Realtime.Client
+{
+<#	
+	foreach(var operation in allOperationInterfaces)
+	{
+		string clientPeerBaseClassName = "";
+		if(!string.IsNullOrEmpty(operation.Interface))
+		{
+			clientPeerBaseClassName = operation.GetClassPrefix();
+		}
+#>
+    public sealed class <#=operation.GetClassPrefix()#>Operations : IOperationSender
+    {
+		public event Func<byte, Dictionary<byte, object>, bool, bool> SendOperation;
+		
+        public <#=operation.GetClassPrefix()#>Operations()
+        { }
+
+<#
+		foreach (var method in operation.NetworkMethods)
+    	{
+#>
+        public void Send<#=method.Name#>(<#=method.ArgPrint()#>)
+        {
+			using(MemoryStream stream = new MemoryStream())
+			{
+<#
+				for(int i=0; i < method.Arguments.Count; i++)
+				{
+#>
+				UberStrike.Core.Serialization.<#=Serialization.GetProxyName(method.Arguments[i].Key, method.ArgumentKinds[i])#>.Serialize(stream, <#=method.Arguments[i].Value#><#=Serialization.GetSerializeArguments(method.Arguments[i].Key)#>);
+<#
+				}
+#>
+				var _data = new Dictionary<byte, object>()
+				{
+					{ 0, stream.ToArray() }
+				};
+				if(SendOperation != null) SendOperation(<#=method.MethodId#>, _data, true);
+			}
+        }
+
+<#
+		}
+#>
+	}
+
+<#
+	}
+
+	
+	foreach(var e in allEvents)
+	{
+		if(metaData.ServerEvents.Contains(e))
+		{
+#>
+    public abstract class Base<#=e.GetClassPrefix()#> : BasePeer, IEventDispatcher
+    {
+		public <#=e.GetClassPrefix()#>Operations Operations { get; private set; }
+
+        protected Base<#=e.GetClassPrefix()#>(int syncFrequency) 
+			: base(syncFrequency)
+		{ 
+			Operations = new <#=e.GetClassPrefix()#>Operations();
+
+            AddRoomLogic(this, Operations);
+		}
+<#
+		}
+		else
+		{
+#>
+	public abstract class Base<#=e.GetClassPrefix()#> : IEventDispatcher
+    {
+		public <#=e.GetClassPrefix()#>Operations Operations { get; private set; }
+
+        protected Base<#=e.GetClassPrefix()#>() 
+		{ 
+			Operations = new <#=e.GetClassPrefix()#>Operations();
+		}
+<#
+		}
+#>
+
+		public void OnEvent(byte id, byte[] data)
+        {
+            switch (id)
+			{
+<#
+		int counter = 0;
+		foreach (var method in e.NetworkMethods)
+    	{
+#>
+				case <#=method.MethodId#>: <#=method.Name#>(data); break;
+<#
+		}
+#>
+            }
+        }
+	
+<#
+		foreach (var method in e.NetworkMethods)
+    	{	
+#>
+		protected abstract void On<#=method.Name#>(<#=method.ArgPrint()#>);
+
+<#
+		}
+
+		foreach (var method in e.NetworkMethods)
+    	{	
+#>
+    	private void <#=method.Name#>(byte[] _bytes)
+        {
+			using(MemoryStream stream = new MemoryStream(_bytes))
+			{
+<#
+			for(int arg=0; arg<method.Arguments.Count; arg++)
+			{
+#>
+        		<#=method.Arguments[arg].Key#> <#=method.Arguments[arg].Value#> = <#=Serialization.GetProxyName(method.Arguments[arg].Key, method.ArgumentKinds[arg])#>.Deserialize(stream<#=Serialization.GetDeserializeArguments(method.Arguments[arg].Key)#>);
+<#
+			}
+#>
+            	On<#=method.Name#>(<#=method.NamePrint()#>);
+			}
+        }
+		
+<#
+		}
+#>
+	}
+	
+<#
+	}
+#>
+}

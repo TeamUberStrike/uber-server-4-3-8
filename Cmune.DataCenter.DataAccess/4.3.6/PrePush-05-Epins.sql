@@ -1,0 +1,31 @@
+﻿USE [Cmune]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Epins](
+	[EpinId] [int] IDENTITY(1,1) NOT NULL,
+	[Pin] [nvarchar](32) NOT NULL,
+	[IsRedeemed] [bit] NOT NULL,
+	[BatchId] [int] NOT NULL,
+	[IsRetired] [bit] NOT NULL,
+ CONSTRAINT [PK_Epins] PRIMARY KEY CLUSTERED 
+(
+	[EpinId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Epins]  WITH CHECK ADD  CONSTRAINT [FK_Epins_EpinBatches] FOREIGN KEY([BatchId])
+REFERENCES [dbo].[EpinBatches] ([BatchId])
+GO
+
+ALTER TABLE [dbo].[Epins] CHECK CONSTRAINT [FK_Epins_EpinBatches]
+GO
+
+

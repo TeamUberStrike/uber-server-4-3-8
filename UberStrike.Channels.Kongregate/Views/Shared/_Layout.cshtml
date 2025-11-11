@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @Html.KongregateChannelCssFile(Url)
+    @RenderSection("HeaderCss", false)
+    <style type="text/css">
+        html
+        {
+            border: none;
+            overflow: hidden;
+            height: 100%;
+        }
+        body
+        {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    @Html.KongregateChannelJavaScriptFile(Url)
+    <script type="text/javascript">
+        var MainMenuTab_CurrentTab = '@MenuHelper.Tab.Play';
+        var MainMenuTab_CompleteEmail = '@MenuHelper.Tab.CompleteEmail';
+        var MainMenuTab_ItemBundles = '@MenuHelper.Tab.ItemBundles';
+        var MainMenuTab_CreditBundles = '@MenuHelper.Tab.CreditBundles';
+        var MainMenuTab_Play = '@MenuHelper.Tab.Play';
+        var MainMenuTab_Profile = '@MenuHelper.Tab.Profile';
+        var MainMenuTab_Ranking = '@MenuHelper.Tab.Ranking';
+        var ApplicationUrl = "@Url.AppBaseUrl()";
+        var RefreshTopMenuUrl = '@Url.Action("GetTopMenu", "Home")';
+        var kongregate = parent.kongregate;
+
+        function requestUserBundle() {
+            kongregate.mtx.requestUserItemList(null, onUserItems);
+        }
+
+        // The callback function
+        function onUserItems(result) {
+            console.log("User item list received, success: " + result.success);
+            if (result.success) {
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+                    console.log((i + 1) + ". " + item.identifier + ", " + item.id + "," + item.data);
+                }
+            }
+        }
+
+    </script>
+    @RenderSection("HeaderJavaScript", false)
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            @RenderSection("MenuSection", false)
+        </div>
+        <div id="main">
+            <div id="MainPageContainer" style="float: left; width: 100%">
+                @RenderBody()
+            </div>
+            <div id="OtherPageContainer">
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+<script type="text/javascript">
+    (function(w, d) { var a = function() { var a = d.createElement('script'); a.type = 'text/javascript';
+        a.async = 'async'; a.src = '//' + ((w.location.protocol === 'https:') ? 's3.amazonaws.com/cdx-radar/' :
+        'radar.cedexis.com/') + '01-10332-radar10.min.js'; d.body.appendChild(a); };
+        if (w.addEventListener) { w.addEventListener('load', a, false); }
+        else if (w.attachEvent) { w.attachEvent('onload', a); }
+    }(window, document));
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿<div class="main_page_frame" >
+    <div class="main_page_content">
+        <a href="" class="darkGray" onclick="LoadHomePage(); return false;">Go back to Game</a>
+        <br />
+        <br />
+        <div style="position: relative;">
+          <img src="@Url.Image("loader.gif")" style="position: absolute; left:40px; top: 40px; text-align: center;" id="frameloader"/>
+          </div>
+        <div style="text-align: center; height: 880px;">
+            <iframe onload="$('#frameloader').hide();" src="@Url.CommonChannelUrl()Profile?cmid=@(ViewBag.Cmid)&channelType=@(ChannelType.WebFacebook)&appCallbackUrl=@Url.Encode(Facebook.FacebookApplication.Current.CanvasPage + "Profile")" allowtransparency="true" frameborder="0" width="728" height="880" scrolling="no"></iframe>
+        </div>
+    </div>
+</div>

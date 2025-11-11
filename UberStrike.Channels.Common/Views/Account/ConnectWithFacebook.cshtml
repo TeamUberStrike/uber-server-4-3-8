@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Connect with Facebook";
+}
+@if (ViewBag.IsSuccess != null && (bool)ViewBag.IsSuccess)
+{
+    <script type="text/javascript">
+        parent.ReloadPage();
+    </script>
+}
+else
+{
+    <div id="uberstrikePanel">
+        <div id="screen">
+            <div id="block" style="font-weight: bold">
+                <p class="h1title">
+                    Sorry we could'nt find you on facebook
+                </p>
+                <p class="grey">
+                Please visit our <a href="@CommonConfig.CmuneSupportCenterUrl" style="color:#FEC42C" target="_blank">support center</a>
+                </p>
+                <br />
+                @Html.Button("validateLink", "Go back", "bigRedWhite", "window.location.href='" + Url.Action("ConnectWith", "Account", new { channel = Model.ChannelType, h = Model.Hash }) + "';")
+                <br />
+            </div>
+        </div>
+    </div>   
+}

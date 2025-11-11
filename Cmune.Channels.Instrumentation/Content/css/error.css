@@ -1,0 +1,9 @@
+﻿@import url("util.css");
+body {
+  background-color: #242424;
+  color: #FFFFFF;
+	font-size: 14px;
+	font-family: segoe ui, Arial,Helvetica,sans-serif;
+	margin: 0px;
+	padding: 0px;
+}

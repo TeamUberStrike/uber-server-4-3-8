@@ -1,0 +1,35 @@
+﻿@model List<ModerationActionView>
+
+@if (Model != null && Model.Count > 0)
+{
+    int i = 0;
+
+    <table class="currentInventory searchResultTable" style="width:99%; margin:25px 0 25px 0;">
+        <tr>
+            <th>Date</th>
+            <th>Moderator</th>
+            <th>Type</th>
+            <th style="width:40%">Details</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var note in Model) {
+        <tr class="@((i % 2) == 1 ? "mod" : "")">
+            <td>@note.ActionDate.ToNiceDisplay(true)</td>
+            <td id="sourceName@(note.ModerationActionId)Td">@note.SourceName</td>
+            <td id="actionType@(note.ModerationActionId)Td">@note.ActionType.ToString()</td>
+            <td id="reason@(note.ModerationActionId)Td">@note.Reason</td>
+            <td id="editMemberNote@(note.ModerationActionId)Td">
+                <a id="editMemberNote@(note.ModerationActionId)Link" href="#" onclick="displayEditMemberNote(@note.ModerationActionId, @note.SourceCmid, @((int) note.ActionType), '@TextUtilities.ConvertTextForJavaScript(note.Reason)', memberNoteAdminNamesDdl, memberNoteActionTypesDdl); return false;"><img src="@Url.Content("~/Content/img/b_edit.png")" alt="Edit note" /></a>
+                <span id="editMemberNote@(note.ModerationActionId)Span"></span>
+            </td>
+            <td id="deleteMemberNote@(note.ModerationActionId)Td">
+                <a id="deleteMemberNote@(note.ModerationActionId)Link" href="#" onclick="deleteMemberNote(@note.ModerationActionId, memberNoteLoadingImage); return false;"><img src="@Url.Content("~/Content/img/b_drop.png")" alt="Delete note" /></a>
+            </td>
+        </tr>
+            i++;
+            }
+    </table>
+} else {
+    <p style="margin:25px 0 25px 0;">This member doesn't have any note.</p>
+}

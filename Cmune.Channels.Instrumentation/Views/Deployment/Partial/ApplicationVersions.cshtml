@@ -1,0 +1,65 @@
+﻿@model List<ApplicationVersionViewModel>
+<table class="searchResultTable">
+    <tr class="alignleft">
+        <th>
+            Channel
+        </th>
+        <th>
+            Version
+        </th>
+        <th>
+            Filename
+        </th>
+        <th>
+            Modified
+        </th>
+        <th>
+            Photon Cluster
+        </th>
+        <th>
+            Enabled
+        </th>
+        <th>
+            Warn Player
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+    </tr>
+    @{int i = 0;}
+    @foreach (var applicationVersion in Model)
+    {
+        <tr class="@(i % 2 == 1 ? "mod" : "") @(applicationVersion.IsEnabled ? "" : "gray")">
+            <td>
+                @applicationVersion.Channel
+            </td>
+            <td>
+                @applicationVersion.Version
+            </td>
+            <td>
+                @(CommonConfig.WebChannels.Contains(applicationVersion.Channel) || CommonConfig.StandaloneChannels.Contains(applicationVersion.Channel) ? applicationVersion.WebPlayerFileName : "N/A")
+            </td>
+            <td>
+                @applicationVersion.ModificationDate.ToNiceDisplay(false)
+            </td>
+            <td>
+                @applicationVersion.PhotonClusterName
+            </td>
+            <td>
+                @Html.CheckBox(String.Format("isEnabled{0}", applicationVersion.ApplicationVersionId), applicationVersion.IsEnabled, new { onchange = String.Format("updateApplicationVersionIsEnabled({0});", applicationVersion.ApplicationVersionId) })
+            </td>
+            <td>
+                @Html.CheckBox(String.Format("warnPlayer{0}", applicationVersion.ApplicationVersionId), applicationVersion.WarnPlayer, new { onchange = String.Format("updateApplicationVersionWarnPlayer({0});", applicationVersion.ApplicationVersionId) })
+            </td>
+            <td>
+                <a href="#" onclick="loadApplicationVersionForm('@Url.Action("LoadApplicationVersionEditForm")', 'Edit Application Version', @applicationVersion.ApplicationVersionId); return false;">@Html.EditImage(Url, "Edit version")</a>
+            </td>
+            <td>
+                <a href="#" onclick="deleteApplicationVersion('@Url.Action("DeleteApplicationVersion")', @applicationVersion.ApplicationVersionId); return false;">@Html.DeleteImage(Url, "Delete version")</a>
+            </td>
+        </tr>
+     
+        i++;
+    }
+</table>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CmuneMonitoring" Class="CmuneMonitoringDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.ManagedServerMonitoring" Member="ManagedServerMonitorings">
+    <Type Name="ManagedServerMonitoring">
+      <Column Name="ManagedServerMonitoringId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CPUUsage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RamUsage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReportTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="BandwidthUsage" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="DiskUsage" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ManagedServerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ManagedServer_ManagedServerMonitoring" Member="ManagedServer" ThisKey="ManagedServerId" OtherKey="ManagedServerID" Type="ManagedServer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UnityExceptions" Member="UnityExceptions">
+    <Type Name="UnityException">
+      <Column Name="UnityExceptionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExceptionType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ExceptionMessage" Type="System.String" DbType="NVarChar(600) NOT NULL" CanBeNull="false" />
+      <Column Name="Cmid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Build" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExceptionTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Stacktrace" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="StacktraceHash" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="FaultiveFunction" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ExceptionData" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="BuildNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ManagedServers" Member="ManagedServers">
+    <Type Name="ManagedServer">
+      <Column Name="ManagedServerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ServerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Role" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="PublicIP" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="PrivateIP" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="NextPollTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsDisable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ServerIDC" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Region" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CPUModel" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CPUSpeed" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CPUs" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CPUCore" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DiskSpace" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="RAM" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AllowedBandwidth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="DeploymentTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Association Name="ManagedServer_ManagedServerMonitoring" Member="ManagedServerMonitorings" ThisKey="ManagedServerID" OtherKey="ManagedServerId" Type="ManagedServerMonitoring" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhotonMonitoringDetails" Member="PhotonMonitoringDetails">
+    <Type Name="PhotonMonitoringDetail">
+      <Column Name="PhotonMonitoringDetailId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CpuUtilization" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RamUtilization" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstanceRamMb" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PeerCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StatDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="InstanceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PhotonMonitoringInstance_PhotonMonitoringDetail" Member="PhotonMonitoringInstance" ThisKey="InstanceId" OtherKey="PhotonMonitoringInstanceId" Type="PhotonMonitoringInstance" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhotonMonitoringInstances" Member="PhotonMonitoringInstances">
+    <Type Name="PhotonMonitoringInstance">
+      <Column Name="PhotonMonitoringInstanceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InstanceName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="VersionNumber" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="InstanceIp" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="InstancePort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PhotonMonitoringInstance_PhotonMonitoringDetail" Member="PhotonMonitoringDetails" ThisKey="PhotonMonitoringInstanceId" OtherKey="InstanceId" Type="PhotonMonitoringDetail" />
+    </Type>
+  </Table>
+</Database>

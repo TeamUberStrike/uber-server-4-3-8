@@ -1,0 +1,23 @@
+﻿@model FacebookUserModel
+<div id="uberstrikeMenu">
+     <a id="@Menu.MainTab.Home" onclick="LoadHomePage(); return false;" href="" class="tab  silver selectedTab">
+            Play</a> <a id="@Menu.MainTab.Friend" href="" onclick="LoadInviteFriendsPage(); return false;" class="tab  silver">
+                Invite Friends</a>
+    @if ((bool)Model.IsAuthenticated)
+    {
+        <a href="" id="@Menu.MainTab.Credit" onclick="LoadGetCreditsPage(); return false;" class="tab  orangeBlack">
+            Get Credits</a>
+    
+        <a href="" id="@Menu.MainTab.Offer" onclick="LoadOfferPage(); return false;" class="tab  silver">
+            Earn Free Credits</a>
+        <a href="" id="@Menu.MainTab.Bundle" onclick="LoadBundlePage(); return false;" class="tab  redWhite">
+            <span class="flame"></span>Hot Deals</a>
+@*        <a href="" id="@Menu.MainTab.RedeemEPin" onclick="LoadRedeemEpinPage(); return false;" class="tab silver">
+            Redeem ePin </a>
+        </a>*@
+        <a href="" id="@Menu.MainTab.Profile" onclick="LoadProfilePage(); return false;" class="tab  silver">
+            Profile</a>
+        <a href="" id="@Menu.MainTab.Ranking" onclick="LoadRankingPage(); return false;" class="tab  silver">
+            Ranking</a>
+    }
+</div>

@@ -1,0 +1,59 @@
+﻿@model List<ItemInventoryDisplay>
+<div id="MemberInventory">
+    @if (Model.Count > 0)
+    {
+        int i = 0;
+        <table class="currentInventory searchResultTable">
+            <tr>
+                <th>
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Expiration Date
+                </th>
+                <th>
+                    Amount remaining
+                </th>
+                <th>
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr class="@(i % 2 == 1 ? "mod" : "")">
+                    <td>
+                        @item.ItemId
+                    </td>
+                    <td class="@(item.ItemId == CommonConfig.PrivateerUberStrikeLicenseId ? "bold" : "")">
+                        @item.Name
+                    </td>
+                    <td>
+                        @Html.Raw(item.Expiration)
+                    </td>
+                    <td>
+                        @item.AmountRemaining
+                    </td>
+                    <td>
+                        <a href="#" onclick="deleteMemberItem(@item.ItemId); return false;">
+                            <img src="@Url.Content("~/Content/img/b_drop.png")" alt="Remove item" /></a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </table>
+    }
+    else
+    {
+        <p>
+            This member doesn't own any item.</p>
+    }
+
+    @if (ViewBag.IsParadisePaintballAccount)
+    {
+        <p style="margin-top:15px;"><a href="#" onclick="updateAccountToUberStrike(); return false;">Upgrade to UberStrike account</a></p>
+    }
+    <!--
+        @ViewBag.ElapsedMilliseconds
+    -->
+</div>

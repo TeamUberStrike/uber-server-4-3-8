@@ -1,0 +1,92 @@
+﻿.left
+{
+    float: left;
+}
+
+.right
+{
+    float: right;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.fleft
+{
+    float: left;
+}
+
+.fright
+{
+    float: right;
+}
+
+
+.warningMessage
+{
+    color: #F4A83D !important;
+    font-weight:bold;
+}
+
+.errorMessage
+{
+    color: red !important;
+    font-weight: bold;
+}
+.successMessage
+{
+    color: Green !important;
+    font-weight: bold;
+}
+
+.hide
+{
+    display: none;
+}
+
+.it
+{
+    font-style: italic;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.gray
+{
+    color: Gray;
+}
+
+.roundedCorner
+{
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.whiteC
+{
+    color: White;
+}
+
+.blackLine
+{
+    height: 1px;
+    border-top: 1px solid black;
+}
+
+.whiteLine
+{
+    height: 1px;
+    border-top: 1px solid white;
+}
+
+.greyLine
+{
+    height: 1px;
+    border-top: 1px solid #9F9F9F;
+}

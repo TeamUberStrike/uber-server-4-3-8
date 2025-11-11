@@ -1,0 +1,46 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = "_ErrorLayout.cshtml";
+}
+@{
+    ViewBag.Title = "Error";
+}
+<div id="errorPage">
+    <h2>
+        <img src="@Url.Image("panda.png")" alt="panda" />
+        Sorry, an error occurred and has been reported to our team.
+    </h2>
+    @{
+        var environement = Cmune.DataCenter.Utils.ConfigurationUtilities.ReadConfigurationManager("CmuneAPIKey", false);
+    }
+    @if (environement != null && environement == "dev")
+    {
+        if (Model != null)
+        {
+
+        <p>
+            <b>Message</b>:@Model.Exception.Message</p>
+        <p>
+            <b>Source</b>: @Model.Exception.Source</p>
+        <p>
+            <b>TargetSite</b>:@Model.Exception.TargetSite</p>
+        <p>
+            <b>Data</b>:@Model.Exception.Data</p>
+        <p>
+            <b>Stack Trace</b>: @Model.Exception.StackTrace
+        </p>
+        <p>
+            <b>InnerException</b>:@Model.Exception.InnerException
+        </p>
+        <p>
+            <b>HelpLink</b>:@Model.Exception.HelpLink
+        </p>
+        }
+        else
+        {
+        <p>
+            We can't have a track of the error cause HandleErrorInfo is null
+        </p>
+        }
+    }
+</div>

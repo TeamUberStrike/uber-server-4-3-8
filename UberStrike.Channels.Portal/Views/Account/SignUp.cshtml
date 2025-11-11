@@ -1,0 +1,90 @@
+﻿@model CompleteAccountModel
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<div id="SignUPPage">
+    <div class="panel_body">
+        <div>
+            <div>
+  
+                <div style="float: left; position: relative; padding: 50px;">
+                    <div class="left" style="width: 300px;">
+                        <h1>
+                            Create Account</h1>
+                        <br />
+                        <br />
+                        @if (ViewBag.SuccessMessage != null)
+                        {
+                            <p class="validation-summary-success">
+                                @ViewBag.SuccessMessage
+                            </p>
+                            <br />
+                            <script type="text/javascript">
+                        setTimeout("window.location.href = '@(Url.Action("", "Play"))'", 5000);
+                            </script>
+                        }
+                        <br />
+                        <form action="@Url.Action("SignUpGo")" method="post" id="signUpForm">
+                        <div>
+                            @{
+                    
+                                var emailModelState = ViewData.ModelState.Where(d => d.Key == "Email" && d.Value.Errors.Count > 0).FirstOrDefault();
+                            }
+                            <span class="littlelabel">Email</span><span class="errorMessage">@((emailModelState.Value != null) ? emailModelState.Value.Errors.First().ErrorMessage.ToString() : "")</span>
+                            <br />
+                            <br />
+                            @Html.TextBoxFor(d => d.Email, new { @class = "signupInput" })
+                        </div>
+                        <br />
+                        <br />
+                        <div>
+                            <span class="littlelabel">Password</span>
+                            <br />
+                            <br />
+                            @Html.PasswordFor(d => d.Password, new { @class = "signupInput" })
+                        </div>
+                        <br />
+                        <br />
+                        <div>
+                            @{
+                    
+                                var verifyPasswordModelState = ViewData.ModelState.Where(d => d.Key == "VerifyPassword" && d.Value.Errors.Count > 0).FirstOrDefault();
+                            }
+                            <span class="littlelabel">Verify Password</span><span class="errorMessage">@((verifyPasswordModelState.Value != null) ? verifyPasswordModelState.Value.Errors.First().ErrorMessage.ToString() : "")</span>
+                            <br />
+                            <br />
+                            @Html.PasswordFor(d => d.VerifyPassword, new { @class = "signupInput" })
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <a class="Continue" href="" onclick="$('#signUpForm').submit(); return false;">Play
+                            for Free</a>
+                        <br />
+                        <br />
+                        <p class="termsOfService">
+                            By clicking "Play for Free", you have read and agree to our <a href="http://www.cmune.com/index.php/terms-of-service/"
+                                target="_blank" class="uberstrikeYellow">Terms of service</a>
+                        </p>
+                        </form>
+                    </div>
+                    <div class="left" style="width: 70px">
+                        <span style="position: relative; top: 171px;">OR</span>
+                    </div>
+                    <div class="left" style="width: 270px">
+                        <div class="facebookConnect">
+                            <p>
+                                You can also use your facebook<br />
+                                account and start playing faster.</p><br /><br /><br />
+                            <span><a id="fb-auth" onclick="facebooklogin(); return false;" href="">@Html.ImageTag(Url, "facebook-connect-button.png")</a></span>
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />

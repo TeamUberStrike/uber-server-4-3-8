@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B985E205-E3AE-43C1-8125-4E4CD1827493}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UberStrike.Channels.Utils</RootNamespace>
+    <AssemblyName>UberStrike.Channels.Utils</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EcmaScript.NET.modified, Version=0.1.1.0, Culture=neutral, PublicKeyToken=7d53ba4f537753a5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Yahoo.Yui.Compressor\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\References\FacebookSdk\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Web">
+      <HintPath>..\References\FacebookSdk\Facebook.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Yahoo.Yui.Compressor, Version=1.5.0.0, Culture=neutral, PublicKeyToken=f8b4b81ec75097e2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Yahoo.Yui.Compressor\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthenticationManager.cs" />
+    <Compile Include="ChannelRuntimeCache.cs" />
+    <Compile Include="Helpers\HtmButtonsHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\HtmlBaseHelper.cs" />
+    <Compile Include="Helpers\HtmlStringHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\MediaHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\PaginationHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\SummaryHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\TopLoaderHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UrlHelperExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\KongregateUserModel.cs" />
+    <Compile Include="SessionVariables.cs" />
+    <Compile Include="FacebookSdkWrapper.cs" />
+    <Compile Include="FilterProvider.cs" />
+    <Compile Include="Models\FacebookUserModel.cs" />
+    <Compile Include="Models\UserProfileModel.cs" />
+    <Compile Include="PaginationModel.cs" />
+    <Compile Include="TransactionType.cs" />
+    <Compile Include="UnityArgsBuilder.cs" />
+    <Compile Include="HttpContextFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomString.cs" />
+    <Compile Include="ScriptCombiner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cmune.Core.Models\Cmune.Core.Models.csproj">
+      <Project>{52BFDE82-2E5E-4BF7-A0A3-492C2962A5A7}</Project>
+      <Name>Cmune.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.Business\Cmune.DataCenter.Business.csproj">
+      <Project>{86B8C51C-EFD0-403A-89AA-62911F5D72C9}</Project>
+      <Name>Cmune.DataCenter.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.DataAccess\Cmune.DataCenter.DataAccess.csproj">
+      <Project>{109DC74A-FA20-4260-B233-4CDCA3B103D0}</Project>
+      <Name>Cmune.DataCenter.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cmune.DataCenter.Utils\Cmune.DataCenter.Utils.csproj">
+      <Project>{AB5D0AA6-E5B8-4F3D-9340-8047A5C4BE88}</Project>
+      <Name>Cmune.DataCenter.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.Core.Models\UberStrike.Core.Models.csproj">
+      <Project>{E55E0833-752C-4250-A161-DAF2A72F7868}</Project>
+      <Name>UberStrike.Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.Business\UberStrike.DataCenter.Business.csproj">
+      <Project>{4377E35E-FB9D-4C2C-961C-201D72CF411C}</Project>
+      <Name>UberStrike.DataCenter.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.DataAccess\UberStrike.DataCenter.DataAccess.csproj">
+      <Project>{D28992B7-2755-4789-B6FE-83FF5AAB0CCB}</Project>
+      <Name>UberStrike.DataCenter.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberStrike.DataCenter.Utils\UberStrike.DataCenter.Utils.csproj">
+      <Project>{85E49673-69F7-41EB-92D3-E0BE04402C3D}</Project>
+      <Name>UberStrike.DataCenter.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

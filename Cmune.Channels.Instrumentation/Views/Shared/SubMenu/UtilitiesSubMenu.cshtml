@@ -1,0 +1,4 @@
+﻿<div id="statsMenu" class="Menu">
+    <a href="@Url.Action("Index", "Utility")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.UtilitiesSubTabs.Email.ToString() ? "submenuActiveTab" : "")">Email</a>
+    <a href="@Url.Action("Index", "AdminMember")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.UtilitiesSubTabs.AdminMember.ToString() ? "submenuActiveTab":"")">Admin Members</a>
+</div>

@@ -1,0 +1,156 @@
+﻿@model BundleView
+@{
+    var ItemViews = (List<ItemView>)ViewBag.ItemViews;
+}
+<form id="addEditBundleForm" action="" method="post">
+@Html.HiddenFor(m => m.Id)
+<div>
+    <div>
+        <div class="label">
+            Name:
+        </div>
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+    <div>
+        <div class="label">
+            ImageUrl:
+        </div>
+        @Html.TextBoxFor(m => m.ImageUrl, new { style = "width:300px;" })
+    </div>
+    <div>
+        <div class="label">
+            LogoName:
+        </div>
+        @Html.TextBoxFor(m => m.IconUrl, new { style = "width:300px;" })
+    </div>
+    <div>
+        <div class="label">
+            Description:
+        </div>
+        @Html.TextAreaFor(m => m.Description, new { style = "width:300px; height:100px;" })
+    </div>
+    <div>
+        <div class="label">
+            USD Price:
+        </div>
+        @Html.TextBoxFor(m => m.USDPrice)
+    </div>
+    <div>
+        <div class="label">
+            Is On Sale:
+        </div>
+        @Html.CheckBoxFor(m => m.IsOnSale)
+    </div>
+    <div>
+        <div class="label">
+            Is Default:
+        </div>
+        @Html.CheckBoxFor(m => m.IsDefault)
+    </div>
+    <div>
+        <div class="label">
+            Category:
+        </div>
+        @if (Model != null)
+        {
+            @Html.DropDownListFor(m => m.Category, ((List<SelectListItem>)ViewBag.BundleCategorySelect))
+        }
+        else
+        {
+            @Html.DropDownListFor(m => m.Category, ((List<SelectListItem>)ViewBag.BundleCategorySelect))
+        }
+    </div>
+    <div>
+        <div class="label">
+            Promotion tag:
+        </div>
+        @Html.TextBoxFor(m => m.PromotionTag)
+    </div>
+    <div>
+        <div class="label">
+            Mac Store Id:
+        </div>
+        @Html.TextBoxFor(m => m.MacAppStoreUniqueId)
+        Do not change this
+    </div>
+    <div>
+        <div class="label">
+            iOS Store Id:
+        </div>
+        @Html.TextBoxFor(m => m.IosAppStoreUniqueId)
+        Must match iTunesConnect exactly
+    </div>
+    <br />
+    <fieldset style="border: 1px #CCCCCC solid !important; width: 230px; float: left;">
+        <legend>Contains</legend>
+        <div>
+            <div class="label">
+                Points:</div>
+            @Html.TextBoxFor(m => m.Points, new { style = "width:50px;" })
+        </div>
+        <div>
+            <div class="label">
+                Credits:</div>
+            @Html.TextBoxFor(m => m.Credits, new { style = "width:50px;" })
+        </div>
+        Items:
+        <div id="BundleItemsField">
+            @if (Model != null)
+            {
+                @Html.Label("Item ID  -  ")
+                @Html.Label("DurationType  -  ")
+                @Html.Label("Amount")
+                int i = 0;
+                while (i < Model.BundleItemViews.Count)
+                {
+                <div>
+                    @Html.TextBox("OwnedItem" + Model.BundleItemViews[i].ItemId, Model.BundleItemViews[i].ItemId, new { style = "width:40px;" })
+                    @Html.DropDownList("OwnedDuration" + Model.BundleItemViews[i].ItemId, ((List<SelectListItem>)ViewBag.BuyingDurationTypeList).SetSelectValue(((int)Model.BundleItemViews[i].Duration).ToString()))
+                    @Html.TextBox("OwnedAmount" + Model.BundleItemViews[i].ItemId, Model.BundleItemViews[i].Amount, new { style = "width:20px;" })
+                </div>
+                    i++;
+                }
+            }
+        </div>
+        <input type="button" onclick='AddBundleItemField("", @ViewBag.BuyingDurationTypeJsonList);' value="Add Item" />
+        <br />
+        <br />
+    </fieldset>
+    <fieldset style="border: 1px #CCCCCC solid !important; width: 200px; float: left;
+        margin-left: 15px; text-align: center;">
+        <legend>Available on:</legend>
+        <div style="text-align: left; margin-bottom: 15px;">
+            @foreach (ChannelType activeChannel in CommonConfig.ActiveChannels)
+            {
+                bool isAvailable = false;
+
+                if (Model != null)
+                {
+                    isAvailable = Model.Availability.Contains(activeChannel);
+                }
+               
+                @Html.CheckBox(String.Format("ActiveOnChannel{0}", (int)activeChannel), isAvailable, new { @class = "ActiveOnChannel" })
+                <label for="ActiveOnChannel@((int)activeChannel)">
+                    @activeChannel</label><br />
+            }
+        </div>
+        <a href="#" onclick="$('.ActiveOnChannel').attr('checked', true); return false;"
+            style="">Select all</a>
+    </fieldset>
+    <div>
+    </div>
+    <div class="clear">
+    </div>
+    <br />
+    <div style="margin-top: 30px; text-align: center;">
+        @if (Model != null)
+        {
+            <input id="bundleSubmitButton" type="button" onclick="AddEditBundleGo();" value="Modify" />
+        }
+        else
+        {
+            <input id="bundleSubmitButton" type="button" onclick="AddEditBundleGo();" value="Create the pack" />
+        }
+    </div>
+</div>
+</form>

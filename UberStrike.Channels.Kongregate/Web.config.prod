@@ -1,0 +1,104 @@
+﻿<?xml version="1.0"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=152368
+  -->
+
+<configuration>
+  <configSections>
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog"/>
+    <section name="sendGridSettings" type="SendGridSdk.Models.SendGridConfigurationSection, SendGridSdk" />
+  </configSections>
+
+  <appSettings>
+    <add key="webpages:Version" value="1.0.0.0"/>
+    <add key="ClientValidationEnabled" value="true"/>
+    <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+    <add key="CommonChannel" value="http://kg.uberstrike.com/CommonChannel/"/>
+    <add key="ImagesRoot" value="http://distro.client.cloud.cmune.com/UberStrike/CommonChannel/images/"/>
+    <add key="CommonVideoRoot" value="http://distro.client.cloud.cmune.com/UberStrike/CommonChannel/videos/"/>
+    <add key="DefaultCulture" value="en-US"/>
+    <add key="UnityBuild" value="1"/>
+    <add key="InstrumentationWsBaseUrl" value="http://ws.admin.cmune.com/@ApiVersion/Cmune.svc/" />
+    <add key="PublishVersion" value="@PublishVersion"/>
+    <add key="UnityWebPlayerUrl" value=""/>
+    <add key="NLogSource" value="13" />
+    <add key="NLogBuild" value="0" />
+    <add key="Environment" value="prod" />
+    <add key="CmuneAPIKey" value="prod" />
+    <add key="appsAPIKey" value="prod" />
+    <add key="PhpBBSecretKey" value="123"/>
+    <add key="CookieDomainName" value=".uberstrike.com" />
+    <add key="KongregateCookieName" value="cmuneKongregateCookie" />
+    <add key="CmunePassPhrase" value="s2a542av1a5d21" />
+    <add key="CmuneInitVector" value="C15netodx9234d67" />
+    <add key="GameId" value="139154"/>
+    <add key="APIKey" value="ea350721-2ca2-40c9-86d0-e05f7fc29efa"/>
+    <add key="GuestAccessKey" value="b4b818389d1dd59156e6f38fd499fbb1a65a635f68704b8e80beb0a1c55f3855"/>
+    <add key="AuthenticationEncryptPassPhrase" value="s2a542av1a5d21" />
+    <add key="AuthenticationEncryptInitVector" value="C15netodx9234d67"/>
+    <add key="LocalhostIP" value="127.0.0.1" />
+    <add key="CustomLogPath" value="X:/Logs/"/>
+    <add key="CustomLogIsEnable" value="True" />
+    <add key="PortalUrl" value="http://uberstrike.cmune.com/"/>
+  </appSettings>
+
+  <sendGridSettings smtpServer="smtp.sendgrid.net"
+                  apiUser="Cmune"
+                  apiKey="cmune$1" />
+
+  <nlog autoReload="true" throwExceptions="true" xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <targets async="true">
+      <target name="mail" xsi:type="Mail" smtpServer="67.228.44.4" from="noreply@cmune.com" to="logger@cmune.com" subject="[NLog][KongregateChannel][${event-context:environment}][${event-context:logTime}]" body="&lt;b&gt;Log Type Name&lt;/b&gt;: ${event-context:logTypeName}&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Error Location&lt;/b&gt;: ${event-context:errorLocation}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Error&lt;/b&gt;: ${event-context:error}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Incoming Datas&lt;/b&gt;: ${event-context:incomingDatas}&lt;br /&gt;" html="true"/>
+      <target name="file" xsi:type="File" layout="${event-context:logTime} ${event-context:info} " fileName="${event-context:fileName}" />
+    </targets>
+    <rules>
+      <logger name="*" level="Info" writeTo="file"/>
+      <logger name="*" level="Debug" writeTo="mail"/>
+      <logger name="*" level="Warn" writeTo="mail"/>
+      <logger name="*" level="Error" writeTo="mail"/>
+    </rules>
+  </nlog>
+
+  <system.web>
+    <compilation debug="true" targetFramework="4.0">
+      <assemblies>
+        <add assembly="System.Web.Abstractions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+      </assemblies>
+    </compilation>
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/LogOn" name="UberStrike_Kongregate" timeout="2880" />
+    </authentication>
+
+    <sessionState cookieName="UberStrike_Kongregate_Session" />
+    </customErrors>
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages"/>
+      </namespaces>
+    </pages>
+  </system.web>
+
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false"/>
+    <modules runAllManagedModulesForAllRequests="true"/>
+  </system.webServer>
+
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-2.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

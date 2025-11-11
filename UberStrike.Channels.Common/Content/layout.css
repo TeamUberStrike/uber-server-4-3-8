@@ -1,0 +1,475 @@
+﻿body
+{
+    font-size: 0.8em;
+    font-family: "Segoe Ui" , "Arial" , "Helvetica" , "Verdana" , "sans-serif" , "Helvetica Neue" , "Lucida Grande";
+    margin: 0px;
+    padding: 0px;
+}
+
+#page
+{
+}
+
+p
+{
+    padding: 6px 0px;
+}
+
+#creditBundlePage
+{
+    /* background-color: #414141;*/
+}
+
+#creditBundlePage .header
+{
+    height: 37px;
+    line-height: 37px;
+    color: #a6a6a6;
+}
+
+
+#creditBundlePage .worflowTree
+{
+    height: 35px;
+    background-color: #313131;
+    color: #a6a6a6;
+}
+
+#creditBundlePage .worflowTree .step
+{
+    float: left;
+    line-height: 25px;
+    margin: 5px 30px 0px 10px;
+    background-repeat: no-repeat;
+    background-image: url("/CommonChannel/Content/images/opacBtn.png");
+}
+
+#creditBundlePage .worflowTree .step .num
+{
+    width: 25px;
+    height: 25px;
+    line-height: 23px;
+    color: #363636;
+    font-weight: bold;
+    text-align: center;
+}
+
+#creditBundlePage .worflowTree .step.selected
+{
+    color: #D3A60C;
+    background-image: url("/CommonChannel/Content/images/yellowBtn.png");
+}
+
+#creditBundlePage .worflowTree .step span
+{
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+#creditBundlePage #paymentStep
+{
+    /*    min-height: 120px;     border: black;     padding: 10px;*/
+}
+
+#creditBundlePage #paymentStep .pack
+{
+    width: 204px;
+    height: 177px;
+    float: left;
+    margin: 4px;
+    border: 1px #6A6A6A solid;
+}
+
+#creditBundlePage #paymentStep .pack .packTitle
+{
+    position: absolute;
+    top: 0px;
+    width: 204px;
+    text-align: center;
+    color: White;
+    background: url("/CommonChannel/Content/images/opacity70.png");
+}
+
+
+
+#creditBundlePage #paymentStep .pack .packTitle .price
+{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0px;
+}
+
+
+#creditBundlePage #paymentStep .pack .packTitle .price img
+{
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
+}
+
+#creditBundlePage #paymentStep .pack .packTitle .bonus
+{
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 5px;
+    color: #FFC600;
+    font-weight: bold;
+}
+
+#creditBundlePage #paymentStep .pack .packTitle .name
+{
+    font-weight: bold;
+    height: 20px;
+}
+
+
+#creditBundlePage #paymentStep .pack .packTitle .packName
+{
+    font-weight: bold;
+    color: #FFC600;
+    text-decoration: underline;
+}
+
+#creditBundlePage #paymentStep .pack .packTitle .packName:hover
+{
+    color: #FFC600;
+}
+
+#creditBundlePage #paymentStep .pack .packInfo
+{
+    color: white;
+    position: absolute;
+    top: 134px;
+    right: 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#creditBundlePage #paymentStep .bundle
+{
+    padding: 1px 5px;
+}
+
+
+#creditBundlePage #paymentStep #arrowAndContinue
+{
+    padding: 50px 0px;
+    text-align: right;
+}
+
+#creditBundlePage #paymentStep #selectPaymentStepContent .nextXLargeBtn
+{
+    margin: 10px;
+}
+
+#creditBundlePage #paymentStep .footer a
+{
+    text-decoration: underline;
+    color: Gray;
+}
+
+#creditBundlePage .mini_label:hover
+{
+    color: #2a87c2;
+}
+
+
+.header
+{
+    text-indent: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.previousBtn
+{
+    width: 73px;
+    height: 43px;
+    cursor: pointer;
+    line-height: 40px;
+    background: url("/CommonChannel/Content/images/previous.png") no-repeat;
+    text-indent: 20px;
+    color: Black;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.nextBtn
+{
+    width: 73px;
+    height: 43px;
+    cursor: pointer;
+    line-height: 43px;
+    background: url("/CommonChannel/Content/images/next.png") no-repeat;
+    color: Black;
+    font-size: 18px;
+    font-weight: bold;
+    text-indent: 10px;
+}
+
+.nextLargeBtn
+{
+    width: 93px;
+    height: 43px;
+    cursor: pointer;
+    line-height: 43px;
+    background: url("/CommonChannel/Content/images/nextLarge.png") no-repeat;
+    color: Black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.nextLargeBtn:active
+{
+    /* background:none #CACACA;*/
+}
+
+.nextXLargeBtn
+{
+    width: 250px;
+    height: 43px;
+    cursor: pointer;
+    line-height: 43px;
+    background: url("/CommonChannel/Content/images/nextXLarge.png") no-repeat;
+    color: Black;
+    font-size: 14px;
+    font-weight: bold;
+    text-indent: 10px;
+}
+.nextXLargeBtn .label
+{
+    display: inline-block !important;
+    width: 130px !important;
+    float: left;
+}
+
+.nextXLargeBtn .imageContainer
+{
+    display: inline-block !important;
+    width: 85px;
+    text-align: right;
+}
+
+.nextXLargeBtn img
+{
+    vertical-align: middle;
+    position: relative;
+    bottom: 2px;
+}
+
+.paymentBtn .facebookPrice
+{
+    line-height: 20px;
+    padding-left: 10px;
+    padding-top: 12px;
+    text-align: right;
+    text-indent: 2px;
+    width: 60px;
+    font-size: 14px;
+}
+
+.paymentBtn .facebookPrice img
+{
+    margin-left: -1px;
+    vertical-align: middle;
+}
+
+.paymentBtn .usdPrice
+{
+    line-height: 20px;
+    padding-left: 3px;
+    padding-top: 12px;
+    text-align: right;
+    text-indent: 2px;
+    font-size: 14px;
+    display: inline-block;
+    width: 70px;
+}
+
+
+.facebookCreditConversion
+{
+    color: White;
+    font-size: 14px;
+    color: White;
+    font-weight: bold;
+    width: 130px;
+}
+
+.facebookCreditConversion img
+{
+    bottom: 2px;
+    position: relative;
+    vertical-align: middle;
+}
+
+
+/** SixRewards **/
+
+/** Bundle **/
+#selectBundleStep
+{
+    padding: 10px;
+}
+
+#bundlesSelection
+{
+    width: 410px;
+}
+
+#bundlesSelection .bundle
+{
+    padding: 1px 0px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+#bundlesSelection .label
+{
+    width: 150px;
+}
+
+#bundlesSelection .label:hover
+{
+    color: #2a87c2;
+}
+
+
+#bundlesDisplay
+{
+    width: 270px;
+    z-index: 100;
+}
+
+#bundlesDisplay #bundlesInfos
+{
+    height: 370px;
+}
+
+#bundlesDisplay img
+{
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+
+.bundleArrow
+{
+    width: 215px;
+    height: 110px;
+    background: url("/CommonChannel/Content/images/BundleTransaction/arrow.png") no-repeat;
+    position: absolute;
+    left: -100px;
+    top: -45px;
+}
+
+.bundleOrangeArrow
+{
+    width: 215px;
+    height: 110px;
+    background: url("/CommonChannel/Content/images/BundleTransaction/arrowOrange.png") no-repeat;
+    position: absolute;
+    left: -100px;
+    top: -45px;
+}
+
+.creditBundleArrow
+{
+    width: 215px;
+    height: 110px;
+    background: url("/CommonChannel/Content/images/BundleTransaction/arrow.png") no-repeat;
+    position: absolute;
+    right: 160px;
+    top: -55px;
+}
+
+.creditBundleOrangeArrow
+{
+    width: 215px;
+    height: 110px;
+    background: url("/CommonChannel/Content/images/BundleTransaction/arrowOrange.png") no-repeat;
+    position: absolute;
+    right: 160px;
+    top: -55px;
+}
+
+#selectBundleStep #bundlesDisplay .panel_overlay
+{
+    height: 210px;
+    width: 269px;
+    background-color: #5C5C5C;
+    opacity: 0.9;
+    border-radius: 5px;
+}
+
+
+#selectBundleStep #bundlesItems
+{
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    position: absolute;
+    top: 0px;
+}
+
+.trustPaymentIcons
+{
+    width: 300px;
+    height: 25px;
+    background: url("/CommonChannel/Content/images/BundleTransaction/trustIcons.png") no-repeat;
+}
+
+.portalTrustPaymentIcons
+{
+    width: 249px;
+    height: 25px;
+    background: url("/CommonChannel/Content/images/BundleTransaction/portalTrustIcons.png") no-repeat;
+}
+
+.securePaymentImage
+{
+    width: 138px;
+    height: 39px;
+    background: url("/CommonChannel/Content/images/BundleTransaction/securePayment.png") no-repeat;
+}
+
+#selectBundleStep .footer a
+{
+    color: gray;
+    text-decoration: underline;
+}
+
+#accountLinkagePanel .icon
+{
+    width: 136px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#accountLinkagePanel .icon:hover
+{
+    background-position: 0px -30px;
+}
+
+#accountLinkagePanel .icon:active
+{
+    background-position: 0px -60px;
+}
+
+#accountLinkagePanel .facebook
+{
+    background: url("/CommonChannel/Content/images/Icon_facebook.png") no-repeat;
+}
+
+#accountLinkagePanel .cmune
+{
+    background: url("/CommonChannel/Content/images/Icon_cmune.png") no-repeat;
+}
+
+#accountLinkagePanel .macappstore
+{
+    background: url("/CommonChannel/Content/images/Icon_mac.png") no-repeat;
+}

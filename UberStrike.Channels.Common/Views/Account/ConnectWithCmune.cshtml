@@ -1,0 +1,105 @@
+﻿@model SignInModel
+@{
+    ViewBag.Title = "Connect With Cmune";
+}
+<div id="uberstrikePanel">
+    <div id="screen">
+        <div id="block" style="font-weight: bold">
+            @Html.Button("validateLink", "Go back", "bigRedWhite", "window.location.href='" + Url.Action("ConnectWith", "Account", new { channel = Model.ChannelType, h = Model.Hash }) + "';")
+            <div>
+                <br />
+                <p class="h1title">
+                    Connect an existing Cmune Account</p>
+                <br />
+                <p class="grey">
+                    Enter your UberStrike account & password securrely & one time only to verify that
+                    you own both accounts.
+                    <br />
+                    <br />
+                    After that you'll be able to access your loadout and in-game statistics on Kongregate.
+                </p>
+                <br />
+                <br />
+                <form action="@Url.Action("ConnectWithCmuneGo")" method="post" id="connectWithCmuneForm">
+                @Html.HiddenFor(d => d.KongregateId)
+                @Html.HiddenFor(d => d.UserName)
+                @Html.HiddenFor(d => d.ChannelType)
+                @Html.HiddenFor(d => d.Hash)
+                <div class="left" style="width: 240px;">
+                    @Html.TextBoxFor(d => d.Email, new { style = "width:200px", id = "connectWithCmuneEmail" })<br />
+                    <br />
+                    <span id="connectWithCmunePasswordContainer">
+                    @Html.TextBoxFor(d => d.Password, new { style = "width:200px", id = "connectWithCmunePassword" })
+                    </span>
+                    <br />
+                    <br />
+                    <br />
+                </div>
+                <div class="left" style="width: 400px;">
+                    @if (ViewBag.IsSuccess != null && (bool)ViewBag.IsSuccess)
+                    {
+                        <script type="text/javascript">
+                            parent.ReloadPage();
+                        </script>
+                    }
+                    else
+                    {
+                        <div class="errorMessage">
+                            @ViewBag.Message
+                        </div>   
+                    }
+                </div>
+                <div class="clear">
+                    @Html.Button("validateLink", "Verify", "greenWhite", "$('#connectWithCmuneForm').submit();")
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var txtboxToTest = [{ "id": "connectWithCmuneEmail", "initialValue": "Enter UberStrike Email" }, { "id": "connectWithCmunePassword", "initialValue": "Enter UberStrike Password", "type":"password"}];
+    for (var element in txtboxToTest) {
+        $("#" + txtboxToTest[element].id).val(txtboxToTest[element].initialValue);
+        $("#" + txtboxToTest[element].id).css("color", "grey");
+        $("#" + txtboxToTest[element].id).bind("click", function () { textBoxToggleDefaultValue(this) });
+        $("#" + txtboxToTest[element].id).bind("blur", function () { textBoxToggleDefaultValue(this) });
+    }
+
+    $("#connectWithCmuneForm").bind("submit", function () {
+        for (var element in txtboxToTest) {
+            if ($("#" + txtboxToTest[element].id).val() == txtboxToTest[element].initialValue) {
+                $("#" + txtboxToTest[element].id).css("border", "1px dotted red");
+                return false;
+            }
+        }
+        return true;
+    });
+
+    function textBoxToggleDefaultValue(selectedElement) {
+        var selectedElementId = $(selectedElement).attr("id");
+        for (var i in txtboxToTest) {
+            element = txtboxToTest[i];
+            if (element.id == selectedElementId) {
+                $('#' + element.id).css("border", "");
+                if ($('#' + element.id).val() == element.initialValue) {
+                    $('#' + element.id).val('');
+                    if (element.type == "password") {
+                        makeItPassword(element.id);
+                    }
+                }
+                else if ($('#' + element.id).val() == '') {
+                    $('#' + element.id).val(element.initialValue);
+                }
+            }
+        }
+    }
+
+    function makeItPassword(elememtId) {
+        document.getElementById(elememtId+"Container")
+            .innerHTML = "<input id=\"password\" name=\"password\" type=\"password\" style=\"width:200px\"/>";
+        document.getElementById("password").focus();
+    }
+
+</script>

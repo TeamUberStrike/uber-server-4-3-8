@@ -1,0 +1,26 @@
+﻿@if ((bool)ViewData["DisplayCalendar"])
+{
+    <form id="StatsCalendar" method="post" action="">
+    <div style="width: 450px; margin-top: 20px">
+        <div style="float: left; clear: both; padding-bottom: 20px; padding-left: 20px; margin-top: -16px">
+            <div style="float: left; border-right: 1px #999 solid; padding-right: 5px; margin-right: 7px">
+                <strong>Date from:</strong>
+                <script type="text/javascript">
+                    DateInput('startdate', true, 'MM/DD/YYYY', '@(((DateTime)ViewData["FromDate"]).ToShortDateString())')
+                </script>
+            </div>
+            <div style="float: left; border-right: 1px #999 solid; padding-right: 5px; margin-right: 7px">
+                <strong>Date to:</strong>
+                <script type="text/javascript">
+                    DateInput('enddate', true, 'MM/DD/YYYY', '@(((DateTime)ViewData["ToDate"]).ToShortDateString())')
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="left">
+        <input type="button" value="Update" onclick="updateCharts();" />
+    </div>
+    <div class="clear">
+    </div>
+    </form>
+}

@@ -1,0 +1,5 @@
+﻿<div id="itemsMenu" class="Menu">
+    <a href="@Url.Action("Index", "Item")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ItemSubTabs.Catalog.ToString() ? "submenuActiveTab":"")">Catalog</a>
+    <a href="@Url.Action("ItemManagement", "Item")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ItemSubTabs.Management.ToString() ? "submenuActiveTab":"")">Management</a>
+    <a href="@Url.Action("Comparison", "Item")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.ItemSubTabs.Comparison.ToString() ? "submenuActiveTab" : "")">Comparison</a>
+</div>

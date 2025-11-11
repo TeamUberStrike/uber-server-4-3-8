@@ -1,0 +1,55 @@
+﻿@model ApplicationVersionViewModel
+@{
+    bool isEdit = (Model.ApplicationVersionId > 0);
+}
+<br />
+<form id="ApplicationVersionForm" method="post" action="">
+<div>
+    @Html.HiddenFor(d => d.ApplicationVersionId)
+</div>
+<div>
+    @{
+        string javascript = "checkApplicationVersionRestriction($(this).val());";
+
+        object htmlAttributes = new object { };
+        if (isEdit)
+        {
+            htmlAttributes = new { onchange = javascript, disabled = "disabled" };
+        }
+        else
+        {
+            htmlAttributes = new { onchange = javascript };
+        }
+    }
+    @Html.LabelFor(d => d.Channel)
+    @Html.DropDownList("ChannelType", Html.GetDropDownListItems(Html.ListOfChannelTypeToSelectItems(), ((int)Model.Channel).ToString()), htmlAttributes)
+</div>
+<div>
+    @Html.LabelFor(d => d.Version)
+    @Html.TextBoxFor(d => d.Version)
+</div>
+<div>
+    @Html.LabelFor(d => d.WebPlayerFileName, "File name")
+    @Html.TextBoxFor(d => d.WebPlayerFileName, new { @class = "biginput webPlayerFileNameInput" })
+</div>
+<div>
+    @Html.LabelFor(d => d.PhotonClusterId)
+    @Html.DropDownList("PhotonClusterId", Html.GetDropDownListItems(Html.ListOfPhotonGroupToSelectItems((List<PhotonsGroup>)ViewBag.PhotonGroupsList), Model.PhotonClusterId.ToString()))
+</div>
+<div>
+    @Html.LabelFor(d => d.IsEnabled)
+    @Html.CheckBoxFor(d => d.IsEnabled)
+    <span style="height: 30px; font-size: 11px;" class="channelWarning warningMessage">
+    </span>
+</div>
+<div>
+    @Html.LabelFor(d => d.WarnPlayer)
+    @Html.CheckBoxFor(d => d.WarnPlayer)
+</div>
+<br />
+<div class="alignright">
+    <input type="button" onclick="saveApplicationVersion('@Url.Action("SaveApplicationVersion")', 'ApplicationVersionForm');"
+    value="@(isEdit ? "Save" : "Save")" />
+    <input type="button" onclick="Shadowbox.close()" value="Cancel" />
+</div>
+</form>

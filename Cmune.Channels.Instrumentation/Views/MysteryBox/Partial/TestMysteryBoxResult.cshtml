@@ -1,0 +1,46 @@
+﻿@model List<RollElementSummary>
+<br />
+@{
+    int totalAttributedCredits = 0;
+    int totalAttributedPoints = 0;
+}
+<div class="left bold" style="width: 200px">
+    Item Name</div>
+<div class="left bold" style="width: 100px; text-align: right;">
+    Success</div>
+<div class="left bold" style="width: 200px; text-align: right;">
+    Currency attributed</div>
+<div class="clear">
+</div>
+@foreach (var summary in Model.OrderByDescending(d => d.NumberOfRoll))
+{
+    <div class="left" style="width: 200px">@summary.PrizeElement.Name</div>
+    <div class="left" style="width: 100px; text-align: right;">@summary.NumberOfRoll/@ViewBag.NumberOfRoll</div>
+                                                                                if (summary.PrizeElement.Type == PrizeElementType.Credit.ToString() || summary.PrizeElement.Type == PrizeElementType.Item.ToString())
+                                                                                {
+                                                                                    totalAttributedCredits += summary.Price;
+    <div class="left" style="width: 200px; text-align: right;">@summary.Price.ToString("N0")
+        Credits</div>
+                                                                                }
+                                                                                if (summary.PrizeElement.Type == PrizeElementType.Point.ToString())
+                                                                                {
+                                                                                    totalAttributedPoints += summary.Price;
+    <div class="left" style="width: 200px; text-align: right;">@summary.Price.ToString("N0")
+        Points</div>
+                                                                                }
+                                                            
+    <div class="clear">
+    </div>
+}
+<br />
+<p>@(totalAttributedCredits.ToString("N0"))
+    total Credits are attributed.</p>
+@{
+    if (totalAttributedPoints > 0)
+    {
+    <p>@(totalAttributedPoints.ToString("N0"))
+        total Points are attributed.</p>
+    }
+}
+<p>@(ViewBag.SpentCredits.ToString("N0"))
+   @((UberStrikeCurrencyType)ViewBag.PriceCurrency == UberStrikeCurrencyType.Credits ? "Credits" : "Points") earned</p>

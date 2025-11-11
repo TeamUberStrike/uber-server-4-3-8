@@ -1,0 +1,160 @@
+﻿@model ManagedServerModel
+<form id="addOrEditManagedServerForm" method="post" action="">
+<div id="AddEditManagedServerPanel">
+    @Html.HiddenFor(d=> Model.ManagedServerId2)
+    @ViewData["InformationLabel"]
+    <table>
+        <tr>
+            <td>
+                ServerName:
+            </td>
+            <td>
+                @Html.TextBoxFor(d=>Model.ServerName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ServerRole:
+            </td>
+            <td>
+                @Html.TextBoxFor(d=>Model.Role)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                PublicIp:
+            </td>
+            <td>
+                @Html.TextBoxFor(d=>Model.PublicIp)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                PrivateIp:
+            </td>
+            <td>
+                @Html.TextBoxFor(d=>Model.PrivateIp)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                DeploymentTime:
+            </td>
+            <td>
+                @Html.TextBoxFor(d=>Model.DeploymentTime)
+                <br />
+                (ex Format: "10/28/2011 15:52:00")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                IsDisable:
+            </td>
+            <td>
+                @Html.CheckBoxFor(d => Model.IsDisable)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ServerIDC:
+            </td>
+            <td>
+                @Html.TextBoxFor(d=>Model.ServerIDC)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Region:
+            </td>
+            <td>
+                @Html.DropDownListFor(d => Model.Region, Html.GetRegionItems((ListItem[])ViewData["PhotonRegionTypeListItems"], ((int)Model.Region).ToString()), new { style = "width:95px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                City:
+            </td>
+            <td>
+                @Html.TextBoxFor(d=>Model.City)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                CPUModel:
+            </td>
+            <td>
+                @Html.TextBoxFor(d=>Model.CPUModel)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                CPUSpeed:
+            </td>
+            <td>
+                @Html.TextBoxFor(d => Model.CPUSpeed)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                CPUCore:
+            </td>
+            <td>
+                @Html.TextBoxFor(d => Model.CPUCore)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                CPU number:
+            </td>
+            <td>
+                @Html.TextBoxFor(d => Model.CPUs)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                RAM:
+            </td>
+            <td>
+                @Html.TextBoxFor(d => Model.RAM)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                DiskSpace:
+            </td>
+            <td>
+                @Html.TextBoxFor(d => Model.DiskSpace)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                AllowedBandwidth:
+            </td>
+            <td>
+                @Html.TextBoxFor(d => Model.AllowedBandwidth)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Price:
+            </td>
+            <td>
+                @Html.TextBoxFor(d => Model.Price)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Note:
+            </td>
+            <td>
+                @Html.TextAreaFor(d => Model.Note)
+            </td>
+        </tr>
+    </table>
+    @Html.Hidden("ManagedServerIDHiddenField")
+    <input type="button" name="AddEditManagedServerButton" id="AddEditManagedServerButton"
+        value="Apply" onclick="AddOrEditManagedServer()" />
+    <input type="button" value="Cancel" onclick="Shadowbox.close()" />
+</div>
+</form>

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=152368
+  -->
+
+<configuration>
+  <configSections>
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog"/>
+    <section name="sendGridSettings" type="SendGridSdk.Models.SendGridConfigurationSection, SendGridSdk" />
+    <section name="facebookSettings" type="Facebook.FacebookConfigurationSection" />
+  </configSections>
+  <connectionStrings>
+  </connectionStrings>
+
+  <appSettings>
+    <add key="webpages:Version" value="1.0.0.0"/>
+    <add key="ClientValidationEnabled" value="true"/>
+    <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+    <add key="Environment" value="dev"/>
+    <add key="CmuneAPIKey" value="dev"/>
+    <add key="appsAPIKey" value="dev" />
+    <add key="ImagesRoot" value="http://static.cmune.com/CommonChannel/Content/images/"/>
+    <add key="NLogSource" value="11"/>
+    <add key="NLogBuild" value="1"/>
+    <add key="CustomLogPath" value="D:\Logs\" />
+    <add key="CustomLogIsEnable" value="True" />
+    <add key="SuperRewardsCmuneHash" value="i12r4b1a8x5p9"/>
+    <add key="SuperRewardsPortalApplicationId" value="tmrixdtpng.423906412339"/>
+    <add key="SuperRewardsFacebookApplicationId" value="nxkothp.421745872861"/>
+    <add key="PlaySpanAdminPassword" value="mOj6MU2kTpvqvmVs"/>
+    <add key="PlaySpanSecretHashPassPhrase" value="dMC7WHmxc0PZAKJ6GUUqUJz5bS4R7a"/>
+    <add key="InstrumentationWsBaseUrl" value="http://ws.instrumentation.dev.uberstrike.com/@ApiVersion/Cmune.svc/"/>
+    <add key="PublishVersion" value="@PublishVersion"/>
+    <add key="AuthenticationEncryptPassPhrase" value="s2a542av1a5d21" />
+    <add key="AuthenticationEncryptInitVector" value="C15netodx9234d67"/>
+    <add key="FacebookCanvasPage" value="https://apps.facebook.com/uberstrikedev"/>
+    <add key="PortalChannel" value="http://localhost/portalchannel"/>
+    <add key="KongregateAppId" value="140159"/>
+    <add key="KongregateAppAPIKey" value="47233d14-43e4-47f5-b180-1dc4278d870b"/>
+
+    <add key="CommonCss" value="
+         ~/Content/reset.css,
+         ~/Content/util.css,
+         ~/Content/cmune.css,
+         ~/Content/layout.css
+         "/>
+
+    <add key="CommonFacebookFrameCss" value="
+         ~/Content/layoutFacebook.css
+         "/>
+
+    <add key="CommonPortalFrameCss" value="
+         ~/Content/layoutPortal.css
+         "/>
+
+    <add key="CommonKongregateFrameCss"
+         value="~/Content/kongregateChannel.css"/>
+
+    <add key="CommonJavaScript" value="
+         ~/Scripts/jquery-1.5.1.min.js,
+         ~/Scripts/ultimatepay-api.js,
+         ~/Scripts/js/UltimatepayCall.js,
+         ~/Scripts/js/WebServices.js,
+         ~/Scripts/js/layout.js,
+         ~/Scripts/js/ranking.js
+         "/>
+
+    <add key="PortalCss" value="~/Content/reset.css,
+          ~/Content/util.css,
+          ~/Content/cmune.css,
+				  ~/Content/portalChannel.css,
+          ~/Scripts/shadowbox-3_0_3/shadowbox.css
+         "/>
+
+    <add key="PortalJavaScript" value="~/Scripts/jquery-1.5.1.min.js,
+         ~/Scripts/BrowserDetect.js,
+         ~/Scripts/Brwsniff.js,
+         ~/Scripts/md5.js,
+         ~/Scripts/ServerTime.js,
+         ~/Scripts/js/UberStrike.js,
+         ~/Scripts/js/BrowserDetectWrapper.js,
+         ~/Scripts/js/WebServices.js,
+         ~/Scripts/js/UnityObject.js,
+         ~/Scripts/js/UnityEmbed.js,
+         ~/Scripts/js/Tracking.js,
+         ~/Scripts/js/PortalChannel/ProcessUnityInstall.js,
+         ~/Scripts/shadowbox-3_0_3/shadowbox.js,
+         ~/Scripts/js/PortalChannel/layout.js,
+         ~/Scripts/js/PortalChannel/UnityEmbedExtend.js
+         "/>
+
+    <add key="FacebookCss" value="
+         ~/Content/reset.css,
+         ~/Content/util.css,
+         ~/Content/cmune.css,
+					~/Content/facebookChannel.css,
+          ~/Scripts/shadowbox-3_0_3/shadowbox.css"/>
+
+    <add key="FacebookJavaScript" value="~/Scripts/jquery-1.5.1.min.js,
+         ~/Scripts/BrowserDetect.js,
+         ~/Scripts/Brwsniff.js,
+         ~/Scripts/js/BrowserDetectWrapper.js,
+         ~/Scripts/md5.js,
+         ~/Scripts/ServerTime.js,
+         ~/Scripts/js/UberStrike.js,
+         ~/Scripts/js/Tracking.js,
+         ~/Scripts/js/WebServices.js,
+         ~/Scripts/js/UnityObject.js,
+         ~/Scripts/js/UnityEmbed.js,
+         ~/Scripts/shadowbox-3_0_3/shadowbox.js,
+         ~/Scripts/js/FacebookChannel/UnityEmbedExtend.js,
+         ~/Scripts/js/FacebookChannel/ProcessUnityInstall.js,
+         ~/Scripts/js/FacebookChannel/FacebookJSSDKWrapper.js,
+         ~/Scripts/js/FacebookChannel/FBSocial.js,
+         ~/Scripts/js/FacebookChannel/layout.js"/>
+
+    <add key="KongregateCss" value="~/Content/reset.css,
+                                    ~/Content/util.css,
+                                    ~/Content/cmune.css,
+                                    ~/Content/kongregateChannel.css"/>
+
+    <add key="KongregateJavaScript" value="~/Scripts/jquery-1.5.1.min.js,
+         ~/Scripts/BrowserDetect.js,
+         ~/Scripts/Brwsniff.js,
+         ~/Scripts/js/BrowserDetectWrapper.js,
+          ~/Scripts/md5.js,
+         ~/Scripts/ServerTime.js,
+          ~/Scripts/js/UberStrike.js,
+         ~/Scripts/js/Tracking.js,
+         ~/Scripts/js/WebServices.js,
+         ~/Scripts/js/UnityObject.js,
+         ~/Scripts/js/UnityEmbed.js,
+         ~/Scripts/js/KongregateChannel/layout.js,
+         ~/Scripts/js/KongregateChannel/ProcessUnityInstall.js,
+         ~/Scripts/js/KongregateChannel/UnityEmbedExtend.js,
+         ~/Scripts/js/KongregateChannel/KongregateAPIWrapper.js"
+         />
+
+  </appSettings>
+
+  <facebookSettings appId="229938940392170"
+          appSecret="0a08a4f73ea16ad1c36daaf889cb9929" />
+
+  <sendGridSettings smtpServer="smtp.sendgrid.net"
+                    apiUser="Cmune"
+                    apiKey="cmune$1" />
+
+  <nlog autoReload="true" throwExceptions="true" xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <targets async="true">
+      <target name="mail" xsi:type="Mail" smtpServer="67.228.44.4" from="noreply@cmune.com" to="logger@cmune.com" subject="[NLog][${event-context:logSource}][${event-context:environment}][${event-context:logTime}]" body="&lt;b&gt;Log Type Name&lt;/b&gt;: ${event-context:logTypeName}&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Error Location&lt;/b&gt;: ${event-context:errorLocation}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Error&lt;/b&gt;: ${event-context:error}&lt;br /&gt;&lt;br /&gt; &lt;b&gt;Incoming Datas&lt;/b&gt;: ${event-context:incomingDatas}&lt;br /&gt;" html="true"/>
+      <target name="file" xsi:type="File" layout="${event-context:logTime} ${event-context:message}${newline}" fileName="${event-context:fileName}" />
+    </targets>
+    <rules>
+      <logger name="*" level="Info" writeTo="file" />
+      <logger name="*" level="Debug" writeTo="mail"/>
+      <logger name="*" level="Warn" writeTo="mail"/>
+      <logger name="*" level="Error" writeTo="mail"/>
+    </rules>
+  </nlog>
+
+  <system.web>
+    <compilation debug="true" targetFramework="4.0">
+      <assemblies>
+        <add assembly="System.Web.Abstractions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+      </assemblies>
+    </compilation>
+
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/LogOn" timeout="2880" />
+    </authentication>
+
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages"/>
+      </namespaces>
+    </pages>
+    <customErrors mode="On" defaultRedirect="~/Error/" >
+      <error statusCode="404" redirect="~/Error/NotFound"/>
+    </customErrors>
+    <httpRuntime enableVersionHeader="false" />
+  </system.web>
+
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false"/>
+    <modules runAllManagedModulesForAllRequests="true"/>
+    <httpProtocol>
+      <customHeaders>
+        <remove name="X-Powered-By" />
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-2.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

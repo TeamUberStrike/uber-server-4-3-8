@@ -1,0 +1,5 @@
+﻿<div class="Menu">
+    <a href="@Url.Action("","ServersMonitoring")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.MonitoringSubTabs.ServersMonitoring.ToString() ? "submenuActiveTab":"")">Servers Monitoring</a>
+    <a href="@Url.Action("SeePhotonsHealth", "Monitoring")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.MonitoringSubTabs.PhotonsHealth.ToString() ? "submenuActiveTab":"")">Photons health</a>
+    <a href="@Url.Action("UnityExceptions", "Monitoring")" class="@(ViewBag.SubActiveTab.ToString() == CmuneMenu.MonitoringSubTabs.UnityExceptions.ToString() ? "submenuActiveTab":"")">Unity exceptions</a>
+</div>

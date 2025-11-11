@@ -1,0 +1,20 @@
+﻿<div style="width:600px; margin:auto; margin-top:50px; margin-bottom:50px;">
+    <div class="chartHolder">
+        @Html.Raw(Html.RenderChart("ccuChart", Url.Action("GetConcurrentUsers", "Monitoring") + "?version=" + (string)ViewBag.VersionNumber, 600, 300, Url))
+        <div id="ccuChart">
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+
+@foreach (int instanceId in ViewBag.InstancesId) {
+
+<div class="chartHolder">
+    @Html.Raw(Html.RenderChart(String.Format("instance{0}Chart", instanceId), Url.Action("GetPhotonHealth", "Monitoring") + "?instanceId=" + instanceId + "&version=" + (string)ViewBag.VersionNumber, 600, 300, Url))
+    <div id="@(String.Format("instance{0}Chart", instanceId))">
+    </div>
+</div>
+
+}

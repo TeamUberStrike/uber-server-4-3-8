@@ -1,0 +1,121 @@
+﻿@model MapClusterView
+@{    
+    string appVersion = String.Empty;
+
+    if (Model != null)
+    {
+        appVersion = Model.ApplicationVersion;
+    }
+}
+<form id="mapsForm" action="" method="post">
+<input id="appVersion" name="appVersion" type="hidden" value="@appVersion" />
+<a id="addMapLink" href="#" onclick="loadAddMap(); return false;">add map</a>
+<div class="clear" style="margin-bottom: 30px;">
+</div>
+@if (Model != null)
+{
+    <div id="mapsClusterInfoDiv" class="left" style="width: 200px;">
+        <span class="bold">Cluster name:</span>
+        @Html.TextBox("clusterName", Model.ApplicationVersion)<br />
+        <br />
+        <br />
+        <input id="displaySaveAsMapsClusterButton" type="submit" value="Save As" onclick="saveAsMapCluster(); return false;" /><br />
+        <input id="deleteMapsClusterButton" type="submit" value="Delete" onclick="deleteMaps(); return false;" />
+    </div>
+    <table class="searchResultTable left" style="width: 700px;">
+        <tr>
+            <th>
+                Map Id
+            </th>
+            <th>
+                Display name
+            </th>
+            <th>
+                Scene name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+            </th>
+            <th>
+                BlueBox
+            </th>
+            <th>
+                In use
+            </th>
+            <th>
+            </th>
+            @foreach (MapType mapType in EnumUtilities.IterateEnum<MapType>())
+            {
+                if (mapType != MapType.None)
+                {
+                    string mapTypeName = System.Text.RegularExpressions.Regex.Replace(mapType.ToString(), "[a-z]", "");
+                <th>
+                    @mapTypeName
+                </th>
+                }
+            }
+        </tr>
+        @foreach (var map in Model.Maps)
+        {
+            <tr>
+                <td>
+                    @map.MapId
+                </td>
+                <td>
+                    @map.DisplayName
+                </td>
+                <td>
+                    @map.SceneName
+                </td>
+                <td>
+                    <span title="@map.Description">@TextUtilities.ShortenText(map.Description, 20, true)</span>
+                </td>
+                <td>
+                    <a id="@String.Format("editMap{0}Link", @map.MapId)" href="#" onclick="loadEditMap(@map.MapId); return false;"
+                title="Edit map">
+                        <img src="@Url.Content("~/Content/img/b_edit.png")" alt="Edit map" /></a>
+                </td>
+                <td>
+                    @Html.CheckBox(String.Format("isBlueBox{0}", map.MapId), map.IsBlueBox, new { onchange = String.Format("updateIsBlueBox({0});", map.MapId) })
+                </td>
+                <td>
+                    @Html.CheckBox(String.Format("inUse{0}", map.MapId), map.InUse, new { onchange = String.Format("updateMapInUse({0});", map.MapId) })
+                </td>
+                <td>
+                    <a id="@String.Format("deleteMap{0}Link", map.MapId)" href="#" onclick="deleteMap(@map.MapId); return false;"
+                title="Delete map">
+                        <img src="@Url.Content("~/Content/img/b_drop.png")" alt="Delete map" /></a>
+                </td>
+                @foreach (MapType mapType in EnumUtilities.IterateEnum<MapType>())
+                {
+                    if (mapType != MapType.None)
+                    {
+                    <td>
+                        @if (map.Assets.ContainsKey(mapType))
+                        {
+                            var mapTagTitle = map.Assets[mapType].FileName + " - Last updated: " + map.Assets[mapType].LastUpdatedDate.ToNiceDisplay(false);
+                            @Html.TrueNotif(Url, mapTagTitle, mapTagTitle)
+                        }
+                        else
+                        {
+                            @Html.WarningNotif(Url, "Missing asset", "Missing asset")
+                        }
+                    </td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+    <div class="clear">
+    </div>
+}
+</form>
+<div class="niceDiv" style="margin:auto; margin-top:50px; text-align:center; width:800px;">
+<form id="mapVersionForm" action="" method="post">
+    <input id="mapAppVersion" name="mapAppVersion" type="hidden" value="@appVersion" />
+    <h2 style="margin-bottom:15px;">Add a map version manually</h2>
+    Map Id: @Html.TextBox("mapId") File name: @Html.TextBox("fileName") Map type: @Html.DropDownList("mapType", (List<SelectListItem>)ViewBag.MapTypes) <input id="mapVersionButton" type="submit" onclick="updateMapVersion(); return false;" value="Update" />
+</form>
+</div>

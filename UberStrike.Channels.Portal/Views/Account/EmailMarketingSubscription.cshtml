@@ -1,0 +1,14 @@
+﻿@{
+    MarketingSubscriptionStatus emailStatus = (MarketingSubscriptionStatus)ViewBag.UserProfile.Member.MarketingSubscriptionState;
+}
+<div id="emailMarketingStatusContainer" class="panel_item" style="padding: 15px 0px 15px 5px;">
+    <div class="panel_item_header">
+        Email marketing
+    </div>
+    <div class="panel_item_textcontent" style="text-align: left">
+        @Html.CheckBox("emailMarketingStatus", emailStatus != MarketingSubscriptionStatus.Unsubscribed, new { onclick = "setMarketing('" + @Url.Account() + "');" })
+        @*<input id="emailMarketingStatus" name="emailMarketingStatus" onclick="setMarketing('@Url.Account()');" type="checkbox" value="@(emailStatus != MarketingSubscriptionStatus.Unsubscribed ? "true" : "false")" @(emailStatus != MarketingSubscriptionStatus.Unsubscribed ? "checked=\"checked\"" : "") />*@
+        <label for="emailMarketingStatus">Send me special deals and offers</label>
+        <br />
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+     @Html.KongregateChannelJavaScriptFile(Url)
+     @Html.KongregateChannelCssFile(Url)
+     @RenderSection("HeaderJavaScript", false)
+     @RenderSection("HeaderCss", false)
+</head>
+<body>
+    <div style="background-color:White">
+        @RenderBody()
+    </div>
+</body>
+</html>
