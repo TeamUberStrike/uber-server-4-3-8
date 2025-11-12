@@ -567,3 +567,5 @@ run entire server on Linux using Docker containers
 use docker compose to start services inside containers
 CI to automatically build everything, one click to deploy server
 add license to both repositories, what about cmune license: dont commit the license, during build copy paste the license accordingly?
+
+The Bunker and Aqualab missing from maps, as well as Cuberspace
