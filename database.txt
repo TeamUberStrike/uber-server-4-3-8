@@ -569,3 +569,11 @@ CI to automatically build everything, one click to deploy server
 add license to both repositories, what about cmune license: dont commit the license, during build copy paste the license accordingly?
 
 The Bunker and Aqualab missing from maps, as well as Cuberspace
+# Setup
+Install Microsoft Sql Server 2012. SSMM and Server Setup.
+Connect to default database
+setup databases:
+CMUNE, Paintball etc
+exchange datasource string with 127.0.0.1, start exe of the three photon
+figure out how to start the webservice
+start all and done
