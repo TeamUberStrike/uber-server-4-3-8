@@ -229,6 +229,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy /d /i /y  "$(TargetDir)*.*" "$(SolutionDir)UberStrike.Realtime.Photon.GameServer\Deploy\Application\bin"</PostBuildEvent>
+    <PostBuildEvent>xcopy /d /i /y  "$(TargetDir)*.*" "$(SolutionDir)UberStrike.Realtime.Photon.GameServer\Deploy\Application\bin"
+                    xcopy /d /i /y  "$(ProjectDir)..\PhotonLicense\*.*" "$(SolutionDir)UberStrike.Realtime.Photon.GameServer\Deploy\bin_Win64"</PostBuildEvent>
   </PropertyGroup>
 </Project>

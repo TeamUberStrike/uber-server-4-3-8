@@ -428,3 +428,5 @@ FodyWeavers.xsd
 *.msp
 .DS_Store
 **/Deploy/Application/
+PhotonLicense/
+*.license
