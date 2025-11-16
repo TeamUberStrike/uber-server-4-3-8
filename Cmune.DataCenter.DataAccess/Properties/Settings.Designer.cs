@@ -26,53 +26,10 @@ namespace Cmune.DataCenter.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;Persist Security Info=True;User I" +
-            "D=sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string CmuneConnectionString {
             get {
                 return ((string)(this["CmuneConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;Persist Security Info=True;User I" +
-            "D=sa;Password=cmune$1")]
-        public string CmuneConnectionString1 {
-            get {
-                return ((string)(this["CmuneConnectionString1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;User ID=sa;Password=cmune$1")]
-        public string CmuneConnectionString2 {
-            get {
-                return ((string)(this["CmuneConnectionString2"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-LNSADFU\\MYSECONDSERVER;Initial Catalog=Cmune;User ID=sa")]
-        public string CmuneConnectionString3 {
-            get {
-                return ((string)(this["CmuneConnectionString3"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=174.129.77.245;Initial Catalog=Cmune;Persist Security Info=True;User " +
-            "ID=sa")]
-        public string CmuneConnectionString4 {
-            get {
-                return ((string)(this["CmuneConnectionString4"]));
             }
         }
     }
