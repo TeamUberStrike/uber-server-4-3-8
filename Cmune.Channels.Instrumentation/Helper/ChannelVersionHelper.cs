@@ -10,7 +10,7 @@ using Cmune.DataCenter.Common.Utils;
 using UberStrike.DataCenter.DataAccess;
 using Cmune.Channels.Instrumentation.Utils.Extensions;
 using UberStrike.Core.Types;
-using System.Web.Helpers;
+using Newtonsoft.Json;
 
 namespace Cmune.Channels.Instrumentation.Helper
 {
@@ -34,7 +34,7 @@ namespace Cmune.Channels.Instrumentation.Helper
 
         public static HtmlString ChannelTypesToJson(this HtmlHelper html, List<ChannelType> channelsWithUniqueApplicationVersion)
         {
-            return new HtmlString(Json.Encode(channelsWithUniqueApplicationVersion));
+            return new HtmlString(JsonConvert.SerializeObject(channelsWithUniqueApplicationVersion));
         }
 
         public static List<SelectListItem> ListOfChannelElementToSelectItems(this HtmlHelper html, List<ChannelElement> channelTypes)

@@ -123,7 +123,7 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>xcopy /d /i /y /E  "$(TargetDir)\." "$(ProjectDir)Deploy\Application\bin"
-                    xcopy /d /i /y  "$(ProjectDir)..\PhotonLicense\*.*" "$(SolutionDir)Uberstrike.Realtime.Photon.PolicyServer\Deploy\bin_Win64"</PostBuildEvent>
+                    xcopy /d /i /y  "$(ProjectDir)..\PhotonLicense\*.*" "$(ProjectDir)..\Uberstrike.Realtime.Photon.PolicyServer\Deploy\bin_Win64"</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>

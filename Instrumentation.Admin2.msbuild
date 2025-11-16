@@ -1,6 +1,6 @@
 <Project DefaultTargets="PublishSite" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+  <Import Project=".\packages\MSBuildTasks.1.5.0.196\build\MSBuildTasks.targets" Condition="Exists('.\packages\MSBuildTasks.1.5.0.196\build\MSBuildTasks.targets')"/>
 
   <PropertyGroup>
     <PublishPath>$(ArtifactDir)\Cmune.Channels.Instrumentation</PublishPath>
@@ -11,9 +11,22 @@
   </ItemGroup>
 
   <Target Name="PublishSite">
-    <MSBuild Projects="@(SiteToBuild)"
-             Properties="Configuration=$(Configuration);WebProjectOutputDir=..\$(PublishPath)\;OutDir=..\$(PublishPath)\bin\" />
+    <!-- Build without OutDir override -->
+    <MSBuild Projects="@(SiteToBuild)" Properties="Configuration=$(Configuration)" />
 
+    <!-- Copy bin folder -->
+    <ItemGroup>
+      <BinFiles Include="Cmune.Channels.Instrumentation\bin\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="$(PublishPath)\bin\%(RecursiveDir)" />
+
+    <!-- Copy web files -->
+    <ItemGroup>
+      <WebFiles Include="Cmune.Channels.Instrumentation\**\*.aspx;Cmune.Channels.Instrumentation\**\*.cshtml;Cmune.Channels.Instrumentation\**\*.css;Cmune.Channels.Instrumentation\**\*.js;Cmune.Channels.Instrumentation\**\*.png;Cmune.Channels.Instrumentation\**\*.jpg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(WebFiles)" DestinationFolder="$(PublishPath)\%(RecursiveDir)" />
+
+    <!-- Copy config files -->
     <Copy SourceFiles="Cmune.Channels.Instrumentation\Web.config.dev;
                         Cmune.Channels.Instrumentation\Web.config.external.qa;
                         Cmune.Channels.Instrumentation\Web.config.prod;"
