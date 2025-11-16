@@ -1,0 +1,579 @@
+server instance name(default)
+
+MSSQLSERVER
+
+NT Service\MSSQLSERVER
+
+
+DESKTOP-LNSADFU\xaver
+
+
+
+Required Databases
+MvParadisePaintball - Main UberStrike game database
+
+This is the primary game database (renamed from Paradise Paintball, the game's original name)
+Cmune - Platform/account database
+
+Stores account information, items, transactions
+Instrumentation - Analytics and monitoring
+
+Stores performance metrics and statistics
+aspnetdb - ASP.NET membership database
+
+Handles user authentication for admin tools
+Database Setup Steps
+Create these databases in your SQL Server:
+
+Run the SQL scripts against their corresponding databases:
+
+Run Cmune.DataCenter.DataAccess scripts on the Cmune database
+Run UberStrike.DataCenter.DataAccess scripts on the MvParadisePaintball database
+Run Instrumentation scripts on the Instrumentation database
+For aspnetdb, use aspnet_regsql.exe tool (comes with .NET Framework)
+Update your connection strings to point to your local SQL Server instance:
+
+The database names should match exactly as shown in the connection strings for the backend to work properly.
+
+user: sa password:cmune$1
+user: CoreDbo, password: thunderbus888
+
+USE [master]
+GO
+ALTER LOGIN [sa] ENABLE;
+GO
+ALTER LOGIN [sa] WITH PASSWORD = 'cmune$1';
+GO
+
+
+USE [master]
+GO
+CREATE LOGIN [CoreDbo] WITH PASSWORD = 'thunderbus888', DEFAULT_DATABASE=[master], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF;
+GO
+
+-- Create CoreDbo user in Cmune database and grant permissions
+USE [Cmune]
+GO
+CREATE USER [CoreDbo] FOR LOGIN [CoreDbo];
+GO
+ALTER ROLE [db_owner] ADD MEMBER [CoreDbo];
+GO
+
+-- Create CoreDbo user in MvParadisePaintball database and grant permissions
+USE [MvParadisePaintball]
+GO
+CREATE USER [CoreDbo] FOR LOGIN [CoreDbo];
+GO
+ALTER ROLE [db_owner] ADD MEMBER [CoreDbo];
+GO
+
+-- Create CoreDbo user in Instrumentation database and grant permissions
+USE [Instrumentation]
+GO
+CREATE USER [CoreDbo] FOR LOGIN [CoreDbo];
+GO
+ALTER ROLE [db_owner] ADD MEMBER [CoreDbo];
+GO
+
+USE [master]
+GO
+CREATE DATABASE [Cmune]
+GO
+
+-- Optional: Configure recovery model and other settings
+ALTER DATABASE [Cmune] SET RECOVERY SIMPLE
+GO
+
+USE [master]
+GO
+CREATE DATABASE [MvParadisePaintball]
+GO
+
+-- Optional: Configure recovery model and other settings
+ALTER DATABASE [MvParadisePaintball] SET RECOVERY SIMPLE
+GO
+
+USE [master]
+GO
+CREATE DATABASE [Instrumentation]
+GO
+
+-- Optional: Configure recovery model and other settings
+ALTER DATABASE [Instrumentation] SET RECOVERY SIMPLE
+GO
+
+aspnetdb
+
+
+
+
+
+
+
+
+
+
+Unity 3.5.5 installed in C:\Program Files (x86)\Unity\Editor
+
+
+
+start Webservice
+build and compile project UberStrike.DataCenter.WebService, will start wcfs
+start the three photons
+start uber, should work now 
+
+troubleshoot: create all databases: aspnetdb as well 
+change ip addresses to 127.0.0.1
+change datasource= strings with correct microsoft server sql server name
+
+existing databases:
+Cmune
+CmuneMonitoring
+Instrumentation
+aspnetdb
+MvParadisePaintball
+MvParadisePaintballForum
+
+there is no .dbml file for aspnetdb
+
+-- Add SA user to all databases with admin privileges
+-- Run AddSAToAllDatabases.sql script to:
+-- 1. Enable SA login with password 'cmune$1'
+-- 2. Add SA user to all databases
+-- 3. Grant db_owner role to SA in each database
+
+user: sa password:cmune$1 (admin on all databases)
+user: CoreDbo, password: thunderbus888
+user id: InstrumentationDbo, password: thunderbus888
+user id: MvParadisePaintballDbo, password: thunderbus888
+user id: CmuneMonitoringDbo, password: thunderbus888
+
+conflicting:
+User ID=MvParadisePaintballDbo;Password=CmuneMaster$1"
+
+
+tool to generate sql from dbml file
+C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools>SqlMetal.exe
+SqlMetal /dbml:Model.dbml /script:Database.sql
+SqlMetal /dbml:C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml /script:UberStrike.sql
+SqlMetal /dbml:C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml /server:DESKTOP-LNSADFU /database:MvParadisePaintball /script:C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.sql
+ExportSQLCE.exe "Data Source=C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml;" C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.sql
+
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin>SqlMetal "C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml" /code:"C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\UberStrike.cs"
+
+sqlmetal does not create tables etc
+
+sqlcmd -S DESKTOP-LNSADFU -d aspnetdb -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d Cmune -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball4 -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball4 -U CoreDbo -P "thunderbus888"
+
+MvParadisePaintball
+MvParadisePaintball
+login/authentication works fine
+
+sqlcmd -S DESKTOP-LNSADFU -U sa -P "cmune$1" -Q "DROP DATABASE [Instrumentation];"
+
+with npm install -g @dbml/cli create tables and databases
+then execute the sql commands that I found as these should create the values needed, they dont actually put values, so they are useless
+
+dbml files:
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Cmune.DataCenter.DataAccess\Cmune.dbml
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Cmune.DataCenter.Forum.DataAccess\Forum.dbml
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Instrumentation.DataAccess\Instrumentation.dbml
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\Instrumentation.Monitoring.DataAccess\CmuneMonitoring.dbml
+C:\Uber\code\Client\cmune-backend-master\cmune-backend-master\UberStrike.DataCenter.DataAccess\Uberstrike.dbml
+
+net stop "SQL Server (MSSQLSERVER)"
+net start "SQL Server (MSSQLSERVER)"
+
+ & "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /reference:System.Data.Linq.dll UberStrike.DataCenter.DataAccess\UberStrike.cs CreateUberstrikeDatabase.cs 
+ .\CreateUberstrikeDatabase.exe
+ 
+ since linq.CreateDatabase does not add users to database, it must be done manually
+ 
+ add users to all databases with admin rights, treat same as sa
+
+sqlcmd -S DESKTOP-LNSADFU -E -Q "USE [CmuneMonitoring]; CREATE USER [sa] FOR LOGIN [sa]; ALTER ROLE [db_owner] ADD MEMBER [sa];"
+
+sqlcmd -S DESKTOP-LNSADFU -E -Q "USE [Instrumentation]; CREATE USER [sa] FOR LOGIN [sa]; ALTER ROLE [db_owner] ADD MEMBER [sa];"
+
+user sa seems to be broken for some reason
+
+create a new sql server and test there
+make sure sa is accessible with:
+ALTER LOGIN [sa] ENABLE; ALTER LOGIN [sa] WITH PASSWORD = 'cmune$1';
+GO
+
+
+add users to server with: AddUsersAsAdmin.sql
+DataAccess.Setup\DataAccess.Setup.csproj works fine and creates the databases
+
+test connections with:
+
+sqlcmd -S DESKTOP-LNSADFU -d Cmune -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U sa -P "cmune$1"
+sqlcmd -S DESKTOP-LNSADFU -d MvParadisePaintball -U CoreDbo -P "thunderbus888"
+
+working:
+sqlcmd -S DESKTOP-LNSADFU\MYSECONDSERVER -d Cmune -U sa -P "cmune$1"  
+sqlcmd -S DESKTOP-LNSADFU\MYSECONDSERVER -d MvParadisePaintball -U CoreDbo -P "thunderbus888"
+
+USE [MvParadisePaintball];
+GO
+
+INSERT INTO [dbo].[PhotonsGroups] ([Name], [Description], [CreationDate], [ModificationDate])
+VALUES ('DefaultGroup', 'Default photon group', GETDATE(), GETDATE());
+GO
+
+USE [MvParadisePaintball]
+INSERT INTO [dbo].[ApplicationVersions] 
+    ([Version],
+     [WebPlayerFileName],
+     [Channel],
+     [ModificationDate],
+     [IsEnabled],
+     [WarnPlayer],
+     [PhotonClusterId])
+VALUES 
+    ('4.3.8',                     -- Version from XML
+     'WebPlayer_4.3.8.unity3d',   -- Example filename
+     4,                            -- Channel = WindowsStandalone
+     GETDATE(),                    -- Current timestamp
+     1,                            -- IsEnabled = true
+     0,                            -- WarnPlayer = false
+     1);   
+GO
+
+
+unity 3.5.5 location:
+C:\Program Files (x86)\Unity\Editor
+
+
+INSERT INTO dbo.Applications (Name, Description)
+VALUES ('MyApp', 'Description of MyApp');
+GO
+
+items
+steam version: 
+ItemType
+Tier
+ItemClass
+ID
+
+fill this database as well:
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PlayerLevelCaps")]
+	public partial class PlayerLevelCap : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PlayerLevelCapId;
+		
+		private int _Level;
+		
+		private int _XPRequired;
+
+
+ItemFunctionalConfigs
+
+ItemGearConfigs
+
+ItemSpecialConfigs
+
+ItemWeaponConfigs
+
+ItemWeaponModConfigs
+
+ItemQuickUseConfigs
+
+ItemGearConfigs, ItemWeaponConfigs, ItemQuickUseConfigs, ItemFunctionalConfigs
+ItemWeaponConfig:
+		private int _ItemWeaponConfigId;
+		
+		private int _ItemId;
+		
+		private int _LevelRequired;
+		
+		private int _DamageKnockback;
+		
+		private int _DamagePerProjectile;
+		
+		private int _RateOfFire;
+		
+		private int _AccuracySpread;
+		
+		private int _RecoilKickback;
+		
+		private int _StartAmmo;
+		
+		private int _MaxAmmo;
+		
+		private int _MissileTimeToDetonate;
+		
+		private int _MissileForceImpulse;
+		
+		private int _MissileBounciness;
+		
+		private int _SplashRadius;
+		
+		private int _ProjectilesPerShot;
+		
+		private int _ProjectileSpeed;
+		
+		private int _RecoilMovement;
+
+
+ItemGearConfigs
+
+		private int _ItemGearConfigId;
+		
+		private int _ItemId;
+		
+		private int _LevelRequired;
+		
+		private int _ArmorPoints;
+		
+		private int _ArmorAbsorptionPercent;
+		
+		private int _ArmorWeight;
+        
+
+ItemQuickUseConfigs:
+		private int _ItemQuickUseConfigId;
+		
+		private int _ItemId;
+		
+		private int _LevelRequired;
+		
+		private int _UsesPerLife;
+		
+		private int _UsesPerRound;
+		
+		private int _UsesPerGame;
+		
+		private int _CoolDownTime;
+		
+		private int _WarmUpTime;
+		
+		private int _BehaviourType;
+
+
+    public enum QuickItemLogic
+    {
+        None = 0,
+        SpringGrenade = 1,
+        HealthPack = 2,
+        ArmorPack = 3,
+        AmmoPack = 4,
+        ExplosiveGrenade = 5,
+    }
+
+email: xaver24@gmail.com
+password: lala
+
+
+
+ImageUrl: http://uberforever.eu/weeklyspecial/WeeklySpecial_NinjaHolo.jpg
+PopupTitle: Weekly Special Ninja Holo
+PopupText: Grab yours now!
+ItemId: 1310
+StartDate: 1st November 2025
+EndDate: 8th November 2025
+
+Maps
+		private string _AppVersion;
+		
+		private string _DisplayName;
+		
+		private string _Description;
+		
+		private string _SceneName;
+		
+		private bool _InUse;
+		
+		private bool _IsBlueBox;
+
+		{ 1, "LevelMonkeyIsland" },
+        { 2, "LevelLostParadise2" },
+        { 3, "LevelTheWarehouse" },
+        { 4, "LevelTempleOfTheRaven" },
+        { 5, "LevelFortWinter" },
+        { 6, "LevelGideonsTower" },
+        { 7, "LevelSkyGarden" },
+        { 8, "LevelCuberStrike" },
+        { 10, "LevelSpaceportAlpha" },
+
+MapVersions:
+
+		private int _MapId;
+		
+		private string _AppVersion;
+		
+		private string _FileName;
+		
+		private System.DateTime _LastUpdatedDate;
+		
+		private int _MapType;
+
+    public enum MapType
+    {
+        None = 0,
+        StandardDefinition = 1,
+        HighDefinition = 2,
+    }
+
+MapId from 1-8, 10
+AppVersion: "4.3.8"
+FileName: ""
+LastUpdatedDate: 1st November 2025
+MapType: 2
+
+
+MapToLoad.FileName
+is the file path of:
+http://localhost:9000/Maps/4.3.8/ when c is true
+
+make sure both variants of maps loading work:
+load using locally built maps, load using Webservice
+
+start with load locally built maps
+
+MvParadisePaintball
+
+dbo.PhotonServers
+
+		private string _IP;
+		
+		private int _Port;
+		
+		private string _Name;
+		
+		private int _Region;
+		
+		private int _UsageType;
+		
+		private int _PhotonsGroupID;
+		
+		private int _MinLatency;
+
+
+		    public enum RegionType
+    {
+        UsEast = 0,
+        EuWest = 1,
+        AsiaPacific = 2,
+        UsWest = 3,
+        SouthKorea = 4,
+        Japan = 5,
+    }
+
+	    public enum PhotonUsageType
+    {
+        None = 0,
+        All = 1,
+        Mobile = 2,
+        CommServer = 6,
+    }
+
+
+
+		private string _IP: 127.0.0.1
+		
+		private string _Name = HaZard's Server
+		
+		private int _Region = 1
+		
+		private int _PhotonsGroupID = 1
+		
+		private int _MinLatency = 500
+
+two variants:
+#1
+		private int _UsageType = 1
+
+		private int _Port = 5055
+#2
+		private int _UsageType = 6
+
+		private int _Port = 5155
+
+SELECT TOP 1000 [PhotonsGroupID]
+      ,[Name]
+      ,[Description]
+      ,[CreationDate]
+      ,[ModificationDate]
+  FROM [MvParadisePaintball].[dbo].[PhotonsGroups]
+
+  update entry where Port = 5155, UsageType= 1
+  update entry where Port = 5055, UsageType= 6
+
+  http://uberforever.eu/
+
+  LevelMonkeyIsland.unity3d
+
+USE [MvParadisePaintball];
+GO
+UPDATE dbo.MapVersions
+SET FileName = 'LevelMonkeyIsland.unity3d'
+WHERE MapId = 1;
+GO
+
+USE [MvParadisePaintball];
+GO
+UPDATE dbo.MapVersions
+SET FileName = 'LevelMonkeyIsland.unity3d'
+WHERE MapId = 2;
+GO
+
+LevelMonkeyIsland.unity3d
+LevelLostParadise2.unity3d	
+LevelTheWarehouse.unity3d
+LevelTempleOfTheRaven.unity3d	
+LevelFortWinter.unity3d	
+LevelGideonsTower.unity3d
+LevelSkyGarden.unity3d	
+LevelCuberStrike.unity3d	
+
+LevelFortWinter.unity3d	
+LevelGideonsTower.unity3d	
+LevelLostParadise2.unity3d	
+LevelMonkeyIsland.unity3d
+LevelSkyGarden.unity3d
+LevelTempleOfTheRaven.unity3d	
+LevelTheWarehouse.unity3d	
+LevelCuberStrike.unity3d	
+
+
+		{ 1, "LevelMonkeyIsland" },
+        { 2, "LevelLostParadise2" },
+        { 3, "LevelTheWarehouse" },
+        { 4, "LevelTempleOfTheRaven" },
+        { 5, "LevelFortWinter" },
+        { 6, "LevelGideonsTower" },
+        { 7, "LevelSkyGarden" },
+        { 8, "LevelCuberStrike" },
+        { 10, "LevelSpaceportAlpha" },
+
+		1016 ordinator rifle
+
+next steps:
+scripts to setup database, make sure they are complete and working
+update microsoft sql version to latest and verify with fresh database
+update Unity to Unity 6
+run Photon on Linux Docker container using Winboat
+run entire server on Linux using Docker containers
+use docker compose to start services inside containers
+CI to automatically build everything, one click to deploy server
+add license to both repositories, what about cmune license: dont commit the license, during build copy paste the license accordingly?
+
+The Bunker and Aqualab missing from maps, as well as Cuberspace
+# Setup
+Install Microsoft Sql Server 2012. SSMM and Server Setup.
+Connect to default database
+setup databases:
+CMUNE, Paintball etc
+exchange datasource string with 127.0.0.1, start exe of the three photon
+figure out how to start the webservice
+start all and done
