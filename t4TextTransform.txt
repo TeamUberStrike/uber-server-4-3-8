@@ -1,0 +1,1 @@
+"C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\TextTransform.exe" -out C:\code\uber-server-4-3-8\UberStrike.Realtime.Photon.CommServer\NewRealtime\ServerProxy.cs C:\code\uber-server-4-3-8\UberStrike.Realtime.Photon.CommServer\NewRealtime\ServerProxy.tt

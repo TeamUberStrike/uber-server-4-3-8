@@ -1,202 +1,202 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.MSBuild;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 public static class EnvDteUtils
 {
-    public static ParameterKind GetParameterKind(EnvDTE.CodeTypeRef type)
+    //
+    // 1. Replacement for GetParameterKind
+    //
+    public static ParameterKind GetParameterKind(ITypeSymbol type)
     {
-        switch (type.TypeKind)
+        switch (type)
         {
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefCodeType:
-                {
-                    if (type.CodeType.Kind == EnvDTE.vsCMElement.vsCMElementEnum)
-                        return ParameterKind.Enum;
-                    else if (type.CodeType.Kind == EnvDTE.vsCMElement.vsCMElementStruct)
-                        return ParameterKind.Struct;
-                    else if (type.CodeType.Kind == EnvDTE.vsCMElement.vsCMElementClass)
-                    {
-                        if (type.CodeType.Name == "List") return ParameterKind.List;
-                        else if (type.CodeType.Name == "Dictionary") return ParameterKind.Dictionary;
-                        else return ParameterKind.Class;
-                    }
-                    else
-                        throw new System.Exception("GetParameterKind failed with CodeType: " + type.CodeType.Kind + " -> " + type.CodeType.Name);
-                }
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefString: return ParameterKind.String;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefByte: return ParameterKind.Byte;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefShort: return ParameterKind.Int16;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefInt: return ParameterKind.Int32;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefLong: return ParameterKind.Int64;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefFloat: return ParameterKind.Single;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefDecimal: return ParameterKind.Decimal;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefBool: return ParameterKind.Boolean;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefArray: return ParameterKind.Array;
-            case EnvDTE.vsCMTypeRef.vsCMTypeRefVoid: return ParameterKind.Void;
+            case INamedTypeSymbol named when named.TypeKind == TypeKind.Enum:
+                return ParameterKind.Enum;
+
+            case INamedTypeSymbol named when named.TypeKind == TypeKind.Struct:
+                return ParameterKind.Struct;
+
+            case INamedTypeSymbol named when named.TypeKind == TypeKind.Class:
+                if (named.Name == "List")
+                    return ParameterKind.List;
+                if (named.Name == "Dictionary")
+                    return ParameterKind.Dictionary;
+                return ParameterKind.Class;
+
+            case IArrayTypeSymbol _:
+                return ParameterKind.Array;
+
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_String:
+                return ParameterKind.String;
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_Byte:
+                return ParameterKind.Byte;
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_Int16:
+                return ParameterKind.Int16;
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_Int32:
+                return ParameterKind.Int32;
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_Int64:
+                return ParameterKind.Int64;
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_Single:
+                return ParameterKind.Single;
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_Decimal:
+                return ParameterKind.Decimal;
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_Boolean:
+                return ParameterKind.Boolean;
+            case ITypeSymbol primitive when primitive.SpecialType == SpecialType.System_Void:
+                return ParameterKind.Void;
+
             default:
-                {
-                    throw new System.Exception("GetParameterKind failed with: " + type.TypeKind + " -> " + type.AsFullName);
-                }
+                throw new Exception(string.Format("Unsupported type: {0}", type.ToDisplayString()));
         }
     }
 
-    public static EnvDTE.Project GetProjectContainingFile(IServiceProvider hostServiceProvider, string item)
+    //
+    // 2. Replace FindProjectItem + ContainingProject
+    //
+    public static Project GetProjectContainingFile(string solutionPath, string filePath)
     {
-        EnvDTE.DTE dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
-
-        var projectItem = dte.Solution.FindProjectItem(item);
-        if (projectItem == null) throw new Exception(string.Format("Project containing file '{0}' not found!", item));
-
-        return projectItem.ContainingProject;
-    }
-
-    public static EnvDTE.Project GetProjectWithName(IServiceProvider hostServiceProvider, string projectName)
-    {
-        EnvDTE.DTE dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
-
-        var project = GetProjectWithName(dte, projectName);
-        if (project == null) throw new Exception(string.Format("Project with name '{0}' not found!", projectName));
-
-        return project;
-    }
-
-    private static EnvDTE.Project GetProjectWithName(EnvDTE.DTE dte, string name)
-    {
-        foreach (EnvDTE.Project p in dte.Solution.Projects)
+        var workspace = MSBuildWorkspace.Create();
+        try
         {
-            if (IsSolutionItem(p))
+            var solution = workspace.OpenSolutionAsync(solutionPath).Result;
+
+            foreach (var project in solution.Projects)
             {
-                foreach (EnvDTE.ProjectItem item in p.ProjectItems)
+                foreach (var document in project.Documents)
                 {
-                    if (string.Equals(item.Name, name, StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(
+                        Path.GetFullPath(document.FilePath),
+                        Path.GetFullPath(filePath),
+                        StringComparison.OrdinalIgnoreCase))
                     {
-                        return item.SubProject;
+                        return project;
                     }
                 }
             }
-            else if (IsProjectItem(p))
+        }
+        finally
+        {
+            workspace.Dispose();
+        }
+
+        throw new Exception(string.Format("Project containing file '{0}' not found.", filePath));
+    }
+
+    //
+    // 3. Replace GetProjectWithName
+    //
+    public static Project GetProjectWithName(string solutionPath, string projectName)
+    {
+        var workspace = MSBuildWorkspace.Create();
+        try
+        {
+            var solution = workspace.OpenSolutionAsync(solutionPath).Result;
+
+            var project = solution.Projects
+                .FirstOrDefault(p => string.Equals(p.Name, projectName, StringComparison.OrdinalIgnoreCase));
+
+            if (project == null)
+                throw new Exception(string.Format("Project '{0}' not found.", projectName));
+
+            return project;
+        }
+        finally
+        {
+            workspace.Dispose();
+        }
+    }
+
+    //
+    // 4. GetAllFunctions
+    //
+    public static List<IMethodSymbol> GetAllFunctions(INamedTypeSymbol type)
+    {
+        var members = type.GetMembers();
+        var list = new List<IMethodSymbol>();
+
+        foreach (var member in members)
+        {
+            var method = member as IMethodSymbol;
+            if (method != null && method.MethodKind == MethodKind.Ordinary)
             {
-                if (string.Equals(p.Name, name, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return p;
-                }
+                list.Add(method);
             }
         }
 
-        return null;
+        return list;
     }
 
-    public static List<EnvDTE.CodeFunction> GetAllFunctions(EnvDTE.CodeElement element)
+    //
+    // 5. GetAllInterfaces (recursive)
+    //
+    public static List<INamedTypeSymbol> GetAllInterfaces(Project project)
     {
-        List<EnvDTE.CodeFunction> functions = new List<EnvDTE.CodeFunction>();
+        var result = new List<INamedTypeSymbol>();
+        var compilation = project.GetCompilationAsync().Result;
 
-        foreach (EnvDTE.CodeElement f in element.Children)
-        {
-            if (IsFunction(f))
-            {
-                functions.Add(f as EnvDTE.CodeFunction);
-            }
-        }
+        CollectAllInterfaces(compilation.GlobalNamespace, result);
 
-        return functions;
+        return result;
     }
 
-    public static List<EnvDTE.CodeElement> GetAllInterfaces(EnvDTE.CodeElements elements)
+    // Helper recursive method to get all types including nested namespaces
+    private static void CollectAllInterfaces(INamespaceSymbol ns, List<INamedTypeSymbol> collector)
     {
-        List<EnvDTE.CodeElement> interfaces = new List<EnvDTE.CodeElement>();
-        foreach (EnvDTE.CodeElement i in elements)
+        foreach (var member in ns.GetMembers())
         {
-            if (IsInterface(i))
+            var namespaceSymbol = member as INamespaceSymbol;
+            if (namespaceSymbol != null)
             {
-                interfaces.Add(i);
-            }
-
-            if (i.Children.Count > 0)
-            {
-                interfaces.AddRange(GetAllInterfaces(i.Children));
-            }
-        }
-        return interfaces;
-    }
-
-    public static List<EnvDTE.ProjectItem> GetAllScripts(EnvDTE.ProjectItems projectItems)
-    {
-        List<EnvDTE.ProjectItem> scripts = new List<EnvDTE.ProjectItem>();
-        foreach (EnvDTE.ProjectItem item in projectItems)
-        {
-            if (item.ProjectItems.Count > 0)
-            {
-                scripts.AddRange(GetAllScripts(item.ProjectItems));
+                CollectAllInterfaces(namespaceSymbol, collector);
             }
             else
             {
-                if (IsCodeItem(item))
+                var namedType = member as INamedTypeSymbol;
+                if (namedType != null && namedType.TypeKind == TypeKind.Interface)
                 {
-                    scripts.Add(item);
+                    collector.Add(namedType);
                 }
             }
         }
-        return scripts;
     }
 
-    public static bool HasAttributeWithName(EnvDTE.CodeElement e, string name)
+    //
+    // 6. GetAllScripts – all C# files in the project
+    //
+    public static List<Document> GetAllScripts(Project project)
     {
-        if (IsInterface(e))
+        var list = new List<Document>();
+
+        foreach (var doc in project.Documents)
         {
-            foreach (EnvDTE.CodeElement att in e.Children)
+            if (doc.SourceCodeKind == SourceCodeKind.Regular &&
+                doc.FilePath != null &&
+                doc.FilePath.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
             {
-                if (IsAttribute(att) && att.Name == name)
-                    return true;
+                list.Add(doc);
             }
         }
 
+        return list;
+    }
+
+    //
+    // 7. HasAttributeWithName
+    //
+    public static bool HasAttributeWithName(INamedTypeSymbol type, string attributeName)
+    {
+        foreach (var attr in type.GetAttributes())
+        {
+            if (string.Equals(attr.AttributeClass?.Name, attributeName, StringComparison.Ordinal))
+            {
+                return true;
+            }
+        }
         return false;
-    }
-
-
-    public static bool IsClass(EnvDTE.CodeElement e)
-    {
-        return e != null && e.Kind == EnvDTE.vsCMElement.vsCMElementClass;
-    }
-
-    public static bool IsFunction(EnvDTE.CodeElement e)
-    {
-        return e != null && e.Kind == EnvDTE.vsCMElement.vsCMElementFunction;
-    }
-
-    public static bool IsEnum(EnvDTE.CodeElement e)
-    {
-        return e != null && e.Kind == EnvDTE.vsCMElement.vsCMElementEnum;
-    }
-
-    public static bool IsStruct(EnvDTE.CodeElement e)
-    {
-        return e != null && e.Kind == EnvDTE.vsCMElement.vsCMElementStruct;
-    }
-
-    public static bool IsInterface(EnvDTE.CodeElement e)
-    {
-        return e != null && e.Kind == EnvDTE.vsCMElement.vsCMElementInterface;
-    }
-
-    public static bool IsAttribute(EnvDTE.CodeElement e)
-    {
-        return e != null && e.Kind == EnvDTE.vsCMElement.vsCMElementAttribute;
-    }
-
-
-    public static bool IsCodeItem(EnvDTE.ProjectItem item)
-    {
-        return item.Kind == "{6BB5F8EE-4483-11D3-8BCF-00C04F8EC28C}" && (int)item.Properties.Item(6).Value == 1;
-    }
-
-
-    public static bool IsSolutionItem(EnvDTE.Project item)
-    {
-        return item.Kind == "{66A26720-8FB5-11D2-AA7E-00C04F688DDE}";
-    }
-
-    public static bool IsProjectItem(EnvDTE.Project item)
-    {
-        return item.Kind == "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}";
     }
 }

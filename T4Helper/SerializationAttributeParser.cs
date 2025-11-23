@@ -1,89 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 public static class SerializationAttributeParser
 {
-    private const string SerializationAttribute = "Serializable";
+    private const string SerializationAttribute = "SerializableAttribute"; // attribute class name
 
-    public static ProjectModels CreateModelSerialization(IServiceProvider hostServiceProvider, string projectName)
+    public static ProjectModels CreateModelSerialization(Project roslynProject)
     {
-        return GetAllModelsOfProject(EnvDteUtils.GetProjectWithName(hostServiceProvider, projectName));
+        return GetAllModelsOfProject(roslynProject);
     }
 
-    private static ProjectModels GetAllModelsOfProject(EnvDTE.Project project)
+    private static ProjectModels GetAllModelsOfProject(Project project)
     {
-        ProjectModels metaData = new ProjectModels();
+        var metaData = new ProjectModels();
 
-        try
+        var compilationTask = project.GetCompilationAsync();
+        compilationTask.Wait();
+        var compilation = compilationTask.Result;
+
+        // Recursively get all named types (classes, structs, enums) in the compilation
+        IEnumerable<INamedTypeSymbol> allTypes = GetAllNamedTypes(compilation.GlobalNamespace);
+
+        foreach (var typeSymbol in allTypes)
         {
-            T4Utils.Comment("" + project.FullName);
-
-            List<EnvDTE.ProjectItem> files = EnvDteUtils.GetAllScripts(project.ProjectItems);
-            foreach (EnvDTE.ProjectItem f in files)
+            if (IsSerializable(typeSymbol))
             {
-                List<EnvDTE.CodeElement> elements = GetSerializableModels(f.FileCodeModel.CodeElements);
-                foreach (EnvDTE.CodeElement e in elements)
+                if (typeSymbol.TypeKind == TypeKind.Class)
                 {
-                    if (EnvDteUtils.IsClass(e))
-                    {
-                        metaData.Classes.Add(new ModelProperties(e.Name));
-                    }
-                    else if (EnvDteUtils.IsStruct(e))
-                    {
-                        metaData.Structs.Add(new ModelProperties(e.Name));
-                    }
-                    else if (EnvDteUtils.IsEnum(e))
-                    {
-                        EnvDTE.CodeEnum en = e as EnvDTE.CodeEnum;
-                        if (en != null)
-                        {
-                            string type = "int";//en.Bases.Count.ToString();
-                            //if(en.get_IsDerivedFrom("byte")) type = "byte";
-                            metaData.Enums.Add(new EnumProperties(e.Name, type));
-                        }
-                    }
+                    metaData.Classes.Add(new ModelProperties(typeSymbol.Name));
+                }
+                else if (typeSymbol.TypeKind == TypeKind.Struct)
+                {
+                    metaData.Structs.Add(new ModelProperties(typeSymbol.Name));
+                }
+                else if (typeSymbol.TypeKind == TypeKind.Enum)
+                {
+                    // You can examine underlying type if needed, default is int
+                    string enumUnderlyingType = typeSymbol.EnumUnderlyingType?.Name ?? "int";
+                    metaData.Enums.Add(new EnumProperties(typeSymbol.Name, enumUnderlyingType));
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            T4Utils.Print(ex.GetType() + ": " + ex.Message);
-            throw;
         }
 
         return metaData;
     }
 
-    private static bool IsSerializable(EnvDTE.CodeElement e)
+    private static bool IsSerializable(INamedTypeSymbol typeSymbol)
     {
-        if (EnvDteUtils.IsEnum(e))
-        {
+        if (typeSymbol.TypeKind == TypeKind.Enum)
             return true;
-        }
-        else if (EnvDteUtils.IsClass(e))
+
+        if (typeSymbol.TypeKind == TypeKind.Class)
         {
-            foreach (EnvDTE.CodeElement att in e.Children)
+            foreach (var attr in typeSymbol.GetAttributes())
             {
-                if (EnvDteUtils.IsAttribute(att) && att.Name.EndsWith(SerializationAttribute))
+                if (attr.AttributeClass != null && attr.AttributeClass.Name == SerializationAttribute)
+                {
                     return true;
+                }
             }
         }
+
         return false;
     }
 
-    private static List<EnvDTE.CodeElement> GetSerializableModels(EnvDTE.CodeElements elements)
+    private static IEnumerable<INamedTypeSymbol> GetAllNamedTypes(INamespaceSymbol @namespace)
     {
-        List<EnvDTE.CodeElement> l = new List<EnvDTE.CodeElement>();
-        foreach (EnvDTE.CodeElement p in elements)
-        {
-            if (IsSerializable(p))
-                l.Add(p);
+        var result = new List<INamedTypeSymbol>();
 
-            if (p.Children.Count > 0)
-            {
-                l.AddRange(GetSerializableModels(p.Children));
-            }
+        foreach (var type in @namespace.GetTypeMembers())
+        {
+            result.Add(type);
         }
-        return l;
+
+        foreach (var childNs in @namespace.GetNamespaceMembers())
+        {
+            result.AddRange(GetAllNamedTypes(childNs));
+        }
+
+        return result;
     }
 }

@@ -1,56 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public static class WebServiceAttributeParser
 {
-    private const string WebServiceAttribute = "CmuneWebServiceInterface";
+    private const string WebServiceAttribute = "CmuneWebServiceInterfaceAttribute";
     private const string EncryptionAttribute = "DontEncryptMethodAttribute";
     private const string SerializationProperty = "UseBinaryProtocol";
 
-    public static List<InterfaceProperties> GetProjectInterfaces(IServiceProvider hostServiceProvider, string projectName)
+    public static List<InterfaceProperties> GetProjectInterfaces(Microsoft.CodeAnalysis.Project project)
     {
-        return GetProjectInterfaces(EnvDteUtils.GetProjectWithName(hostServiceProvider, projectName));
-    }
-
-    public static List<InterfaceProperties> GetProjectInterfaces(EnvDTE.Project project)
-    {
-        List<InterfaceProperties> interfaces = new List<InterfaceProperties>();
+        var interfaces = new List<InterfaceProperties>();
 
         try
         {
-            List<EnvDTE.ProjectItem> files = EnvDteUtils.GetAllScripts(project.ProjectItems);
+            var compilation = project.GetCompilationAsync().Result;
+            if (compilation == null)
+                throw new Exception("Failed to get compilation for project.");
 
-            //find all classes
-            List<EnvDTE.CodeElement> classes = new List<EnvDTE.CodeElement>();
-            foreach (EnvDTE.ProjectItem f in files)
-            {
-                classes.AddRange(EnvDteUtils.GetAllInterfaces(f.FileCodeModel.CodeElements));
-            }
+            // Collect all interface symbols in the project
+            var allInterfaces = GetAllInterfaces(compilation.GlobalNamespace);
 
-            //now handle all room operations
-            foreach (EnvDTE.CodeElement e in classes)
+            foreach (var iface in allInterfaces)
             {
-                if (IsWebServiceInterface(e))
+                if (HasAttribute(iface, WebServiceAttribute))
                 {
-                    interfaces.Add(GetInterfaceProperties(e));
+                    var ip = GetInterfaceProperties(iface);
+                    interfaces.Add(ip);
                 }
             }
 
-            //make sure we have a unique name for each method
+            // Ensure unique method suffixes for duplicates
             foreach (var intfc in interfaces)
             {
-                foreach (var method in intfc.Methods)
+                var duplicates = intfc.Methods.GroupBy(m => m.Name)
+                                             .Where(g => g.Count() > 1);
+                foreach (var group in duplicates)
                 {
-                    if (string.IsNullOrEmpty(method.Suffix))
+                    int index = 1;
+                    foreach (var method in group)
                     {
-                        List<MethodProperties> l = intfc.Methods.FindAll(m => m.Name.Equals(method.Name));
-                        if (l.Count > 1)
-                        {
-                            for (int i = 0; i < l.Count; i++)
-                            {
-                                l[i].Suffix = "_" + (i + 1);
-                            }
-                        }
+                        method.Suffix = "_" + index++;
                     }
                 }
             }
@@ -65,100 +57,121 @@ public static class WebServiceAttributeParser
         return interfaces;
     }
 
-    public static InterfaceProperties GetInterfaceProperties(EnvDTE.CodeElement e)
+    private static List<INamedTypeSymbol> GetAllInterfaces(INamespaceSymbol ns)
     {
-        InterfaceProperties inter = new InterfaceProperties(e.Name, e.FullName);
+        var list = new List<INamedTypeSymbol>();
 
-        inter.UseBinarySerialization = IsWebServiceBinarySerializationEnabled(e);
-        List<EnvDTE.CodeFunction> functions = EnvDteUtils.GetAllFunctions(e);
-
-        foreach (EnvDTE.CodeFunction fu in functions)
+        foreach (var member in ns.GetMembers())
         {
-            List<ParameterKind> argKind = new List<ParameterKind>();
-            List<KeyValuePair<string, string>> arguments = new List<KeyValuePair<string, string>>();
-            foreach (EnvDTE.CodeParameter p in fu.Parameters)
+            if (member is INamespaceSymbol nestedNs)
             {
-                arguments.Add(new KeyValuePair<string, string>(p.Type.AsString, p.Name));
-                argKind.Add(EnvDteUtils.GetParameterKind(p.Type));
+                list.AddRange(GetAllInterfaces(nestedNs));
             }
-            if (fu.Type.AsString != "byte[]")
+            else if (member is INamedTypeSymbol namedType && namedType.TypeKind == TypeKind.Interface)
             {
-                inter.Methods.Add(new MethodProperties()
-                {
-                    Name = fu.Name,
-                    ReturnType = fu.Type.AsString,
-                    ReturnKind = EnvDteUtils.GetParameterKind(fu.Type),
-                    ObsoleteMessage = ObsoleteMessage(fu),
-                    IsObsolete = IsObsolete(fu),
-                    Arguments = arguments,
-                    ArgumentKinds = argKind,
-                    EnableEncryption = IsWebServiceEncryptionEnabled(fu)
-                });
+                list.Add(namedType);
             }
-            else
+        }
+
+        return list;
+    }
+
+    private static InterfaceProperties GetInterfaceProperties(INamedTypeSymbol iface)
+    {
+        var inter = new InterfaceProperties(iface.Name, iface.ToDisplayString());
+
+        inter.UseBinarySerialization = IsWebServiceBinarySerializationEnabled(iface);
+
+        var methods = iface.GetMembers()
+            .OfType<IMethodSymbol>()
+            .Where(m => m.MethodKind == MethodKind.Ordinary);
+
+        foreach (var method in methods)
+        {
+            if (method.ReturnType.ToDisplayString() == "byte[]")
             {
-                T4Utils.Comment("Ignored : " + inter.Name + "." + fu.Name + " with return type " + fu.Type.AsString);
+                T4Utils.Comment("Ignored : " + inter.Name + "." + method.Name + " with return type byte[]");
+                continue;
             }
+
+            var argKinds = new List<ParameterKind>();
+            var args = new List<KeyValuePair<string, string>>();
+
+            foreach (var param in method.Parameters)
+            {
+                args.Add(new KeyValuePair<string, string>(param.Type.ToDisplayString(), param.Name));
+                argKinds.Add(EnvDteUtils.GetParameterKind(param.Type));
+            }
+
+            inter.Methods.Add(new MethodProperties()
+            {
+                Name = method.Name,
+                ReturnType = method.ReturnType.ToDisplayString(),
+                ReturnKind = EnvDteUtils.GetParameterKind(method.ReturnType),
+                ObsoleteMessage = GetObsoleteMessage(method),
+                IsObsolete = IsObsolete(method),
+                Arguments = args,
+                ArgumentKinds = argKinds,
+                EnableEncryption = IsWebServiceEncryptionEnabled(method)
+            });
         }
 
         return inter;
     }
 
-    private static bool IsWebServiceEncryptionEnabled(EnvDTE.CodeFunction e)
+    private static bool HasAttribute(ISymbol symbol, string attributeName)
     {
-        foreach (EnvDTE.CodeElement att in e.Children)
+        return symbol.GetAttributes()
+            .Any(a => a.AttributeClass != null &&
+                      a.AttributeClass.Name == attributeName);
+    }
+
+    private static bool IsWebServiceEncryptionEnabled(IMethodSymbol method)
+    {
+        // Disable encryption if method has DontEncryptMethodAttribute
+        return !HasAttribute(method, EncryptionAttribute);
+    }
+
+    private static bool IsWebServiceBinarySerializationEnabled(INamedTypeSymbol iface)
+    {
+        // Look for CmuneWebServiceInterface attribute with UseBinaryProtocol=false
+        var attr = iface.GetAttributes()
+            .FirstOrDefault(a => a.AttributeClass?.Name == WebServiceAttribute);
+
+        if (attr == null)
+            return true;
+
+        // Find if named argument UseBinaryProtocol is false
+        foreach (var arg in attr.NamedArguments)
         {
-            if (EnvDteUtils.IsAttribute(att) && att.Name == EncryptionAttribute)
+            if (arg.Key == SerializationProperty && arg.Value.Value is bool b)
             {
-                return false;
+                return b; // true or false as per attribute property
             }
         }
+
         return true;
     }
 
-    private static bool IsWebServiceBinarySerializationEnabled(EnvDTE.CodeElement e)
+    private static bool IsObsolete(IMethodSymbol method)
     {
-        foreach (EnvDTE.CodeElement att in e.Children)
-        {
-            if (EnvDteUtils.IsAttribute(att) && att.Name == WebServiceAttribute)
-            {
-                var attribute = (EnvDTE.CodeAttribute)att;
-                if (attribute.Value.Contains(SerializationProperty) && attribute.Value.Contains("false"))
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return HasAttribute(method, "ObsoleteAttribute");
     }
 
-    private static bool IsObsolete(EnvDTE.CodeFunction e)
+    private static string GetObsoleteMessage(IMethodSymbol method)
     {
-        foreach (EnvDTE.CodeElement att in e.Children)
-        {
-            if (EnvDteUtils.IsAttribute(att) && att.Name.EndsWith("Obsolete"))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+        var attr = method.GetAttributes()
+            .FirstOrDefault(a => a.AttributeClass?.Name == "ObsoleteAttribute");
 
-    private static string ObsoleteMessage(EnvDTE.CodeFunction e)
-    {
-        foreach (EnvDTE.CodeElement att in e.Children)
+        if (attr == null)
+            return string.Empty;
+
+        if (attr.ConstructorArguments.Length > 0)
         {
-            if (EnvDteUtils.IsAttribute(att) && att.Name.EndsWith("Obsolete"))
-            {
-                var attribute = (EnvDTE.CodeAttribute)att;
-                return attribute.Value;
-            }
+            var msg = attr.ConstructorArguments[0].Value as string;
+            return msg ?? string.Empty;
         }
+
         return string.Empty;
-    }
-
-    private static bool IsWebServiceInterface(EnvDTE.CodeElement e)
-    {
-        return EnvDteUtils.HasAttributeWithName(e, WebServiceAttribute);
     }
 }

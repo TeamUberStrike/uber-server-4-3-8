@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 public static class WebServiceDescriptor
 {
-    public static string Create(IServiceProvider hostServiceProvider, string projectName)
+    public static string Create(string hostServiceProvider, string projectName)
     {
         var interfaces = WebServiceAttributeParser.GetProjectInterfaces(EnvDteUtils.GetProjectWithName(hostServiceProvider, projectName));
 

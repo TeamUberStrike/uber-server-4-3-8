@@ -1,10 +1,44 @@
 ﻿<#@ template language="C#" hostspecific="true" #>
 <#@ output extension=".cs" #>
-<#@ assembly name="$(SolutionDir)T4Helper\bin\Debug\T4Helper.dll" #>
+<#@ assembly name="C:\code\uber-server-4-3-8\T4Helper\bin\Debug\T4Helper.dll" #>
+<#@ assembly name="C:\code\uber-server-4-3-8\T4Helper\bin\Debug\Microsoft.CodeAnalysis.Workspaces.dll" #>
+<#@ assembly name="C:\code\uber-server-4-3-8\T4Helper\bin\Debug\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Microsoft.CodeAnalysis.MSBuild" #>
+<#@ import namespace="Microsoft.CodeAnalysis" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System" #>
+<#@ assembly name="netstandard" #>
+<#@ assembly name="System.Core" #>
+
+
+
 <#
 	T4Utils.WriteLine = this.WriteLine;
 	T4Utils.FileHeader();
+
+	// --- Adjust this to your solution path ---
+	string solutionPath = @"C:\code\uber-server-4-3-8\Cmune.sln";
+	string projectName = "UberStrike.Realtime.CommServer";
+
+	// Load workspace and solution
+	using (var workspace = MSBuildWorkspace.Create())
+	{
+		var solution = workspace.OpenSolutionAsync(solutionPath).Result;
+
+		var project = solution.Projects.FirstOrDefault(p => p.Name == projectName);
+
+		if (project == null)
+		{
+			throw new Exception($"Project '{projectName}' not found in solution.");
+		}
+
+		// Get RPC interfaces using the Roslyn Project
+		var metaData = RealtimeAttributeParser.GetRpcInterfaces(project);
+
+		List<RpcInterfaceView> allOperationInterfaces = new List<RpcInterfaceView>();
+		allOperationInterfaces.AddRange(metaData.ServerOperations);
+		allOperationInterfaces.AddRange(metaData.RoomOperations);
 #>
 using System.Collections.Generic;
 using System.IO;
@@ -13,13 +47,6 @@ using Photon.SocketServer;
 using PhotonHostRuntimeInterfaces;
 using UberStrike.Realtime.Server;
 using UberStrike.Core.Serialization;
-<#
-	var metaData = RealtimeAttributeParser.GetRpcInterfaces((IServiceProvider)this.Host, "UberStrike.Realtime.CommServer");
-
-	List<RpcInterfaceView> allOperationInterfaces = new List<RpcInterfaceView>();
-	allOperationInterfaces.AddRange(metaData.ServerOperations);
-	allOperationInterfaces.AddRange(metaData.RoomOperations);
-#>
 
 namespace UberStrike.Realtime.CommServer
 {
@@ -47,7 +74,6 @@ namespace UberStrike.Realtime.CommServer
 			switch (operationId)
 			{
 <#
-		int counter = 0;
 		foreach (var method in op.NetworkMethods)
     	{
 #>
@@ -127,7 +153,6 @@ namespace UberStrike.Realtime.CommServer
 			switch (operationId)
 			{
 <#
-		int counter = 0;
 		foreach (var method in op.NetworkMethods)
     	{
 #>
@@ -183,7 +208,6 @@ namespace UberStrike.Realtime.CommServer
 	}
 	
 <#
-
 	//ROOM events
 	foreach(var ev in metaData.RoomEvents)
 	{
@@ -277,3 +301,6 @@ namespace UberStrike.Realtime.CommServer
 	}
 #>
 }
+<#
+	} // end using workspace
+#>

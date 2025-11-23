@@ -1,155 +1,96 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class RealtimeAttributeParser
 {
-    public static RpcInterfaceCollection GetRpcInterfaces(IServiceProvider hostServiceProvider, string projectName)
+    public static RpcInterfaceCollection GetRpcInterfaces(Project project)
     {
-        return GetRpcInterfaces(EnvDteUtils.GetProjectWithName(hostServiceProvider, projectName));
-    }
+        var metaData = new RpcInterfaceCollection();
 
-    static RpcInterfaceCollection GetRpcInterfaces(EnvDTE.Project project)
-    {
-        RpcInterfaceCollection metaData = null;
+        var compilationTask = project.GetCompilationAsync();
+        compilationTask.Wait();
+        var compilation = compilationTask.Result;
 
-        try
+        // Get all interfaces recursively
+        var interfaces = GetAllInterfaces(compilation.GlobalNamespace);
+
+        foreach (var iface in interfaces)
         {
-            metaData = new RpcInterfaceCollection();
-
-            List<EnvDTE.ProjectItem> files = EnvDteUtils.GetAllScripts(project.ProjectItems);
-
-            //find all classes
-            List<EnvDTE.CodeElement> classes = new List<EnvDTE.CodeElement>();
-            foreach (EnvDTE.ProjectItem f in files)
-            {
-                classes.AddRange(EnvDteUtils.GetAllInterfaces(f.FileCodeModel.CodeElements));
-            }
-
-            //now handle all room operations
-            foreach (EnvDTE.CodeElement e in classes)
-            {
-                if (IsRoomEventsInterface(e))
-                {
-                    //T4Utils.WriteLine("//RoomEvent " + e.Name);
-                    metaData.RoomEvents.Add(GetRpcInterfaceView(e));
-                }
-                else if (IsRoomOperationsInterface(e))
-                {
-                    //T4Utils.WriteLine("//RoomOperation " + e.Name);
-                    metaData.RoomOperations.Add(GetRpcInterfaceView(e));
-                }
-                else if (IsServerOperationsInterface(e))
-                {
-                    //T4Utils.WriteLine("//ServerOperation " + e.Name);
-                    metaData.ServerOperations.Add(GetRpcInterfaceView(e));
-                }
-                else if (IsServerEventsInterface(e))
-                {
-                    //T4Utils.WriteLine("//ServerEvent " + e.Name);
-                    metaData.ServerEvents.Add(GetRpcInterfaceView(e));
-                }
-                else
-                {
-                    //T4Utils.WriteLine("//CodeElement => " + e.Name);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            T4Utils.WriteLine(ex.GetType() + ": " + ex.Message);
-            T4Utils.WriteLine(ex.StackTrace);
+            if (HasAttributeWithName(iface, "RoomEvents"))
+                metaData.RoomEvents.Add(GetRpcInterfaceView(iface));
+            else if (HasAttributeWithName(iface, "RoomOperations"))
+                metaData.RoomOperations.Add(GetRpcInterfaceView(iface));
+            else if (HasAttributeWithName(iface, "PeerOperations"))
+                metaData.ServerOperations.Add(GetRpcInterfaceView(iface));
+            else if (HasAttributeWithName(iface, "PeerEvents"))
+                metaData.ServerEvents.Add(GetRpcInterfaceView(iface));
         }
 
         return metaData;
     }
 
-    static RpcInterfaceView GetRpcInterfaceView(EnvDTE.CodeElement e)
+    private static List<INamedTypeSymbol> GetAllInterfaces(INamespaceSymbol ns)
     {
-        int methodId = 0;
-        RpcInterfaceView roomInterface = new RpcInterfaceView(e.Name);
+        var list = new List<INamedTypeSymbol>();
 
-        EnvDTE.CodeInterface interfaceElement = e as EnvDTE.CodeInterface;
-        if (interfaceElement != null && interfaceElement.Bases.Count > 0)
+        foreach (var type in ns.GetTypeMembers())
         {
-            roomInterface.Interface = interfaceElement.Bases.Item(1).Name;
+            if (type.TypeKind == TypeKind.Interface)
+                list.Add(type);
         }
 
-        List<EnvDTE.CodeFunction> functions = EnvDteUtils.GetAllFunctions(e);
-        foreach (EnvDTE.CodeFunction fu in functions)
+        foreach (var childNs in ns.GetNamespaceMembers())
         {
-            List<KeyValuePair<string, string>> arguments = new List<KeyValuePair<string, string>>();
-            List<ParameterKind> argKind = new List<ParameterKind>();
-            foreach (EnvDTE.CodeParameter p in fu.Parameters)
+            list.AddRange(GetAllInterfaces(childNs));
+        }
+
+        return list;
+    }
+
+    private static bool HasAttributeWithName(INamedTypeSymbol symbol, string attributeName)
+    {
+        foreach (var attr in symbol.GetAttributes())
+        {
+            if (attr.AttributeClass != null && attr.AttributeClass.Name == attributeName)
+                return true;
+        }
+        return false;
+    }
+
+    private static RpcInterfaceView GetRpcInterfaceView(INamedTypeSymbol iface)
+    {
+        var view = new RpcInterfaceView(iface.Name);
+
+        if (iface.Interfaces.Length > 0)
+            view.Interface = iface.Interfaces[0].Name;
+
+        int methodId = 0;
+
+        foreach (var member in iface.GetMembers().OfType<IMethodSymbol>())
+        {
+            if (member.MethodKind != MethodKind.Ordinary)
+                continue;
+
+            var arguments = new List<KeyValuePair<string, string>>();
+            var argKinds = new List<ParameterKind>();
+
+            foreach (var param in member.Parameters)
             {
-                arguments.Add(new KeyValuePair<string, string>(p.Type.AsString, p.Name));
-                argKind.Add(EnvDteUtils.GetParameterKind(p.Type));
+                arguments.Add(new KeyValuePair<string, string>(param.Type.ToDisplayString(), param.Name));
+                argKinds.Add(EnvDteUtils.GetParameterKind(param.Type));
             }
 
-            roomInterface.NetworkMethods.Add(new NetworkMethod(fu.Name, ++methodId)
-                {
-                    ArgumentKinds = argKind,
-                    Arguments = arguments,
-                });
+            view.NetworkMethods.Add(new NetworkMethod(member.Name, ++methodId)
+            {
+                Arguments = arguments,
+                ArgumentKinds = argKinds,
+            });
         }
 
-        roomInterface.MethodIdOffset = methodId;
+        view.MethodIdOffset = methodId;
 
-        return roomInterface;
-    }
-
-    static bool IsRoomOperationsInterface(EnvDTE.CodeElement e)
-    {
-        return EnvDteUtils.HasAttributeWithName(e, "RoomOperations");
-    }
-
-    static bool IsRoomEventsInterface(EnvDTE.CodeElement e)
-    {
-        return EnvDteUtils.HasAttributeWithName(e, "RoomEvents");
-    }
-
-    static bool IsServerOperationsInterface(EnvDTE.CodeElement e)
-    {
-        return EnvDteUtils.HasAttributeWithName(e, "PeerOperations");
-    }
-
-    static bool IsServerEventsInterface(EnvDTE.CodeElement e)
-    {
-        return EnvDteUtils.HasAttributeWithName(e, "PeerEvents");
-    }
-
-    static string Receiver(string name)
-    {
-        if (name.StartsWith("I"))
-            name = name.Remove(0, 1);
-        return name + "Receiver";
-    }
-
-    static string Client(string name)
-    {
-        if (name.StartsWith("I"))
-            name = name.Remove(0, 1);
-        if (name.StartsWith("Client"))
-            name = name.Remove(0, 6);
-        return "Client" + name;
-    }
-
-    static string Server(string name)
-    {
-        if (name.StartsWith("I"))
-            name = name.Remove(0, 1);
-        if (name.StartsWith("Server"))
-            name = name.Remove(0, 6);
-        return "Server" + name;
-    }
-
-    static string Clean(string name)
-    {
-        if (name.StartsWith("Server"))
-            name = name.Remove(0, 6);
-        if (name.StartsWith("Client"))
-            name = name.Remove(0, 6);
-        if (name.StartsWith("On"))
-            name = name.Remove(0, 2);
-        return name;
+        return view;
     }
 }

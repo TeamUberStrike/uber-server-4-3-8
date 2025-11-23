@@ -1,6 +1,6 @@
 ﻿<#@ template language="C#" hostspecific="true" #>
 <#@ output extension=".cs" #>
-<#@ assembly name="$(SolutionDir)T4Helper/bin/Debug/T4Helper.dll" #>
+<#@ assembly name="C:\code\uber-server-4-3-8\T4Helper/bin/Debug/T4Helper.dll" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#
 	T4Utils.WriteLine = this.WriteLine;
